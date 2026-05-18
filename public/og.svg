@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <radialGradient id="glow1" cx="20%" cy="25%" r="50%">
+      <stop offset="0%" stop-color="#EA6113" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#EA6113" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="85%" cy="80%" r="55%">
+      <stop offset="0%" stop-color="#7B3FE4" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#7B3FE4" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow3" cx="70%" cy="20%" r="40%">
+      <stop offset="0%" stop-color="#00D4FF" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#00D4FF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="studioGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#EA6113"/>
+      <stop offset="50%" stop-color="#FF6BB5"/>
+      <stop offset="100%" stop-color="#FF8C42"/>
+    </linearGradient>
+    <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M 80 0 L 0 0 0 80" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="630" fill="#050505"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="url(#glow1)"/>
+  <rect width="1200" height="630" fill="url(#glow2)"/>
+  <rect width="1200" height="630" fill="url(#glow3)"/>
+
+  <!-- Tag pill -->
+  <rect x="80" y="100" width="300" height="40" rx="20" fill="rgba(234,97,19,0.12)" stroke="rgba(234,97,19,0.3)" stroke-width="1"/>
+  <circle cx="100" cy="120" r="4" fill="#EA6113"/>
+  <text x="116" y="127" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="700" font-size="14" fill="#EA6113" letter-spacing="3">INGENIEROS · UTN · COSTA RICA</text>
+
+  <!-- Main title -->
+  <text x="80" y="280" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="900" font-size="160" fill="#ffffff" letter-spacing="-6">VO</text>
+  <text x="80" y="430" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="900" font-size="160" fill="url(#studioGrad)" letter-spacing="-6">STUDIO</text>
+
+  <!-- Subtitle -->
+  <text x="80" y="490" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="400" font-size="26" fill="rgba(255,255,255,0.55)">Desarrollo web, apps y sistemas a la medida</text>
+
+  <!-- Bottom URL -->
+  <line x1="80" y1="540" x2="1120" y2="540" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <text x="80" y="580" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="700" font-size="18" fill="rgba(255,255,255,0.7)">vostudio.cr</text>
+  <text x="1120" y="580" text-anchor="end" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="700" font-size="18" fill="#EA6113" letter-spacing="2">VARGAS &amp; OVARES</text>
+
+  <!-- Decorative 3D-ish shapes -->
+  <circle cx="900" cy="220" r="120" fill="#EA6113" opacity="0.25" filter="blur(2px)"/>
+  <circle cx="900" cy="220" r="80" fill="#FF8C42" opacity="0.55"/>
+  <circle cx="900" cy="220" r="50" fill="#FFFFFF" opacity="0.18"/>
+
+  <circle cx="1040" cy="380" r="22" fill="#00D4FF" opacity="0.8"/>
+  <polygon points="1080,140 1115,200 1045,200" fill="#7B3FE4" opacity="0.8"/>
+</svg>

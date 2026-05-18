@@ -1,0 +1,43 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(gsap-react)",
+      "Skill(gsap-react:*)",
+      "Skill(gsap-scrolltrigger)",
+      "Skill(gsap-scrolltrigger:*)",
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Bash(curl -s http://localhost:5174/ -o /dev/null -w \"Status: %{http_code}\\\\nTime: %{time_total}s\\\\n\")",
+      "Bash(curl -s \"http://localhost:5174/src/App.jsx\" -o /tmp/vite_app.txt -w \"Status: %{http_code}\\\\n\")",
+      "Read(//tmp/**)",
+      "Bash(curl -s \"http://localhost:5174/src/three/HeroScene.jsx\" -o /tmp/hero_scene.txt -w \"Status: %{http_code}\\\\n\")",
+      "Bash(curl -s \"http://localhost:5174/src/components/Projects.jsx\" -o /tmp/projects.txt -w \"Status: %{http_code}\\\\n\")",
+      "Bash(curl -s \"http://localhost:5174/src/components/Hero.jsx\" -o /tmp/hero.txt -w \"Status: %{http_code}\\\\n\")",
+      "Bash(curl -s \"http://localhost:5174/src/components/Manifesto.jsx\" -o /tmp/manifesto.txt -w \"Status: %{http_code}\\\\n\")",
+      "Bash(curl -s \"http://localhost:5174/src/three/HeroScene.jsx\" -o /tmp/scene.txt -w \"Status: %{http_code}\\\\n\")",
+      "Bash(npx eslint *)",
+      "Bash(curl -s \"http://localhost:5174/src/components/Features.jsx\" -o /tmp/f1.txt -w \"Features: %{http_code}\\\\n\")",
+      "Bash(curl -s \"http://localhost:5174/src/components/Stats.jsx\" -o /tmp/f2.txt -w \"Stats: %{http_code}\\\\n\")",
+      "Bash(curl -s \"http://localhost:5174/src/components/Testimonials.jsx\" -o /tmp/f3.txt -w \"Testimonials: %{http_code}\\\\n\")",
+      "Bash(curl -s \"http://localhost:5174/src/components/FAQ.jsx\" -o /tmp/f4.txt -w \"FAQ: %{http_code}\\\\n\")",
+      "Bash(curl -s \"http://localhost:5174/src/components/Tech.jsx\" -o /tmp/f5.txt -w \"Tech: %{http_code}\\\\n\")",
+      "Bash(curl -s \"http://localhost:5174/\" -o /dev/null -w \"Dev server status: %{http_code}\\\\n\")",
+      "Bash(curl -s \"http://localhost:5174/src/components/ContactForm.jsx\" -o /dev/null -w \"ContactForm: %{http_code}\\\\n\")",
+      "Bash(curl -s \"http://localhost:5174/src/components/AnimatedShape.jsx\" -o /dev/null -w \"AnimatedShape: %{http_code}\\\\n\")",
+      "Bash(curl -s \"http://localhost:5174/src/hooks/useMediaQuery.js\" -o /dev/null -w \"useMediaQuery: %{http_code}\\\\n\")",
+      "WebFetch(domain:api.cal.com)",
+      "Bash(curl -s -X GET \"https://api.cal.com/v2/event-types\" -H \"Authorization: Bearer cal_live_ca58a2e69c2a215077ad69724997dd2a\" -H \"cal-api-version: 2024-08-13\")",
+      "Bash(python -m json.tool)",
+      "Bash(curl -s -X GET \"https://api.cal.com/v2/event-types?username=justin-vargas-fhlzrw\" -H \"Authorization: Bearer cal_live_ca58a2e69c2a215077ad69724997dd2a\" -H \"cal-api-version: 2024-08-13\")",
+      "Bash(curl -s \"https://cal.com/justin-vargas-fhlzrw\")",
+      "Bash(curl -s -X GET \"https://api.cal.com/v2/schedules\" -H \"Authorization: Bearer cal_live_ca58a2e69c2a215077ad69724997dd2a\" -H \"cal-api-version: 2024-06-11\")",
+      "Bash(curl -s -X GET \"https://api.cal.com/v2/me\" -H \"Authorization: Bearer cal_live_ca58a2e69c2a215077ad69724997dd2a\" -H \"cal-api-version: 2024-08-13\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://cal.com/vostudio\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://cal.com/vo-studio\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://cal.com/vostudio-cr\")",
+      "Bash(wait)",
+      "Bash(git add *)",
+      "Bash(git commit *)"
+    ]
+  }
+}

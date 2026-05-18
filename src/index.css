@@ -1,13 +1,176 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body { background: #0a0a0a; color: #fff; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+html {
+  background-color: #050505;
+  scroll-behavior: auto; /* Lenis handles smooth scroll */
+}
+
+body {
+  background-color: #050505 !important;
+  color: #ffffff;
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+@media (max-width: 768px) {
+  body { cursor: auto; }
+  a, button { cursor: pointer; }
+}
+
+#root {
+  background-color: #050505;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100% !important;
+  text-align: left !important;
+  border: none !important;
+  display: block !important;
+}
+
+a, button { cursor: none; }
+@media (max-width: 768px) {
+  a, button { cursor: pointer; }
+}
+
 ::selection { background: #EA6113; color: #fff; }
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: #0a0a0a; }
-::-webkit-scrollbar-thumb { background: #EA6113; border-radius: 2px; }
+
+::-webkit-scrollbar { width: 0; height: 0; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: transparent; }
+
+/* Lenis */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+.lenis.lenis-scrolling iframe { pointer-events: none; }
+
+/* Marquee animations */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-33.333%); }
+}
+@keyframes marquee-reverse {
+  from { transform: translateX(-33.333%); }
+  to   { transform: translateX(0); }
+}
+.marquee-track {
+  animation: marquee linear infinite;
+  will-change: transform;
+}
+.marquee-track-reverse {
+  animation: marquee-reverse linear infinite;
+  will-change: transform;
+}
+.marquee-track:hover,
+.marquee-track-reverse:hover { animation-play-state: paused; }
+
+/* Grain texture */
+@keyframes grain {
+  0%,100% { transform: translate(0,0) }
+  20%      { transform: translate(-1%,-2%) }
+  40%      { transform: translate(2%,1%) }
+  60%      { transform: translate(-1%,2%) }
+  80%      { transform: translate(2%,-1%) }
+}
+body::after {
+  content: '';
+  position: fixed;
+  inset: -50%;
+  width: 200%; height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+  background-size: 200px;
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: 9996;
+  mix-blend-mode: overlay;
+  animation: grain 8s steps(8) infinite;
+}
+
+/* Subtle floating animation utility */
+@keyframes floaty {
+  0%,100% { transform: translateY(0) }
+  50%      { transform: translateY(-8px) }
+}
+.floaty { animation: floaty 4s ease-in-out infinite; }
+
+/* Hide on small screens helper */
+@media (max-width: 768px) {
+  .hidden-mobile { display: none !important; }
+}
+
+/* Prefers-reduced-motion: kill animations completely */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+  body::after { display: none !important; } /* drop grain */
+  .marquee-track, .marquee-track-reverse, .test-marquee { animation: none !important; }
+}
+
+/* Smooth section transitions */
+section { contain: layout style; }
+
+/* AnimatedShape keyframes */
+@keyframes shape-spin     { from { transform: rotate(0deg); }    to { transform: rotate(360deg); } }
+@keyframes shape-spin-rev { from { transform: rotate(0deg); }    to { transform: rotate(-360deg); } }
+@keyframes shape-pulse    { 0%,100% { transform: scale(1); }    50% { transform: scale(1.06); } }
+@keyframes shape-float    { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+@keyframes torus-rotate   { from { transform: rotateY(0deg) rotateX(25deg); } to { transform: rotateY(360deg) rotateX(25deg); } }
+
+/* Focus visible styles — accessibility */
+:focus-visible {
+  outline: 2px solid #EA6113;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+a:focus-visible, button:focus-visible { outline: 2px solid #EA6113; outline-offset: 3px; }
+
+/* ─── Animated shape keyframes (CSS-only 3D-feel) ─── */
+@keyframes shape-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes shape-spin-rev {
+  from { transform: rotateY(70deg) rotateZ(20deg) rotate(0deg); }
+  to   { transform: rotateY(70deg) rotateZ(20deg) rotate(-360deg); }
+}
+@keyframes shape-pulse {
+  0%,100% { transform: scale(1) translateY(0); }
+  50%     { transform: scale(1.05) translateY(-4px); }
+}
+@keyframes shape-float {
+  0%,100% { transform: translateY(0); }
+  50%     { transform: translateY(-10px); }
+}
+@keyframes torus-rotate {
+  from { transform: rotateY(0deg) rotateX(0deg); }
+  to   { transform: rotateY(360deg) rotateX(15deg); }
+}
+
+/* ─── Accessibility: focus visible ─── */
+a:focus-visible, button:focus-visible {
+  outline: 2px solid #EA6113;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ─── Touch device: drop custom cursor and tilt ─── */
+@media (hover: none), (pointer: coarse) {
+  body, a, button { cursor: auto !important; }
+  body::after { display: none; } /* drop grain on mobile to save battery */
+}

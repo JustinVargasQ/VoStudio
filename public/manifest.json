@@ -1,0 +1,18 @@
+{
+  "name": "VO Studio — Desarrollo web, apps y sistemas",
+  "short_name": "VO Studio",
+  "description": "Estudio de desarrollo digital en Costa Rica. Páginas web, e-commerce, apps y sistemas a medida.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050505",
+  "theme_color": "#EA6113",
+  "orientation": "portrait-primary",
+  "categories": ["business", "productivity"],
+  "lang": "es",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ],
+  "screenshots": [],
+  "related_applications": [],
+  "prefer_related_applications": false
+}

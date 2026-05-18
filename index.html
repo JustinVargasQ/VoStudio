@@ -2,17 +2,97 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>VO STUDIO — Desarrollo Web & Apps | Costa Rica</title>
-    <meta name="description" content="VO Studio, estudio de desarrollo web y aplicaciones en Costa Rica. Ingenieros graduados de la UTN especializados en soluciones digitales a medida." />
-    <meta property="og:title" content="VO STUDIO — Desarrollo Web & Apps | Costa Rica" />
-    <meta property="og:description" content="Estudio de desarrollo web y apps en Costa Rica. Soluciones digitales a medida." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark" />
+
+    <!-- Primary Meta -->
+    <title>VO Studio — Desarrollo web, apps y sistemas | Costa Rica</title>
+    <meta name="description" content="Estudio de desarrollo digital en Costa Rica. Páginas web, e-commerce, apps móviles y sistemas a medida. Ingenieros graduados de la UTN. Diseño premium + código limpio." />
+    <meta name="keywords" content="desarrollo web Costa Rica, diseño web, e-commerce, aplicaciones móviles, sistemas a medida, San Carlos, UTN, Vargas Ovares, VO Studio" />
+    <meta name="author" content="Justin Vargas &amp; Zaylin Ovares — VO Studio" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://vostudio.cr/" />
+
+    <!-- Open Graph / Facebook / WhatsApp -->
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="VO Studio" />
+    <meta property="og:locale" content="es_CR" />
+    <meta property="og:url" content="https://vostudio.cr/" />
+    <meta property="og:title" content="VO Studio — Desarrollo web, apps y sistemas | Costa Rica" />
+    <meta property="og:description" content="Páginas web, e-commerce, apps y sistemas a medida. Ingenieros UTN · San Carlos, Costa Rica." />
+    <meta property="og:image" content="https://vostudio.cr/og.svg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="VO Studio — Desarrollo web, apps y sistemas en Costa Rica" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="VO Studio — Desarrollo web, apps y sistemas" />
+    <meta name="twitter:description" content="Páginas web, e-commerce, apps y sistemas a medida. Ingenieros UTN · Costa Rica." />
+    <meta name="twitter:image" content="https://vostudio.cr/og.svg" />
+
+    <!-- Theme & icons -->
     <meta name="theme-color" content="#EA6113" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="VO Studio" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- Preconnect to fonts for faster LCP -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Plausible Analytics (privacy-first, no cookies, no GDPR banner needed)
+         Replace "vostudio.cr" with your actual domain after going live.
+         Create free account at https://plausible.io -->
+    <script defer data-domain="vostudio.cr" src="https://plausible.io/js/script.js"></script>
+
+    <!-- Cal.com embed — opens booking popup on buttons with data-cal-link -->
+    <script>
+      (function(C,A,L){let p=function(a,ar){a.q.push(ar)};let d=C.document;C.Cal=C.Cal||function(){let cal=C.Cal;let ar=arguments;if(!cal.loaded){cal.ns={};cal.q=cal.q||[];d.head.appendChild(d.createElement("script")).src=A;cal.loaded=true}if(ar[0]===L){const api=function(){p(api,arguments)};const namespace=ar[1];api.q=api.q||[];if(typeof namespace==="string"){cal.ns[namespace]=cal.ns[namespace]||api;p(cal.ns[namespace],ar);p(cal,["-s",namespace])}else p(cal,ar);return}p(cal,ar)};})(window,"https://app.cal.com/embed/embed.js","init");
+      Cal("init", "vostudio", { origin: "https://cal.com" });
+      Cal.ns.vostudio("ui", { hideEventTypeDetails: false, layout: "month_view", theme: "dark" });
+    </script>
+
+    <!-- Structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "VO Studio",
+      "alternateName": "Vargas & Ovares Studio",
+      "url": "https://vostudio.cr",
+      "logo": "https://vostudio.cr/favicon.svg",
+      "image": "https://vostudio.cr/og.svg",
+      "description": "Estudio de desarrollo digital en Costa Rica. Páginas web, apps y sistemas a medida.",
+      "founder": [
+        { "@type": "Person", "name": "Justin Josué Vargas Quirós" },
+        { "@type": "Person", "name": "Zaylin Yuleisy López Ovares" }
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "San Carlos",
+        "addressRegion": "Alajuela",
+        "addressCountry": "CR"
+      },
+      "areaServed": "Costa Rica",
+      "knowsLanguage": ["es", "en"],
+      "contactPoint": [
+        { "@type": "ContactPoint", "telephone": "+506 8673-7114", "contactType": "customer service", "areaServed": "CR", "availableLanguage": ["es","en"] },
+        { "@type": "ContactPoint", "telephone": "+506 6343-8399", "contactType": "customer service", "areaServed": "CR", "availableLanguage": ["es","en"] }
+      ]
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>
+    <noscript>
+      <div style="padding:40px;color:#fff;background:#050505;text-align:center;font-family:sans-serif">
+        VO Studio necesita JavaScript habilitado para funcionar correctamente. Por favor activá JavaScript en tu navegador.
+      </div>
+    </noscript>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
