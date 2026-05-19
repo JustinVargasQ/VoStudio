@@ -1,264 +1,249 @@
-import { useRef, useEffect, lazy, Suspense } from 'react';
-import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
-import { useGSAP } from '@gsap/react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { VO, VO_LIGHT, PURPLE } from '../data/content';
+import { motion } from 'framer-motion';
+import { BG, BG_CARD, TEXT, TEXT_S, TEXT_D, BORDER, A, A_L, F_DISPLAY, F_MONO, MAX_W, PAD_X } from '../theme';
+import { useApp } from '../context/AppContext';
+import { HeroVisual } from './HeroVisual';
 
-const HeroScene = lazy(() => import('../three/HeroScene').then((m) => ({ default: m.HeroScene })));
-
-gsap.registerPlugin(ScrollTrigger);
-
-const STATS = [
-  { v: 2,    suf: '+',  l: 'Proyectos',   d: 1.2 },
-  { v: 100,  suf: '%',  l: 'Compromiso',  d: 1.6 },
-  { v: 24,   suf: '/7', l: 'Soporte',     d: 2.0 },
-  { v: 'CR', suf: '',   l: 'Hecho aquí',  d: 2.4 },
-];
-
-function StatCounter({ end, suffix, duration = 1.6, delay = 0 }) {
-  const elRef = useRef(null);
-  useGSAP(() => {
-    if (typeof end !== 'number') {
-      gsap.fromTo(elRef.current, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8, delay });
-      return;
-    }
-    const obj = { v: 0 };
-    gsap.to(obj, {
-      v: end,
-      duration,
-      delay,
-      ease: 'power2.out',
-      onUpdate: () => { if (elRef.current) elRef.current.textContent = Math.floor(obj.v) + suffix; },
-    });
-  }, []);
-  return <span ref={elRef}>{typeof end === 'number' ? `0${suffix}` : `${end}${suffix}`}</span>;
+function StatOrbital() {
+  return (
+    <div className="vo-stat-3d" aria-hidden>
+      <div className="vo-stat-3d-orbit-3" />
+      <div className="vo-stat-3d-orbit" />
+      <div className="vo-stat-3d-orb" />
+      <div className="vo-stat-3d-orbit-2" />
+    </div>
+  );
 }
 
+function Badge3D({ text, sub }) {
+  return (
+    <div style={{ position: 'relative', display: 'inline-flex' }}>
+      <div style={{
+        display: 'inline-flex', alignItems: 'center', gap: 14,
+        padding: '8px 22px 8px 10px',
+        background: 'linear-gradient(135deg, rgba(251,146,60,0.08), rgba(234,88,12,0.14))',
+        border: '1px solid rgba(234,88,12,0.45)',
+        borderRadius: 999,
+        position: 'relative',
+        backdropFilter: 'blur(8px)',
+        boxShadow:
+          '0 12px 30px rgba(234,88,12,0.22), inset 0 1px 0 rgba(255,255,255,0.4), inset 0 -1px 0 rgba(0,0,0,0.05)',
+      }}>
+        {/* 3D glass orb */}
+        <div className="vo-orb-wrap">
+          <span className="vo-orb-halo" />
+          <div className="vo-orb">
+            <svg className="vo-orb-glyph" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2l2.39 7.36H22l-6.18 4.49 2.36 7.27L12 16.63l-6.18 4.49 2.36-7.27L2 9.36h7.61z"/>
+            </svg>
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 2, lineHeight: 1.1 }}>
+          <span style={{
+            fontFamily: '"Instrument Serif", serif', fontStyle: 'italic',
+            fontSize: 19, color: '#9A3412', letterSpacing: '-0.01em',
+          }}>{text}</span>
+          {sub && (
+            <span style={{
+              fontFamily: '"JetBrains Mono", monospace', fontSize: 9,
+              color: '#C2410C', letterSpacing: '0.16em',
+              textTransform: 'uppercase', fontWeight: 600,
+            }}>{sub}</span>
+          )}
+        </div>
+
+        <span className="vo-sparkle" style={{ top: -6,  right: 16, animationDelay: '0s' }}>✦</span>
+        <span className="vo-sparkle" style={{ bottom: -4, right: 42, animationDelay: '0.7s', fontSize: 8 }}>✦</span>
+        <span className="vo-sparkle" style={{ top: -2,  left: 56,  animationDelay: '1.3s', fontSize: 7 }}>✦</span>
+        <span className="vo-sparkle" style={{ bottom: 4, left: -2, animationDelay: '1.9s', fontSize: 9 }}>✦</span>
+      </div>
+    </div>
+  );
+}
+
+const container = {
+  hidden: {},
+  show:   { transition: { staggerChildren: 0.08, delayChildren: 0.15 } },
+};
+const word = {
+  hidden: { opacity: 0, y: 36, rotateX: -28 },
+  show:   { opacity: 1, y: 0, rotateX: 0, transition: { duration: 0.85, ease: [0.21, 0.61, 0.35, 1] } },
+};
+
 export function Hero() {
-  const sectionRef = useRef(null);
-  const titleRef = useRef(null);
-  const mouse = useRef({ x: 0, y: 0 });
+  const { t } = useApp();
 
-  // Parallax: title follows mouse subtly
-  const mx = useMotionValue(0);
-  const my = useMotionValue(0);
-  const smx = useSpring(mx, { stiffness: 80, damping: 18 });
-  const smy = useSpring(my, { stiffness: 80, damping: 18 });
+  const headlineWords = [
+    { t: t('hero.title.1') },
+    { t: t('hero.title.2') },
+    { t: t('hero.title.3') },
+    { t: t('hero.title.4'), italic: true, accent: true },
+    { t: t('hero.title.5'), italic: true, accent: true },
+    { t: t('hero.title.6') },
+    { t: t('hero.title.7') },
+  ];
 
-  useEffect(() => {
-    const onMove = (e) => {
-      const nx = (e.clientX / window.innerWidth) * 2 - 1;
-      const ny = (e.clientY / window.innerHeight) * 2 - 1;
-      mouse.current.x = nx;
-      mouse.current.y = ny;
-      mx.set(nx * 18);
-      my.set(ny * 12);
-    };
-    window.addEventListener('mousemove', onMove);
-    return () => window.removeEventListener('mousemove', onMove);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  // Scroll-linked transforms
-  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end start'] });
-  const yContent  = useTransform(scrollYProgress, [0, 1], [0, 160]);
-  const opContent = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
-  const sceneY    = useTransform(scrollYProgress, [0, 1], [0, -80]);
-  const sceneScale= useTransform(scrollYProgress, [0, 1], [1, 1.15]);
-
-  useGSAP(() => {
-    // Letter reveal on mount
-    const letters = titleRef.current?.querySelectorAll('.hero-letter');
-    if (!letters?.length) return;
-    gsap.fromTo(letters,
-      { yPercent: 130, opacity: 0, rotateX: -90 },
-      {
-        yPercent: 0, opacity: 1, rotateX: 0,
-        duration: 1.1,
-        stagger: 0.05,
-        ease: 'power4.out',
-        delay: 0.25,
-      }
-    );
-  }, { scope: sectionRef });
-
-  const vo = 'VO'.split('');
-  const studio = 'STUDIO'.split('');
-  const fontSize = 'clamp(64px, 13vw, 180px)';
+  const METRICS = [0,1,2,3].map((i) => ({
+    v: t(`hero.metric.${i+1}.v`),
+    l: t(`hero.metric.${i+1}.l`),
+  }));
 
   return (
-    <section
-      id="inicio"
-      ref={sectionRef}
-      style={{
-        minHeight: '100vh',
-        background: '#050505',
-        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-        position: 'relative', overflow: 'hidden', padding: '80px 24px 60px',
-      }}
-    >
-      {/* 3D scene background */}
-      <motion.div style={{ position: 'absolute', inset: 0, y: sceneY, scale: sceneScale, opacity: 0.95 }}>
-        <Suspense fallback={null}>
-          <HeroScene mouse={mouse} />
-        </Suspense>
-      </motion.div>
+    <section id="top" style={{ background: BG, position: 'relative', overflow: 'hidden', paddingTop: 'clamp(48px, 8vh, 96px)', paddingBottom: 'clamp(60px, 10vh, 120px)' }}>
 
-      {/* Two restrained orbs — VO + PURPLE */}
-      <motion.div
-        animate={{ scale: [1, 1.25, 1], opacity: [0.2, 0.32, 0.2] }}
-        transition={{ duration: 10, repeat: Infinity }}
-        style={{ position: 'absolute', top: '5%', left: '-12%', width: 700, height: 700, borderRadius: '50%', background: `radial-gradient(circle, ${VO}30 0%, transparent 65%)`, filter: 'blur(90px)', pointerEvents: 'none', zIndex: 0 }}
-      />
-      <motion.div
-        animate={{ scale: [1.2, 1, 1.2], opacity: [0.14, 0.24, 0.14] }}
-        transition={{ duration: 12, repeat: Infinity, delay: 5 }}
-        style={{ position: 'absolute', bottom: '0%', right: '-10%', width: 650, height: 650, borderRadius: '50%', background: `radial-gradient(circle, ${PURPLE}22 0%, transparent 65%)`, filter: 'blur(80px)', pointerEvents: 'none', zIndex: 0 }}
-      />
+      <span className="blob blob-1" style={{ top: '-10%', right: '-8%', width: 520, height: 520, background: 'radial-gradient(circle, rgba(234,88,12,0.12), transparent 70%)' }} />
+      <span className="blob blob-2" style={{ bottom: '-15%', left: '-10%', width: 460, height: 460, background: 'radial-gradient(circle, rgba(245,158,11,0.10), transparent 70%)' }} />
 
-      {/* Grid overlay */}
-      <div
-        style={{
-          position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none',
-          backgroundImage: 'linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)',
-          backgroundSize: '110px 110px',
-          maskImage: 'radial-gradient(ellipse 60% 60% at 50% 50%, #000 30%, transparent 90%)',
-          WebkitMaskImage: 'radial-gradient(ellipse 60% 60% at 50% 50%, #000 30%, transparent 90%)',
-        }}
-      />
+      <div className="bg-grid" style={{ position: 'absolute', inset: 0, opacity: 0.5, maskImage: 'radial-gradient(ellipse at center, black 40%, transparent 80%)', WebkitMaskImage: 'radial-gradient(ellipse at center, black 40%, transparent 80%)' }} />
 
-      <motion.div style={{ y: yContent, opacity: opContent, position: 'relative', zIndex: 10, textAlign: 'center', width: '100%', maxWidth: 1200 }}>
+      <div style={{ maxWidth: MAX_W, margin: '0 auto', padding: `0 ${PAD_X}`, position: 'relative', zIndex: 1 }}>
+
         <motion.div
-          initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
-          style={{
-            display: 'inline-flex', alignItems: 'center', gap: 10,
-            fontSize: 11, fontWeight: 700, letterSpacing: '0.22em', textTransform: 'uppercase',
-            padding: '9px 20px', borderRadius: 50, marginBottom: 48,
-            color: VO,
-            background: 'rgba(234,97,19,0.08)',
-            border: `1px solid rgba(234,97,19,0.25)`,
-            backdropFilter: 'blur(8px)',
-          }}
+          initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}
+          style={{ display: 'flex', alignItems: 'center', gap: 18, marginBottom: 32, flexWrap: 'wrap' }}
         >
-          <motion.span animate={{ scale: [1, 1.7, 1], opacity: [0.6, 1, 0.6] }} transition={{ duration: 2, repeat: Infinity }} style={{ width: 6, height: 6, borderRadius: '50%', background: VO, display: 'inline-block', boxShadow: `0 0 8px ${VO}` }} />
-          Disponibles para nuevos proyectos · Costa Rica
+          <Badge3D text={t('common.eyebrow.accepting')} sub={t('common.badge.sub')} />
+          <span style={{ fontFamily: F_MONO, fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase', color: TEXT_S }}>
+            {t('common.eyebrow.studio')}
+          </span>
         </motion.div>
 
-        {/* GSAP animated title with mouse parallax */}
-        <motion.div ref={titleRef} style={{ x: smx, y: smy, perspective: 800 }}>
-          <div style={{ overflow: 'hidden', lineHeight: 0.9, marginBottom: 4 }}>
-            {vo.map((l, i) => (
-              <span
-                key={i}
-                className="hero-letter"
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'minmax(0, 1.25fr) minmax(0, 1fr)',
+          gap: 'clamp(40px, 6vw, 80px)',
+          alignItems: 'center',
+        }} className="vo-hero-grid">
+
+          <div>
+            <motion.h1
+              variants={container} initial="hidden" animate="show"
+              style={{
+                fontFamily: F_DISPLAY, fontWeight: 400,
+                fontSize: 'clamp(44px, 6.8vw, 96px)',
+                lineHeight: 0.98, letterSpacing: '-0.03em',
+                color: TEXT,
+                display: 'flex', flexWrap: 'wrap', gap: '0.18em',
+                perspective: 800,
+              }}
+            >
+              {headlineWords.map((w, i) => (
+                <motion.span key={i} variants={word} style={{
+                  display: 'inline-block',
+                  fontStyle: w.italic ? 'italic' : 'normal',
+                }}>
+                  {w.accent ? <span className="gradient-text">{w.t}</span> : w.t}
+                </motion.span>
+              ))}
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.05, duration: 0.8 }}
+              style={{
+                marginTop: 'clamp(28px, 4vw, 44px)',
+                fontSize: 'clamp(15px, 1.2vw, 18px)',
+                lineHeight: 1.6, color: TEXT_S, maxWidth: '46ch',
+              }}
+            >
+              {t('hero.desc')}
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.2, duration: 0.8 }}
+              style={{ marginTop: 28, display: 'flex', gap: 14, flexWrap: 'wrap', alignItems: 'center' }}
+            >
+              <motion.a href="#contacto"
+                whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
+                className="arrow-slide-parent"
                 style={{
-                  display: 'inline-block', fontFamily: 'Syne,sans-serif', fontSize, fontWeight: 800,
-                  color: '#fff', letterSpacing: '-0.04em', opacity: 0,
-                  textShadow: '0 0 40px rgba(255,255,255,0.1)',
+                  background: TEXT, color: BG,
+                  padding: '16px 28px', fontSize: 14, fontWeight: 600,
+                  display: 'inline-flex', alignItems: 'center', gap: 10,
+                  boxShadow: '0 10px 30px rgba(10,10,10,0.18)',
                 }}
               >
-                {l}
-              </span>
-            ))}
+                {t('common.cta.start')}
+                <span className="arrow-slide" style={{ fontSize: 16, lineHeight: 1 }}>→</span>
+              </motion.a>
+              <a href="#proyectos" className="link-grow" style={{
+                padding: '16px 4px', fontSize: 14, fontWeight: 600, color: TEXT,
+              }}>
+                {t('common.cta.viewProjects')}
+              </a>
+            </motion.div>
           </div>
-          <div style={{ overflow: 'hidden', lineHeight: 0.9, marginBottom: 36 }}>
-            {studio.map((l, i) => (
-              <span
-                key={i}
-                className="hero-letter"
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.85 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.4, duration: 1.2, ease: [0.21, 0.61, 0.35, 1] }}
+            className="vo-hero-visual"
+          >
+            <HeroVisual />
+          </motion.div>
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-40px' }}
+          transition={{ duration: 0.9, ease: [0.21, 0.61, 0.35, 1] }}
+          style={{
+            marginTop: 'clamp(56px, 9vw, 100px)',
+            paddingTop: 32, paddingBottom: 32,
+            borderTop: `1px solid ${BORDER}`,
+            borderBottom: `1px solid ${BORDER}`,
+            display: 'flex', alignItems: 'center',
+            gap: 'clamp(24px, 4vw, 56px)',
+            flexWrap: 'wrap',
+          }}
+          className="vo-stats-band"
+        >
+          {/* 3D orbital decoration */}
+          <StatOrbital />
+
+          {/* Stats row */}
+          <div style={{
+            flex: 1,
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))',
+            gap: 'clamp(16px, 2vw, 32px)',
+            minWidth: 0,
+          }}>
+            {METRICS.map((m, i) => (
+              <motion.div key={i}
+                initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }} transition={{ duration: 0.7, delay: i * 0.08 }}
                 style={{
-                  display: 'inline-block', fontFamily: 'Syne,sans-serif', fontSize, fontWeight: 800,
-                  letterSpacing: '-0.04em', opacity: 0,
-                  background: `linear-gradient(135deg, ${VO}, ${VO_LIGHT})`,
-                  WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
-                  filter: `drop-shadow(0 0 20px ${VO}50)`,
+                  paddingInlineStart: i > 0 ? 'clamp(16px, 2vw, 28px)' : 0,
+                  borderLeft: i > 0 ? `1px solid ${BORDER}` : 'none',
                 }}
               >
-                {l}
-              </span>
+                <div style={{
+                  fontFamily: F_DISPLAY, fontWeight: 400, fontStyle: 'italic',
+                  fontSize: 'clamp(40px, 5vw, 64px)',
+                  lineHeight: 1, letterSpacing: '-0.03em',
+                  color: A, marginBottom: 8,
+                }}>{m.v}</div>
+                <div style={{
+                  fontFamily: F_MONO, fontSize: 11, color: TEXT_S,
+                  letterSpacing: '0.08em', textTransform: 'uppercase', fontWeight: 600,
+                }}>{m.l}</div>
+              </motion.div>
             ))}
           </div>
         </motion.div>
+      </div>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.95, duration: 0.8 }}
-          style={{
-            color: 'rgba(255,255,255,0.45)', fontSize: 19, lineHeight: 1.65,
-            maxWidth: 540, margin: '0 auto 44px', fontWeight: 300,
-          }}
-        >
-          Dos ingenieros de la UTN en <span style={{ color: '#fff', fontWeight: 500 }}>San Carlos, Costa Rica</span>, que construyen lo que tu negocio necesita — sin intermediarios, sin agencias, sin excusas.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.1 }}
-          style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 90 }}
-        >
-          <motion.a
-            href="#proyectos"
-            whileHover={{ scale: 1.06, boxShadow: `0 0 60px ${VO}80` }}
-            whileTap={{ scale: 0.97 }}
-            style={{
-              padding: '16px 36px', borderRadius: 50,
-              background: `linear-gradient(135deg, ${VO}, ${VO_LIGHT})`,
-              color: '#fff', fontWeight: 700, fontSize: 14,
-              textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 10,
-              boxShadow: `0 0 40px ${VO}50`, letterSpacing: '0.02em',
-            }}
-          >
-            Ver proyectos
-            <motion.span
-              animate={{ x: [0, 6, 0] }}
-              transition={{ duration: 1.4, repeat: Infinity }}
-            >→</motion.span>
-          </motion.a>
-          <motion.a
-            href="#precios"
-            whileHover={{ borderColor: `${VO}60`, color: '#fff', background: `${VO}08` }}
-            style={{
-              padding: '16px 36px', borderRadius: 50, color: 'rgba(255,255,255,0.65)',
-              fontWeight: 700, fontSize: 14, textDecoration: 'none',
-              border: '1px solid rgba(255,255,255,0.12)',
-              transition: 'all 0.3s', backdropFilter: 'blur(8px)',
-              display: 'inline-flex', alignItems: 'center', gap: 8,
-            }}
-          >
-            Ver precios →
-          </motion.a>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.4 }}
-          style={{
-            display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0,1fr))', gap: 24,
-            paddingTop: 36, borderTop: '1px solid rgba(255,255,255,0.06)',
-            maxWidth: 640, margin: '0 auto',
-          }}
-        >
-          {STATS.map((s) => (
-            <div key={s.l} style={{ textAlign: 'center' }}>
-              <p style={{ fontFamily: 'Syne,sans-serif', fontWeight: 800, fontSize: 'clamp(22px,3.4vw,32px)', color: '#fff', marginBottom: 6, letterSpacing: '-0.02em' }}>
-                <StatCounter end={s.v} suffix={s.suf} delay={s.d} />
-              </p>
-              <p style={{ fontSize: 10, color: 'rgba(255,255,255,0.3)', letterSpacing: '0.2em', textTransform: 'uppercase' }}>{s.l}</p>
-            </div>
-          ))}
-        </motion.div>
-      </motion.div>
-
-      {/* Scroll cue */}
-      <motion.div
-        initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.9 }}
-        style={{ position: 'absolute', bottom: 28, left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, zIndex: 5 }}
-      >
-        <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.25)', letterSpacing: '0.35em', textTransform: 'uppercase' }}>Scroll</span>
-        <motion.div
-          animate={{ scaleY: [0, 1, 0] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
-          style={{ width: 1, height: 42, background: `linear-gradient(to bottom, ${VO}, transparent)`, transformOrigin: 'top' }}
-        />
-      </motion.div>
+      <style>{`
+        @media (max-width: 900px) {
+          .vo-hero-grid { grid-template-columns: 1fr !important; }
+          .vo-hero-visual { max-width: 420px; margin-inline: auto; }
+        }
+        @media (max-width: 560px) {
+          /* Hide complex 3D visual on small phones — headline + CTA are enough */
+          .vo-hero-visual { display: none !important; }
+        }
+      `}</style>
     </section>
   );
 }

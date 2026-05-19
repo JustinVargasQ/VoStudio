@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { VO, VO_LIGHT } from '../data/content';
+import { TEXT, TEXT_S, BORDER, BG, F_DISPLAY } from '../theme';
 
 export class ErrorBoundary extends Component {
   constructor(props) {
@@ -20,51 +20,33 @@ export class ErrorBoundary extends Component {
 
     return (
       <div style={{
-        minHeight: '100vh', background: '#050505',
+        minHeight: '100vh', background: BG,
         display: 'flex', alignItems: 'center', justifyContent: 'center',
-        padding: 24, textAlign: 'center', flexDirection: 'column', gap: 24,
+        padding: 32, textAlign: 'center', flexDirection: 'column', gap: 24,
       }}>
-        <div style={{
-          width: 72, height: 72, borderRadius: '50%',
-          background: `linear-gradient(135deg, ${VO}, ${VO_LIGHT})`,
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          boxShadow: `0 0 40px ${VO}50`,
-          fontSize: 32,
-        }}>
-          ⚡
-        </div>
-        <h1 style={{ fontFamily: 'Syne,sans-serif', fontWeight: 800, fontSize: 32, color: '#fff', letterSpacing: '-0.02em', marginBottom: 8 }}>
-          Algo salió mal
+        <h1 style={{ fontFamily: F_DISPLAY, fontSize: 'clamp(40px, 6vw, 64px)', color: TEXT, letterSpacing: '-0.02em', lineHeight: 1.05 }}>
+          Algo salió mal.
         </h1>
-        <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.6)', maxWidth: 440, lineHeight: 1.7 }}>
+        <p style={{ fontSize: 16, color: TEXT_S, maxWidth: 440, lineHeight: 1.6 }}>
           Ocurrió un error inesperado. Si el problema persiste, escribinos por WhatsApp y lo resolvemos.
         </p>
-        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'center' }}>
+        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'center', marginTop: 8 }}>
           <button
             onClick={() => window.location.reload()}
-            style={{
-              padding: '12px 24px', borderRadius: 50, border: 'none',
-              background: `linear-gradient(135deg, ${VO}, ${VO_LIGHT})`,
-              color: '#fff', fontWeight: 700, fontSize: 13, cursor: 'pointer',
-            }}
+            style={{ padding: '13px 24px', background: TEXT, color: '#fff', fontWeight: 600, fontSize: 13 }}
           >
             Recargar página
           </button>
           <a
             href="https://wa.me/50686737114?text=Hola! Tuve un error en vostudio.cr"
             target="_blank" rel="noopener noreferrer"
-            style={{
-              padding: '12px 24px', borderRadius: 50,
-              background: 'rgba(255,255,255,0.05)',
-              border: '1px solid rgba(255,255,255,0.12)',
-              color: '#fff', fontWeight: 700, fontSize: 13, textDecoration: 'none',
-            }}
+            style={{ padding: '13px 24px', border: `1px solid ${BORDER}`, color: TEXT, fontWeight: 600, fontSize: 13 }}
           >
             Reportar por WhatsApp
           </a>
         </div>
         {import.meta.env.DEV && this.state.error && (
-          <pre style={{ fontSize: 11, color: 'rgba(255,80,80,0.8)', maxWidth: 600, overflow: 'auto', textAlign: 'left', padding: 16, background: 'rgba(255,0,0,0.05)', borderRadius: 12, border: '1px solid rgba(255,0,0,0.1)' }}>
+          <pre style={{ fontSize: 11, color: '#B91C1C', maxWidth: 600, overflow: 'auto', textAlign: 'left', padding: 16, background: '#FEF2F2', border: '1px solid #FECACA', marginTop: 16 }}>
             {this.state.error.toString()}
           </pre>
         )}

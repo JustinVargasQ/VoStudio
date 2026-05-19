@@ -1,34 +1,69 @@
-import { STACK, VO } from '../data/content';
+import { BG_ALT, TEXT, TEXT_S, BORDER, BG_CARD, F_MONO } from '../theme';
+import { useApp } from '../context/AppContext';
+import { TECH } from './TechLogos';
 
-function Track({ items, reverse = false, speed = 25 }) {
-  const arr = [...items, ...items, ...items];
+const STACK = [
+  'React', 'Next.js', 'TypeScript', 'Node.js', 'MongoDB',
+  'PostgreSQL', 'Tailwind', 'Vite', 'React Native', 'Figma',
+  'Cloudinary', 'Express',
+];
+
+function Pill({ name }) {
+  const entry = TECH[name];
+  if (!entry) return null;
+  const { Logo } = entry;
   return (
-    <div
-      className={reverse ? 'marquee-track-reverse' : 'marquee-track'}
-      style={{ display: 'flex', gap: 56, width: 'max-content', animationDuration: `${speed}s` }}
-    >
-      {arr.map((t, i) => (
-        <span key={i} style={{ fontSize: 14, fontWeight: 600, color: 'rgba(255,255,255,0.3)', whiteSpace: 'nowrap', display: 'flex', alignItems: 'center', gap: 14, fontFamily: 'Syne,sans-serif' }}>
-          <span style={{ width: 6, height: 6, borderRadius: '50%', background: VO, display: 'inline-block', flexShrink: 0, boxShadow: `0 0 8px ${VO}` }} />
-          {t}
-        </span>
-      ))}
-    </div>
+    <span style={{
+      display: 'inline-flex', alignItems: 'center', gap: 10,
+      padding: '10px 18px',
+      background: BG_CARD,
+      border: `1px solid ${BORDER}`,
+      boxShadow: 'var(--shadow-sm)',
+    }}>
+      <Logo size={20} />
+      <span style={{
+        fontFamily: F_MONO, fontSize: 13, color: TEXT, fontWeight: 500, letterSpacing: '0.02em',
+      }}>
+        {name}
+      </span>
+    </span>
   );
 }
 
 export function Marquee() {
+  const { t } = useApp();
+  const items = [...STACK, ...STACK];
   return (
-    <div style={{ position: 'relative', borderTop: '1px solid rgba(255,255,255,0.06)', borderBottom: '1px solid rgba(255,255,255,0.06)', background: '#080808' }}>
-      <div style={{ overflow: 'hidden', padding: '14px 0' }}>
-        <Track items={STACK} speed={28} />
+    <section style={{
+      background: BG_ALT,
+      borderTop: `1px solid ${BORDER}`,
+      borderBottom: `1px solid ${BORDER}`,
+      padding: '40px 0 44px',
+      position: 'relative', overflow: 'hidden',
+    }}>
+      <div style={{
+        textAlign: 'center', marginBottom: 24,
+        display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 14,
+      }}>
+        <span style={{ width: 28, height: 1, background: TEXT_S, opacity: 0.4 }} />
+        <span style={{ fontFamily: F_MONO, fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase', color: TEXT_S }}>
+          {t('common.builtWith')}
+        </span>
+        <span style={{ width: 28, height: 1, background: TEXT_S, opacity: 0.4 }} />
       </div>
-      <div style={{ overflow: 'hidden', padding: '14px 0', borderTop: '1px solid rgba(255,255,255,0.04)' }}>
-        <Track items={[...STACK].reverse()} reverse speed={36} />
+
+      <div style={{
+        position: 'relative',
+        maskImage: 'linear-gradient(to right, transparent, black 8%, black 92%, transparent)',
+        WebkitMaskImage: 'linear-gradient(to right, transparent, black 8%, black 92%, transparent)',
+      }}>
+        <div className="marquee-slow" style={{
+          display: 'flex', gap: 14, whiteSpace: 'nowrap',
+          width: 'max-content', alignItems: 'center',
+        }}>
+          {items.map((tech, i) => <Pill key={i} name={tech} />)}
+        </div>
       </div>
-      {/* Edge fades */}
-      <div style={{ position: 'absolute', top: 0, left: 0, bottom: 0, width: 80, background: 'linear-gradient(90deg, #080808, transparent)', pointerEvents: 'none', zIndex: 2 }} />
-      <div style={{ position: 'absolute', top: 0, right: 0, bottom: 0, width: 80, background: 'linear-gradient(-90deg, #080808, transparent)', pointerEvents: 'none', zIndex: 2 }} />
-    </div>
+    </section>
   );
 }

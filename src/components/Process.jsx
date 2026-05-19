@@ -1,166 +1,189 @@
-import { useRef } from 'react';
-import { useGSAP } from '@gsap/react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { PROCESS, VO, PURPLE } from '../data/content';
-import { Icon } from './Icons';
+import { motion } from 'framer-motion';
+import { BG_ALT, BG_CARD, BG_CARD_ALT, TEXT, TEXT_S, TEXT_D, BORDER, A, F_DISPLAY, F_MONO, MAX_W, PAD_X } from '../theme';
+import { getContent } from '../data/content';
+import { useApp } from '../context/AppContext';
+import { SectionHeader } from './Services';
+import { RevealStagger, RevealItem } from './Reveal';
 
-gsap.registerPlugin(ScrollTrigger);
+const PHASE_META = [
+  { color: '#0EA5E9', icon: (<g fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/><circle cx="9" cy="11" r="0.8" fill="currentColor" /><circle cx="12.5" cy="11" r="0.8" fill="currentColor" /><circle cx="16" cy="11" r="0.8" fill="currentColor" /></g>) },
+  { color: '#A855F7', icon: (<g fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></g>) },
+  { color: '#1D4ED8', icon: (<g fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></g>) },
+  { color: '#22C55E', icon: (<g fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 00-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 012-3.95A12.88 12.88 0 0122 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 01-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></g>) },
+];
 
 export function Process() {
-  const root = useRef(null);
+  const { t, locale } = useApp();
+  const { PROCESS } = getContent(locale);
 
-  useGSAP(() => {
-    gsap.fromTo('.proc-head > *',
-      { opacity: 0, y: 36 },
-      {
-        opacity: 1, y: 0, stagger: 0.1, duration: 0.9, ease: 'power3.out',
-        scrollTrigger: { trigger: '.proc-head', start: 'top 85%' },
-      }
-    );
-
-    gsap.fromTo('.proc-line',
-      { scaleY: 0 },
-      {
-        scaleY: 1, ease: 'none',
-        scrollTrigger: {
-          trigger: '.proc-list',
-          start: 'top 70%',
-          end: 'bottom 60%',
-          scrub: 0.8,
-        },
-      }
-    );
-
-    const items = gsap.utils.toArray('.proc-item');
-    items.forEach((item, i) => {
-      gsap.fromTo(item,
-        { opacity: 0, x: i % 2 === 0 ? -50 : 50 },
-        {
-          opacity: 1, x: 0, duration: 1, ease: 'power3.out',
-          scrollTrigger: { trigger: item, start: 'top 80%' },
-        }
-      );
-      const color = PROCESS[i].color;
-      gsap.to(item.querySelector('.proc-dot'), {
-        background: color,
-        boxShadow: `0 0 30px ${color}, 0 0 60px ${color}40`,
-        scrollTrigger: { trigger: item, start: 'top 60%', toggleActions: 'play none none reverse' },
-      });
-    });
-  }, { scope: root });
+  const enriched = PROCESS.map((s, i) => ({
+    ...s,
+    ...PHASE_META[i],
+    duration: t(`process.duration.${i+1}`),
+    deliverable: t(`process.deliv.${i+1}`),
+  }));
 
   return (
-    <section
-      id="proceso"
-      ref={root}
-      style={{ padding: '140px 24px 160px', background: '#050505', position: 'relative', overflow: 'hidden' }}
-    >
-      <div style={{ position: 'absolute', top: '30%', right: '-10%', width: 520, height: 520, borderRadius: '50%', background: `radial-gradient(circle, ${VO}12, transparent 70%)`, filter: 'blur(100px)', pointerEvents: 'none' }} />
+    <section id="proceso" style={{ background: BG_ALT, padding: `clamp(80px, 12vh, 140px) 0`, position: 'relative', overflow: 'hidden' }}>
+      <span className="blob blob-1" style={{ top: '15%', right: '-10%', width: 380, height: 380, background: 'radial-gradient(circle, rgba(234,88,12,0.08), transparent 70%)' }} />
 
-      <div style={{ maxWidth: 1200, margin: '0 auto', position: 'relative' }}>
-        <div className="proc-head" style={{ marginBottom: 100, display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: 24 }}>
-          <div style={{ maxWidth: 600 }}>
-            <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.25em', textTransform: 'uppercase', color: VO, marginBottom: 18, display: 'inline-flex', alignItems: 'center', gap: 12 }}>
-              <span style={{ width: 28, height: 1, background: VO }} />
-              Cómo trabajamos
-            </p>
-            <h2 style={{ fontFamily: 'Syne,sans-serif', fontSize: 'clamp(44px,6.5vw,90px)', fontWeight: 800, color: '#fff', letterSpacing: '-0.035em', lineHeight: 0.95 }}>
-              El proceso <br />
-              <span style={{
-                background: `linear-gradient(135deg, ${VO}, ${PURPLE})`,
-                WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
-              }}>en 4 pasos.</span>
-            </h2>
-          </div>
-          <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.45)', maxWidth: 280, lineHeight: 1.7, textAlign: 'right' }}>
-            Transparente, directo y sin sorpresas. Vos siempre sabés en qué etapa estamos.
-          </p>
-        </div>
+      <div style={{ maxWidth: MAX_W, margin: '0 auto', padding: `0 ${PAD_X}`, position: 'relative', zIndex: 1 }}>
+        <SectionHeader
+          eyebrow={t('process.eyebrow')}
+          title={<>{t('process.title.1')} <span style={{ fontStyle: 'italic', color: A }}>{t('process.title.2')}</span>.</>}
+          intro={t('process.intro')}
+        />
 
-        <div className="proc-list" style={{ position: 'relative', display: 'flex', flexDirection: 'column', gap: 60 }}>
-          <div
-            className="proc-line"
+        <div style={{ position: 'relative', marginBottom: 8 }}>
+          <div style={{
+            position: 'absolute', left: '6%', right: '6%', top: '60px',
+            height: 2, background: BORDER, zIndex: 0,
+          }} className="vo-proc-line" />
+          <motion.div
+            initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 1.6, ease: [0.21, 0.61, 0.35, 1] }}
             style={{
-              position: 'absolute', left: 'calc(50% - 1px)', top: 0, bottom: 0, width: 2,
-              background: `linear-gradient(to bottom, ${VO} 0%, ${PURPLE} 100%)`,
-              transformOrigin: 'top',
-              scaleY: 0,
-              borderRadius: 2,
-              zIndex: 0,
-              boxShadow: `0 0 30px ${VO}40`,
+              position: 'absolute', left: '6%', right: '6%', top: '60px',
+              height: 2,
+              background: `linear-gradient(to right, #0EA5E9, #A855F7, #1D4ED8, #22C55E)`,
+              transformOrigin: 'left', zIndex: 1,
             }}
+            className="vo-proc-line"
           />
 
-          {PROCESS.map((p, i) => {
-            const isRight = i % 2 === 1;
-            return (
-              <div
-                key={p.n}
-                className="proc-item"
-                style={{
-                  position: 'relative',
-                  display: 'flex',
-                  justifyContent: isRight ? 'flex-end' : 'flex-start',
-                  zIndex: 2,
-                }}
-              >
-                <div style={{ position: 'absolute', top: 28, left: '50%', transform: 'translateX(-50%)', zIndex: 5 }}>
-                  <div className="proc-dot" style={{
-                    width: 20, height: 20, borderRadius: '50%',
-                    background: '#111', border: `2px solid ${p.color}`,
-                    transition: 'all 0.4s ease',
-                  }} />
-                </div>
+          <RevealStagger stagger={0.15} style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+            gap: 20,
+            position: 'relative', zIndex: 2,
+          }}>
+            {enriched.map((s, i) => (
+              <RevealItem key={s.n} y={28}>
+                <motion.article
+                  whileHover={{ y: -8 }}
+                  transition={{ type: 'spring', stiffness: 200, damping: 22 }}
+                  style={{
+                    background: BG_CARD,
+                    border: `1px solid ${BORDER}`,
+                    padding: 'clamp(24px, 2.4vw, 32px) clamp(20px, 2vw, 28px)',
+                    display: 'flex', flexDirection: 'column', gap: 18,
+                    height: '100%',
+                    position: 'relative',
+                    boxShadow: 'var(--shadow-md)',
+                    transition: 'box-shadow 0.4s',
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.boxShadow = `0 24px 60px ${s.color}25`}
+                  onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'var(--shadow-md)'}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
+                    <motion.span
+                      whileHover={{ rotate: -8, scale: 1.08 }}
+                      transition={{ type: 'spring', stiffness: 300 }}
+                      style={{
+                        width: 56, height: 56,
+                        display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                        background: BG_CARD,
+                        border: `2px solid ${s.color}`,
+                        borderRadius: '50%', color: s.color,
+                        boxShadow: `0 8px 24px ${s.color}40`,
+                        position: 'relative', zIndex: 3,
+                      }}>
+                      <svg width="24" height="24" viewBox="0 0 24 24">{s.icon}</svg>
+                    </motion.span>
+                    <span style={{
+                      fontFamily: F_DISPLAY, fontStyle: 'italic',
+                      fontSize: 56, lineHeight: 1, letterSpacing: '-0.03em',
+                      color: `${s.color}30`,
+                    }}>{s.n}</span>
+                  </div>
 
-                <div style={{
-                  width: 'calc(50% - 50px)',
-                  background: `linear-gradient(135deg, ${p.color}10 0%, rgba(12,12,12,0.9) 60%, rgba(10,10,10,0.9) 100%)`,
-                  border: `1px solid ${p.color}30`,
-                  borderRadius: 24,
-                  padding: 36,
-                  position: 'relative',
-                  backdropFilter: 'blur(10px)',
-                  minWidth: 280,
-                  boxShadow: `0 20px 60px rgba(0,0,0,0.4), 0 0 50px ${p.color}15`,
-                }}>
-                  {/* Glow */}
+                  <span style={{
+                    alignSelf: 'flex-start',
+                    fontFamily: F_MONO, fontSize: 10, color: s.color, fontWeight: 600,
+                    letterSpacing: '0.12em', textTransform: 'uppercase',
+                    padding: '5px 10px', border: `1px solid ${s.color}33`,
+                    background: `${s.color}10`,
+                  }}>
+                    {s.duration}
+                  </span>
+
+                  <div>
+                    <h3 style={{
+                      fontFamily: F_DISPLAY, fontWeight: 400,
+                      fontSize: 'clamp(26px, 2.4vw, 32px)', letterSpacing: '-0.02em',
+                      color: TEXT, marginBottom: 10, lineHeight: 1.05,
+                    }}>{s.title}</h3>
+                    <p style={{ fontSize: 14, color: TEXT_S, lineHeight: 1.55 }}>{s.desc}</p>
+                  </div>
+
                   <div style={{
-                    position: 'absolute', top: -40, [isRight ? 'right' : 'left']: -40,
-                    width: 160, height: 160, borderRadius: '50%',
-                    background: `radial-gradient(circle, ${p.color}25, transparent 70%)`,
-                    filter: 'blur(40px)', pointerEvents: 'none',
-                  }} />
-
-                  <div style={{
-                    position: 'absolute', top: 36,
-                    [isRight ? 'left' : 'right']: -50,
-                    width: 50, height: 1, background: `linear-gradient(${isRight ? '90deg' : '-90deg'}, ${p.color}40, transparent)`,
-                  }} />
-
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 14, position: 'relative', zIndex: 2 }}>
+                    marginTop: 'auto',
+                    paddingTop: 18,
+                    borderTop: `1px dashed ${BORDER}`,
+                  }}>
                     <div style={{
-                      width: 56, height: 56, borderRadius: 18,
-                      background: `linear-gradient(135deg, ${p.color}30, ${p.color}10)`,
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      fontSize: 22, border: `1px solid ${p.color}40`,
-                      boxShadow: `0 0 20px ${p.color}30`,
-                      color: p.color,
-                    }}>
-                      <Icon name={p.icon} />
-                    </div>
-                    <div>
-                      <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.2em', color: p.color, marginBottom: 4, textTransform: 'uppercase' }}>Paso {p.n}</p>
-                      <h3 style={{ fontFamily: 'Syne,sans-serif', fontSize: 24, fontWeight: 800, color: '#fff', letterSpacing: '-0.02em' }}>{p.title}</h3>
+                      fontFamily: F_MONO, fontSize: 10, color: TEXT_D,
+                      letterSpacing: '0.12em', textTransform: 'uppercase',
+                      fontWeight: 600, marginBottom: 6,
+                    }}>{t('process.deliverable')}</div>
+                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8, fontSize: 13, color: TEXT, lineHeight: 1.45 }}>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={s.color} strokeWidth="2.5" style={{ flexShrink: 0, marginTop: 3 }}>
+                        <polyline points="20 6 9 17 4 12"/>
+                      </svg>
+                      <span style={{ fontWeight: 500 }}>{s.deliverable}</span>
                     </div>
                   </div>
-                  <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.6)', lineHeight: 1.75, position: 'relative', zIndex: 2 }}>{p.desc}</p>
-                </div>
-              </div>
-            );
-          })}
+                </motion.article>
+              </RevealItem>
+            ))}
+          </RevealStagger>
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }} transition={{ duration: 0.8 }}
+          style={{
+            marginTop: 'clamp(40px, 5vw, 64px)',
+            padding: '20px clamp(20px, 3vw, 32px)',
+            background: BG_CARD,
+            border: `1px solid ${BORDER}`,
+            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+            gap: 16, flexWrap: 'wrap',
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+            <span style={{
+              width: 34, height: 34, flexShrink: 0,
+              display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+              background: '#DCFCE7', border: `1px solid #BBF7D0`, borderRadius: '50%',
+            }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#15803D" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </span>
+            <div>
+              <div style={{ fontSize: 14, fontWeight: 600, color: TEXT, lineHeight: 1.3 }}>
+                {t('process.guarantee.t')}
+              </div>
+              <div style={{ fontSize: 12, color: TEXT_S }}>{t('process.guarantee.s')}</div>
+            </div>
+          </div>
+
+          <a href="#contacto" className="arrow-slide-parent" style={{
+            display: 'inline-flex', alignItems: 'center', gap: 10,
+            fontSize: 13, fontWeight: 600, color: TEXT,
+            borderBottom: `1px solid ${TEXT}`, paddingBottom: 2,
+          }}>
+            {t('process.guarantee.cta')}
+            <span className="arrow-slide">→</span>
+          </a>
+        </motion.div>
       </div>
+
+      <style>{`
+        @media (max-width: 720px) { .vo-proc-line { display: none; } }
+      `}</style>
     </section>
   );
 }

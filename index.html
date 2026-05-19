@@ -7,8 +7,8 @@
 
     <!-- Primary Meta -->
     <title>VO Studio — Desarrollo web, apps y sistemas | Costa Rica</title>
-    <meta name="description" content="Estudio de desarrollo digital en Costa Rica. Páginas web, e-commerce, apps móviles y sistemas a medida. Ingenieros graduados de la UTN. Diseño premium + código limpio." />
-    <meta name="keywords" content="desarrollo web Costa Rica, diseño web, e-commerce, aplicaciones móviles, sistemas a medida, San Carlos, UTN, Vargas Ovares, VO Studio" />
+    <meta name="description" content="VO Studio — El mejor estudio de desarrollo de software en Costa Rica. Páginas web, e-commerce, apps móviles y sistemas a medida. Ingenieros UTN · San Carlos · Atendemos todo el país." />
+    <meta name="keywords" content="desarrollo de software Costa Rica, mejor empresa de software Costa Rica, desarrollo web Costa Rica, diseño web Costa Rica, e-commerce Costa Rica, aplicaciones móviles Costa Rica, sistemas a medida Costa Rica, programación web Costa Rica, agencia digital Costa Rica, San Carlos, UTN, VO Studio" />
     <meta name="author" content="Justin Vargas &amp; Zaylin Ovares — VO Studio" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://vostudio.cr/" />
@@ -56,20 +56,36 @@
       Cal.ns.vostudio("ui", { hideEventTypeDetails: false, layout: "month_view", theme: "dark" });
     </script>
 
-    <!-- Structured data -->
+    <!-- Structured data — LocalBusiness for Google Maps + local search ranking -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Organization",
+      "@type": "LocalBusiness",
+      "@id": "https://vostudio.cr/#business",
       "name": "VO Studio",
-      "alternateName": "Vargas & Ovares Studio",
+      "alternateName": ["Vargas Ovares Studio", "VO Studio Costa Rica"],
       "url": "https://vostudio.cr",
       "logo": "https://vostudio.cr/favicon.svg",
       "image": "https://vostudio.cr/og.svg",
-      "description": "Estudio de desarrollo digital en Costa Rica. Páginas web, apps y sistemas a medida.",
+      "description": "Estudio de desarrollo de software en Costa Rica. Creamos páginas web, e-commerce, apps móviles y sistemas a medida. Ingenieros graduados de la UTN.",
+      "priceRange": "$$",
+      "currenciesAccepted": "CRC, USD",
+      "paymentAccepted": "Efectivo, Transferencia, SINPE Móvil",
+      "telephone": "+50662676464",
+      "email": "justinvargas4299@gmail.com",
       "founder": [
-        { "@type": "Person", "name": "Justin Josué Vargas Quirós" },
-        { "@type": "Person", "name": "Zaylin Yuleisy López Ovares" }
+        {
+          "@type": "Person",
+          "name": "Justin Josué Vargas Quirós",
+          "jobTitle": "Co-fundador & Ingeniero de Sistemas",
+          "email": "justinvargas4299@gmail.com"
+        },
+        {
+          "@type": "Person",
+          "name": "Zaylin Yuleisy López Ovares",
+          "jobTitle": "Co-fundadora & Ingeniera de Sistemas",
+          "email": "zaylinlopezo@gmail.com"
+        }
       ],
       "address": {
         "@type": "PostalAddress",
@@ -77,12 +93,64 @@
         "addressRegion": "Alajuela",
         "addressCountry": "CR"
       },
-      "areaServed": "Costa Rica",
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 10.3265,
+        "longitude": -84.4403
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "Costa Rica"
+      },
       "knowsLanguage": ["es", "en"],
-      "contactPoint": [
-        { "@type": "ContactPoint", "telephone": "+506 8673-7114", "contactType": "customer service", "areaServed": "CR", "availableLanguage": ["es","en"] },
-        { "@type": "ContactPoint", "telephone": "+506 6343-8399", "contactType": "customer service", "areaServed": "CR", "availableLanguage": ["es","en"] }
-      ]
+      "serviceType": [
+        "Desarrollo web",
+        "Diseño web",
+        "E-commerce",
+        "Aplicaciones móviles",
+        "Sistemas a medida",
+        "Software a medida",
+        "Desarrollo de software"
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Servicios de desarrollo digital",
+        "itemListElement": [
+          { "@type": "Offer", "name": "Página web básica", "description": "Landing page o sitio corporativo profesional" },
+          { "@type": "Offer", "name": "E-commerce", "description": "Tienda en línea con pasarela de pago" },
+          { "@type": "Offer", "name": "App móvil", "description": "Aplicación iOS y Android con React Native" },
+          { "@type": "Offer", "name": "Sistema a medida", "description": "Software empresarial personalizado" }
+        ]
+      },
+      "sameAs": [
+        "https://wa.me/50662676464"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+50662676464",
+        "contactType": "customer service",
+        "areaServed": "CR",
+        "availableLanguage": ["es", "en"],
+        "contactOption": "TollFree"
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+        "opens": "08:00",
+        "closes": "18:00"
+      }
+    }
+    </script>
+
+    <!-- WebSite schema for sitelinks searchbox -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "url": "https://vostudio.cr/",
+      "name": "VO Studio",
+      "description": "Desarrollo de software, páginas web y apps en Costa Rica",
+      "inLanguage": ["es-CR", "en"]
     }
     </script>
   </head>

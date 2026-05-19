@@ -1,275 +1,285 @@
-import { useRef } from 'react';
 import { motion } from 'framer-motion';
-import { useGSAP } from '@gsap/react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { TEAM, VO, PURPLE, CAL_LINK } from '../data/content';
+import { BG_ALT, BG_CARD, TEXT, TEXT_S, TEXT_D, BORDER, A, F_DISPLAY, F_MONO, MAX_W, PAD_X } from '../theme';
+import { TEAM, CAL_LINK, STUDIO_PHONE_FMT, STUDIO_WA } from '../data/content';
+import { useApp } from '../context/AppContext';
 import { ContactForm } from './ContactForm';
+import { SectionHeader } from './Services';
 
-gsap.registerPlugin(ScrollTrigger);
-
-const WA = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-  </svg>
-);
-
-const MailIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <rect x="3" y="5" width="18" height="14" rx="2" />
-    <polyline points="3 7 12 13 21 7" />
-  </svg>
-);
-
-const PinIcon = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-    <circle cx="12" cy="10" r="3" />
-  </svg>
-);
-
-const ClockIcon = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <circle cx="12" cy="12" r="10" />
-    <polyline points="12 6 12 12 16 14" />
-  </svg>
-);
+const AVATAR_COLORS = ['#1D4ED8', '#A855F7'];
 
 export function Contact() {
-  const root = useRef(null);
+  const { t, locale } = useApp();
 
-  useGSAP(() => {
-    gsap.to('.contact-ghost', {
-      xPercent: 12,
-      ease: 'none',
-      scrollTrigger: { trigger: root.current, start: 'top bottom', end: 'bottom top', scrub: 1 },
-    });
+  const NEXT_STEPS = [
+    { n: '01', title: t('contact.next.1'), sub: t('contact.next.1s') },
+    { n: '02', title: t('contact.next.2'), sub: t('contact.next.2s') },
+    { n: '03', title: t('contact.next.3'), sub: t('contact.next.3s') },
+    { n: '04', title: t('contact.next.4'), sub: t('contact.next.4s') },
+  ];
 
-    const chars = root.current?.querySelectorAll('.contact-char');
-    if (chars?.length) {
-      gsap.fromTo(chars,
-        { yPercent: 120, opacity: 0, rotateX: -60 },
-        {
-          yPercent: 0, opacity: 1, rotateX: 0,
-          duration: 1, stagger: 0.04, ease: 'power4.out',
-          scrollTrigger: { trigger: '.contact-title', start: 'top 75%' },
-        }
-      );
-    }
-
-    gsap.fromTo('.contact-eyebrow, .contact-lead',
-      { opacity: 0, y: 30 },
-      {
-        opacity: 1, y: 0, duration: 1, ease: 'power3.out', stagger: 0.12,
-        scrollTrigger: { trigger: '.contact-title', start: 'top 75%' },
-        delay: 0.4,
-      }
-    );
-  }, { scope: root });
-
-  const titleParts = [
-    { text: 'Hablemos', highlight: false },
-    { text: 'de tu idea.', highlight: true },
+  const CONTACT_METHODS = [
+    {
+      label: locale === 'en' ? 'WhatsApp · Studio' : 'WhatsApp · Estudio',
+      title: `+506 ${STUDIO_PHONE_FMT}`,
+      href: `https://wa.me/${STUDIO_WA}`,
+      icon: <path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.6.1-.2.3-.7.9-.8 1-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.4-.8-.8-1.4-1.7-1.6-2-.2-.3 0-.4.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3 1.5.5 2.1.6 2.8.5.5 0 1.4-.6 1.7-1.2.2-.6.2-1 .1-1.2zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5.2-1.3c1.4.8 3 1.3 4.8 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2z" fill="currentColor"/>,
+      color: '#22C55E',
+    },
+    {
+      label: t('form.label.email'),
+      title: 'justinvargas4299@gmail.com',
+      href: 'mailto:justinvargas4299@gmail.com',
+      icon: <g fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></g>,
+      color: '#EA580C',
+    },
+    {
+      label: t('common.cta.schedule'),
+      title: 'cal.com/vostudio',
+      href: `https://cal.com/${CAL_LINK}`,
+      icon: <g fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></g>,
+      color: '#A855F7',
+    },
   ];
 
   return (
-    <section
-      id="contacto"
-      ref={root}
-      style={{ padding: '140px 24px 140px', background: '#080808', position: 'relative', overflow: 'hidden' }}
-    >
-      <div style={{ position: 'absolute', inset: 0, background: `radial-gradient(ellipse 70% 50% at 50% 100%, ${VO}18, transparent)`, pointerEvents: 'none' }} />
-      <div style={{ position: 'absolute', top: '20%', left: '5%', width: 520, height: 520, borderRadius: '50%', background: `radial-gradient(circle, ${PURPLE}14, transparent 70%)`, filter: 'blur(100px)', pointerEvents: 'none' }} />
+    <section id="contacto" style={{ background: BG_ALT, padding: `clamp(80px, 12vh, 140px) 0`, position: 'relative', overflow: 'hidden' }}>
+      <span className="blob blob-1" style={{ top: '5%', right: '-10%', width: 420, height: 420, background: 'radial-gradient(circle, rgba(234,88,12,0.08), transparent 70%)' }} />
+      <span className="blob blob-2" style={{ bottom: '-10%', left: '-10%', width: 380, height: 380, background: 'radial-gradient(circle, rgba(34,197,94,0.07), transparent 70%)' }} />
 
-      <div
-        className="contact-ghost"
-        style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none', overflow: 'hidden' }}
-      >
-        <span style={{
-          fontFamily: 'Syne,sans-serif', fontWeight: 800,
-          fontSize: 'clamp(140px,26vw,340px)',
-          color: 'rgba(255,255,255,0.022)',
-          letterSpacing: '-0.05em', lineHeight: 1,
-          whiteSpace: 'nowrap', userSelect: 'none',
-        }}>CONTACTO</span>
-      </div>
+      <div style={{ maxWidth: MAX_W, margin: '0 auto', padding: `0 ${PAD_X}`, position: 'relative', zIndex: 1 }}>
+        <SectionHeader
+          eyebrow={t('contact.eyebrow')}
+          title={<>{t('contact.title.1')} <span style={{ fontStyle: 'italic', color: A }}>{t('contact.title.2')}</span>.</>}
+          intro={t('contact.intro')}
+        />
 
-      <div style={{ maxWidth: 1280, margin: '0 auto', position: 'relative', zIndex: 10 }}>
-        {/* Header */}
-        <div style={{ textAlign: 'center', marginBottom: 70 }}>
-          <p className="contact-eyebrow" style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.25em', textTransform: 'uppercase', color: VO, marginBottom: 24, display: 'inline-flex', alignItems: 'center', gap: 12, justifyContent: 'center' }}>
-            <span style={{ width: 28, height: 1, background: VO }} />
-            Trabajemos juntos
-            <span style={{ width: 28, height: 1, background: VO }} />
-          </p>
-          <h2 className="contact-title" style={{ fontFamily: 'Syne,sans-serif', fontWeight: 800, fontSize: 'clamp(46px,8vw,120px)', color: '#fff', letterSpacing: '-0.045em', lineHeight: 0.92, marginBottom: 24 }}>
-            {titleParts.map((part, pi) => (
-              <span key={pi} style={{ display: 'block', overflow: 'hidden', perspective: 600 }}>
-                {part.text.split('').map((c, i) => (
-                  <span
-                    key={i}
-                    className="contact-char"
-                    style={{
-                      display: 'inline-block',
-                      background: part.highlight ? `linear-gradient(135deg, ${VO}, ${PURPLE})` : 'none',
-                      WebkitBackgroundClip: part.highlight ? 'text' : undefined,
-                      WebkitTextFillColor: part.highlight ? 'transparent' : undefined,
-                      backgroundClip: part.highlight ? 'text' : undefined,
-                      color: part.highlight ? 'transparent' : '#fff',
-                      filter: part.highlight ? `drop-shadow(0 0 30px ${VO}50)` : undefined,
-                    }}
-                  >
-                    {c === ' ' ? ' ' : c}
-                  </span>
-                ))}
-              </span>
-            ))}
-          </h2>
-          <p className="contact-lead" style={{ fontSize: 16, color: 'rgba(255,255,255,0.6)', lineHeight: 1.7, maxWidth: 580, margin: '0 auto' }}>
-            Llenanos el formulario o escribinos directo por WhatsApp. Sin compromiso, sin tecnicismos.
-          </p>
-        </div>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'minmax(0, 0.9fr) minmax(0, 1.4fr)',
+          gap: 'clamp(32px, 5vw, 64px)',
+          alignItems: 'start',
+        }} className="vo-contact-grid">
 
-        {/* Two columns */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.4fr) minmax(0, 1fr)', gap: 32, alignItems: 'flex-start' }} className="contact-grid">
-          {/* LEFT: Form */}
-          <div>
-            <ContactForm />
-          </div>
+          <aside style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
 
-          {/* RIGHT: Direct contact */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-            <div style={{
-              padding: 28,
-              background: 'linear-gradient(155deg, rgba(37,211,102,0.08) 0%, rgba(12,12,12,0.85) 60%)',
-              border: '1px solid rgba(37,211,102,0.25)',
-              borderRadius: 24,
-              boxShadow: '0 20px 50px rgba(0,0,0,0.3), 0 0 50px rgba(37,211,102,0.1)',
-            }}>
-              <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#25D366', marginBottom: 6 }}>
-                Más rápido
-              </p>
-              <h3 style={{ fontFamily: 'Syne,sans-serif', fontWeight: 800, fontSize: 22, color: '#fff', letterSpacing: '-0.02em', marginBottom: 16 }}>
-                Escribinos por WhatsApp
-              </h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                {TEAM.map((m) => (
-                  <motion.a
-                    key={m.wa}
-                    href={`https://wa.me/${m.wa}?text=Hola ${m.short}! Vi el sitio de VO Studio y me interesa un proyecto.`}
-                    target="_blank" rel="noopener noreferrer"
-                    whileHover={{ scale: 1.02, x: 4 }}
-                    whileTap={{ scale: 0.98 }}
-                    style={{
-                      display: 'flex', alignItems: 'center', gap: 14,
-                      padding: '12px 16px', borderRadius: 14,
-                      background: 'rgba(37,211,102,0.12)',
-                      border: '1px solid rgba(37,211,102,0.25)',
-                      color: '#fff', textDecoration: 'none',
-                    }}
-                  >
-                    <div style={{
-                      width: 38, height: 38, borderRadius: '50%',
-                      background: '#25D366',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      color: '#fff', flexShrink: 0,
-                    }}>
-                      <WA />
-                    </div>
-                    <div style={{ flex: 1, minWidth: 0 }}>
-                      <p style={{ fontSize: 13, fontWeight: 700, color: '#fff', marginBottom: 2 }}>{m.short}</p>
-                      <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.5)' }}>{m.phone.slice(0,4)}-{m.phone.slice(4)}</p>
-                    </div>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ color: 'rgba(255,255,255,0.5)', flexShrink: 0 }}>
-                      <line x1="5" y1="12" x2="19" y2="12" />
-                      <polyline points="12 5 19 12 12 19" />
-                    </svg>
-                  </motion.a>
-                ))}
-              </div>
-            </div>
-
-            {/* Cal.com booking */}
-            <motion.button
-              data-cal-link={CAL_LINK}
-              data-cal-namespace="vostudio"
-              data-cal-config='{"layout":"month_view"}'
-              whileHover={{ scale: 1.02, x: 4 }}
-              whileTap={{ scale: 0.98 }}
+            <motion.a
+              href={`https://cal.com/${CAL_LINK}`} target="_blank" rel="noreferrer"
+              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }} transition={{ duration: 0.7 }}
+              whileHover={{ y: -4 }}
               style={{
-                display: 'flex', alignItems: 'center', gap: 14,
-                padding: '18px 22px', borderRadius: 20, width: '100%',
-                background: `linear-gradient(155deg, ${VO}12 0%, rgba(12,12,12,0.7) 60%)`,
-                border: `1px solid ${VO}30`,
-                cursor: 'pointer', textAlign: 'left',
+                position: 'relative', overflow: 'hidden',
+                background: '#0A0A0A', color: '#fff',
+                padding: 28,
+                boxShadow: '0 20px 50px rgba(10,10,10,0.2)',
+                display: 'block',
               }}
             >
-              <div style={{ width: 42, height: 42, borderRadius: 13, background: `${VO}20`, border: `1px solid ${VO}40`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: VO, flexShrink: 0 }}>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <motion.span aria-hidden
+                animate={{ x: [0, 30, -10, 0], y: [0, -20, 10, 0] }}
+                transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
+                style={{
+                  position: 'absolute', top: '-50%', right: '-30%',
+                  width: 280, height: 280, borderRadius: '50%',
+                  background: `radial-gradient(circle, ${A} 0%, transparent 65%)`,
+                  filter: 'blur(40px)', opacity: 0.5, pointerEvents: 'none',
+                }} />
+              <div style={{ position: 'relative' }}>
+                <div style={{
+                  display: 'inline-flex', alignItems: 'center', gap: 8,
+                  padding: '5px 10px', background: 'rgba(34,197,94,0.15)', border: '1px solid rgba(34,197,94,0.4)',
+                  color: '#86efac',
+                  fontFamily: F_MONO, fontSize: 10, fontWeight: 700,
+                  letterSpacing: '0.12em', textTransform: 'uppercase',
+                  marginBottom: 20,
+                }}>
+                  <motion.span
+                    animate={{ opacity: [0.4, 1, 0.4] }}
+                    transition={{ duration: 1.8, repeat: Infinity }}
+                    style={{ width: 6, height: 6, background: '#86efac', borderRadius: '50%' }}
+                  />
+                  {t('common.eyebrow.accepting').split('·')[0].trim()}
+                </div>
+                <h3 style={{
+                  fontFamily: F_DISPLAY, fontWeight: 400,
+                  fontSize: 'clamp(26px, 2.6vw, 34px)', letterSpacing: '-0.02em', lineHeight: 1.05,
+                  marginBottom: 12,
+                }}>
+                  {t('contact.featured.title.1')} <span style={{ fontStyle: 'italic', color: '#86efac' }}>{t('contact.featured.title.2')}</span>
+                </h3>
+                <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.7)', lineHeight: 1.5, marginBottom: 22 }}>
+                  {t('contact.featured.desc')}
+                </p>
+                <div className="arrow-slide-parent" style={{
+                  display: 'inline-flex', alignItems: 'center', gap: 10,
+                  padding: '12px 18px', background: '#fff', color: '#0A0A0A',
+                  fontSize: 13, fontWeight: 700,
+                }}>
+                  {t('common.cta.bookSlot')}
+                  <span className="arrow-slide">→</span>
+                </div>
               </div>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: VO, marginBottom: 4 }}>Consulta gratis</p>
-                <p style={{ fontSize: 14, fontWeight: 700, color: '#fff' }}>Agendar 15 minutos →</p>
-              </div>
-            </motion.button>
+            </motion.a>
 
-            {/* Email */}
-            <a
-              href="mailto:hola@vostudio.cr"
-              style={{
-                display: 'flex', alignItems: 'center', gap: 14,
-                padding: '20px 22px', borderRadius: 20,
-                background: 'rgba(255,255,255,0.03)',
-                border: '1px solid rgba(255,255,255,0.08)',
-                color: '#fff', textDecoration: 'none',
-                transition: 'all 0.25s',
-              }}
-              onMouseEnter={(e) => { e.currentTarget.style.borderColor = `${VO}50`; e.currentTarget.style.background = `${VO}08`; }}
-              onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; e.currentTarget.style.background = 'rgba(255,255,255,0.03)'; }}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.15 }}
+              style={{ background: BG_CARD, border: `1px solid ${BORDER}` }}
             >
               <div style={{
-                width: 38, height: 38, borderRadius: 12,
-                background: `${VO}20`, border: `1px solid ${VO}40`,
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                color: VO, flexShrink: 0,
+                padding: '14px 20px', borderBottom: `1px solid ${BORDER}`,
+                fontFamily: F_MONO, fontSize: 10, color: TEXT_D, letterSpacing: '0.12em',
+                textTransform: 'uppercase', fontWeight: 600,
               }}>
-                <MailIcon />
+                {t('contact.channels')}
               </div>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.45)', marginBottom: 4 }}>
-                  Email
-                </p>
-                <p style={{ fontSize: 14, fontWeight: 600, color: '#fff' }}>hola@vostudio.cr</p>
-              </div>
-            </a>
+              {CONTACT_METHODS.map((m, i) => (
+                <a key={m.label} href={m.href} target={m.href.startsWith('http') ? '_blank' : undefined} rel="noreferrer"
+                  className="arrow-slide-parent"
+                  style={{
+                    padding: '16px 20px',
+                    borderTop: i > 0 ? `1px solid ${BORDER}` : 'none',
+                    display: 'flex', alignItems: 'center', gap: 14,
+                    transition: 'background 0.15s',
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = BG_ALT}
+                  onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                >
+                  <span style={{
+                    width: 38, height: 38, flexShrink: 0,
+                    background: `${m.color}12`, color: m.color,
+                    border: `1px solid ${m.color}30`,
+                    display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                  }}>
+                    <svg width="18" height="18" viewBox="0 0 24 24">{m.icon}</svg>
+                  </span>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ fontSize: 11, color: TEXT_D, fontFamily: F_MONO, letterSpacing: '0.08em', textTransform: 'uppercase', fontWeight: 600 }}>{m.label}</div>
+                    <div style={{ fontSize: 14, color: TEXT, fontWeight: 600, marginTop: 2 }}>{m.title}</div>
+                  </div>
+                  <span className="arrow-slide" style={{ color: TEXT_D, fontSize: 14 }}>→</span>
+                </a>
+              ))}
+            </motion.div>
 
-            {/* Info box */}
-            <div style={{
-              padding: 22, borderRadius: 20,
-              background: 'rgba(255,255,255,0.02)',
-              border: '1px solid rgba(255,255,255,0.06)',
-              display: 'flex', flexDirection: 'column', gap: 12,
-            }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10, color: 'rgba(255,255,255,0.6)', fontSize: 13 }}>
-                <span style={{ color: VO }}><PinIcon /></span>
-                San Carlos, Alajuela · Costa Rica
+            <motion.div
+              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.3 }}
+              style={{ background: BG_CARD, border: `1px solid ${BORDER}`, padding: 24 }}
+            >
+              <div style={{
+                fontFamily: F_MONO, fontSize: 10, color: TEXT_D, letterSpacing: '0.12em',
+                textTransform: 'uppercase', fontWeight: 600, marginBottom: 16,
+              }}>
+                {t('contact.directWith')}
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10, color: 'rgba(255,255,255,0.6)', fontSize: 13 }}>
-                <span style={{ color: VO }}><ClockIcon /></span>
-                Lunes a viernes · 8am – 6pm GMT-6
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                gap: 14,
+              }}>
+                {TEAM.map((p, i) => (
+                  <div key={p.short} style={{
+                    padding: 16,
+                    border: `1px solid ${BORDER}`,
+                    display: 'flex', flexDirection: 'column', gap: 12,
+                    background: 'transparent',
+                  }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                      <div style={{ position: 'relative', flexShrink: 0 }}>
+                        <div style={{
+                          width: 44, height: 44, borderRadius: '50%',
+                          background: AVATAR_COLORS[i], color: '#fff',
+                          display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                          fontFamily: F_MONO, fontSize: 14, fontWeight: 700,
+                        }}>
+                          {p.initials}
+                        </div>
+                        <span style={{
+                          position: 'absolute', bottom: 0, right: 0,
+                          width: 11, height: 11, background: '#22C55E',
+                          border: `2px solid ${BG_CARD}`, borderRadius: '50%',
+                        }} />
+                      </div>
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <div style={{ fontFamily: F_DISPLAY, fontSize: 17, color: TEXT, letterSpacing: '-0.015em', lineHeight: 1.15 }}>
+                          {p.name}
+                        </div>
+                      </div>
+                    </div>
+                    <div style={{ fontSize: 11, color: TEXT_S, fontFamily: F_MONO, lineHeight: 1.4 }}>
+                      {locale === 'en' ? p.role_en : p.role_es}
+                    </div>
+                    <a href={`mailto:${p.email}`}
+                      style={{
+                        display: 'inline-flex', alignItems: 'center', gap: 6,
+                        fontSize: 11, color: A, fontWeight: 600,
+                        padding: '5px 10px', background: `${A}10`, border: `1px solid ${A}33`,
+                        wordBreak: 'break-all', alignSelf: 'flex-start',
+                      }}>
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ flexShrink: 0 }}><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+                      {p.email}
+                    </a>
+                  </div>
+                ))}
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10, color: 'rgba(255,255,255,0.6)', fontSize: 13 }}>
-                <span style={{ width: 14, height: 14, borderRadius: '50%', background: '#25D366', boxShadow: '0 0 10px #25D36680', display: 'inline-block' }} />
-                Disponibles para nuevos proyectos
+            </motion.div>
+          </aside>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+            <ContactForm />
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.2 }}
+              style={{
+                background: BG_CARD, border: `1px solid ${BORDER}`,
+                padding: 'clamp(24px, 3vw, 36px)',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
+                <span style={{ width: 24, height: 1, background: A }} />
+                <span style={{
+                  fontFamily: F_MONO, fontSize: 10, color: TEXT_S,
+                  letterSpacing: '0.18em', textTransform: 'uppercase', fontWeight: 600,
+                }}>
+                  {t('contact.next.eyebrow')}
+                </span>
               </div>
-            </div>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
+                gap: 20,
+              }}>
+                {NEXT_STEPS.map((s, i) => (
+                  <div key={s.n} style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <span style={{
+                        width: 26, height: 26,
+                        display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                        background: A, color: '#fff',
+                        fontFamily: F_MONO, fontSize: 10, fontWeight: 700, letterSpacing: '0.05em',
+                      }}>{s.n}</span>
+                      {i < NEXT_STEPS.length - 1 && (
+                        <span style={{ flex: 1, height: 1, background: BORDER }} />
+                      )}
+                    </div>
+                    <div style={{
+                      fontFamily: F_DISPLAY, fontSize: 17, color: TEXT,
+                      letterSpacing: '-0.015em', lineHeight: 1.15,
+                    }}>{s.title}</div>
+                    <div style={{ fontSize: 12, color: TEXT_S, lineHeight: 1.45 }}>{s.sub}</div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
           </div>
         </div>
       </div>
 
       <style>{`
         @media (max-width: 900px) {
-          .contact-grid { grid-template-columns: 1fr !important; }
+          .vo-contact-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </section>

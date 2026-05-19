@@ -1,152 +1,230 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useMagnetic } from '../hooks/useMagnetic';
-import { VO, CAL_LINK } from '../data/content';
+import { BG, BORDER, TEXT, TEXT_S, BG_CARD_ALT, F_DISPLAY, F_MONO, MAX_W, PAD_X } from '../theme';
+import { useApp } from '../context/AppContext';
 
-const LINKS = [
-  { label: 'Manifiesto', id: 'manifiesto' },
-  { label: 'Servicios',  id: 'servicios' },
-  { label: 'Precios',    id: 'precios' },
-  { label: 'Proyectos',  id: 'proyectos' },
-  { label: 'Proceso',    id: 'proceso' },
-  { label: 'Equipo',     id: 'equipo' },
-  { label: 'Contacto',   id: 'contacto' },
-];
-
-function MagneticLink({ label, href, active }) {
-  const { ref, x, y, onMouseMove, onMouseLeave } = useMagnetic(0.5);
+function ThemeToggle() {
+  const { theme, toggleTheme } = useApp();
+  const isDark = theme === 'dark';
   return (
-    <motion.a
-      ref={ref}
-      href={href}
-      onMouseMove={onMouseMove}
-      onMouseLeave={onMouseLeave}
-      style={{ x, y, position: 'relative', fontSize: 12, fontWeight: active ? 700 : 600, textDecoration: 'none', letterSpacing: '0.04em', display: 'inline-block', padding: '8px 14px', color: active ? '#fff' : 'rgba(255,255,255,0.5)' }}
+    <button
+      onClick={toggleTheme}
+      aria-label={isDark ? 'Activar tema claro' : 'Activar tema oscuro'}
+      style={{
+        width: 36, height: 36,
+        display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+        border: `1px solid ${BORDER}`,
+        color: TEXT, background: 'transparent',
+        transition: 'background 0.15s, border-color 0.15s',
+      }}
+      onMouseEnter={(e) => { e.currentTarget.style.background = BG_CARD_ALT; }}
+      onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; }}
     >
-      {label}
-      {active && (
-        <motion.span
-          layoutId="nav-active"
-          style={{ position: 'absolute', bottom: 4, left: '50%', transform: 'translateX(-50%)', width: 4, height: 4, borderRadius: '50%', background: VO, boxShadow: `0 0 8px ${VO}` }}
-        />
-      )}
-    </motion.a>
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.svg key={isDark ? 'sun' : 'moon'}
+          initial={{ rotate: -90, opacity: 0, scale: 0.6 }}
+          animate={{ rotate: 0, opacity: 1, scale: 1 }}
+          exit={{ rotate: 90, opacity: 0, scale: 0.6 }}
+          transition={{ duration: 0.25 }}
+          width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+        >
+          {isDark ? (
+            // Sun
+            <>
+              <circle cx="12" cy="12" r="4"/>
+              <line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/>
+              <line x1="4.93" y1="4.93" x2="7.05" y2="7.05"/><line x1="16.95" y1="16.95" x2="19.07" y2="19.07"/>
+              <line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/>
+              <line x1="4.93" y1="19.07" x2="7.05" y2="16.95"/><line x1="16.95" y1="7.05" x2="19.07" y2="4.93"/>
+            </>
+          ) : (
+            // Moon
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          )}
+        </motion.svg>
+      </AnimatePresence>
+    </button>
   );
 }
 
-function BookingCTA() {
-  const { ref, x, y, onMouseMove, onMouseLeave } = useMagnetic(0.4);
+function LocaleToggle() {
+  const { locale, setLocale, locales } = useApp();
+  const [open, setOpen] = useState(false);
+  const current = locales.find((l) => l.code === locale) || locales[0];
+
+  useEffect(() => {
+    if (!open) return;
+    const onClick = () => setOpen(false);
+    window.addEventListener('click', onClick);
+    return () => window.removeEventListener('click', onClick);
+  }, [open]);
+
   return (
-    <motion.button
-      ref={ref}
-      onMouseMove={onMouseMove}
-      onMouseLeave={onMouseLeave}
-      whileHover={{ scale: 1.04 }}
-      whileTap={{ scale: 0.96 }}
-      title="Agendá una consulta gratis de 15 minutos"
-      // Cal.com popup — abre el widget de booking sin salir de la página
-      data-cal-link={CAL_LINK}
-      data-cal-namespace="vostudio"
-      data-cal-config='{"layout":"month_view"}'
-      style={{ x, y, fontSize: 12, fontWeight: 700, padding: '10px 22px', borderRadius: 50, background: VO, color: '#fff', border: 'none', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 6, boxShadow: `0 6px 20px ${VO}40`, letterSpacing: '0.02em' }}
-    >
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-      Agendar gratis
-    </motion.button>
+    <div style={{ position: 'relative' }} onClick={(e) => e.stopPropagation()}>
+      <button
+        onClick={() => setOpen(!open)}
+        style={{
+          height: 36, padding: '0 12px',
+          display: 'inline-flex', alignItems: 'center', gap: 8,
+          border: `1px solid ${BORDER}`, color: TEXT,
+          fontFamily: F_MONO, fontSize: 11, fontWeight: 600, letterSpacing: '0.08em',
+          transition: 'background 0.15s',
+        }}
+        onMouseEnter={(e) => { e.currentTarget.style.background = BG_CARD_ALT; }}
+        onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; }}
+      >
+        <span>{current.short}</span>
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"
+          style={{ transition: 'transform 0.2s', transform: open ? 'rotate(180deg)' : 'rotate(0)' }}>
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </button>
+      <AnimatePresence>
+        {open && (
+          <motion.ul
+            initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }}
+            transition={{ duration: 0.15 }}
+            style={{
+              position: 'absolute', top: 'calc(100% + 6px)', right: 0,
+              minWidth: 140, listStyle: 'none',
+              background: BG, border: `1px solid ${BORDER}`,
+              boxShadow: '0 12px 30px rgba(0,0,0,0.12)',
+              zIndex: 100,
+            }}
+          >
+            {locales.map((l) => {
+              const active = l.code === locale;
+              return (
+                <li key={l.code}>
+                  <button
+                    onClick={() => { setLocale(l.code); setOpen(false); }}
+                    style={{
+                      width: '100%', padding: '10px 14px',
+                      display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12,
+                      fontSize: 13, color: TEXT, fontWeight: active ? 600 : 500,
+                      background: active ? BG_CARD_ALT : 'transparent',
+                      textAlign: 'left',
+                    }}
+                    onMouseEnter={(e) => { if (!active) e.currentTarget.style.background = BG_CARD_ALT; }}
+                    onMouseLeave={(e) => { if (!active) e.currentTarget.style.background = 'transparent'; }}
+                  >
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 10 }}>
+                      <span style={{ fontSize: 14 }}>{l.flag}</span>
+                      {l.label}
+                    </span>
+                    <span style={{ fontFamily: F_MONO, fontSize: 10, color: TEXT_S, letterSpacing: '0.08em' }}>{l.short}</span>
+                  </button>
+                </li>
+              );
+            })}
+          </motion.ul>
+        )}
+      </AnimatePresence>
+    </div>
   );
 }
 
 export function Navbar() {
+  const { t } = useApp();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const [activeId, setActiveId] = useState('');
+
+  const LINKS = [
+    { href: '#servicios', label: t('nav.services') },
+    { href: '#precios',   label: t('nav.pricing') },
+    { href: '#proyectos', label: t('nav.projects') },
+    { href: '#proceso',   label: t('nav.process') },
+    { href: '#faq',       label: t('nav.faq') },
+  ];
 
   useEffect(() => {
-    const getActive = () => {
-      const center = window.scrollY + window.innerHeight / 2;
-      let found = '';
-      LINKS.forEach(({ id }) => {
-        const el = document.getElementById(id);
-        if (el && el.offsetTop <= center && el.offsetTop + el.offsetHeight > center) found = id;
-      });
-      return found;
-    };
-
-    const onScroll = () => {
-      setScrolled(window.scrollY > 60);
-      setActiveId(getActive());
-    };
-
-    // Initial check after layout paint
-    const raf = requestAnimationFrame(() => setActiveId(getActive()));
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => { cancelAnimationFrame(raf); window.removeEventListener('scroll', onScroll); };
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   return (
     <header
       style={{
-        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50,
-        transition: 'all 0.45s cubic-bezier(0.22,1,0.36,1)',
-        background: scrolled ? 'rgba(5,5,5,0.82)' : 'transparent',
-        backdropFilter: scrolled ? 'blur(24px) saturate(140%)' : 'none',
-        WebkitBackdropFilter: scrolled ? 'blur(24px) saturate(140%)' : 'none',
-        borderBottom: scrolled ? '1px solid rgba(255,255,255,0.06)' : '1px solid transparent',
+        position: 'sticky', top: 0, zIndex: 50,
+        background: BG,
+        borderBottom: `1px solid ${scrolled ? BORDER : 'transparent'}`,
+        transition: 'border-color 0.2s, background 0.3s',
       }}
     >
-      <div style={{ maxWidth: 1320, margin: '0 auto', padding: '0 24px', height: 64, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <motion.a href="#inicio" whileHover={{ scale: 1.04 }}
-          style={{ fontFamily: 'Syne,sans-serif', fontWeight: 800, fontSize: 17, color: '#fff', textDecoration: 'none', letterSpacing: '-0.01em', display: 'inline-flex', alignItems: 'center', gap: 8 }}>
-          <motion.span animate={{ rotate: 360 }} transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
-            style={{ width: 10, height: 10, borderRadius: '50%', background: VO, display: 'inline-block', boxShadow: `0 0 12px ${VO}` }} />
-          VO <span style={{ color: VO }}>STUDIO</span>
-        </motion.a>
+      <div
+        style={{
+          maxWidth: MAX_W, margin: '0 auto',
+          padding: `14px ${PAD_X}`,
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 24,
+        }}
+      >
+        <a href="#top" style={{ fontFamily: F_DISPLAY, fontSize: 26, fontStyle: 'italic', letterSpacing: '-0.01em', color: TEXT, lineHeight: 1 }}>
+          VO Studio
+        </a>
 
-        <nav style={{ display: 'flex', alignItems: 'center', gap: 4 }} className="hidden md:flex">
+        <nav style={{ display: 'flex', gap: 28, alignItems: 'center' }} className="vo-nav-links">
           {LINKS.map((l) => (
-            <MagneticLink key={l.id} label={l.label} href={`#${l.id}`} active={activeId === l.id} />
+            <a key={l.href} href={l.href}
+              style={{ fontSize: 14, fontWeight: 500, color: TEXT_S, transition: 'color 0.15s' }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = TEXT)}
+              onMouseLeave={(e) => (e.currentTarget.style.color = TEXT_S)}
+            >
+              {l.label}
+            </a>
           ))}
-          <div style={{ marginLeft: 14 }}>
-            <BookingCTA />
-          </div>
         </nav>
 
-        <button onClick={() => setOpen((v) => !v)} aria-label="Menú" className="md:hidden"
-          style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', color: '#fff', padding: 8, borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <motion.div animate={{ rotate: open ? 90 : 0 }} transition={{ duration: 0.3 }}>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              {open ? <><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></> : <><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="13" x2="20" y2="13"/><line x1="4" y1="19" x2="20" y2="19"/></>}
-            </svg>
-          </motion.div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <LocaleToggle />
+          <ThemeToggle />
+          <a href="#contacto" className="vo-nav-cta"
+            style={{
+              background: TEXT, color: BG,
+              padding: '11px 20px', fontSize: 13, fontWeight: 600,
+              display: 'inline-flex', alignItems: 'center', gap: 8,
+              transition: 'opacity 0.15s',
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.85')}
+            onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
+          >
+            {t('common.cta.quote')}
+            <span style={{ fontSize: 16, lineHeight: 1 }}>→</span>
+          </a>
+        </div>
+
+        <button
+          onClick={() => setOpen(!open)}
+          aria-label="Menu"
+          className="vo-nav-burger"
+          style={{ display: 'none', padding: 8, color: TEXT }}
+        >
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            {open ? <><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></> : <><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></>}
+          </svg>
         </button>
       </div>
 
-      <AnimatePresence>
-        {open && (
-          <motion.nav initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            style={{ overflow: 'hidden', background: 'rgba(5,5,5,0.96)', borderTop: '1px solid rgba(255,255,255,0.06)', backdropFilter: 'blur(20px)' }}>
-            <div style={{ padding: '12px 24px 20px' }}>
-              {LINKS.map((l, i) => (
-                <motion.a key={l.id} href={`#${l.id}`} onClick={() => setOpen(false)}
-                  initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.04 + i * 0.04 }}
-                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '15px 0', fontFamily: 'Syne,sans-serif', fontSize: 20, fontWeight: 700, color: activeId === l.id ? VO : '#fff', textDecoration: 'none', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-                  {l.label}
-                  <span style={{ color: VO, fontSize: 14 }}>→</span>
-                </motion.a>
-              ))}
-              <motion.button
-                initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.04 + LINKS.length * 0.04 }}
-                data-cal-link={CAL_LINK} data-cal-namespace="vostudio" data-cal-config='{"layout":"month_view"}'
-                onClick={() => setOpen(false)}
-                style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '15px 0', fontFamily: 'Syne,sans-serif', fontSize: 20, fontWeight: 700, color: VO, background: 'none', border: 'none', width: '100%', cursor: 'pointer' }}>
-                Agendar consulta gratis
-                <span style={{ fontSize: 14 }}>↗</span>
-              </motion.button>
-            </div>
-          </motion.nav>
-        )}
-      </AnimatePresence>
+      {open && (
+        <div style={{ borderTop: `1px solid ${BORDER}`, padding: `16px ${PAD_X} 24px`, display: 'flex', flexDirection: 'column', gap: 16, background: BG }}>
+          {LINKS.map((l) => (
+            <a key={l.href} href={l.href} onClick={() => setOpen(false)} style={{ fontSize: 16, color: TEXT, fontWeight: 500 }}>{l.label}</a>
+          ))}
+          <div style={{ display: 'flex', gap: 10, marginTop: 8 }}>
+            <LocaleToggle />
+            <ThemeToggle />
+          </div>
+          <a href="#contacto" onClick={() => setOpen(false)} style={{ background: TEXT, color: BG, padding: '13px 20px', fontSize: 14, fontWeight: 600, textAlign: 'center' }}>{t('common.cta.quoteProj')} →</a>
+        </div>
+      )}
+
+      <style>{`
+        @media (max-width: 900px) {
+          .vo-nav-links, .vo-nav-cta { display: none !important; }
+          .vo-nav-burger { display: inline-flex !important; }
+        }
+      `}</style>
     </header>
   );
 }
