@@ -1,4 +1,5 @@
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { AmbientBackground } from './components/AmbientBackground';
 import { Navbar } from './components/Navbar';
@@ -31,6 +32,7 @@ export default function App() {
       </main>
       <Footer />
       <Analytics />
+      <SpeedInsights />
     </ErrorBoundary>
   );
 }
