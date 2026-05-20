@@ -8,15 +8,15 @@
 :root {
   /* Light theme (default) */
   --bg:           #FFFFFF;
-  --bg-alt:       #F0F4F8;
-  --bg-soft:      #F8FAFB;
-  --bg-tint:      #E8F4F8;
+  --bg-alt:       #F1EFE7;
+  --bg-soft:      #FAFAF7;
+  --bg-tint:      #EEF2FF;
   --bg-card:      #FFFFFF;
-  --bg-card-alt:  #F8FAFB;
-  --bg-dark:      #00101E;
-  --bg-popular:   #00101E;
+  --bg-card-alt:  #FAFAF7;
+  --bg-dark:      #0A0A0A;
+  --bg-popular:   #0A0A0A;
   --popular-fg:   #FAFAFA;
-  --popular-border: rgba(0,191,255,0.6);
+  --popular-border: rgba(29,78,216,0.6);
 
   --text:         #0A0A0A;
   --text-s:       #525252;
@@ -26,9 +26,9 @@
   --border:       #E5E5E5;
   --border-s:     #EAEAEA;
 
-  --accent:       #007ACC;
-  --accent-l:     #00BFFF;
-  --accent-d:     #008C8C;
+  --accent:       #EA580C;
+  --accent-l:     #F97316;
+  --accent-d:     #C2410C;
 
   --shadow-sm:    0 1px 0 rgba(10,10,10,0.02);
   --shadow-md:    0 4px 16px rgba(10,10,10,0.04);
@@ -39,34 +39,33 @@
 }
 
 :root[data-theme="dark"] {
-  /* Midnight Glow dark mode */
-  --bg:           #00101E;
-  --bg-alt:       #001428;
-  --bg-soft:      #001830;
-  --bg-tint:      #001F3F;
-  --bg-card:      #001428;
-  --bg-card-alt:  #001830;
-  --bg-dark:      #000C15;
-  --bg-popular:   #001F3F;
+  --bg:           #0A0A0A;
+  --bg-alt:       #141414;
+  --bg-soft:      #1A1A1A;
+  --bg-tint:      #1A2342;
+  --bg-card:      #141414;
+  --bg-card-alt:  #1A1A1A;
+  --bg-dark:      #050505;
+  --bg-popular:   #3A1F0A;
   --popular-fg:   #FFFFFF;
-  --popular-border: rgba(0,191,255,0.75);
+  --popular-border: rgba(249,115,22,0.75);
 
-  --accent:       #00BFFF;
-  --accent-l:     #33D4FF;
-  --accent-d:     #008C8C;
+  --accent:       #F97316;
+  --accent-l:     #FB923C;
+  --accent-d:     #EA580C;
 
   --text:         #FAFAFA;
   --text-s:       #A3A3A3;
   --text-d:       #525252;
-  --text-inv:     #00101E;
+  --text-inv:     #0A0A0A;
 
-  --border:       #0A2540;
-  --border-s:     #081E34;
+  --border:       #262626;
+  --border-s:     #1F1F1F;
 
   --shadow-sm:    0 1px 0 rgba(0,0,0,0.4);
-  --shadow-md:    0 4px 16px rgba(0,0,0,0.5);
-  --shadow-lg:    0 20px 50px rgba(0,0,0,0.6);
-  --shadow-xl:    0 30px 80px rgba(0,0,0,0.7);
+  --shadow-md:    0 4px 16px rgba(0,0,0,0.35);
+  --shadow-lg:    0 20px 50px rgba(0,0,0,0.5);
+  --shadow-xl:    0 30px 80px rgba(0,0,0,0.6);
 
   color-scheme: dark;
 }
@@ -101,7 +100,7 @@ img, svg { display: block; max-width: 100%; }
 button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
 a { color: inherit; text-decoration: none; }
 
-::selection { background: var(--accent); color: #fff; }
+::selection { background: var(--text); color: var(--bg); }
 
 ::-webkit-scrollbar { width: 10px; height: 10px; }
 ::-webkit-scrollbar-track { background: transparent; }
@@ -154,12 +153,12 @@ a { color: inherit; text-decoration: none; }
 }
 
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(0,191,255,0.5); }
-  50%      { box-shadow: 0 0 0 16px rgba(0,191,255,0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(234,88,12,0.5); }
+  50%      { box-shadow: 0 0 0 16px rgba(234,88,12,0); }
 }
 .pulse-glow { animation: pulse-glow 2.4s ease-out infinite; }
 
-/* ─── 3D orb badge — Midnight Glow ─── */
+/* ─── 3D orb badge ─── */
 @keyframes orb-float {
   0%, 100% { transform: translateY(0) rotate(0deg); }
   50%      { transform: translateY(-3px) rotate(8deg); }
@@ -176,7 +175,7 @@ a { color: inherit; text-decoration: none; }
 .vo-orb-halo {
   position: absolute; inset: -4px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(0,191,255,0.6) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(249,115,22,0.6) 0%, transparent 70%);
   animation: orb-halo 2.4s ease-out infinite;
   pointer-events: none;
 }
@@ -185,9 +184,9 @@ a { color: inherit; text-decoration: none; }
   width: 100%; height: 100%;
   border-radius: 50%;
   background:
-    radial-gradient(circle at 30% 25%, #FFFFFF 0%, #B3E8FF 8%, #00BFFF 30%, #008C8C 65%, #001F3F 100%);
+    radial-gradient(circle at 30% 25%, #FFFFFF 0%, #FED7AA 8%, #FB923C 30%, #EA580C 65%, #7C2D12 100%);
   box-shadow:
-    0 10px 24px rgba(0,191,255,0.5),
+    0 10px 24px rgba(234,88,12,0.5),
     inset 0 -4px 8px rgba(0,0,0,0.35),
     inset 0 2px 4px rgba(255,255,255,0.5);
   animation: orb-float 4s ease-in-out infinite;
@@ -214,7 +213,7 @@ a { color: inherit; text-decoration: none; }
 .vo-sparkle {
   position: absolute;
   font-size: 10px;
-  color: #00BFFF;
+  color: #F59E0B;
   pointer-events: none;
   animation: sparkle-twinkle 2.5s ease-in-out infinite;
 }
@@ -240,9 +239,9 @@ a { color: inherit; text-decoration: none; }
   margin: -28px 0 0 -28px;
   border-radius: 50%;
   background:
-    radial-gradient(circle at 30% 25%, #FFFFFF 0%, #B3E8FF 8%, #00BFFF 30%, #008C8C 65%, #001F3F 100%);
+    radial-gradient(circle at 30% 25%, #FFFFFF 0%, #FED7AA 8%, #FB923C 30%, #EA580C 65%, #7C2D12 100%);
   box-shadow:
-    0 10px 24px rgba(0,191,255,0.45),
+    0 10px 24px rgba(234,88,12,0.45),
     inset 0 -4px 8px rgba(0,0,0,0.35),
     inset 0 2px 4px rgba(255,255,255,0.5);
   z-index: 2;
@@ -257,34 +256,34 @@ a { color: inherit; text-decoration: none; }
 .vo-stat-3d-orbit {
   position: absolute; inset: 0;
   border-radius: 50%;
-  border: 1.5px solid rgba(0,191,255,0.5);
+  border: 1.5px solid rgba(234,88,12,0.5);
   animation: hero3d-spin 14s linear infinite;
 }
 .vo-stat-3d-orbit::after {
   content: ''; position: absolute;
   width: 8px; height: 8px;
-  background: #00BFFF;
+  background: #F59E0B;
   border-radius: 50%;
   top: -4px; left: 50%;
   margin-left: -4px;
-  box-shadow: 0 0 12px rgba(0,191,255,0.8);
+  box-shadow: 0 0 12px rgba(245,158,11,0.8);
 }
 .vo-stat-3d-orbit-2 {
   position: absolute; inset: 8px;
   border-radius: 50%;
-  border: 1px dashed rgba(0,191,255,0.3);
+  border: 1px dashed rgba(234,88,12,0.3);
   animation: hero3d-spin 22s linear infinite reverse;
 }
 .vo-stat-3d-orbit-3 {
   position: absolute; inset: -8px;
   border-radius: 50%;
-  border: 1px solid rgba(0,191,255,0.15);
+  border: 1px solid rgba(234,88,12,0.15);
   animation: hero3d-spin 30s linear infinite;
 }
 .vo-stat-3d-orbit-3::after {
   content: ''; position: absolute;
   width: 5px; height: 5px;
-  background: #008C8C;
+  background: #C2410C;
   border-radius: 50%;
   bottom: -2.5px; left: 50%;
   margin-left: -2.5px;
@@ -308,7 +307,7 @@ a { color: inherit; text-decoration: none; }
   100% { background-position: 0% 50%; }
 }
 .gradient-text {
-  background: linear-gradient(90deg, #00BFFF, #33D4FF, #008C8C, #00BFFF);
+  background: linear-gradient(90deg, var(--accent), var(--accent-l), var(--accent));
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;

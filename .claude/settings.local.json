@@ -37,7 +37,19 @@
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://cal.com/vostudio-cr\")",
       "Bash(wait)",
       "Bash(git add *)",
-      "Bash(git commit *)"
+      "Bash(git commit *)",
+      "Bash(git tag *)",
+      "Bash(rm -f src/components/Cursor.jsx src/components/ScrollProgress.jsx src/components/SectionDots.jsx src/components/BackToTop.jsx src/components/Preloader.jsx src/components/Features.jsx src/components/Manifesto.jsx src/components/Team.jsx src/components/AnimatedShape.jsx src/components/Icons.jsx src/components/NotFound.jsx src/hooks/useLenis.js src/hooks/useSplitText.js src/hooks/useMagnetic.js src/hooks/useMediaQuery.js src/three/HeroScene.jsx src/App.css)",
+      "Bash(rmdir src/three src/hooks)",
+      "Bash(npx vite *)",
+      "Bash(git remote *)",
+      "Bash(git branch *)",
+      "Bash(git push *)",
+      "Bash(npm i *)",
+      "Bash(node -e \"require\\('three'\\)\")",
+      "Bash(node -e \"const l = require\\('lucide-react'\\); console.log\\(Object.keys\\(l\\).filter\\(k => k.toLowerCase\\(\\).includes\\('linked'\\)\\)\\)\")",
+      "Bash(node -e \"const l = require\\('lucide-react'\\); console.log\\(Object.keys\\(l\\).length\\)\")",
+      "Bash(node -e \"const l = require\\('lucide-react'\\); console.log\\(Object.keys\\(l\\).filter\\(k => k.startsWith\\('Link'\\)\\)\\)\")"
     ]
   }
 }

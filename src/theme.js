@@ -29,12 +29,12 @@ export const TEXT_INV = 'var(--text-inv)';
 export const BORDER   = 'var(--border)';
 export const BORDER_S = 'var(--border-s)';
 
-// ─── Accent — Midnight Glow palette ─────────────────────────────────────
-export const A        = '#00BFFF';   // electric cyan (main)
-export const A_D      = '#008C8C';   // teal (dark)
-export const A_L      = '#33D4FF';   // lighter cyan
-export const A_DIM    = 'rgba(0,191,255,0.08)';
-export const A2       = '#008C8C';   // teal — secondary touches
+// ─── Accent (hex — needed by SVGs that can't use CSS vars) ──────────────
+export const A        = '#EA580C';   // orange-600
+export const A_D      = '#C2410C';   // orange-700
+export const A_L      = '#F97316';   // orange-500
+export const A_DIM    = 'rgba(234,88,12,0.08)';
+export const A2       = '#0EA5E9';   // sky — secondary touches
 
 // ─── Semantic ─────────────────────────────────────────────────────────────
 export const SUCCESS  = '#15803D';
