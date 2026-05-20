@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { MessageCircle, Palette, Code2, Rocket } from 'lucide-react';
-import { BG_ALT, BG_CARD, TEXT, TEXT_S, TEXT_D, BORDER, A, F_DISPLAY, F_MONO, MAX_W, PAD_X } from '../theme';
+import { BG, BG_ALT, BG_CARD, TEXT, TEXT_S, TEXT_D, BORDER, A, F_DISPLAY, F_MONO, MAX_W, PAD_X } from '../theme';
 import { useApp } from '../context/AppContext';
 import { SectionHeader } from './Services';
 import RadialOrbitalTimeline from './ui/radial-orbital-timeline';
@@ -42,7 +42,7 @@ export function Process() {
   }));
 
   return (
-    <section id="proceso" style={{ background: '#0A0A0A', padding: `clamp(64px, 10vh, 110px) 0`, position: 'relative', overflow: 'hidden' }}>
+    <section id="proceso" style={{ background: BG_ALT, padding: `clamp(64px, 10vh, 110px) 0`, position: 'relative', overflow: 'hidden' }}>
 
       {/* Ambient glow */}
       <div aria-hidden style={{
@@ -63,7 +63,7 @@ export function Process() {
           >
             <motion.span initial={{ width: 0 }} whileInView={{ width: 32 }} viewport={{ once: true }}
               transition={{ duration: 0.6 }} style={{ height: 1, background: A, display: 'inline-block' }} />
-            <span style={{ fontFamily: F_MONO, fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.5)' }}>
+            <span style={{ fontFamily: F_MONO, fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase', color: TEXT_S }}>
               {t('process.eyebrow')}
             </span>
           </motion.div>
@@ -75,7 +75,7 @@ export function Process() {
               fontFamily: F_DISPLAY, fontWeight: 400,
               fontSize: 'clamp(36px, 5vw, 64px)',
               lineHeight: 1.0, letterSpacing: '-0.025em',
-              color: '#FAFAFA',
+              color: TEXT,
               maxWidth: '18ch',
             }}
           >
@@ -85,7 +85,7 @@ export function Process() {
           <motion.p
             initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.2 }}
-            style={{ marginTop: 16, fontSize: 'clamp(14px, 1.1vw, 16px)', color: 'rgba(255,255,255,0.55)', maxWidth: '52ch', lineHeight: 1.65 }}
+            style={{ marginTop: 16, fontSize: 'clamp(14px, 1.1vw, 16px)', color: TEXT_S, maxWidth: '52ch', lineHeight: 1.65 }}
           >
             {t('process.intro')}
           </motion.p>
@@ -95,7 +95,7 @@ export function Process() {
         <motion.p
           initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}
           viewport={{ once: true }} transition={{ delay: 0.5, duration: 0.8 }}
-          style={{ fontFamily: F_MONO, fontSize: 10, color: 'rgba(255,255,255,0.3)', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 8, textAlign: 'center' }}
+          style={{ fontFamily: F_MONO, fontSize: 10, color: TEXT_D, letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 8, textAlign: 'center' }}
         >
           {locale === 'es' ? '↓ clic en cada fase para ver detalle ↓' : '↓ click each phase to see details ↓'}
         </motion.p>
@@ -115,8 +115,8 @@ export function Process() {
           style={{
             marginTop: 'clamp(32px, 4vw, 48px)',
             padding: '20px clamp(20px, 3vw, 32px)',
-            background: 'rgba(255,255,255,0.04)',
-            border: '1px solid rgba(255,255,255,0.1)',
+            background: BG_CARD,
+            border: `1px solid ${BORDER}`,
             display: 'flex', alignItems: 'center', justifyContent: 'space-between',
             gap: 16, flexWrap: 'wrap',
           }}
@@ -132,15 +132,15 @@ export function Process() {
               </svg>
             </span>
             <div>
-              <div style={{ fontSize: 14, fontWeight: 600, color: '#FAFAFA', lineHeight: 1.3 }}>{t('process.guarantee.t')}</div>
+              <div style={{ fontSize: 14, fontWeight: 600, color: TEXT, lineHeight: 1.3 }}>{t('process.guarantee.t')}</div>
               <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.45)' }}>{t('process.guarantee.s')}</div>
             </div>
           </div>
 
           <a href="#contacto" className="arrow-slide-parent" style={{
             display: 'inline-flex', alignItems: 'center', gap: 10,
-            fontSize: 13, fontWeight: 600, color: '#FAFAFA',
-            borderBottom: '1px solid rgba(255,255,255,0.35)', paddingBottom: 2,
+            fontSize: 13, fontWeight: 600, color: TEXT,
+            borderBottom: `1px solid ${BORDER}`, paddingBottom: 2,
           }}>
             {t('process.guarantee.cta')}
             <span className="arrow-slide">→</span>

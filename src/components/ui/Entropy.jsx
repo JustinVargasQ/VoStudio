@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-export function Entropy({ size = 480 }) {
+export function Entropy({ size = 480, theme = 'dark' }) {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -16,8 +16,8 @@ export function Entropy({ size = 480 }) {
     canvas.style.height = `${size}px`;
     ctx.scale(dpr, dpr);
 
-    // Left = chaotic (white), Right = ordered (orange)
-    const CHAOS_COLOR = '#ffffff';
+    // Chaos=left (adapts to theme), Order=right (always orange)
+    const CHAOS_COLOR = theme === 'dark' ? '#ffffff' : '#0A0A0A';
     const ORDER_COLOR = '#EA580C';
 
     class Particle {
@@ -100,6 +100,7 @@ export function Entropy({ size = 480 }) {
     function animate() {
       animId = requestAnimationFrame(animate);
       ctx.clearRect(0, 0, size, size);
+      // Transparent — section bg shows through
 
       if (time % 30 === 0) updateNeighbors();
 

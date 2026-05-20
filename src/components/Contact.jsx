@@ -1,11 +1,151 @@
-import { motion } from 'framer-motion';
-import { BG_ALT, BG_CARD, TEXT, TEXT_S, TEXT_D, BORDER, A, F_DISPLAY, F_MONO, MAX_W, PAD_X } from '../theme';
+import { useState } from 'react';
+import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from 'framer-motion';
+import { Sparkles, Mail, MapPin } from 'lucide-react';
+import { BG_ALT, BG_CARD, TEXT, TEXT_S, TEXT_D, BORDER, A, A_L, F_DISPLAY, F_MONO, MAX_W, PAD_X } from '../theme';
 import { TEAM, CAL_LINK, STUDIO_PHONE_FMT, STUDIO_WA } from '../data/content';
 import { useApp } from '../context/AppContext';
 import { ContactForm } from './ContactForm';
 import { SectionHeader } from './Services';
 
-const AVATAR_COLORS = ['#1D4ED8', '#A855F7'];
+// ── Per-member extra data ─────────────────────────────────────────────────────
+const CONTACT_META = [
+  {
+    color:  A,
+    image:  'https://api.dicebear.com/9.x/lorelei/svg?seed=JustinVargas&backgroundColor=EA580C&backgroundType=gradientLinear',
+    bio_es: 'Full-stack developer apasionado por construir sistemas robustos y experiencias digitales.',
+    bio_en: 'Full-stack developer passionate about robust systems and digital experiences.',
+    skills: ['Node.js', 'React', 'MongoDB'],
+  },
+  {
+    color:  A_L,
+    image:  'https://api.dicebear.com/9.x/lorelei/svg?seed=ZaylinLopez&backgroundColor=A855F7&backgroundType=gradientLinear',
+    bio_es: 'Especialista en UX/UI y apps móviles. Diseña interfaces atractivas y fáciles de usar.',
+    bio_en: 'UX/UI & mobile specialist. Designs compelling interfaces.',
+    skills: ['UI/UX', 'React Native', 'Figma'],
+  },
+];
+
+// ── Rich member card (theme-aware, 3D tilt) ───────────────────────────────────
+function ContactMemberCard({ member, meta }) {
+  const { locale } = useApp();
+  const [hovered, setHovered] = useState(false);
+  const reduced = useReducedMotion();
+  const mouseX  = useMotionValue(0);
+  const mouseY  = useMotionValue(0);
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [4, -4]), { stiffness: 300, damping: 30 });
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-4, 4]), { stiffness: 300, damping: 30 });
+
+  const onMouseMove = (e) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    mouseX.set((e.clientX - r.left - r.width  / 2) / (r.width  / 2));
+    mouseY.set((e.clientY - r.top  - r.height / 2) / (r.height / 2));
+  };
+  const onMouseLeave = () => { mouseX.set(0); mouseY.set(0); setHovered(false); };
+
+  const bio = locale === 'en' ? meta.bio_en : meta.bio_es;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }} transition={{ duration: 0.6 }}
+      style={{ perspective: 1000 }}
+    >
+      <motion.div
+        style={{ rotateX: reduced ? 0 : rotateX, rotateY: reduced ? 0 : rotateY, transformStyle: 'preserve-3d' }}
+        onMouseMove={onMouseMove}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={onMouseLeave}
+      >
+        <div style={{
+          background: BG_CARD, border: `1px solid ${BORDER}`,
+          borderRadius: 16, overflow: 'hidden',
+          boxShadow: hovered ? `0 20px 50px rgba(0,0,0,0.12), 0 0 0 1px ${meta.color}33` : 'none',
+          transition: 'box-shadow 0.4s',
+        }}>
+          {/* Color top bar */}
+          <div style={{ height: 3, background: meta.color }} />
+
+          {/* Hover gradient */}
+          <motion.div animate={{ opacity: hovered ? 1 : 0 }} transition={{ duration: 0.3 }}
+            style={{ position: 'absolute', inset: 0, background: `radial-gradient(ellipse at 50% 0%, ${meta.color}08, transparent 60%)`, pointerEvents: 'none', borderRadius: 16 }} />
+
+          {/* Sparkle */}
+          <motion.div animate={{ opacity: hovered ? 1 : 0, scale: hovered ? 1 : 0.5 }}
+            style={{ position: 'absolute', top: 14, right: 14, color: meta.color, zIndex: 2 }}>
+            <Sparkles size={16} />
+          </motion.div>
+
+          <div style={{ padding: '16px 18px', display: 'flex', gap: 14, position: 'relative' }}>
+            {/* Avatar */}
+            <div style={{ position: 'relative', flexShrink: 0 }}>
+              <motion.div whileHover={{ scale: 1.06 }} transition={{ type: 'spring', stiffness: 300 }}>
+                <div style={{
+                  width: 64, height: 64, borderRadius: '50%',
+                  border: `2px solid ${meta.color}40`,
+                  overflow: 'hidden', background: meta.color,
+                  position: 'relative',
+                }}>
+                  <img src={meta.image} alt={member.name}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    onError={(e) => { e.currentTarget.style.display='none'; e.currentTarget.nextSibling.style.display='flex'; }}
+                  />
+                  <div style={{ display:'none', position:'absolute', inset:0, alignItems:'center', justifyContent:'center', fontFamily:F_MONO, fontSize:18, fontWeight:700, color:'#fff' }}>
+                    {member.initials}
+                  </div>
+                </div>
+                <motion.span animate={{ scale:[1,1.3,1] }} transition={{ duration:2, repeat:Infinity }}
+                  style={{ position:'absolute', bottom:2, right:2, width:11, height:11, borderRadius:'50%', background:'#22C55E', border:`2px solid ${BG_CARD}` }} />
+              </motion.div>
+            </div>
+
+            {/* Info */}
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontFamily:F_DISPLAY, fontSize:17, color:TEXT, letterSpacing:'-0.015em', lineHeight:1.1, marginBottom:6 }}>
+                {member.name}
+              </div>
+              <div style={{
+                display:'inline-flex', alignItems:'center',
+                fontFamily:F_MONO, fontSize:9, fontWeight:700, letterSpacing:'0.16em', textTransform:'uppercase',
+                color:meta.color, padding:'3px 10px',
+                background:`${meta.color}12`, border:`1px solid ${meta.color}30`,
+                borderRadius:999, marginBottom:8,
+              }}>
+                {locale === 'en' ? 'Systems Engineer' : 'Ingeniero/a en Sistemas'}
+              </div>
+              <p style={{ fontSize:12.5, color:TEXT_S, lineHeight:1.5, marginBottom:10 }}>{bio}</p>
+
+              {/* Skills */}
+              <div style={{ display:'flex', flexWrap:'wrap', gap:5, marginBottom:10 }}>
+                {meta.skills.map(s => (
+                  <span key={s} style={{
+                    fontSize:10, fontFamily:F_MONO, fontWeight:600,
+                    padding:'3px 9px', borderRadius:999,
+                    background:BG_ALT, border:`1px solid ${BORDER}`,
+                    color:TEXT_S,
+                  }}>{s}</span>
+                ))}
+              </div>
+
+              {/* Email */}
+              <a href={`mailto:${member.email}`} style={{
+                display:'inline-flex', alignItems:'center', gap:6,
+                fontSize:11, fontFamily:F_MONO, color:meta.color,
+                borderBottom:`1px solid ${meta.color}40`, paddingBottom:1,
+                transition:'opacity 0.2s',
+              }}
+                onMouseEnter={(e) => e.currentTarget.style.opacity='0.7'}
+                onMouseLeave={(e) => e.currentTarget.style.opacity='1'}
+              >
+                <Mail size={10} />
+                {member.email}
+              </a>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
 
 export function Contact() {
   const { t, locale } = useApp();
@@ -162,68 +302,15 @@ export function Contact() {
               ))}
             </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.3 }}
-              style={{ background: BG_CARD, border: `1px solid ${BORDER}`, padding: 24 }}
-            >
-              <div style={{
-                fontFamily: F_MONO, fontSize: 10, color: TEXT_D, letterSpacing: '0.12em',
-                textTransform: 'uppercase', fontWeight: 600, marginBottom: 16,
-              }}>
+            {/* Rich team cards */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+              <div style={{ fontFamily: F_MONO, fontSize: 10, color: TEXT_D, letterSpacing: '0.18em', textTransform: 'uppercase', fontWeight: 600 }}>
                 {t('contact.directWith')}
               </div>
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                gap: 14,
-              }}>
-                {TEAM.map((p, i) => (
-                  <div key={p.short} style={{
-                    padding: 16,
-                    border: `1px solid ${BORDER}`,
-                    display: 'flex', flexDirection: 'column', gap: 12,
-                    background: 'transparent',
-                  }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                      <div style={{ position: 'relative', flexShrink: 0 }}>
-                        <div style={{
-                          width: 44, height: 44, borderRadius: '50%',
-                          background: AVATAR_COLORS[i], color: '#fff',
-                          display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                          fontFamily: F_MONO, fontSize: 14, fontWeight: 700,
-                        }}>
-                          {p.initials}
-                        </div>
-                        <span style={{
-                          position: 'absolute', bottom: 0, right: 0,
-                          width: 11, height: 11, background: '#22C55E',
-                          border: `2px solid ${BG_CARD}`, borderRadius: '50%',
-                        }} />
-                      </div>
-                      <div style={{ flex: 1, minWidth: 0 }}>
-                        <div style={{ fontFamily: F_DISPLAY, fontSize: 17, color: TEXT, letterSpacing: '-0.015em', lineHeight: 1.15 }}>
-                          {p.name}
-                        </div>
-                      </div>
-                    </div>
-                    <div style={{ fontSize: 11, color: TEXT_S, fontFamily: F_MONO, lineHeight: 1.4 }}>
-                      {locale === 'en' ? p.role_en : p.role_es}
-                    </div>
-                    <a href={`mailto:${p.email}`}
-                      style={{
-                        display: 'inline-flex', alignItems: 'center', gap: 6,
-                        fontSize: 11, color: A, fontWeight: 600,
-                        padding: '5px 10px', background: `${A}10`, border: `1px solid ${A}33`,
-                        wordBreak: 'break-all', alignSelf: 'flex-start',
-                      }}>
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ flexShrink: 0 }}><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
-                      {p.email}
-                    </a>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
+              {TEAM.map((p, i) => (
+                <ContactMemberCard key={p.short} member={p} meta={CONTACT_META[i]} />
+              ))}
+            </div>
           </aside>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { A, A_L, F_DISPLAY, F_MONO, MAX_W, PAD_X } from '../theme';
+import { BG, TEXT, TEXT_S, TEXT_D, BORDER, A, A_L, F_DISPLAY, F_MONO, MAX_W, PAD_X } from '../theme';
 import { useApp } from '../context/AppContext';
 import { Entropy } from './ui/Entropy';
 
@@ -20,7 +20,7 @@ const container = {
 };
 
 export function Hero() {
-  const { t, locale } = useApp();
+  const { t, locale, theme } = useApp();
 
   const METRICS = [0,1,2,3].map(i => ({
     v: t(`hero.metric.${i+1}.v`),
@@ -34,7 +34,7 @@ export function Hero() {
 
   return (
     <section id="top" style={{
-      background: '#0A0A0A',
+      background: BG,
       position: 'relative', overflow: 'hidden',
       paddingTop: 'clamp(48px, 7vh, 80px)',
       paddingBottom: 0,
@@ -79,7 +79,7 @@ export function Hero() {
                 <span style={{ width: 6, height: 6, borderRadius: '50%', background: A, boxShadow: `0 0 8px ${A}` }} />
                 {t('common.eyebrow.accepting')}
               </span>
-              <span style={{ fontFamily: F_MONO, fontSize: 10, color: 'rgba(255,255,255,0.35)', letterSpacing: '0.14em', textTransform: 'uppercase' }}>
+              <span style={{ fontFamily: F_MONO, fontSize: 10, color: TEXT_D, letterSpacing: '0.14em', textTransform: 'uppercase' }}>
                 {t('common.eyebrow.studio')}
               </span>
             </motion.div>
@@ -91,7 +91,7 @@ export function Hero() {
                 fontFamily: F_DISPLAY, fontWeight: 400,
                 fontSize: 'clamp(48px, 6.5vw, 92px)',
                 lineHeight: 1.0, letterSpacing: '-0.03em',
-                color: '#FAFAFA',
+                color: TEXT,
               }}
             >
               {lines.map((line, li) => (
@@ -111,7 +111,7 @@ export function Hero() {
               style={{
                 marginTop: 'clamp(20px, 3vw, 32px)',
                 fontSize: 'clamp(15px, 1.15vw, 17px)',
-                lineHeight: 1.65, color: 'rgba(255,255,255,0.55)',
+                lineHeight: 1.65, color: TEXT_S,
                 maxWidth: '42ch',
               }}
             >
@@ -139,7 +139,7 @@ export function Hero() {
               </motion.a>
               <a href="#proyectos" className="link-grow" style={{
                 padding: '15px 4px', fontSize: 14, fontWeight: 600,
-                color: 'rgba(255,255,255,0.7)',
+                color: TEXT_S,
               }}>
                 {t('common.cta.viewProjects')}
               </a>
@@ -154,7 +154,6 @@ export function Hero() {
             className="vo-hero-visual"
             style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative' }}
           >
-            {/* Glow behind canvas */}
             <div aria-hidden style={{
               position: 'absolute', inset: '10%',
               background: `radial-gradient(circle at 70% 50%, ${A}18, transparent 65%)`,
@@ -162,12 +161,12 @@ export function Hero() {
             }} />
             <div style={{
               position: 'relative',
-              border: '1px solid rgba(255,255,255,0.07)',
+              border: `1px solid ${BORDER}`,
               borderRadius: 16,
               overflow: 'hidden',
-              boxShadow: `0 40px 80px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06)`,
+              boxShadow: `0 24px 60px rgba(0,0,0,0.12)`,
             }}>
-              <Entropy size={460} />
+              <Entropy size={460} theme={theme} />
             </div>
           </motion.div>
         </div>
@@ -180,15 +179,14 @@ export function Hero() {
             marginTop: 'clamp(40px, 6vw, 64px)',
             display: 'grid',
             gridTemplateColumns: 'repeat(4, 1fr)',
-            borderTop: '1px solid rgba(255,255,255,0.08)',
-            background: 'rgba(0,0,0,0.2)',
+            borderTop: `1px solid ${BORDER}`,
           }}
           className="vo-stats-grid"
         >
           {METRICS.map((m, i) => (
             <div key={i} style={{
               padding: 'clamp(18px, 2.2vw, 28px) clamp(14px, 1.8vw, 24px)',
-              borderRight: i < 3 ? '1px solid rgba(255,255,255,0.07)' : 'none',
+              borderRight: i < 3 ? `1px solid ${BORDER}` : 'none',
               display: 'flex', flexDirection: 'column', gap: 10,
             }}>
               <div style={{
@@ -206,7 +204,7 @@ export function Hero() {
                   lineHeight: 1, letterSpacing: '-0.03em', color: A,
                 }}>{m.v}</div>
                 <div style={{
-                  fontFamily: F_MONO, fontSize: 10, color: 'rgba(255,255,255,0.4)',
+                  fontFamily: F_MONO, fontSize: 10, color: TEXT_D,
                   letterSpacing: '0.1em', textTransform: 'uppercase', fontWeight: 600, marginTop: 5,
                 }}>{m.l}</div>
               </div>
@@ -224,8 +222,8 @@ export function Hero() {
           .vo-hero-visual { display: none !important; }
           .vo-stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
           .vo-stats-grid > div:nth-child(2) { border-right: none !important; }
-          .vo-stats-grid > div:nth-child(3) { border-top: 1px solid rgba(255,255,255,0.07); }
-          .vo-stats-grid > div:nth-child(4) { border-top: 1px solid rgba(255,255,255,0.07); border-right: none !important; }
+          .vo-stats-grid > div:nth-child(3) { border-top: 1px solid var(--border); }
+          .vo-stats-grid > div:nth-child(4) { border-top: 1px solid var(--border); border-right: none !important; }
         }
       `}</style>
     </section>

@@ -24,7 +24,6 @@ import { Marquee } from './components/Marquee';
 import { Services } from './components/Services';
 import { Pricing } from './components/Pricing';
 import { Projects } from './components/Projects';
-import { Team } from './components/Team';
 import { Process } from './components/Process';
 import { CTABanner } from './components/CTABanner';
 import { FAQ } from './components/FAQ';
@@ -42,7 +41,6 @@ export default function App() {
         <Services />
         <Pricing />
         <Projects />
-        <Team />
         <Process />
         <CTABanner />
         <FAQ />
