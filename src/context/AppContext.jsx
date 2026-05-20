@@ -11,10 +11,10 @@ const CURTAIN_EASE = 'cubic-bezier(0.76, 0, 0.24, 1)';
 const CURTAIN_BG = { light: '#FFFFFF', dark: '#0A0A0A' };
 
 function detectInitialTheme() {
-  if (typeof window === 'undefined') return 'light';
+  if (typeof window === 'undefined') return 'dark';
   const saved = localStorage.getItem(THEME_KEY);
   if (saved === 'dark' || saved === 'light') return saved;
-  return window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  return 'dark'; // default: dark mode
 }
 
 function detectInitialLocale() {

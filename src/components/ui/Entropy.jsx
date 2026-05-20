@@ -146,7 +146,7 @@ export function Entropy({ size = 480, theme = 'dark' }) {
 
     animate();
     return () => cancelAnimationFrame(animId);
-  }, [size]);
+  }, [size, theme]);
 
   return (
     <div style={{ position: 'relative', width: size, height: size }}>
