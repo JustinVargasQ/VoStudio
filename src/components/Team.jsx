@@ -191,14 +191,17 @@ function MemberCard({ member, meta, index }) {
               background: `${meta.color}15`,
               border: `1px solid ${meta.color}33`,
               borderRadius: 999,
-              marginBottom: 12,
+              marginBottom: 8,
             }}>
-              {role.split('·')[0].trim()}
+              {locale === 'en' ? 'Systems Engineer' : 'Ingeniero/a en Sistemas'}
             </div>
 
-            {/* Location */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: 'rgba(255,255,255,0.4)', marginBottom: 16 }}>
-              <MapPin size={12} />
+            {/* Experience + university */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 11, color: 'rgba(255,255,255,0.4)', marginBottom: 6 }}>
+              <span style={{ fontFamily: F_MONO }}>UTN · San Carlos</span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 11, color: 'rgba(255,255,255,0.35)', marginBottom: 16 }}>
+              <MapPin size={11} />
               <span>{location}</span>
             </div>
 
@@ -206,10 +209,24 @@ function MemberCard({ member, meta, index }) {
             <p style={{
               fontSize: 14, color: 'rgba(255,255,255,0.65)',
               lineHeight: 1.65, textAlign: 'center',
-              maxWidth: '32ch', marginBottom: 20,
+              maxWidth: '32ch', marginBottom: 16,
             }}>
               {bio}
             </p>
+
+            {/* Email visible */}
+            <a href={`mailto:${member.email}`} style={{
+              fontFamily: F_MONO, fontSize: 11,
+              color: meta.color, letterSpacing: '0.04em',
+              borderBottom: `1px solid ${meta.color}50`,
+              paddingBottom: 2, marginBottom: 20,
+              transition: 'opacity 0.2s',
+            }}
+              onMouseEnter={(e) => e.currentTarget.style.opacity = '0.75'}
+              onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
+            >
+              {member.email}
+            </a>
 
             {/* Skills */}
             <motion.div
@@ -327,11 +344,12 @@ export function Team() {
               fontFamily: F_MONO, fontSize: 10, fontWeight: 700,
               letterSpacing: '0.2em', textTransform: 'uppercase',
               color: A, padding: '6px 16px',
+
               background: `${A}15`, border: `1px solid ${A}33`,
               borderRadius: 999,
             }}>
               <Sparkles size={11} />
-              {locale === 'en' ? 'Our Team' : 'Nuestro Equipo'}
+              {locale === 'en' ? 'Direct Contact' : 'Hablás Directo Con'}
             </span>
           </motion.div>
 
@@ -351,9 +369,9 @@ export function Team() {
             }}
           >
             {locale === 'en' ? (
-              <>Las personas detrás de<br /><span style={{ fontStyle: 'italic', WebkitTextFillColor: A, color: A }}>VO Studio</span></>
+              <>You talk directly<br />with the <span style={{ fontStyle: 'italic', WebkitTextFillColor: A, color: A }}>engineers</span></>
             ) : (
-              <>Las personas detrás de<br /><span style={{ fontStyle: 'italic', WebkitTextFillColor: A, color: A }}>VO Studio</span></>
+              <>Hablás directo<br />con los <span style={{ fontStyle: 'italic', WebkitTextFillColor: A, color: A }}>ingenieros</span></>
             )}
           </motion.h2>
 
@@ -382,53 +400,6 @@ export function Team() {
           ))}
         </div>
 
-        {/* Bottom CTA card */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5, duration: 0.7 }}
-          style={{ marginTop: 'clamp(40px, 6vw, 72px)', textAlign: 'center' }}
-        >
-          <div style={{
-            display: 'inline-flex', flexDirection: 'column', alignItems: 'center', gap: 20,
-            padding: 'clamp(28px, 3vw, 40px) clamp(32px, 5vw, 64px)',
-            background: 'rgba(255,255,255,0.04)',
-            backdropFilter: 'blur(16px)',
-            border: '1px solid rgba(255,255,255,0.08)',
-            borderRadius: 24,
-            boxShadow: '0 20px 60px rgba(0,0,0,0.4)',
-          }}>
-            <h3 style={{ fontFamily: F_DISPLAY, fontWeight: 400, fontSize: 'clamp(22px, 2.2vw, 30px)', color: '#FAFAFA', letterSpacing: '-0.02em' }}>
-              {locale === 'en' ? '¿Ready to work together?' : '¿Listo para trabajar juntos?'}
-            </h3>
-            <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.5)', maxWidth: '40ch', lineHeight: 1.6 }}>
-              {locale === 'en'
-                ? 'Tell us about your project and we will get back to you within 24 hours.'
-                : 'Contanos tu proyecto y te respondemos en menos de 24 horas.'}
-            </p>
-            <motion.a
-              href="#contacto"
-              whileHover={{ scale: 1.04, y: -2 }}
-              whileTap={{ scale: 0.97 }}
-              className="arrow-slide-parent"
-              style={{
-                display: 'inline-flex', alignItems: 'center', gap: 10,
-                padding: '14px 32px', fontSize: 14, fontWeight: 700,
-                background: A, color: '#fff', borderRadius: 12,
-                boxShadow: `0 12px 36px ${A}55`,
-              }}
-            >
-              {locale === 'en' ? 'Start your project' : 'Empezar proyecto'}
-              <motion.span
-                animate={{ x: [0, 5, 0] }}
-                transition={{ repeat: Infinity, duration: 1.5 }}
-                className="arrow-slide"
-                style={{ fontSize: 18 }}
-              >→</motion.span>
-            </motion.a>
-          </div>
-        </motion.div>
       </div>
     </section>
   );
