@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
-import { BG, TEXT, TEXT_S, TEXT_D, BORDER, A, A_L, A_D, F_DISPLAY, F_MONO, MAX_W, PAD_X } from '../theme';
+import { MessageCircle, Palette, Code2, Rocket } from 'lucide-react';
+import { TEXT, TEXT_S, TEXT_D, BORDER, A, A_L, F_DISPLAY, F_MONO, MAX_W, PAD_X } from '../theme';
 import { useApp } from '../context/AppContext';
+import { HeroCanvas } from './HeroCanvas';
 
 function Badge3D({ text, sub }) {
   return (
@@ -8,11 +10,11 @@ function Badge3D({ text, sub }) {
       <div style={{
         display: 'inline-flex', alignItems: 'center', gap: 14,
         padding: '8px 22px 8px 10px',
-        background: 'linear-gradient(135deg, rgba(251,146,60,0.08), rgba(234,88,12,0.14))',
-        border: '1px solid rgba(234,88,12,0.45)',
+        background: 'linear-gradient(135deg, rgba(251,146,60,0.12), rgba(234,88,12,0.20))',
+        border: '1px solid rgba(234,88,12,0.55)',
         borderRadius: 999,
-        backdropFilter: 'blur(8px)',
-        boxShadow: '0 12px 30px rgba(234,88,12,0.22), inset 0 1px 0 rgba(255,255,255,0.4)',
+        backdropFilter: 'blur(12px)',
+        boxShadow: '0 12px 30px rgba(234,88,12,0.25), inset 0 1px 0 rgba(255,255,255,0.25)',
       }}>
         <div className="vo-orb-wrap">
           <span className="vo-orb-halo" />
@@ -23,8 +25,8 @@ function Badge3D({ text, sub }) {
           </div>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 2, lineHeight: 1.1 }}>
-          <span style={{ fontFamily: '"Instrument Serif", serif', fontStyle: 'italic', fontSize: 19, color: '#9A3412', letterSpacing: '-0.01em' }}>{text}</span>
-          {sub && <span style={{ fontFamily: '"JetBrains Mono", monospace', fontSize: 9, color: '#C2410C', letterSpacing: '0.16em', textTransform: 'uppercase', fontWeight: 600 }}>{sub}</span>}
+          <span style={{ fontFamily: '"Instrument Serif", serif', fontStyle: 'italic', fontSize: 19, color: '#fff', letterSpacing: '-0.01em', textShadow: '0 1px 4px rgba(0,0,0,0.3)' }}>{text}</span>
+          {sub && <span style={{ fontFamily: '"JetBrains Mono", monospace', fontSize: 9, color: 'rgba(255,255,255,0.75)', letterSpacing: '0.16em', textTransform: 'uppercase', fontWeight: 600 }}>{sub}</span>}
         </div>
         <span className="vo-sparkle" style={{ top: -6,  right: 16, animationDelay: '0s' }}>✦</span>
         <span className="vo-sparkle" style={{ bottom: -4, right: 42, animationDelay: '0.7s', fontSize: 8 }}>✦</span>
@@ -43,15 +45,16 @@ const STAT_ICONS = [
 
 const container = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.07, delayChildren: 0.2 } },
+  show: { transition: { staggerChildren: 0.06, delayChildren: 0.3 } },
 };
 const word = {
-  hidden: { opacity: 0, y: 40, rotateX: -20 },
-  show:   { opacity: 1, y: 0, rotateX: 0, transition: { duration: 0.8, ease: [0.21, 0.61, 0.35, 1] } },
+  hidden: { opacity: 0, y: 48, rotateX: -22 },
+  show:   { opacity: 1, y: 0, rotateX: 0, transition: { duration: 0.9, ease: [0.21, 0.61, 0.35, 1] } },
 };
 
 export function Hero() {
-  const { t } = useApp();
+  const { t, theme } = useApp();
+  const isDark = theme === 'dark';
 
   const headlineWords = [
     { t: t('hero.title.1') },
@@ -69,78 +72,59 @@ export function Hero() {
     icon: STAT_ICONS[i],
   }));
 
+  // Text colors always white/light over the canvas
+  const headlineColor   = '#FAFAFA';
+  const subtitleColor   = 'rgba(255,255,255,0.72)';
+  const statValueColor  = A;
+  const statLabelColor  = 'rgba(255,255,255,0.55)';
+  const statBorderColor = 'rgba(255,255,255,0.10)';
+
   return (
-    <section id="top" style={{ background: BG, position: 'relative', overflow: 'hidden', paddingTop: 'clamp(32px, 5vh, 56px)', paddingBottom: 0 }}>
+    <section id="top" style={{
+      background: isDark ? '#0A0A0A' : '#1a0a00',
+      position: 'relative', overflow: 'hidden',
+      paddingTop: 'clamp(32px, 5vh, 56px)',
+      paddingBottom: 0,
+    }}>
 
-      {/* ── Atmospheric glow orb — center bottom, inspired by Biokrypt ── */}
-      <div aria-hidden style={{
-        position: 'absolute',
-        bottom: '-10%', left: '50%',
-        transform: 'translateX(-50%)',
-        width: 'min(900px, 120vw)', height: 'min(900px, 120vw)',
-        background: `radial-gradient(circle at 50% 60%, ${A}28 0%, ${A_L}12 30%, transparent 65%)`,
-        filter: 'blur(1px)',
-        pointerEvents: 'none', zIndex: 0,
-      }} />
-      {/* Secondary smaller orb — tighter, brighter core */}
-      <motion.div aria-hidden
-        animate={{ scale: [1, 1.06, 1], opacity: [0.7, 1, 0.7] }}
-        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-        style={{
-          position: 'absolute',
-          bottom: '5%', left: '50%',
-          transform: 'translateX(-50%)',
-          width: 'min(480px, 80vw)', height: 'min(480px, 80vw)',
-          background: `radial-gradient(circle at 50% 50%, ${A}40 0%, ${A}18 40%, transparent 70%)`,
-          filter: 'blur(60px)',
-          pointerEvents: 'none', zIndex: 0,
-        }}
-      />
-      {/* Outer ring glow */}
-      <div aria-hidden style={{
-        position: 'absolute',
-        bottom: '-20%', left: '50%',
-        transform: 'translateX(-50%)',
-        width: 'min(1100px, 140vw)', height: 'min(700px, 90vw)',
-        background: `radial-gradient(ellipse at 50% 80%, ${A_D}18 0%, transparent 60%)`,
-        filter: 'blur(40px)',
-        pointerEvents: 'none', zIndex: 0,
-      }} />
+      {/* ── Three.js canvas — key forces remount on theme change ── */}
+      <HeroCanvas key={theme} theme={theme} />
 
-      {/* Grid overlay, masked to center */}
-      <div className="bg-grid" style={{
-        position: 'absolute', inset: 0, zIndex: 0,
-        opacity: 0.35,
-        maskImage: 'radial-gradient(ellipse 80% 60% at 50% 40%, black 20%, transparent 80%)',
-        WebkitMaskImage: 'radial-gradient(ellipse 80% 60% at 50% 40%, black 20%, transparent 80%)',
+      {/* ── Vignette overlay so text is always legible ── */}
+      <div aria-hidden style={{
+        position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none',
+        background: isDark
+          ? 'radial-gradient(ellipse 80% 70% at 50% 50%, transparent 30%, rgba(10,10,10,0.55) 100%)'
+          : 'radial-gradient(ellipse 80% 70% at 50% 50%, transparent 30%, rgba(26,10,0,0.60) 100%)',
       }} />
 
       {/* ── Content ── */}
-      <div style={{ maxWidth: MAX_W, margin: '0 auto', padding: `0 ${PAD_X}`, position: 'relative', zIndex: 1 }}>
+      <div style={{ maxWidth: MAX_W, margin: '0 auto', padding: `0 ${PAD_X}`, position: 'relative', zIndex: 2 }}>
 
-        {/* Badge — centered */}
+        {/* Badge */}
         <motion.div
-          initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2 }}
           style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 16, marginBottom: 'clamp(20px, 3vw, 32px)', flexWrap: 'wrap' }}
         >
           <Badge3D text={t('common.eyebrow.accepting')} sub={t('common.badge.sub')} />
-          <span style={{ fontFamily: F_MONO, fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase', color: TEXT_S }}>
+          <span style={{ fontFamily: F_MONO, fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.55)' }}>
             {t('common.eyebrow.studio')}
           </span>
         </motion.div>
 
-        {/* Headline — centered */}
+        {/* Headline */}
         <motion.h1
           variants={container} initial="hidden" animate="show"
           style={{
             fontFamily: F_DISPLAY, fontWeight: 400,
             fontSize: 'clamp(48px, 7.5vw, 108px)',
             lineHeight: 0.96, letterSpacing: '-0.03em',
-            color: TEXT,
+            color: headlineColor,
             display: 'flex', flexWrap: 'wrap', justifyContent: 'center',
             gap: '0.18em', textAlign: 'center',
             perspective: 800,
             maxWidth: '16ch', margin: '0 auto',
+            textShadow: '0 2px 40px rgba(0,0,0,0.4)',
           }}
         >
           {headlineWords.map((w, i) => (
@@ -150,73 +134,68 @@ export function Hero() {
           ))}
         </motion.h1>
 
-        {/* Description + CTAs — centered */}
+        {/* Description + CTAs */}
         <motion.div
           initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.9, duration: 0.8 }}
+          transition={{ delay: 1.0, duration: 0.8 }}
           style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 28, marginTop: 'clamp(24px, 3.5vw, 40px)' }}
         >
           <p style={{
             fontSize: 'clamp(15px, 1.15vw, 18px)',
-            lineHeight: 1.65, color: TEXT_S,
+            lineHeight: 1.65, color: subtitleColor,
             maxWidth: '52ch', textAlign: 'center',
+            textShadow: '0 1px 8px rgba(0,0,0,0.5)',
           }}>
             {t('hero.desc')}
           </p>
 
           <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}>
             <motion.a href="#contacto"
-              whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}
+              whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.97 }}
               className="arrow-slide-parent"
               style={{
-                background: TEXT, color: BG,
-                padding: '16px 32px', fontSize: 14, fontWeight: 600,
+                background: A, color: '#fff',
+                padding: '16px 32px', fontSize: 14, fontWeight: 700,
                 display: 'inline-flex', alignItems: 'center', gap: 10,
-                boxShadow: `0 12px 36px rgba(10,10,10,0.18), 0 0 0 1px ${A}22`,
+                boxShadow: `0 12px 36px rgba(234,88,12,0.55)`,
               }}
             >
               {t('common.cta.start')}
               <span className="arrow-slide" style={{ fontSize: 16, lineHeight: 1 }}>→</span>
             </motion.a>
             <a href="#proyectos" className="link-grow" style={{
-              padding: '16px 4px', fontSize: 14, fontWeight: 600, color: TEXT,
+              padding: '16px 4px', fontSize: 14, fontWeight: 600, color: 'rgba(255,255,255,0.85)',
             }}>
               {t('common.cta.viewProjects')}
             </a>
           </div>
         </motion.div>
 
-        {/* ── Stats band ── */}
+        {/* Stats band */}
         <motion.div
           initial={{ opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.15, duration: 0.9, ease: [0.21, 0.61, 0.35, 1] }}
+          transition={{ delay: 1.3, duration: 0.9, ease: [0.21, 0.61, 0.35, 1] }}
           style={{
             marginTop: 'clamp(48px, 7vw, 88px)',
             display: 'grid',
             gridTemplateColumns: 'repeat(4, 1fr)',
-            borderTop: `1px solid ${BORDER}`,
+            borderTop: `1px solid ${statBorderColor}`,
+            background: 'rgba(0,0,0,0.35)',
+            backdropFilter: 'blur(12px)',
           }}
           className="vo-stats-grid"
         >
           {METRICS.map((m, i) => (
             <div key={i} style={{
               padding: 'clamp(20px, 2.5vw, 32px) clamp(16px, 2vw, 28px)',
-              borderRight: i < 3 ? `1px solid ${BORDER}` : 'none',
+              borderRight: i < 3 ? `1px solid ${statBorderColor}` : 'none',
               display: 'flex', flexDirection: 'column', gap: 12,
               position: 'relative', overflow: 'hidden',
             }}>
-              {/* Subtle hover glow */}
-              <div className="vo-stat-hover-glow" style={{
-                position: 'absolute', inset: 0,
-                background: `radial-gradient(circle at 30% 50%, ${A}08, transparent 70%)`,
-                opacity: 0, transition: 'opacity 0.3s',
-                pointerEvents: 'none',
-              }} />
-
               <div style={{
                 width: 36, height: 36,
                 display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                background: `${A}12`, border: `1px solid ${A}25`,
+                background: `${A}20`, border: `1px solid ${A}40`,
                 color: A,
               }}>
                 <svg width="16" height="16" viewBox="0 0 24 24">{m.icon}</svg>
@@ -227,10 +206,11 @@ export function Hero() {
                   fontFamily: F_DISPLAY, fontWeight: 400, fontStyle: 'italic',
                   fontSize: 'clamp(34px, 4vw, 54px)',
                   lineHeight: 1, letterSpacing: '-0.03em',
-                  color: A,
+                  color: statValueColor,
+                  textShadow: `0 0 30px ${A}80`,
                 }}>{m.v}</div>
                 <div style={{
-                  fontFamily: F_MONO, fontSize: 10, color: TEXT_S,
+                  fontFamily: F_MONO, fontSize: 10, color: statLabelColor,
                   letterSpacing: '0.1em', textTransform: 'uppercase', fontWeight: 600,
                   marginTop: 6,
                 }}>{m.l}</div>
@@ -241,15 +221,12 @@ export function Hero() {
       </div>
 
       <style>{`
-        .vo-stats-grid > div:hover .vo-stat-hover-glow { opacity: 1 !important; }
+        .vo-stats-grid > div:hover { background: rgba(234,88,12,0.06); transition: background 0.3s; }
         @media (max-width: 700px) {
           .vo-stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
           .vo-stats-grid > div:nth-child(2) { border-right: none !important; }
-          .vo-stats-grid > div:nth-child(3) { border-top: 1px solid ${BORDER}; }
-          .vo-stats-grid > div:nth-child(4) { border-top: 1px solid ${BORDER}; border-right: none !important; }
-        }
-        @media (max-width: 420px) {
-          .vo-stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          .vo-stats-grid > div:nth-child(3) { border-top: 1px solid rgba(255,255,255,0.10); }
+          .vo-stats-grid > div:nth-child(4) { border-top: 1px solid rgba(255,255,255,0.10); border-right: none !important; }
         }
       `}</style>
     </section>
