@@ -200,104 +200,65 @@ export function Contact() {
           alignItems: 'start',
         }} className="vo-contact-grid">
 
-          <aside style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+          <aside style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
 
+            {/* ── Booking card — minimal ── */}
             <motion.a
               href={`https://cal.com/${CAL_LINK}`} target="_blank" rel="noreferrer"
-              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }} transition={{ duration: 0.7 }}
-              whileHover={{ y: -4 }}
+              initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }} transition={{ duration: 0.6 }}
+              className="arrow-slide-parent"
               style={{
-                position: 'relative', overflow: 'hidden',
-                background: '#0A0A0A', color: '#fff',
-                padding: 28,
-                boxShadow: '0 20px 50px rgba(10,10,10,0.2)',
-                display: 'block',
+                display: 'flex', alignItems: 'center', gap: 16,
+                padding: '18px 20px',
+                background: BG_CARD, border: `1px solid ${BORDER}`,
+                transition: 'border-color 0.2s, background 0.2s',
               }}
-            >
-              <motion.span aria-hidden
-                animate={{ x: [0, 30, -10, 0], y: [0, -20, 10, 0] }}
-                transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
-                style={{
-                  position: 'absolute', top: '-50%', right: '-30%',
-                  width: 280, height: 280, borderRadius: '50%',
-                  background: `radial-gradient(circle, ${A} 0%, transparent 65%)`,
-                  filter: 'blur(40px)', opacity: 0.5, pointerEvents: 'none',
-                }} />
-              <div style={{ position: 'relative' }}>
-                <div style={{
-                  display: 'inline-flex', alignItems: 'center', gap: 8,
-                  padding: '5px 10px', background: 'rgba(34,197,94,0.15)', border: '1px solid rgba(34,197,94,0.4)',
-                  color: '#86efac',
-                  fontFamily: F_MONO, fontSize: 10, fontWeight: 700,
-                  letterSpacing: '0.12em', textTransform: 'uppercase',
-                  marginBottom: 20,
-                }}>
-                  <motion.span
-                    animate={{ opacity: [0.4, 1, 0.4] }}
-                    transition={{ duration: 1.8, repeat: Infinity }}
-                    style={{ width: 6, height: 6, background: '#86efac', borderRadius: '50%' }}
-                  />
-                  {t('common.eyebrow.accepting').split('·')[0].trim()}
-                </div>
-                <h3 style={{
-                  fontFamily: F_DISPLAY, fontWeight: 400,
-                  fontSize: 'clamp(26px, 2.6vw, 34px)', letterSpacing: '-0.02em', lineHeight: 1.05,
-                  marginBottom: 12,
-                }}>
-                  {t('contact.featured.title.1')} <span style={{ fontStyle: 'italic', color: '#86efac' }}>{t('contact.featured.title.2')}</span>
-                </h3>
-                <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.7)', lineHeight: 1.5, marginBottom: 22 }}>
-                  {t('contact.featured.desc')}
-                </p>
-                <div className="arrow-slide-parent" style={{
-                  display: 'inline-flex', alignItems: 'center', gap: 10,
-                  padding: '12px 18px', background: '#fff', color: '#0A0A0A',
-                  fontSize: 13, fontWeight: 700,
-                }}>
-                  {t('common.cta.bookSlot')}
-                  <span className="arrow-slide">→</span>
-                </div>
-              </div>
-            </motion.a>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.15 }}
-              style={{ background: BG_CARD, border: `1px solid ${BORDER}` }}
+              onMouseEnter={(e) => { e.currentTarget.style.borderColor = A; e.currentTarget.style.background = BG_ALT; }}
+              onMouseLeave={(e) => { e.currentTarget.style.borderColor = BORDER; e.currentTarget.style.background = BG_CARD; }}
             >
               <div style={{
-                padding: '14px 20px', borderBottom: `1px solid ${BORDER}`,
-                fontFamily: F_MONO, fontSize: 10, color: TEXT_D, letterSpacing: '0.12em',
-                textTransform: 'uppercase', fontWeight: 600,
+                width: 44, height: 44, flexShrink: 0,
+                display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                background: `${A}12`, border: `1px solid ${A}30`, color: A,
               }}>
-                {t('contact.channels')}
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
               </div>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontFamily: F_DISPLAY, fontSize: 17, color: TEXT, letterSpacing: '-0.015em', lineHeight: 1.2, marginBottom: 3 }}>
+                  {t('contact.featured.title.1')} <span style={{ fontStyle: 'italic', color: A }}>{t('contact.featured.title.2')}</span>
+                </div>
+                <div style={{ fontSize: 11, color: TEXT_S, fontFamily: F_MONO }}>
+                  30 min · Video call · cal.com/vostudio
+                </div>
+              </div>
+              <span className="arrow-slide" style={{ color: TEXT_D, fontSize: 16 }}>→</span>
+            </motion.a>
+
+            {/* ── Contact channels — compact ── */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1 }}
+              style={{ background: BG_CARD, border: `1px solid ${BORDER}`, overflow: 'hidden' }}
+            >
               {CONTACT_METHODS.map((m, i) => (
                 <a key={m.label} href={m.href} target={m.href.startsWith('http') ? '_blank' : undefined} rel="noreferrer"
-                  className="arrow-slide-parent"
                   style={{
-                    padding: '16px 20px',
-                    borderTop: i > 0 ? `1px solid ${BORDER}` : 'none',
-                    display: 'flex', alignItems: 'center', gap: 14,
+                    padding: '13px 18px',
+                    borderBottom: i < CONTACT_METHODS.length - 1 ? `1px solid ${BORDER}` : 'none',
+                    display: 'flex', alignItems: 'center', gap: 12,
                     transition: 'background 0.15s',
                   }}
                   onMouseEnter={(e) => e.currentTarget.style.background = BG_ALT}
                   onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                 >
-                  <span style={{
-                    width: 38, height: 38, flexShrink: 0,
-                    background: `${m.color}12`, color: m.color,
-                    border: `1px solid ${m.color}30`,
-                    display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                  }}>
-                    <svg width="18" height="18" viewBox="0 0 24 24">{m.icon}</svg>
-                  </span>
+                  <span style={{ width: 8, height: 8, borderRadius: '50%', background: m.color, flexShrink: 0 }} />
                   <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontSize: 11, color: TEXT_D, fontFamily: F_MONO, letterSpacing: '0.08em', textTransform: 'uppercase', fontWeight: 600 }}>{m.label}</div>
-                    <div style={{ fontSize: 14, color: TEXT, fontWeight: 600, marginTop: 2 }}>{m.title}</div>
+                    <div style={{ fontSize: 11, color: TEXT_D, fontFamily: F_MONO, letterSpacing: '0.06em', textTransform: 'uppercase', fontWeight: 600 }}>{m.label}</div>
+                    <div style={{ fontSize: 13, color: TEXT, fontWeight: 600, marginTop: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{m.title}</div>
                   </div>
-                  <span className="arrow-slide" style={{ color: TEXT_D, fontSize: 14 }}>→</span>
                 </a>
               ))}
             </motion.div>
@@ -317,45 +278,21 @@ export function Contact() {
             <ContactForm />
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.2 }}
-              style={{
-                background: BG_CARD, border: `1px solid ${BORDER}`,
-                padding: 'clamp(24px, 3vw, 36px)',
-              }}
+              initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1 }}
+              style={{ background: BG_CARD, border: `1px solid ${BORDER}`, padding: '16px 20px' }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
-                <span style={{ width: 24, height: 1, background: A }} />
-                <span style={{
-                  fontFamily: F_MONO, fontSize: 10, color: TEXT_S,
-                  letterSpacing: '0.18em', textTransform: 'uppercase', fontWeight: 600,
-                }}>
-                  {t('contact.next.eyebrow')}
-                </span>
+              <div style={{ fontFamily: F_MONO, fontSize: 9, color: TEXT_D, letterSpacing: '0.14em', textTransform: 'uppercase', fontWeight: 600, marginBottom: 12 }}>
+                {t('contact.next.eyebrow')}
               </div>
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
-                gap: 20,
-              }}>
-                {NEXT_STEPS.map((s, i) => (
-                  <div key={s.n} style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                      <span style={{
-                        width: 26, height: 26,
-                        display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                        background: A, color: '#fff',
-                        fontFamily: F_MONO, fontSize: 10, fontWeight: 700, letterSpacing: '0.05em',
-                      }}>{s.n}</span>
-                      {i < NEXT_STEPS.length - 1 && (
-                        <span style={{ flex: 1, height: 1, background: BORDER }} />
-                      )}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                {NEXT_STEPS.map((s) => (
+                  <div key={s.n} style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>
+                    <span style={{ width: 20, height: 20, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: A, color: '#fff', fontFamily: F_MONO, fontSize: 9, fontWeight: 700, flexShrink: 0 }}>{s.n}</span>
+                    <div>
+                      <div style={{ fontSize: 13, fontWeight: 600, color: TEXT, lineHeight: 1.2 }}>{s.title}</div>
+                      <div style={{ fontSize: 11, color: TEXT_S, lineHeight: 1.4, marginTop: 2 }}>{s.sub}</div>
                     </div>
-                    <div style={{
-                      fontFamily: F_DISPLAY, fontSize: 17, color: TEXT,
-                      letterSpacing: '-0.015em', lineHeight: 1.15,
-                    }}>{s.title}</div>
-                    <div style={{ fontSize: 12, color: TEXT_S, lineHeight: 1.45 }}>{s.sub}</div>
                   </div>
                 ))}
               </div>
