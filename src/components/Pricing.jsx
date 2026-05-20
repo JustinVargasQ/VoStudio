@@ -54,11 +54,13 @@ export function Pricing() {
           intro={t('pricing.intro')}
         />
 
+        {/* Neobrutalism rotations per card */}
         <RevealStagger stagger={0.1} style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-          gap: 20,
+          gap: 24,
           position: 'relative',
+          paddingBottom: 12,
         }}>
           {PRICING.map((p, i) => {
             const isPopular = !!p.popular;
@@ -68,19 +70,35 @@ export function Pricing() {
             const fgMute = isPopular ? 'rgba(250,250,250,0.72)' : TEXT_S;
             const fgDim = isPopular ? 'rgba(250,250,250,0.5)' : TEXT_D;
             const borderC = isPopular ? 'rgba(250,250,250,0.15)' : BORDER;
+            const rotations = [-0.8, 0.5, -0.5, 0.7];
+            const rot = rotations[i] || 0;
 
             return (
               <RevealItem key={i} y={32}
                 style={{
                   position: 'relative',
                   background: isPopular ? BG_POPULAR : BG_CARD,
-                  border: `1px solid ${isPopular ? POPULAR_BORDER : BORDER}`,
-                  overflow: 'hidden',
+                  border: `2px solid ${isPopular ? accent : TEXT}`,
+                  overflow: 'visible',
                   display: 'flex', flexDirection: 'column',
-                  transform: isPopular ? 'scale(1.03)' : 'scale(1)',
+                  transform: `rotate(${rot}deg)`,
                   zIndex: isPopular ? 2 : 1,
-                  boxShadow: isPopular ? `0 30px 80px rgba(234,88,12,0.45), 0 0 0 1px ${A}55` : 'var(--shadow-sm)',
-                  transition: 'transform 0.3s, box-shadow 0.4s, background 0.3s',
+                  boxShadow: isPopular
+                    ? `6px 6px 0px 0px ${accent}, 0 0 0 1px ${A}22`
+                    : `4px 4px 0px 0px var(--text)`,
+                  transition: 'transform 0.35s ease, box-shadow 0.35s ease',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = `rotate(${rot}deg) translate(-4px, -4px)`;
+                  e.currentTarget.style.boxShadow = isPopular
+                    ? `10px 10px 0px 0px ${accent}`
+                    : `8px 8px 0px 0px var(--text)`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = `rotate(${rot}deg)`;
+                  e.currentTarget.style.boxShadow = isPopular
+                    ? `6px 6px 0px 0px ${accent}, 0 0 0 1px ${A}22`
+                    : `4px 4px 0px 0px var(--text)`;
                 }}
               >
                 <div style={{ height: 4, background: accent }} />

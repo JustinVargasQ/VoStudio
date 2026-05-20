@@ -1,153 +1,122 @@
 import { motion } from 'framer-motion';
-import { BG_ALT, BG_CARD, BG_CARD_ALT, TEXT, TEXT_S, TEXT_D, BORDER, A, F_DISPLAY, F_MONO, MAX_W, PAD_X } from '../theme';
-import { getContent } from '../data/content';
+import { MessageCircle, Palette, Code2, Rocket } from 'lucide-react';
+import { BG_ALT, BG_CARD, TEXT, TEXT_S, TEXT_D, BORDER, A, F_DISPLAY, F_MONO, MAX_W, PAD_X } from '../theme';
 import { useApp } from '../context/AppContext';
 import { SectionHeader } from './Services';
-import { RevealStagger, RevealItem } from './Reveal';
+import RadialOrbitalTimeline from './ui/radial-orbital-timeline';
 
-const PHASE_META = [
-  { color: '#0EA5E9', icon: (<g fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/><circle cx="9" cy="11" r="0.8" fill="currentColor" /><circle cx="12.5" cy="11" r="0.8" fill="currentColor" /><circle cx="16" cy="11" r="0.8" fill="currentColor" /></g>) },
-  { color: '#A855F7', icon: (<g fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></g>) },
-  { color: '#1D4ED8', icon: (<g fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></g>) },
-  { color: '#22C55E', icon: (<g fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 00-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 012-3.95A12.88 12.88 0 0122 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 01-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></g>) },
+const PROCESS_META = [
+  { icon: MessageCircle, energy: 100, color: '#EA580C' },
+  { icon: Palette,       energy: 85,  color: '#A855F7' },
+  { icon: Code2,         energy: 70,  color: '#0EA5E9' },
+  { icon: Rocket,        energy: 45,  color: '#22C55E' },
 ];
+
+const PROCESS_STATUS = ['completed', 'completed', 'in-progress', 'pending'];
+
+const PROCESS_DATA = {
+  es: [
+    { id: 1, title: 'Consulta',    date: '1 semana',   content: 'Nos contás tu idea. Analizamos el proyecto y te damos una propuesta clara y sin costo.',                                        relatedIds: [2] },
+    { id: 2, title: 'Diseño',      date: '1–2 semanas', content: 'Creamos la interfaz. Vos ves cómo va a quedar y aprobás todo antes de escribir una línea de código.',                          relatedIds: [1, 3] },
+    { id: 3, title: 'Desarrollo',  date: '2–5 semanas', content: 'Construimos con las tecnologías correctas. Mostramos el avance semana a semana.',                                               relatedIds: [2, 4] },
+    { id: 4, title: 'Lanzamiento', date: '1 semana',   content: 'Publicamos, configuramos el dominio y analytics, y te acompañamos los primeros 30–90 días post-lanzamiento.',                   relatedIds: [3] },
+  ],
+  en: [
+    { id: 1, title: 'Kickoff',     date: '1 week',     content: 'You share your idea. We analyze the project and give you a clear, free proposal.',                                               relatedIds: [2] },
+    { id: 2, title: 'Design',      date: '1–2 weeks',  content: 'We build the interface. You see exactly how it will look and approve everything before a single line of code is written.',       relatedIds: [1, 3] },
+    { id: 3, title: 'Development', date: '2–5 weeks',  content: 'We build with the right technologies. We share weekly progress updates.',                                                        relatedIds: [2, 4] },
+    { id: 4, title: 'Launch',      date: '1 week',     content: 'We publish, configure your domain and analytics, and support you through the first 30–90 days after launch.',                   relatedIds: [3] },
+  ],
+};
 
 export function Process() {
   const { t, locale } = useApp();
-  const { PROCESS } = getContent(locale);
 
-  const enriched = PROCESS.map((s, i) => ({
-    ...s,
-    ...PHASE_META[i],
-    duration: t(`process.duration.${i+1}`),
-    deliverable: t(`process.deliv.${i+1}`),
+  const timelineData = PROCESS_DATA[locale].map((item, i) => ({
+    ...item,
+    ...PROCESS_META[i],
+    status: PROCESS_STATUS[i],
+    category: item.title,
+    energyLabel: locale === 'es' ? 'Prioridad' : 'Priority',
+    connectedLabel: locale === 'es' ? 'Conectado con' : 'Connected with',
   }));
 
   return (
-    <section id="proceso" style={{ background: BG_ALT, padding: `clamp(80px, 12vh, 140px) 0`, position: 'relative', overflow: 'hidden' }}>
-      <span className="blob blob-1" style={{ top: '15%', right: '-10%', width: 380, height: 380, background: 'radial-gradient(circle, rgba(234,88,12,0.08), transparent 70%)' }} />
+    <section id="proceso" style={{ background: '#0A0A0A', padding: `clamp(64px, 10vh, 110px) 0`, position: 'relative', overflow: 'hidden' }}>
+
+      {/* Ambient glow */}
+      <div aria-hidden style={{
+        position: 'absolute', top: '20%', left: '50%', transform: 'translateX(-50%)',
+        width: 600, height: 600, borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(234,88,12,0.12) 0%, transparent 65%)',
+        filter: 'blur(60px)', pointerEvents: 'none',
+      }} />
 
       <div style={{ maxWidth: MAX_W, margin: '0 auto', padding: `0 ${PAD_X}`, position: 'relative', zIndex: 1 }}>
-        <SectionHeader
-          eyebrow={t('process.eyebrow')}
-          title={<>{t('process.title.1')} <span style={{ fontStyle: 'italic', color: A }}>{t('process.title.2')}</span>.</>}
-          intro={t('process.intro')}
-        />
 
-        <div style={{ position: 'relative', marginBottom: 8 }}>
-          <div style={{
-            position: 'absolute', left: '6%', right: '6%', top: '60px',
-            height: 2, background: BORDER, zIndex: 0,
-          }} className="vo-proc-line" />
+        {/* Header — white text on dark bg */}
+        <div style={{ marginBottom: 'clamp(32px, 5vw, 56px)' }}>
           <motion.div
-            initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }}
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 1.6, ease: [0.21, 0.61, 0.35, 1] }}
+            initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }} transition={{ duration: 0.7 }}
+            style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 20 }}
+          >
+            <motion.span initial={{ width: 0 }} whileInView={{ width: 32 }} viewport={{ once: true }}
+              transition={{ duration: 0.6 }} style={{ height: 1, background: A, display: 'inline-block' }} />
+            <span style={{ fontFamily: F_MONO, fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.5)' }}>
+              {t('process.eyebrow')}
+            </span>
+          </motion.div>
+
+          <motion.h2
+            initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }} transition={{ duration: 0.9, ease: [0.21, 0.61, 0.35, 1] }}
             style={{
-              position: 'absolute', left: '6%', right: '6%', top: '60px',
-              height: 2,
-              background: `linear-gradient(to right, #0EA5E9, #A855F7, #1D4ED8, #22C55E)`,
-              transformOrigin: 'left', zIndex: 1,
+              fontFamily: F_DISPLAY, fontWeight: 400,
+              fontSize: 'clamp(36px, 5vw, 64px)',
+              lineHeight: 1.0, letterSpacing: '-0.025em',
+              color: '#FAFAFA',
+              maxWidth: '18ch',
             }}
-            className="vo-proc-line"
-          />
+          >
+            {t('process.title.1')} <span style={{ fontStyle: 'italic', color: A }}>{t('process.title.2')}</span>.
+          </motion.h2>
 
-          <RevealStagger stagger={0.15} style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-            gap: 20,
-            position: 'relative', zIndex: 2,
-          }}>
-            {enriched.map((s, i) => (
-              <RevealItem key={s.n} y={28}>
-                <motion.article
-                  whileHover={{ y: -8 }}
-                  transition={{ type: 'spring', stiffness: 200, damping: 22 }}
-                  style={{
-                    background: BG_CARD,
-                    border: `1px solid ${BORDER}`,
-                    padding: 'clamp(24px, 2.4vw, 32px) clamp(20px, 2vw, 28px)',
-                    display: 'flex', flexDirection: 'column', gap: 18,
-                    height: '100%',
-                    position: 'relative',
-                    boxShadow: 'var(--shadow-md)',
-                    transition: 'box-shadow 0.4s',
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.boxShadow = `0 24px 60px ${s.color}25`}
-                  onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'var(--shadow-md)'}
-                >
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
-                    <motion.span
-                      whileHover={{ rotate: -8, scale: 1.08 }}
-                      transition={{ type: 'spring', stiffness: 300 }}
-                      style={{
-                        width: 56, height: 56,
-                        display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                        background: BG_CARD,
-                        border: `2px solid ${s.color}`,
-                        borderRadius: '50%', color: s.color,
-                        boxShadow: `0 8px 24px ${s.color}40`,
-                        position: 'relative', zIndex: 3,
-                      }}>
-                      <svg width="24" height="24" viewBox="0 0 24 24">{s.icon}</svg>
-                    </motion.span>
-                    <span style={{
-                      fontFamily: F_DISPLAY, fontStyle: 'italic',
-                      fontSize: 56, lineHeight: 1, letterSpacing: '-0.03em',
-                      color: `${s.color}30`,
-                    }}>{s.n}</span>
-                  </div>
-
-                  <span style={{
-                    alignSelf: 'flex-start',
-                    fontFamily: F_MONO, fontSize: 10, color: s.color, fontWeight: 600,
-                    letterSpacing: '0.12em', textTransform: 'uppercase',
-                    padding: '5px 10px', border: `1px solid ${s.color}33`,
-                    background: `${s.color}10`,
-                  }}>
-                    {s.duration}
-                  </span>
-
-                  <div>
-                    <h3 style={{
-                      fontFamily: F_DISPLAY, fontWeight: 400,
-                      fontSize: 'clamp(26px, 2.4vw, 32px)', letterSpacing: '-0.02em',
-                      color: TEXT, marginBottom: 10, lineHeight: 1.05,
-                    }}>{s.title}</h3>
-                    <p style={{ fontSize: 14, color: TEXT_S, lineHeight: 1.55 }}>{s.desc}</p>
-                  </div>
-
-                  <div style={{
-                    marginTop: 'auto',
-                    paddingTop: 18,
-                    borderTop: `1px dashed ${BORDER}`,
-                  }}>
-                    <div style={{
-                      fontFamily: F_MONO, fontSize: 10, color: TEXT_D,
-                      letterSpacing: '0.12em', textTransform: 'uppercase',
-                      fontWeight: 600, marginBottom: 6,
-                    }}>{t('process.deliverable')}</div>
-                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8, fontSize: 13, color: TEXT, lineHeight: 1.45 }}>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={s.color} strokeWidth="2.5" style={{ flexShrink: 0, marginTop: 3 }}>
-                        <polyline points="20 6 9 17 4 12"/>
-                      </svg>
-                      <span style={{ fontWeight: 500 }}>{s.deliverable}</span>
-                    </div>
-                  </div>
-                </motion.article>
-              </RevealItem>
-            ))}
-          </RevealStagger>
+          <motion.p
+            initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.2 }}
+            style={{ marginTop: 16, fontSize: 'clamp(14px, 1.1vw, 16px)', color: 'rgba(255,255,255,0.55)', maxWidth: '52ch', lineHeight: 1.65 }}
+          >
+            {t('process.intro')}
+          </motion.p>
         </div>
 
+        {/* Instruction hint */}
+        <motion.p
+          initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}
+          viewport={{ once: true }} transition={{ delay: 0.5, duration: 0.8 }}
+          style={{ fontFamily: F_MONO, fontSize: 10, color: 'rgba(255,255,255,0.3)', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 8, textAlign: 'center' }}
+        >
+          {locale === 'es' ? '↓ clic en cada fase para ver detalle ↓' : '↓ click each phase to see details ↓'}
+        </motion.p>
+
+        {/* Orbital Timeline */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.92 }} whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }} transition={{ duration: 1, ease: [0.21, 0.61, 0.35, 1] }}
+        >
+          <RadialOrbitalTimeline timelineData={timelineData} />
+        </motion.div>
+
+        {/* Guarantee bar */}
         <motion.div
           initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }} transition={{ duration: 0.8 }}
           style={{
-            marginTop: 'clamp(40px, 5vw, 64px)',
+            marginTop: 'clamp(32px, 4vw, 48px)',
             padding: '20px clamp(20px, 3vw, 32px)',
-            background: BG_CARD,
-            border: `1px solid ${BORDER}`,
+            background: 'rgba(255,255,255,0.04)',
+            border: '1px solid rgba(255,255,255,0.1)',
             display: 'flex', alignItems: 'center', justifyContent: 'space-between',
             gap: 16, flexWrap: 'wrap',
           }}
@@ -156,34 +125,28 @@ export function Process() {
             <span style={{
               width: 34, height: 34, flexShrink: 0,
               display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-              background: '#DCFCE7', border: `1px solid #BBF7D0`, borderRadius: '50%',
+              background: 'rgba(34,197,94,0.15)', border: '1px solid rgba(34,197,94,0.35)', borderRadius: '50%',
             }}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#15803D" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="20 6 9 17 4 12"/>
               </svg>
             </span>
             <div>
-              <div style={{ fontSize: 14, fontWeight: 600, color: TEXT, lineHeight: 1.3 }}>
-                {t('process.guarantee.t')}
-              </div>
-              <div style={{ fontSize: 12, color: TEXT_S }}>{t('process.guarantee.s')}</div>
+              <div style={{ fontSize: 14, fontWeight: 600, color: '#FAFAFA', lineHeight: 1.3 }}>{t('process.guarantee.t')}</div>
+              <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.45)' }}>{t('process.guarantee.s')}</div>
             </div>
           </div>
 
           <a href="#contacto" className="arrow-slide-parent" style={{
             display: 'inline-flex', alignItems: 'center', gap: 10,
-            fontSize: 13, fontWeight: 600, color: TEXT,
-            borderBottom: `1px solid ${TEXT}`, paddingBottom: 2,
+            fontSize: 13, fontWeight: 600, color: '#FAFAFA',
+            borderBottom: '1px solid rgba(255,255,255,0.35)', paddingBottom: 2,
           }}>
             {t('process.guarantee.cta')}
             <span className="arrow-slide">→</span>
           </a>
         </motion.div>
       </div>
-
-      <style>{`
-        @media (max-width: 720px) { .vo-proc-line { display: none; } }
-      `}</style>
     </section>
   );
 }
