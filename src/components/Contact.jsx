@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from 'framer-motion';
 import { Sparkles, Mail, MapPin } from 'lucide-react';
 import { BG_ALT, BG_CARD, TEXT, TEXT_S, TEXT_D, BORDER, A, A_L, F_DISPLAY, F_MONO, MAX_W, PAD_X } from '../theme';
-import { TEAM, CAL_LINK, STUDIO_PHONE_FMT, STUDIO_WA } from '../data/content';
+import { TEAM, CAL_LINK, STUDIO_PHONE_FMT, STUDIO_WA, STUDIO_EMAIL } from '../data/content';
 import { useApp } from '../context/AppContext';
 import { ContactForm } from './ContactForm';
 import { SectionHeader } from './Services';
@@ -167,8 +167,8 @@ export function Contact() {
     },
     {
       label: t('form.label.email'),
-      title: 'justinvargas4299@gmail.com',
-      href: 'mailto:justinvargas4299@gmail.com',
+      title: STUDIO_EMAIL,
+      href: `mailto:${STUDIO_EMAIL}`,
       icon: <g fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></g>,
       color: '#EA580C',
     },

@@ -15,6 +15,7 @@ export const VO = A; export const VO_LIGHT = A_L; export const PURPLE = A;
 export const STUDIO_PHONE     = '62676464';
 export const STUDIO_PHONE_FMT = '6267-6464';
 export const STUDIO_WA        = '50662676464';
+export const STUDIO_EMAIL     = 'vostudiodev@gmail.com';
 
 export const TEAM = [
   {

@@ -43,8 +43,8 @@ export default function App() {
         <Projects />
         <Process />
         <CTABanner />
-        <FAQ />
         <Contact />
+        <FAQ />
       </main>
       <Footer />
       <CurtainOverlay />
