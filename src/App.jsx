@@ -1,8 +1,24 @@
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
+import { useApp } from './context/AppContext';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { AmbientBackground } from './components/AmbientBackground';
 import { Navbar } from './components/Navbar';
+
+function CurtainOverlay() {
+  const { curtainPhase, curtainBg, curtainDuration, curtainEase } = useApp();
+  return (
+    <div aria-hidden="true" style={{
+      position: 'fixed', inset: 0,
+      background: curtainBg,
+      transformOrigin: 'top',
+      transform: curtainPhase === 'falling' ? 'scaleY(1)' : 'scaleY(0)',
+      transition: curtainPhase !== 'idle' ? `transform ${curtainDuration}ms ${curtainEase}` : 'none',
+      zIndex: 99999,
+      pointerEvents: 'none',
+    }} />
+  );
+}
 import { Hero } from './components/Hero';
 import { Marquee } from './components/Marquee';
 import { Services } from './components/Services';
@@ -31,6 +47,7 @@ export default function App() {
         <Contact />
       </main>
       <Footer />
+      <CurtainOverlay />
       <Analytics />
       <SpeedInsights />
     </ErrorBoundary>
