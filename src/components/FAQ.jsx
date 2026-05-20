@@ -60,7 +60,7 @@ export function FAQ() {
   }, [locale]);
 
   return (
-    <section id="faq" style={{ background: BG, padding: `clamp(64px, 9vh, 100px) 0`, position: 'relative', overflow: 'hidden' }}>
+    <section id="faq" style={{ background: BG, padding: `clamp(32px, 5vh, 56px) 0`, position: 'relative', overflow: 'hidden' }}>
       <span className="blob blob-2" style={{ top: '5%', left: '-10%', width: 360, height: 360, background: 'radial-gradient(circle, rgba(168,85,247,0.08), transparent 70%)' }} />
 
       <div style={{ maxWidth: MAX_W, margin: '0 auto', padding: `0 ${PAD_X}`, position: 'relative', zIndex: 1 }}>
@@ -84,8 +84,8 @@ export function FAQ() {
             onChange={(e) => setQuery(e.target.value)}
             placeholder={t('faq.searchPlaceholder')}
             style={{
-              width: '100%', padding: '16px 16px 16px 48px',
-              fontSize: 15, color: TEXT, fontFamily: 'inherit',
+              width: '100%', padding: '12px 12px 12px 40px',
+              fontSize: 14, color: TEXT, fontFamily: 'inherit',
               background: BG_CARD, border: `1px solid ${BORDER}`,
               outline: 'none', transition: 'border-color 0.2s, box-shadow 0.2s',
             }}
@@ -198,7 +198,7 @@ export function FAQ() {
                       <button
                         onClick={() => setOpen(isOpen ? -1 : f.idx)}
                         style={{
-                          width: '100%', padding: '14px 18px',
+                          width: '100%', padding: '10px 14px',
                           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                           gap: 16, textAlign: 'left',
                         }}
@@ -214,7 +214,7 @@ export function FAQ() {
                             width: 6, height: 6, borderRadius: '50%', background: f.cat.color, flexShrink: 0,
                           }} />
                           <span style={{
-                            fontFamily: F_DISPLAY, fontSize: 'clamp(15px, 1.2vw, 17px)',
+                            fontFamily: F_DISPLAY, fontSize: 'clamp(13px, 1vw, 15px)',
                             color: TEXT, letterSpacing: '-0.01em', lineHeight: 1.3,
                           }}>{f.q}</span>
                         </span>
@@ -242,7 +242,7 @@ export function FAQ() {
                             transition={{ duration: 0.25, ease: [0.21, 0.61, 0.35, 1] }}
                             style={{ overflow: 'hidden' }}
                           >
-                            <div style={{ padding: '0 18px 16px 52px', display: 'flex', flexDirection: 'column', gap: 10 }}>
+                            <div style={{ padding: '0 14px 12px 44px', display: 'flex', flexDirection: 'column', gap: 8 }}>
                               <p style={{ fontSize: 13.5, color: TEXT_S, lineHeight: 1.6, maxWidth: '70ch' }}>{f.a}</p>
                               <div style={{
                                 display: 'inline-flex', alignItems: 'center', gap: 8, flexWrap: 'wrap',

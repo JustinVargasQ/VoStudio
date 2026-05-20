@@ -165,8 +165,12 @@ export function Hero() {
               borderRadius: 16,
               overflow: 'hidden',
               boxShadow: `0 24px 60px rgba(0,0,0,0.12)`,
+              width: '100%',
+              maxWidth: 400,
             }}>
-              <Entropy size={460} theme={theme} />
+              <div style={{ width: '100%', aspectRatio: '1/1' }}>
+                <Entropy size={400} theme={theme} />
+              </div>
             </div>
           </motion.div>
         </div>
