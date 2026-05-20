@@ -18,7 +18,7 @@ export function Entropy({ size = 480, theme = 'dark' }) {
 
     // Chaos=left (adapts to theme), Order=right (always orange)
     const CHAOS_COLOR = theme === 'dark' ? '#ffffff' : '#0A0A0A';
-    const ORDER_COLOR = '#EA580C';
+    const ORDER_COLOR = '#00BFFF';
 
     class Particle {
       constructor(x, y, order) {

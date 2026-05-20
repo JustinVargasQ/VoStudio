@@ -18,7 +18,7 @@ import { useApp } from '../context/AppContext';
 const MEMBER_META = [
   {
     color:    A,
-    image:    'https://api.dicebear.com/9.x/lorelei/svg?seed=JustinVargas&backgroundColor=EA580C&backgroundType=gradientLinear',
+    image:    'https://api.dicebear.com/9.x/lorelei/svg?seed=JustinVargas&backgroundColor=00BFFF&backgroundType=gradientLinear',
     location_es: 'San Carlos, Costa Rica',
     location_en: 'San Carlos, Costa Rica',
     bio_es:   'Full-stack developer apasionado por construir sistemas robustos y experiencias digitales que convierten visitas en clientes.',
@@ -294,7 +294,7 @@ export function Team() {
 
   return (
     <section id="equipo" style={{
-      background: '#0A0A0A',
+      background: '#00101E',
       padding: `clamp(72px, 11vh, 120px) 0`,
       position: 'relative', overflow: 'hidden',
     }}>
@@ -316,7 +316,7 @@ export function Team() {
         style={{
           position: 'absolute', bottom: '-15%', left: '-8%',
           width: 420, height: 420, borderRadius: '50%',
-          background: '#A855F733', filter: 'blur(100px)',
+          background: 'rgba(0,140,140,0.2)', filter: 'blur(100px)',
           pointerEvents: 'none',
         }}
       />

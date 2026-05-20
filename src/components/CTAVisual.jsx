@@ -3,7 +3,7 @@ import { F_DISPLAY, F_MONO } from '../theme';
 import { useApp } from '../context/AppContext';
 
 const TEAM_AVATARS = [
-  { initials: 'JV', color: '#EA580C', name: 'Justin' },
+  { initials: 'JV', color: '#00BFFF', name: 'Justin' },
   { initials: 'ZO', color: '#A855F7', name: 'Zaylin' },
 ];
 
@@ -111,7 +111,7 @@ export function CTAVisual() {
                   alignSelf: m.from === 'us' ? 'flex-start' : 'flex-end',
                   maxWidth: '82%',
                   padding: '9px 13px',
-                  background: m.from === 'us' ? '#EA580C' : '#FFFFFF',
+                  background: m.from === 'us' ? '#00BFFF' : '#FFFFFF',
                   color: m.from === 'us' ? '#fff' : '#0A0A0A',
                   border: m.from === 'us' ? 'none' : '1px solid #E5E5E5',
                   fontSize: 12.5, lineHeight: 1.45,
@@ -141,7 +141,7 @@ export function CTAVisual() {
                 <motion.span key={i}
                   animate={{ y: [0, -3, 0], opacity: [0.4, 1, 0.4] }}
                   transition={{ duration: 0.9, repeat: Infinity, delay: i * 0.15 }}
-                  style={{ width: 5, height: 5, background: '#EA580C', borderRadius: '50%' }}
+                  style={{ width: 5, height: 5, background: '#00BFFF', borderRadius: '50%' }}
                 />
               ))}
             </motion.div>
@@ -198,9 +198,9 @@ export function CTAVisual() {
               <button key={i}
                 style={{
                   padding: '8px 4px',
-                  background: d.selected ? '#EA580C' : (d.today ? '#FFF7ED' : '#FAFAF7'),
+                  background: d.selected ? '#00BFFF' : (d.today ? '#FFF7ED' : '#FAFAF7'),
                   color: d.selected ? '#fff' : (d.busy ? '#A3A3A3' : '#0A0A0A'),
-                  border: `1px solid ${d.selected ? '#EA580C' : (d.today ? '#EA580C' : '#E5E5E5')}`,
+                  border: `1px solid ${d.selected ? '#00BFFF' : (d.today ? '#00BFFF' : '#E5E5E5')}`,
                   display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3,
                   opacity: d.busy ? 0.5 : 1,
                 }}>
@@ -226,8 +226,8 @@ export function CTAVisual() {
               <span key={slot} style={{
                 padding: '5px 9px',
                 fontSize: 11, fontWeight: 500, color: i === 1 ? '#fff' : '#0A0A0A',
-                background: i === 1 ? '#EA580C' : '#FAFAF7',
-                border: `1px solid ${i === 1 ? '#EA580C' : '#E5E5E5'}`,
+                background: i === 1 ? '#00BFFF' : '#FAFAF7',
+                border: `1px solid ${i === 1 ? '#00BFFF' : '#E5E5E5'}`,
                 fontFamily: F_MONO,
               }}>
                 {slot}
@@ -246,7 +246,7 @@ export function CTAVisual() {
         style={{
           position: 'absolute',
           top: '0%', right: '6%',
-          background: '#F59E0B',
+          background: '#008C8C',
           color: '#0A0A0A',
           padding: '10px 16px',
           fontSize: 11, fontWeight: 700, fontFamily: F_MONO,

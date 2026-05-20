@@ -28,7 +28,7 @@ export function Process() {
 
   return (
     <section id="proceso" style={{
-      background: '#0A0A0A',
+      background: '#00101E',
       padding: `clamp(64px, 10vh, 110px) 0`,
       position: 'relative', overflow: 'hidden',
     }}>
