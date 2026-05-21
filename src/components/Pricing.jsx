@@ -3,7 +3,7 @@ import { motion, useSpring } from 'framer-motion';
 import { Check, Star } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import NumberFlow from '@number-flow/react';
-import { BG, BG_ALT, BG_CARD, BG_POPULAR, POPULAR_FG, POPULAR_BORDER, TEXT, TEXT_S, TEXT_D, BORDER, A, A_L, A_D, F_DISPLAY, F_MONO, MAX_W, PAD_X } from '../theme';
+import { BG, BG_ALT, BG_SECTION, BG_CARD, BG_POPULAR, POPULAR_FG, POPULAR_BORDER, TEXT, TEXT_S, TEXT_D, BORDER, A, A_L, A_D, F_DISPLAY, F_MONO, MAX_W, PAD_X } from '../theme';
 import { getContent } from '../data/content';
 import { useApp } from '../context/AppContext';
 import { SectionHeader } from './Services';
@@ -147,6 +147,7 @@ function PricingCard({ plan, meta, index }) {
 
   return (
     <RevealItem y={40}
+      className="vo-neon-hover"
       style={{
         position: 'relative',
         background: isPopular ? BG_POPULAR : `${BG_CARD}CC`,
@@ -285,7 +286,7 @@ export function Pricing() {
         ref={containerRef}
         onMouseMove={(e) => setMouse({ x: e.clientX, y: e.clientY })}
         onMouseLeave={() => setMouse({ x: null, y: null })}
-        style={{ background: BG_ALT, padding: `clamp(80px, 12vh, 140px) 0`, position: 'relative', overflow: 'hidden' }}
+        style={{ background: BG_SECTION, padding: `clamp(80px, 12vh, 140px) 0`, position: 'relative', overflow: 'hidden' }}
       >
         {/* Starfield */}
         <Starfield mousePosition={mouse} containerRef={containerRef} />

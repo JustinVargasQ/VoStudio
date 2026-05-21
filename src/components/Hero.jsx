@@ -1,12 +1,31 @@
 import { motion } from 'framer-motion';
 import { Mail, ArrowUpRight } from 'lucide-react';
 import {
-  BG, BG_ALT, BG_CARD, TEXT, TEXT_S, TEXT_D, BORDER,
+  BG, BG_ALT, BG_SECTION, BG_CARD, TEXT, TEXT_S, TEXT_D, BORDER,
   F_DISPLAY, F_EDITORIAL, F_MONO, PAD_X, A,
 } from '../theme';
 import { useApp } from '../context/AppContext';
 import { Entropy } from './ui/Entropy';
 import { TEAM, STUDIO_EMAIL, STUDIO_PHONE_FMT, STUDIO_WA } from '../data/content';
+
+const FOUNDER_META = [
+  {
+    specialty_es: 'Desarrollo web & sistemas backend',
+    specialty_en: 'Web dev & backend systems',
+    skills: ['React', 'Node.js', 'MongoDB'],
+    accent: '#FF5C9A',
+    grad: 'linear-gradient(135deg, #FF5C9A 0%, #8A46FF 100%)',
+    image: 'https://api.dicebear.com/9.x/lorelei/svg?seed=JustinVargas&backgroundColor=EA580C&backgroundType=gradientLinear',
+  },
+  {
+    specialty_es: 'Diseño UX/UI & apps móviles',
+    specialty_en: 'UX/UI design & mobile apps',
+    skills: ['UI/UX', 'Figma', 'React Native'],
+    accent: '#E14DFF',
+    grad: 'linear-gradient(135deg, #E14DFF 0%, #8A46FF 100%)',
+    image: 'https://api.dicebear.com/9.x/lorelei/svg?seed=ZaylinLopez&backgroundColor=A855F7&backgroundType=gradientLinear',
+  },
+];
 
 // v4 → v5: ACC (terracotta #943A1F) replaced by ACC (violet #8A46FF).
 // ACC2 is the secondary stop used in primary-button gradient.
@@ -53,7 +72,7 @@ export function Hero() {
   const isDark = theme === 'dark';
 
   // v5 — Theme-adaptive surface tones (was terracotta/cream v4)
-  const SOFT_BG    = isDark ? '#0F0820' : '#F6F2FF';      // inner frame bg
+  const SOFT_BG    = isDark ? 'transparent' : '#F6F2FF';  // inner frame bg
   const ORB_INNER  = isDark ? '#0A0418' : '#FAFAFF';      // entropy frame bg
   const STROKE     = isDark ? 'rgba(138,70,255,0.25)'  : 'rgba(138,70,255,0.22)';
   const STROKE_S   = isDark ? 'rgba(138,70,255,0.15)'  : 'rgba(138,70,255,0.12)';
@@ -68,7 +87,7 @@ export function Hero() {
 
   return (
     <section id="top" style={{
-      background: BG,
+      background: BG_SECTION,
       color: TEXT,
       position: 'relative',
       overflow: 'hidden',
@@ -77,13 +96,6 @@ export function Hero() {
       flexDirection: 'column',
       transition: 'background 0.3s, color 0.3s',
     }}>
-
-      {/* Left edge accent line */}
-      <div aria-hidden style={{
-        position: 'absolute', left: 'clamp(20px, 3.5vw, 52px)', top: 0, bottom: 0, width: 1,
-        background: `linear-gradient(to bottom, transparent 0%, ${ACC}70 25%, ${ACC}70 75%, transparent 100%)`,
-        pointerEvents: 'none', zIndex: 1,
-      }} />
 
       {/* Top metadata strip */}
       <motion.div
@@ -97,16 +109,16 @@ export function Hero() {
         }}
       >
         <span style={{
-          fontFamily: F_MONO, fontSize: 10, letterSpacing: '0.2em',
-          textTransform: 'uppercase', color: TEXT_D,
+          fontFamily: F_MONO, fontSize: 10, letterSpacing: '0.22em',
+          textTransform: 'uppercase', color: isDark ? 'rgba(200,180,255,0.60)' : 'rgba(93,43,255,0.60)',
         }}>
-          VO Studio // {locale === 'en' ? 'Software & Web' : 'Software & Web'}
+          VO Studio // Software &amp; Web
         </span>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
-          <span style={{ fontFamily: F_MONO, fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: TEXT_D }}>
-            {locale === 'en' ? 'Est. 2023' : 'Desde 2023'}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
+          <span style={{ fontFamily: F_MONO, fontSize: 10, letterSpacing: '0.22em', textTransform: 'uppercase', color: isDark ? 'rgba(200,180,255,0.45)' : 'rgba(93,43,255,0.45)' }}>
+            Est. 2023
           </span>
-          <span style={{ fontFamily: F_MONO, fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: TEXT_D }}>
+          <span style={{ fontFamily: F_MONO, fontSize: 10, letterSpacing: '0.22em', textTransform: 'uppercase', color: isDark ? 'rgba(200,180,255,0.45)' : 'rgba(93,43,255,0.45)' }}>
             Costa Rica 🇨🇷
           </span>
         </div>
@@ -157,7 +169,7 @@ export function Hero() {
               style={{
                 fontFamily: F_EDITORIAL,
                 fontSize: 'clamp(64px, 11vw, 160px)',
-                color: isDark ? 'rgba(233,228,224,0.18)' : 'rgba(27,25,26,0.18)',
+                color: isDark ? 'rgba(180, 140, 255, 0.22)' : 'rgba(27,25,26,0.18)',
                 letterSpacing: '0.18em',
                 lineHeight: 0.92,
                 userSelect: 'none',
@@ -176,15 +188,17 @@ export function Hero() {
             style={{ maxWidth: 440 }}
           >
             <p style={{
-              fontFamily: F_MONO, fontSize: 10, letterSpacing: '0.2em',
-              textTransform: 'uppercase', color: TEXT_D, marginBottom: 10,
+              fontFamily: F_MONO, fontSize: 10, letterSpacing: '0.22em',
+              textTransform: 'uppercase',
+              color: isDark ? 'rgba(200,170,255,0.65)' : 'rgba(93,43,255,0.65)',
+              marginBottom: 10,
             }}>
-              ↗ {locale === 'en' ? 'Web · Software · UX/UI' : 'Web · Software · UX/UI'}
+              ↗ Web · Software · UX/UI
             </p>
             <p style={{
               fontSize: 'clamp(14px, 1.1vw, 17px)',
-              color: TEXT_S,
-              lineHeight: 1.6,
+              color: isDark ? 'rgba(230,218,255,0.85)' : 'rgba(27,16,48,0.80)',
+              lineHeight: 1.65,
             }}>
               {t('hero.desc')}
             </p>
@@ -216,9 +230,10 @@ export function Hero() {
               <span style={{ fontSize: 16 }}>→</span>
             </motion.a>
             <a href="#proyectos" style={{
-              fontSize: 12, fontFamily: F_MONO, letterSpacing: '0.1em',
-              textTransform: 'uppercase', color: TEXT_D,
-              borderBottom: `1px solid ${STROKE}`, paddingBottom: 2,
+              fontSize: 11, fontFamily: F_MONO, letterSpacing: '0.12em',
+              textTransform: 'uppercase',
+              color: isDark ? 'rgba(200,180,255,0.60)' : 'rgba(93,43,255,0.60)',
+              borderBottom: `1px solid rgba(138,70,255,0.30)`, paddingBottom: 2,
             }}>
               {locale === 'en' ? 'Our Work ↓' : 'Ver Proyectos ↓'}
             </a>
@@ -227,107 +242,182 @@ export function Hero() {
 
         {/* ── Right column: Entropy + orbital rings (3D centerpiece) ── */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.7 }}
+          initial={{ opacity: 0, scale: 0.75 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.4, duration: 1.2, ease: [0.21, 0.61, 0.35, 1] }}
           className="vo-hero-3d"
-          style={{
-            display: 'flex', justifyContent: 'center', alignItems: 'center',
-            position: 'relative',
-          }}
+          style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative' }}
         >
           <div style={{
             position: 'relative',
-            width: 'clamp(280px, 36vw, 460px)',
-            height: 'clamp(280px, 36vw, 460px)',
+            width: 'clamp(300px, 38vw, 500px)',
+            height: 'clamp(300px, 38vw, 500px)',
             pointerEvents: 'none',
           }}>
-            {/* Soft glow halo */}
-            <motion.div
-              animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.22, 0.5] }}
-              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+
+            {/* ── Ambient dual-pulse glow ── */}
+            <motion.div aria-hidden
+              animate={{ scale: [1, 1.22, 1], opacity: [0.42, 0.14, 0.42] }}
+              transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
               style={{
-                position: 'absolute', inset: '-14%',
-                borderRadius: '50%',
-                background: `radial-gradient(circle, ${ACC}35 0%, ${ACC}10 45%, transparent 75%)`,
-                filter: 'blur(20px)',
+                position: 'absolute', inset: '-22%', borderRadius: '50%',
+                background: `radial-gradient(circle, ${ACC}45 0%, ${ACC2}20 40%, transparent 70%)`,
+                filter: 'blur(28px)',
+              }}
+            />
+            <motion.div aria-hidden
+              animate={{ scale: [1.1, 1, 1.1], opacity: [0.14, 0.30, 0.14] }}
+              transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 2.5 }}
+              style={{
+                position: 'absolute', inset: '-10%', borderRadius: '50%',
+                background: `radial-gradient(circle, ${ACC2}30 0%, transparent 65%)`,
+                filter: 'blur(18px)',
               }}
             />
 
-            {/* Outer orbital ring */}
+            {/* ── RING A: Outermost — equatorial tilted, dashed ── */}
             <motion.div
               animate={{ rotate: 360 }}
-              transition={{ duration: 28, repeat: Infinity, ease: 'linear' }}
-              style={{
-                position: 'absolute', inset: 0,
-                borderRadius: '50%',
-                border: `1px dashed ${ACC}55`,
-              }}
+              transition={{ duration: 55, repeat: Infinity, ease: 'linear' }}
+              style={{ position: 'absolute', inset: '-9%', borderRadius: '50%', rotateX: 72 }}
             >
+              <svg style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="49" fill="none" stroke={`${ACC2}30`} strokeWidth="0.5" strokeDasharray="4 5" />
+              </svg>
+              {/* Primary satellite */}
               <span style={{
                 position: 'absolute', top: -6, left: '50%', marginLeft: -6,
                 width: 12, height: 12, borderRadius: '50%',
-                background: ACC,
-                boxShadow: `0 0 16px ${ACC}, 0 0 32px ${ACC}80`,
+                background: ACC2,
+                boxShadow: `0 0 14px ${ACC2}, 0 0 28px ${ACC2}90, 0 0 42px ${ACC2}50`,
+              }} />
+              {/* Secondary satellite */}
+              <span style={{
+                position: 'absolute', bottom: -3, right: '20%',
+                width: 5, height: 5, borderRadius: '50%',
+                background: '#fff',
+                boxShadow: `0 0 8px #fff, 0 0 16px ${ACC2}80`,
+                opacity: 0.75,
               }} />
             </motion.div>
 
-            {/* Middle orbital ring */}
+            {/* ── RING B: Polar orbit — vertical tilt ── */}
             <motion.div
               animate={{ rotate: -360 }}
-              transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-              style={{
-                position: 'absolute', inset: '8%',
-                borderRadius: '50%',
-                border: `1px solid ${ACC}38`,
-              }}
+              transition={{ duration: 38, repeat: Infinity, ease: 'linear' }}
+              style={{ position: 'absolute', inset: '-4%', borderRadius: '50%', rotateY: 68 }}
             >
+              <svg style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="49" fill="none" stroke={`${ACC}38`} strokeWidth="0.5" />
+              </svg>
               <span style={{
-                position: 'absolute', bottom: -5, right: '15%',
-                width: 9, height: 9, borderRadius: '50%',
-                background: `${ACC}E0`,
-                boxShadow: `0 0 12px ${ACC}99`,
-              }} />
-              <span style={{
-                position: 'absolute', top: '50%', left: -3, marginTop: -3,
-                width: 5, height: 5, borderRadius: '50%',
-                background: '#6AB7FF',
-                boxShadow: '0 0 10px rgba(106, 183, 255, 0.9)',
+                position: 'absolute', top: '12%', right: -5,
+                width: 8, height: 8, borderRadius: '50%',
+                background: ACC,
+                boxShadow: `0 0 12px ${ACC}, 0 0 24px ${ACC}90`,
               }} />
             </motion.div>
 
-            {/* Entropy canvas — centered & floating */}
-            <div style={{
-              position: 'absolute',
-              top: '50%', left: '50%',
-              width:  '80%', height: '80%',
-              transform: 'translate(-50%, -50%)',
-            }}>
+            {/* ── RING C: Main equatorial ── */}
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 26, repeat: Infinity, ease: 'linear' }}
+              style={{ position: 'absolute', inset: 0, borderRadius: '50%' }}
+            >
+              <svg style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="49" fill="none" stroke={`${ACC}48`} strokeWidth="0.6" />
+              </svg>
+              {/* Bright leading dot */}
+              <span style={{
+                position: 'absolute', top: -6, left: '50%', marginLeft: -6,
+                width: 12, height: 12, borderRadius: '50%',
+                background: `radial-gradient(circle, #fff 20%, ${ACC2} 100%)`,
+                boxShadow: `0 0 18px ${ACC2}, 0 0 36px ${ACC2}90, 0 0 54px ${ACC2}50`,
+              }} />
+              {/* Trailing dim dot */}
+              <span style={{
+                position: 'absolute', bottom: '10%', left: -4,
+                width: 6, height: 6, borderRadius: '50%',
+                background: ACC,
+                boxShadow: `0 0 10px ${ACC}, 0 0 20px ${ACC}70`,
+                opacity: 0.70,
+              }} />
+            </motion.div>
+
+            {/* ── RING D: Inner diagonal ── */}
+            <motion.div
+              animate={{ rotate: -360 }}
+              transition={{ duration: 18, repeat: Infinity, ease: 'linear' }}
+              style={{ position: 'absolute', inset: '8%', borderRadius: '50%', rotateX: -55, rotateZ: 25 }}
+            >
+              <svg style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="49" fill="none" stroke={`${ACC}28`} strokeWidth="0.45" />
+              </svg>
+              <span style={{
+                position: 'absolute', bottom: -4, right: '15%',
+                width: 8, height: 8, borderRadius: '50%',
+                background: ACC,
+                boxShadow: `0 0 12px ${ACC}, 0 0 24px ${ACC}80`,
+              }} />
+              <span style={{
+                position: 'absolute', top: '25%', left: -3,
+                width: 5, height: 5, borderRadius: '50%',
+                background: '#6AB7FF',
+                boxShadow: '0 0 12px #6AB7FF, 0 0 22px rgba(106,183,255,0.80)',
+              }} />
+            </motion.div>
+
+            {/* ── RING E: Innermost fast ── */}
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 11, repeat: Infinity, ease: 'linear' }}
+              style={{ position: 'absolute', inset: '20%', borderRadius: '50%', rotateX: 40 }}
+            >
+              <svg style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="49" fill="none" stroke={`#E14DFF35`} strokeWidth="0.4" strokeDasharray="2 6" />
+              </svg>
+              <span style={{
+                position: 'absolute', top: -3, left: '50%', marginLeft: -3,
+                width: 6, height: 6, borderRadius: '50%',
+                background: '#E14DFF',
+                boxShadow: '0 0 10px #E14DFF, 0 0 20px #E14DFF90',
+              }} />
+            </motion.div>
+
+            {/* ── Entropy sphere — centered & floating ── */}
+            <div style={{ position: 'absolute', top: '50%', left: '50%', width: '76%', height: '76%', transform: 'translate(-50%,-50%)' }}>
               <motion.div
-                animate={{ y: [0, -6, 0] }}
-                transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+                animate={{ y: [0, -8, 0] }}
+                transition={{ duration: 6.5, repeat: Infinity, ease: 'easeInOut' }}
                 style={{
-                  position: 'relative',
-                  width: '100%', height: '100%',
-                  borderRadius: '50%',
-                  overflow: 'hidden',
-                  border: `1.5px solid ${ACC}55`,
+                  position: 'relative', width: '100%', height: '100%',
+                  borderRadius: '50%', overflow: 'hidden',
+                  border: `1.5px solid ${ACC}65`,
                   boxShadow: isDark
-                    ? `inset 0 0 60px rgba(0,0,0,0.55), 0 0 60px ${ACC}40, 0 0 120px ${ACC2}25, 0 16px 50px rgba(0,0,0,0.5)`
-                    : `inset 0 0 40px rgba(138,70,255,0.08), 0 0 70px ${ACC}35, 0 0 140px ${ACC2}20, 0 16px 50px rgba(93,43,255,0.20)`,
+                    ? `inset 0 0 70px rgba(0,0,0,0.60), 0 0 80px ${ACC}55, 0 0 160px ${ACC2}35, 0 24px 70px rgba(0,0,0,0.55)`
+                    : `inset 0 0 40px rgba(138,70,255,0.12), 0 0 90px ${ACC}45, 0 0 180px ${ACC2}28`,
                   background: ORB_INNER,
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                 }}
               >
-                {/* Radial vignette */}
+                {/* Vignette edge fade */}
                 <div aria-hidden style={{
-                  position: 'absolute', inset: 0, zIndex: 2, pointerEvents: 'none',
+                  position: 'absolute', inset: 0, zIndex: 2, pointerEvents: 'none', borderRadius: '50%',
                   background: isDark
-                    ? 'radial-gradient(circle at 50% 50%, transparent 55%, rgba(10,4,24,0.88) 100%)'
-                    : 'radial-gradient(circle at 50% 50%, transparent 60%, rgba(250,250,255,0.85) 100%)',
-                  borderRadius: '50%',
+                    ? 'radial-gradient(circle at 50% 50%, transparent 48%, rgba(8,2,20,0.94) 100%)'
+                    : 'radial-gradient(circle at 50% 50%, transparent 52%, rgba(250,248,255,0.90) 100%)',
                 }} />
-                <Entropy size={360} theme={theme} />
+                {/* Scanning sweep line */}
+                <motion.div aria-hidden
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
+                  style={{
+                    position: 'absolute', inset: 0, zIndex: 1, borderRadius: '50%',
+                    background: `conic-gradient(from 0deg, transparent 0deg, ${ACC}18 30deg, transparent 60deg)`,
+                    pointerEvents: 'none',
+                  }}
+                />
+                <Entropy size={320} theme={theme} />
               </motion.div>
             </div>
           </div>
@@ -341,7 +431,6 @@ export function Hero() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.0, duration: 0.8 }}
         style={{
-          borderTop: `1px solid ${STROKE}`,
           background: SOFT_BG,
           position: 'relative', zIndex: 2,
         }}
@@ -359,66 +448,149 @@ export function Hero() {
           <div>
             <div style={{
               fontFamily: F_MONO, fontSize: 10, letterSpacing: '0.22em',
-              textTransform: 'uppercase', color: ACC, fontWeight: 700, marginBottom: 16,
+              textTransform: 'uppercase', color: ACC2, fontWeight: 700, marginBottom: 16,
               display: 'inline-flex', alignItems: 'center', gap: 8,
             }}>
-              <span style={{ width: 14, height: 1, background: ACC }} />
+              <span style={{ width: 14, height: 1, background: ACC2 }} />
               {locale === 'en' ? 'Built in Costa Rica' : 'Hecho en Costa Rica'}
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-              {TEAM.map((p, i) => (
-                <div key={p.short} style={{
-                  display: 'flex', alignItems: 'center', gap: 14,
-                  padding: '12px 14px',
-                  background: BG_CARD,
-                  border: `1px solid ${STROKE}`,
-                  transition: 'border-color 0.2s, transform 0.2s',
-                }}
-                onMouseEnter={(e) => { e.currentTarget.style.borderColor = `${ACC}60`; e.currentTarget.style.transform = 'translateY(-2px)'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.borderColor = STROKE; e.currentTarget.style.transform = 'translateY(0)'; }}
-                >
-                  {/* Avatar */}
-                  <div style={{
-                    width: 48, height: 48,
-                    borderRadius: '50%', flexShrink: 0,
-                    background: i === 0
-                      ? `linear-gradient(135deg, ${ACC} 0%, #7A2E15 100%)`
-                      : `linear-gradient(135deg, #B84B22 0%, ${ACC} 100%)`,
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    color: '#fff', fontFamily: F_MONO, fontSize: 13, fontWeight: 700, letterSpacing: '0.04em',
-                    boxShadow: `0 8px 20px ${ACC}40, inset 0 1px 0 rgba(255,255,255,0.2)`,
-                    border: `2px solid ${BG_CARD}`,
-                  }}>{p.initials}</div>
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontFamily: F_DISPLAY, fontSize: 18, color: TEXT, letterSpacing: '-0.02em', lineHeight: 1.1 }}>
-                      {p.short} <span style={{ fontStyle: 'italic', color: TEXT_D, fontSize: 14 }}>· {locale === 'en' ? 'Co-founder' : 'Co-fundador' + (i === 1 ? 'a' : '')}</span>
-                    </div>
-                    <div style={{ fontSize: 11, color: TEXT_D, marginTop: 3, fontFamily: F_MONO }}>
-                      {locale === 'en' ? p.role_en : p.role_es}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              {TEAM.map((p, i) => {
+                const m = FOUNDER_META[i];
+                return (
+                  <div key={p.short}
+                    style={{
+                      background: isDark ? 'rgba(18, 8, 42, 0.70)' : 'rgba(255,255,255,0.85)',
+                      backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)',
+                      border: `1px solid ${isDark ? 'rgba(138,70,255,0.20)' : 'rgba(138,70,255,0.18)'}`,
+                      borderRadius: 16, overflow: 'hidden',
+                      transition: 'border-color 0.3s, box-shadow 0.3s, transform 0.25s',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = `${m.accent}55`;
+                      e.currentTarget.style.boxShadow  = `0 14px 40px ${m.accent}20`;
+                      e.currentTarget.style.transform  = 'translateY(-2px)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = isDark ? 'rgba(138,70,255,0.20)' : 'rgba(138,70,255,0.18)';
+                      e.currentTarget.style.boxShadow  = 'none';
+                      e.currentTarget.style.transform  = 'translateY(0)';
+                    }}
+                  >
+                    {/* Top accent bar */}
+                    <div style={{ height: 3, background: m.grad }} />
+
+                    <div style={{ padding: '14px 16px', display: 'flex', gap: 13, alignItems: 'flex-start' }}>
+                      {/* Avatar with image + glow + online dot */}
+                      <div style={{ position: 'relative', flexShrink: 0 }}>
+                        <div style={{
+                          position: 'absolute', inset: -3, borderRadius: '50%',
+                          background: m.grad, opacity: 0.32, filter: 'blur(6px)',
+                        }} />
+                        <div style={{
+                          position: 'relative', width: 54, height: 54, borderRadius: '50%',
+                          background: m.grad,
+                          border: `2px solid rgba(255,255,255,0.18)`,
+                          boxShadow: `0 0 0 2px ${m.accent}35`,
+                          overflow: 'hidden',
+                        }}>
+                          <img
+                            src={m.image}
+                            alt={p.name}
+                            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                            onError={(e) => {
+                              e.currentTarget.style.display = 'none';
+                              e.currentTarget.nextSibling.style.display = 'flex';
+                            }}
+                          />
+                          <div style={{
+                            display: 'none', position: 'absolute', inset: 0,
+                            alignItems: 'center', justifyContent: 'center',
+                            color: '#fff', fontFamily: F_MONO, fontSize: 13, fontWeight: 700,
+                          }}>{p.initials}</div>
+                        </div>
+                        <span style={{
+                          position: 'absolute', bottom: 2, right: 2,
+                          width: 11, height: 11, borderRadius: '50%',
+                          background: '#22C55E',
+                          border: `2px solid ${isDark ? 'rgba(18,8,42,0.9)' : 'rgba(255,255,255,0.9)'}`,
+                        }} />
+                      </div>
+
+                      {/* Info */}
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 8, marginBottom: 3 }}>
+                          <div style={{ fontFamily: F_DISPLAY, fontSize: 14.5, letterSpacing: '-0.01em', lineHeight: 1.15, color: isDark ? '#fff' : '#1B1030' }}>
+                            {p.name}
+                          </div>
+                          <span style={{
+                            fontFamily: F_MONO, fontSize: 8.5, fontWeight: 700,
+                            letterSpacing: '0.12em', textTransform: 'uppercase',
+                            color: m.accent, background: `${m.accent}14`,
+                            border: `1px solid ${m.accent}30`,
+                            borderRadius: 999, padding: '2px 7px',
+                            flexShrink: 0, marginTop: 1,
+                          }}>
+                            {locale === 'en' ? 'Co-founder' : (i === 1 ? 'Co-fundadora' : 'Co-fundador')}
+                          </span>
+                        </div>
+
+                        <div style={{
+                          fontSize: 10.5, marginBottom: 8,
+                          color: isDark ? 'rgba(200,180,255,0.60)' : 'rgba(93,43,255,0.65)',
+                          fontFamily: F_MONO, letterSpacing: '0.02em',
+                        }}>
+                          {locale === 'en' ? m.specialty_en : m.specialty_es}
+                        </div>
+
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4, marginBottom: 9 }}>
+                          {m.skills.map(s => (
+                            <span key={s} style={{
+                              fontSize: 9.5, fontFamily: F_MONO, fontWeight: 600,
+                              padding: '2px 7px', borderRadius: 999,
+                              background: isDark ? 'rgba(138,70,255,0.12)' : 'rgba(138,70,255,0.08)',
+                              border: `1px solid ${isDark ? 'rgba(138,70,255,0.25)' : 'rgba(138,70,255,0.20)'}`,
+                              color: isDark ? 'rgba(200,180,255,0.80)' : 'rgba(93,43,255,0.80)',
+                            }}>{s}</span>
+                          ))}
+                        </div>
+
+                        <a href={`mailto:${p.email}`} style={{
+                          display: 'inline-flex', alignItems: 'center', gap: 5,
+                          fontSize: 10.5, fontFamily: F_MONO, color: m.accent,
+                          borderBottom: `1px solid ${m.accent}35`, paddingBottom: 1,
+                          textDecoration: 'none', transition: 'opacity 0.2s',
+                        }}
+                          onMouseEnter={(e) => e.currentTarget.style.opacity = '0.70'}
+                          onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
+                        >
+                          <Mail size={10} />
+                          {p.email}
+                        </a>
+                      </div>
                     </div>
                   </div>
-                  <ArrowUpRight size={14} color={TEXT_D} strokeWidth={1.8} style={{ flexShrink: 0 }} />
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 
           {/* ── RIGHT: socials grid ── */}
           <div>
             <div style={{
-              display: 'flex', alignItems: 'baseline', justifyContent: 'space-between',
-              gap: 12, flexWrap: 'wrap', marginBottom: 16,
+              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+              gap: 12, flexWrap: 'wrap', marginBottom: 14,
             }}>
               <div style={{
                 fontFamily: F_MONO, fontSize: 10, letterSpacing: '0.22em',
-                textTransform: 'uppercase', color: ACC, fontWeight: 700,
+                textTransform: 'uppercase', color: ACC2, fontWeight: 700,
                 display: 'inline-flex', alignItems: 'center', gap: 8,
               }}>
-                <span style={{ width: 14, height: 1, background: ACC }} />
+                <span style={{ width: 14, height: 1, background: ACC2 }} />
                 {locale === 'en' ? 'Connect with us' : 'Conectá con nosotros'}
               </div>
-              <span style={{ fontSize: 11, color: TEXT_D, fontStyle: 'italic' }}>
-                {locale === 'en' ? 'Reply within 24h · always' : 'Respondemos en menos de 24h · siempre'}
+              <span style={{ fontSize: 10.5, color: isDark ? 'rgba(200,180,255,0.50)' : 'rgba(93,43,255,0.55)', fontFamily: F_MONO, letterSpacing: '0.04em' }}>
+                {locale === 'en' ? '↩ Reply in 24h' : '↩ Respondemos en 24h'}
               </span>
             </div>
 
@@ -429,48 +601,55 @@ export function Hero() {
             }} className="vo-soc-grid">
               {SOCIALS.map((s, i) => (
                 <a key={i} href={s.href} target="_blank" rel="noreferrer"
-                  className="vo-soc-card"
+                  className="vo-soc-card vo-neon-hover"
                   style={{
-                    display: 'flex', flexDirection: 'column', gap: 8,
-                    padding: '14px 12px 12px',
-                    background: BG_CARD,
-                    border: `1px solid ${STROKE}`,
-                    color: TEXT,
+                    display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10,
+                    padding: '18px 10px 14px',
+                    background: isDark ? 'rgba(14, 7, 30, 0.65)' : 'rgba(255,255,255,0.75)',
+                    backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)',
+                    border: `1px solid ${isDark ? 'rgba(255,255,255,0.07)' : 'rgba(138,70,255,0.15)'}`,
+                    color: isDark ? '#fff' : '#1B1030',
                     textDecoration: 'none',
-                    position: 'relative',
-                    overflow: 'hidden',
-                    transition: 'all 0.25s ease',
+                    position: 'relative', overflow: 'hidden',
+                    transition: 'all 0.28s ease',
                     cursor: 'pointer',
                     '--soc-color': s.color,
                   }}
                 >
-                  {/* Hover accent stripe */}
+                  {/* Top glow line */}
                   <span aria-hidden className="vo-soc-stripe" style={{
-                    position: 'absolute', top: 0, left: 0, right: 0, height: 2,
-                    background: s.color,
-                    transform: 'scaleX(0)', transformOrigin: 'left',
-                    transition: 'transform 0.3s ease',
+                    position: 'absolute', top: 0, left: 0, right: 0, height: 1.5,
+                    background: `linear-gradient(90deg, transparent 0%, ${s.color} 50%, transparent 100%)`,
+                    opacity: 0,
+                    transition: 'opacity 0.3s ease',
                   }} />
-                  {/* Icon */}
+
+                  {/* Icon circle */}
                   <div className="vo-soc-icon" style={{
-                    width: 32, height: 32,
-                    display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                    background: `${s.color}14`,
-                    border: `1px solid ${s.color}30`,
+                    width: 40, height: 40, borderRadius: '50%',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    background: `${s.color}18`,
+                    border: `1.5px solid ${s.color}35`,
                     color: s.color,
-                    transition: 'all 0.25s ease',
+                    transition: 'all 0.28s ease',
+                    flexShrink: 0,
                   }}>
-                    <s.Icon size={15} strokeWidth={1.8} />
+                    <s.Icon size={17} />
                   </div>
-                  <div>
+
+                  {/* Name */}
+                  <div style={{ textAlign: 'center' }}>
                     <div style={{
-                      fontFamily: F_MONO, fontSize: 9, letterSpacing: '0.16em',
-                      textTransform: 'uppercase', color: TEXT_D, fontWeight: 700, marginBottom: 3,
+                      fontFamily: F_MONO, fontSize: 9, fontWeight: 700,
+                      letterSpacing: '0.14em', textTransform: 'uppercase',
+                      color: isDark ? 'rgba(255,255,255,0.50)' : 'rgba(27,16,48,0.55)',
+                      marginBottom: 4,
                     }}>{s.name}</div>
                     <div style={{
-                      fontSize: 11, color: TEXT, lineHeight: 1.2,
+                      fontSize: 10, fontFamily: F_MONO,
+                      color: isDark ? 'rgba(255,255,255,0.88)' : '#1B1030',
                       overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
-                      fontFamily: F_MONO,
+                      maxWidth: '100%', lineHeight: 1.2,
                     }} title={s.handle}>{s.handle}</div>
                   </div>
                 </a>
@@ -481,9 +660,11 @@ export function Hero() {
       </motion.div>
 
       <style>{`
-        .vo-soc-card:hover { transform: translateY(-3px); border-color: var(--soc-color) !important; box-shadow: 0 12px 28px ${ACC}18; }
-        .vo-soc-card:hover .vo-soc-stripe { transform: scaleX(1); }
-        .vo-soc-card:hover .vo-soc-icon { background: var(--soc-color); color: #fff; border-color: var(--soc-color); }
+        .vo-soc-card:hover { transform: translateY(-4px); border-color: var(--soc-color) !important; box-shadow: 0 12px 32px rgba(0,0,0,0.18), 0 0 0 1px var(--soc-color); }
+        .vo-soc-card:hover .vo-soc-stripe { opacity: 1 !important; }
+        .vo-soc-card:hover .vo-soc-icon { background: var(--soc-color) !important; color: #fff !important; border-color: var(--soc-color) !important; transform: scale(1.08); }
+        :root[data-theme="dark"] .vo-soc-card:hover { background: rgba(20, 10, 45, 0.88) !important; }
+        :root:not([data-theme="dark"]) .vo-soc-card:hover { background: rgba(255,255,255,0.96) !important; }
 
         @media (max-width: 900px) {
           .vo-hero-grid { grid-template-columns: 1fr !important; }

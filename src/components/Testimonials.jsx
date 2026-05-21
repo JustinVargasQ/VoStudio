@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { BG, BG_ALT, BG_CARD, TEXT, TEXT_S, TEXT_D, BORDER, A, A_D, F_DISPLAY, F_MONO, MAX_W, PAD_X } from '../theme';
+import { BG, BG_ALT, BG_SECTION, BG_CARD, TEXT, TEXT_S, TEXT_D, BORDER, A, A_D, F_DISPLAY, F_MONO, MAX_W, PAD_X } from '../theme';
 import { useApp } from '../context/AppContext';
 import { SectionHeader } from './Services';
 import { RevealItem } from './Reveal';
@@ -83,7 +83,7 @@ export function Testimonials() {
   const items = TESTIMONIALS[locale] || TESTIMONIALS.es;
 
   return (
-    <section id="testimonios" style={{ background: BG_ALT, padding: `clamp(64px, 10vh, 110px) 0`, position: 'relative', overflow: 'hidden' }}>
+    <section id="testimonios" style={{ background: BG_SECTION, padding: `clamp(64px, 10vh, 110px) 0`, position: 'relative', overflow: 'hidden' }}>
       <span className="blob blob-1" style={{ top: '10%', right: '-10%', width: 420, height: 420, background: `radial-gradient(circle, ${A}10, transparent 70%)` }} />
       <span className="blob blob-2" style={{ bottom: '-10%', left: '-8%', width: 380, height: 380, background: `radial-gradient(circle, ${A_D}10, transparent 70%)` }} />
 
@@ -104,6 +104,7 @@ export function Testimonials() {
           {items.map((item, i) => (
             <RevealItem key={i} y={28} delay={i * 0.1}>
               <motion.div
+                className="vo-neon-hover"
                 whileHover={{ y: -6 }}
                 transition={{ type: 'spring', stiffness: 200, damping: 22 }}
                 style={{

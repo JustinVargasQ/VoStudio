@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, Palette, Code2, Rocket, CheckCircle2 } from 'lucide-react';
-import { BG, BG_ALT, BG_CARD, TEXT, TEXT_S, TEXT_D, BORDER, F_DISPLAY, F_MONO, MAX_W, PAD_X, A } from '../theme';
+import { BG, BG_ALT, BG_SECTION, BG_CARD, TEXT, TEXT_S, TEXT_D, BORDER, F_DISPLAY, F_MONO, MAX_W, PAD_X, A } from '../theme';
 import { getContent } from '../data/content';
 import { useApp } from '../context/AppContext';
 
@@ -29,7 +29,7 @@ export function Process() {
 
   return (
     <section id="proceso" style={{
-      background: BG,
+      background: BG_SECTION,
       padding: `clamp(64px, 10vh, 110px) 0`,
       position: 'relative', overflow: 'hidden',
       transition: 'background 0.3s',
@@ -127,6 +127,7 @@ export function Process() {
               return (
                 <motion.div
                   key={s.n}
+                  className="vo-neon-hover"
                   onClick={() => setActive(i)}
                   animate={{
                     y: isActive ? -12 : 0,

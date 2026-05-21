@@ -22,6 +22,7 @@
  */
 
 // ─── Surfaces (CSS vars — adapt to light/dark) ──────────────────────────
+export const BG_SECTION = 'var(--bg-section)'; // transparent in dark, opaque in light
 export const BG       = 'var(--bg)';
 export const BG_ALT   = 'var(--bg-alt)';
 export const BG_SOFT  = 'var(--bg-soft)';

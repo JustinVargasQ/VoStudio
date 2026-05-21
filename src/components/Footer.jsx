@@ -42,7 +42,7 @@ export function Footer() {
         }} className="vo-foot-grid">
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 18, marginBottom: 28, flexWrap: 'wrap' }}>
-              <div style={{
+              <div className="vo-neon-hover" style={{
                 // v4 → v5: bg #1B191A → #1B1030; glow terracotta → violet/magenta
                 width: 64, height: 64, flexShrink: 0,
                 background: '#1B1030',

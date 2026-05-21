@@ -83,17 +83,17 @@ const CONTENT = {
     SERVICES: [
       {
         n: '01', title: 'Páginas web',
-        desc: 'Sitios modernos, rápidos y listos para Google.',
-        tagline: 'Tu carta de presentación digital.',
+        desc: 'Sitios que convierten visitas en clientes — rápidos, modernos y listos para Google.',
+        tagline: 'Tu presencia digital, trabajando por vos las 24 horas.',
         timeline: '1 – 3 semanas',
         perfectFor: 'Profesionales y emprendimientos que necesitan presencia online seria.',
         includes: ['Diseño a medida, responsive y mobile-first', 'Hasta 8 páginas (Home, Sobre, Servicios, Contacto…)', 'Formulario de contacto funcional', 'Optimización SEO básica', 'Dominio + hosting configurados', 'Capacitación para editar el contenido'],
-        stack: ['React', 'Next.js', 'Tailwind', 'Vercel', 'Figma'],
+        stack: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Vercel', 'Figma'],
         examples: [
-          { icon: '⚖️', title: 'Bufete legal', desc: 'Sitio corporativo con áreas de práctica, blog jurídico y formulario de consulta gratis.' },
-          { icon: '📷', title: 'Portafolio creativo', desc: 'Galería con lightbox + booking integrado para fotógrafa o diseñador freelance.' },
-          { icon: '🏥', title: 'Clínica médica', desc: 'Citas online, servicios, ubicación con mapa y reviews de pacientes.' },
-          { icon: '🎉', title: 'Landing de evento', desc: 'Countdown, RSVP con captura de leads, galería y venue para lanzamientos.' },
+          { icon: '', title: 'Bufete legal', desc: 'Sitio corporativo con áreas de práctica, blog jurídico y formulario de consulta gratis.' },
+          { icon: '', title: 'Portafolio creativo', desc: 'Galería con lightbox + booking integrado para fotógrafa o diseñador freelance.' },
+          { icon: '', title: 'Clínica médica', desc: 'Citas online, servicios, ubicación con mapa y reviews de pacientes.' },
+          { icon: '', title: 'Landing de evento', desc: 'Countdown, RSVP con captura de leads, galería y venue para lanzamientos.' },
         ],
         color: A
       },
@@ -106,10 +106,10 @@ const CONTENT = {
         includes: ['Catálogo de productos con categorías y variantes', 'Carrito y checkout completo', 'Pasarela de pago (Sinpe, tarjeta, PayPal)', 'Panel admin para gestionar productos y pedidos', 'Sistema de cupones y descuentos', 'Notificaciones por WhatsApp/email'],
         stack: ['React', 'Node.js', 'MongoDB', 'Stripe', 'Cloudinary'],
         examples: [
-          { icon: '💄', title: 'Cosméticos (caso JD)', desc: 'Catálogo + pedidos vía WhatsApp + panel admin sin código. La clienta sube productos sola.' },
-          { icon: '👗', title: 'Moda con variantes', desc: 'Tallas, colores, wishlist, checkout multi-paso, cupones por temporada.' },
-          { icon: '🍱', title: 'Comida gourmet', desc: 'Entregas por zona, calendario de pedidos, manejo de perecederos y horarios.' },
-          { icon: '🎨', title: 'Marketplace artesanal', desc: 'Multi-vendor con comisiones automáticas, reseñas verificadas y dashboard por tienda.' },
+          { icon: '', title: 'Cosméticos (caso JD)', desc: 'Catálogo + pedidos vía WhatsApp + panel admin sin código. La clienta sube productos sola.' },
+          { icon: '', title: 'Moda con variantes', desc: 'Tallas, colores, wishlist, checkout multi-paso, cupones por temporada.' },
+          { icon: '', title: 'Comida gourmet', desc: 'Entregas por zona, calendario de pedidos, manejo de perecederos y horarios.' },
+          { icon: '', title: 'Marketplace artesanal', desc: 'Multi-vendor con comisiones automáticas, reseñas verificadas y dashboard por tienda.' },
         ],
         color: A
       },
@@ -122,10 +122,10 @@ const CONTENT = {
         includes: ['Diseño UX/UI completo y testeado', 'Autenticación de usuarios (login, roles, permisos)', 'App web progresiva (PWA) instalable desde el navegador', 'API REST propia o integración con APIs externas', 'Panel de administración', 'Deploy en servidor con dominio propio'],
         stack: ['React Native', 'Expo', 'Node.js', 'PostgreSQL', 'Redis'],
         examples: [
-          { icon: '🛵', title: 'App de delivery', desc: 'Pedidos en tiempo real, tracking GPS del repartidor, pagos in-app y rating.' },
-          { icon: '💆', title: 'Reservas para spa', desc: 'Calendario con horarios, recordatorios SMS automáticos y fichas de cliente.' },
-          { icon: '👥', title: 'Red interna corporativa', desc: 'Feeds, chats por equipo, calendario de eventos y perfiles para empresas de 50+.' },
-          { icon: '💪', title: 'App fitness', desc: 'Rutinas personalizadas según objetivo, tracking diario y gráficos de progreso.' },
+          { icon: '', title: 'App de delivery', desc: 'Pedidos en tiempo real, tracking GPS del repartidor, pagos in-app y rating.' },
+          { icon: '', title: 'Reservas para spa', desc: 'Calendario con horarios, recordatorios SMS automáticos y fichas de cliente.' },
+          { icon: '', title: 'Red interna corporativa', desc: 'Feeds, chats por equipo, calendario de eventos y perfiles para empresas de 50+.' },
+          { icon: '', title: 'App fitness', desc: 'Rutinas personalizadas según objetivo, tracking diario y gráficos de progreso.' },
         ],
         color: A
       },
@@ -138,10 +138,10 @@ const CONTENT = {
         includes: ['Análisis de requerimientos y propuesta técnica', 'Base de datos diseñada a la medida del negocio', 'Reportes exportables a Excel/PDF', 'Control de usuarios y permisos por rol', 'Respaldo automático de datos', 'Documentación técnica y manual de usuario'],
         stack: ['React', 'Node.js', 'PostgreSQL', 'Docker', 'AWS'],
         examples: [
-          { icon: '🏗️', title: 'ERP para constructora', desc: 'Manejo de proyectos, presupuestos por etapa, materiales y planilla integrada.' },
-          { icon: '🔧', title: 'Inventario ferretería', desc: 'Códigos de barra, alertas de stock bajo, reportes de venta por producto/sucursal.' },
-          { icon: '🏘️', title: 'CRM inmobiliario', desc: 'Leads calificados, fichas de propiedad, agentes, visitas calendarizadas con cliente.' },
-          { icon: '🎓', title: 'Sistema escolar', desc: 'Matrículas, libro de notas, asistencia diaria y comunicación con padres por chat.' },
+          { icon: '', title: 'ERP para constructora', desc: 'Manejo de proyectos, presupuestos por etapa, materiales y planilla integrada.' },
+          { icon: '', title: 'Inventario ferretería', desc: 'Códigos de barra, alertas de stock bajo, reportes de venta por producto/sucursal.' },
+          { icon: '', title: 'CRM inmobiliario', desc: 'Leads calificados, fichas de propiedad, agentes, visitas calendarizadas con cliente.' },
+          { icon: '', title: 'Sistema escolar', desc: 'Matrículas, libro de notas, asistencia diaria y comunicación con padres por chat.' },
         ],
         color: A
       },
@@ -164,10 +164,10 @@ const CONTENT = {
         includes: ['Actualizaciones de seguridad y dependencias', 'Respaldos automáticos semanales', 'Monitoreo de uptime 24/7', 'Hasta 3 cambios pequeños por mes', 'Reporte mensual de rendimiento', 'Soporte por WhatsApp en días hábiles'],
         stack: ['UptimeRobot', 'Sentry', 'GitHub Actions', 'Bunny CDN'],
         examples: [
-          { icon: '📦', title: 'Plan básico', desc: 'Backups + monitoreo + hasta 3 cambios chicos al mes. Ideal para sitios estables.' },
-          { icon: '🛒', title: 'Plan e-commerce', desc: 'Manejo de catálogo, soporte de checkout y reportes mensuales de venta.' },
-          { icon: '🏢', title: 'Plan enterprise', desc: 'Consultoría onsite, roadmap evolutivo, SLA de uptime garantizado por escrito.' },
-          { icon: '🚨', title: 'Plan rescate', desc: 'Recuperación de sitios hackeados o caídos — atención de emergencia, 24/7.' },
+          { icon: '', title: 'Plan básico', desc: 'Backups + monitoreo + hasta 3 cambios chicos al mes. Ideal para sitios estables.' },
+          { icon: '', title: 'Plan e-commerce', desc: 'Manejo de catálogo, soporte de checkout y reportes mensuales de venta.' },
+          { icon: '', title: 'Plan enterprise', desc: 'Consultoría onsite, roadmap evolutivo, SLA de uptime garantizado por escrito.' },
+          { icon: '', title: 'Plan rescate', desc: 'Recuperación de sitios hackeados o caídos — atención de emergencia, 24/7.' },
         ],
         color: A
       },
@@ -275,10 +275,10 @@ const CONTENT = {
         includes: ['Custom responsive, mobile-first design', 'Up to 8 pages (Home, About, Services, Contact…)', 'Working contact form', 'Basic SEO optimization', 'Domain + hosting setup', 'Training to edit the content'],
         stack: ['React', 'Next.js', 'Tailwind', 'Vercel', 'Figma'],
         examples: [
-          { icon: '⚖️', title: 'Law firm', desc: 'Corporate site with practice areas, legal blog and free consultation form.' },
-          { icon: '📷', title: 'Creative portfolio', desc: 'Gallery with lightbox + integrated booking for freelance photographer or designer.' },
-          { icon: '🏥', title: 'Medical clinic', desc: 'Online appointments, services, location with map and patient reviews.' },
-          { icon: '🎉', title: 'Event landing', desc: 'Countdown, RSVP with lead capture, gallery and venue info for launches.' },
+          { icon: '', title: 'Law firm', desc: 'Corporate site with practice areas, legal blog and free consultation form.' },
+          { icon: '', title: 'Creative portfolio', desc: 'Gallery with lightbox + integrated booking for freelance photographer or designer.' },
+          { icon: '', title: 'Medical clinic', desc: 'Online appointments, services, location with map and patient reviews.' },
+          { icon: '', title: 'Event landing', desc: 'Countdown, RSVP with lead capture, gallery and venue info for launches.' },
         ],
         color: A
       },
@@ -291,10 +291,10 @@ const CONTENT = {
         includes: ['Product catalog with categories and variants', 'Complete cart and checkout', 'Payment gateway (Sinpe, card, PayPal)', 'Admin panel for products and orders', 'Coupons and discounts system', 'WhatsApp/email notifications'],
         stack: ['React', 'Node.js', 'MongoDB', 'Stripe', 'Cloudinary'],
         examples: [
-          { icon: '💄', title: 'Cosmetics (JD case)', desc: 'Catalog + WhatsApp orders + no-code admin panel. The client uploads products herself.' },
-          { icon: '👗', title: 'Fashion w/ variants', desc: 'Sizes, colors, wishlist, multi-step checkout, seasonal coupons.' },
-          { icon: '🍱', title: 'Gourmet food', desc: 'Delivery by zone, order calendar, perishable handling and timeslot management.' },
-          { icon: '🎨', title: 'Artisan marketplace', desc: 'Multi-vendor with automatic commissions, verified reviews and per-shop dashboard.' },
+          { icon: '', title: 'Cosmetics (JD case)', desc: 'Catalog + WhatsApp orders + no-code admin panel. The client uploads products herself.' },
+          { icon: '', title: 'Fashion w/ variants', desc: 'Sizes, colors, wishlist, multi-step checkout, seasonal coupons.' },
+          { icon: '', title: 'Gourmet food', desc: 'Delivery by zone, order calendar, perishable handling and timeslot management.' },
+          { icon: '', title: 'Artisan marketplace', desc: 'Multi-vendor with automatic commissions, verified reviews and per-shop dashboard.' },
         ],
         color: A
       },
@@ -307,10 +307,10 @@ const CONTENT = {
         includes: ['Complete tested UX/UI design', 'User authentication (login, roles, permissions)', 'Installable PWA from the browser', 'Own REST API or integration with external APIs', 'Admin panel', 'Server deploy with own domain'],
         stack: ['React Native', 'Expo', 'Node.js', 'PostgreSQL', 'Redis'],
         examples: [
-          { icon: '🛵', title: 'Delivery app', desc: 'Real-time orders, GPS courier tracking, in-app payments and rating.' },
-          { icon: '💆', title: 'Spa booking', desc: 'Time-slot calendar, automatic SMS reminders and client profiles.' },
-          { icon: '👥', title: 'Internal corp network', desc: 'Feeds, team chats, event calendar and profiles for companies of 50+.' },
-          { icon: '💪', title: 'Fitness app', desc: 'Personalized routines by goal, daily tracking and progress charts.' },
+          { icon: '', title: 'Delivery app', desc: 'Real-time orders, GPS courier tracking, in-app payments and rating.' },
+          { icon: '', title: 'Spa booking', desc: 'Time-slot calendar, automatic SMS reminders and client profiles.' },
+          { icon: '', title: 'Internal corp network', desc: 'Feeds, team chats, event calendar and profiles for companies of 50+.' },
+          { icon: '', title: 'Fitness app', desc: 'Personalized routines by goal, daily tracking and progress charts.' },
         ],
         color: A
       },
@@ -323,10 +323,10 @@ const CONTENT = {
         includes: ['Requirements analysis and technical proposal', 'Database designed for your business', 'Reports exportable to Excel/PDF', 'User and role-based permissions', 'Automatic data backups', 'Technical and user documentation'],
         stack: ['React', 'Node.js', 'PostgreSQL', 'Docker', 'AWS'],
         examples: [
-          { icon: '🏗️', title: 'Construction ERP', desc: 'Project management, phased budgets, materials and integrated payroll.' },
-          { icon: '🔧', title: 'Hardware inventory', desc: 'Barcodes, low-stock alerts, sales reports by product/branch.' },
-          { icon: '🏘️', title: 'Real estate CRM', desc: 'Qualified leads, property files, agents, scheduled client visits.' },
-          { icon: '🎓', title: 'School system', desc: 'Enrollment, gradebook, daily attendance and chat with parents.' },
+          { icon: '', title: 'Construction ERP', desc: 'Project management, phased budgets, materials and integrated payroll.' },
+          { icon: '', title: 'Hardware inventory', desc: 'Barcodes, low-stock alerts, sales reports by product/branch.' },
+          { icon: '', title: 'Real estate CRM', desc: 'Qualified leads, property files, agents, scheduled client visits.' },
+          { icon: '', title: 'School system', desc: 'Enrollment, gradebook, daily attendance and chat with parents.' },
         ],
         color: A
       },
@@ -349,10 +349,10 @@ const CONTENT = {
         includes: ['Security and dependency updates', 'Weekly automatic backups', '24/7 uptime monitoring', 'Up to 3 small changes per month', 'Monthly performance report', 'WhatsApp support on business days'],
         stack: ['UptimeRobot', 'Sentry', 'GitHub Actions', 'Bunny CDN'],
         examples: [
-          { icon: '📦', title: 'Basic plan', desc: 'Backups + monitoring + up to 3 small changes per month. Ideal for stable sites.' },
-          { icon: '🛒', title: 'E-commerce plan', desc: 'Catalog management, checkout support and monthly sales reports.' },
-          { icon: '🏢', title: 'Enterprise plan', desc: 'Onsite consulting, evolution roadmap, written uptime SLA guarantee.' },
-          { icon: '🚨', title: 'Rescue plan', desc: 'Recovery of hacked or down sites — emergency response, 24/7.' },
+          { icon: '', title: 'Basic plan', desc: 'Backups + monitoring + up to 3 small changes per month. Ideal for stable sites.' },
+          { icon: '', title: 'E-commerce plan', desc: 'Catalog management, checkout support and monthly sales reports.' },
+          { icon: '', title: 'Enterprise plan', desc: 'Onsite consulting, evolution roadmap, written uptime SLA guarantee.' },
+          { icon: '', title: 'Rescue plan', desc: 'Recovery of hacked or down sites — emergency response, 24/7.' },
         ],
         color: A
       },

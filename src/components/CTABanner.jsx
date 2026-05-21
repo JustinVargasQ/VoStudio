@@ -7,7 +7,7 @@ export function CTABanner() {
   const { t } = useApp();
   return (
     <section style={{
-      background: A,
+      background: 'linear-gradient(135deg, #06030D 0%, #0F0820 45%, #1A0A35 100%)',
       padding: `clamp(64px, 10vw, 110px) 0`,
       position: 'relative', overflow: 'hidden',
     }}>
@@ -17,15 +17,15 @@ export function CTABanner() {
         style={{
           position: 'absolute', top: '-20%', left: '-10%', width: 600, height: 600,
           background: `radial-gradient(circle, ${A_L} 0%, transparent 60%)`,
-          filter: 'blur(60px)', opacity: 0.55,
+          filter: 'blur(80px)', opacity: 0.28,
         }} />
       <motion.span aria-hidden
         animate={{ x: [0, -50, 40, 0], y: [0, 30, -20, 0] }}
         transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut' }}
         style={{
           position: 'absolute', bottom: '-25%', right: '-10%', width: 700, height: 700,
-          background: `radial-gradient(circle, ${A_D} 0%, transparent 65%)`,
-          filter: 'blur(80px)', opacity: 0.6,
+          background: `radial-gradient(circle, ${A} 0%, transparent 65%)`,
+          filter: 'blur(100px)', opacity: 0.35,
         }} />
       <div className="bg-dot" style={{ position: 'absolute', inset: 0, opacity: 0.18 }} />
 
@@ -47,9 +47,9 @@ export function CTABanner() {
               <motion.span
                 initial={{ width: 0 }} whileInView={{ width: 28 }} viewport={{ once: true }}
                 transition={{ duration: 0.7, delay: 0.1 }}
-                style={{ height: 1, background: '#fff' }}
+                style={{ height: 1, background: A_L }}
               />
-              <span style={{ fontFamily: F_MONO, fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.85)' }}>
+              <span style={{ fontFamily: F_MONO, fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase', color: A_L }}>
                 {t('cta.eyebrow')}
               </span>
             </motion.div>
@@ -85,10 +85,12 @@ export function CTABanner() {
                 whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}
                 className="arrow-slide-parent"
                 style={{
-                  background: '#fff', color: A,
+                  background: `linear-gradient(135deg, ${A_L} 0%, ${A} 100%)`,
+                  color: '#fff',
                   padding: '15px 26px', fontSize: 14, fontWeight: 700,
                   display: 'inline-flex', alignItems: 'center', gap: 10,
-                  boxShadow: '0 14px 40px rgba(0,0,0,0.25)',
+                  borderRadius: 999,
+                  boxShadow: `0 14px 40px ${A}50`,
                 }}
               >
                 {t('common.cta.startNow')} <span className="arrow-slide" style={{ fontSize: 16 }}>→</span>
@@ -97,12 +99,13 @@ export function CTABanner() {
                 whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
                 style={{
                   padding: '15px 26px', fontSize: 14, fontWeight: 600,
-                  color: '#fff', border: '1px solid rgba(255,255,255,0.5)',
+                  color: 'rgba(255,255,255,0.80)', border: `1px solid rgba(138,70,255,0.40)`,
+                  borderRadius: 999,
                   display: 'inline-flex', alignItems: 'center', gap: 10,
                   transition: 'border-color 0.15s, background 0.15s',
                 }}
-                onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#fff'; e.currentTarget.style.background = 'rgba(255,255,255,0.1)'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.5)'; e.currentTarget.style.background = 'transparent'; }}
+                onMouseEnter={(e) => { e.currentTarget.style.borderColor = `rgba(138,70,255,0.70)`; e.currentTarget.style.background = 'rgba(138,70,255,0.12)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(138,70,255,0.40)'; e.currentTarget.style.background = 'transparent'; }}
               >
                 {t('common.cta.schedule')}
               </motion.a>
@@ -114,7 +117,7 @@ export function CTABanner() {
               style={{
                 marginTop: 36,
                 display: 'flex', gap: 20, flexWrap: 'wrap',
-                paddingTop: 24, borderTop: '1px solid rgba(255,255,255,0.18)',
+                paddingTop: 24, borderTop: `1px solid rgba(138,70,255,0.30)`,
               }}
             >
               {[0,1,2].map((i) => (

@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { BG, BG_CARD, BG_ALT, TEXT, TEXT_S, TEXT_D, BORDER, A, F_DISPLAY, F_MONO, MAX_W, PAD_X } from '../theme';
+import { BG, BG_CARD, BG_ALT, BG_SECTION, TEXT, TEXT_S, TEXT_D, BORDER, A, F_DISPLAY, F_MONO, MAX_W, PAD_X } from '../theme';
 import { getContent } from '../data/content';
 import { useApp } from '../context/AppContext';
 import { SectionHeader } from './Services';
@@ -37,9 +37,9 @@ export function FAQ() {
   const [query, setQuery] = useState('');
 
   const CATEGORIES = useMemo(() => [
-    { id: 'all', label: t('faq.allCat'), color: TEXT, icon: 'M4 6h16M4 12h16M4 18h16' },
+    { id: 'all', label: t('faq.allCat'), color: A, icon: 'M4 6h16M4 12h16M4 18h16' },
     ...CATEGORY_DEFS.map(c => ({ ...c, label: labels[c.id] })),
-  ], [t, labels]);
+  ], [t, labels, A]);
 
   const catFor = (idx) => {
     const id = FAQ_CAT_IDS[idx];
@@ -63,7 +63,7 @@ export function FAQ() {
   }, [locale]);
 
   return (
-    <section id="faq" style={{ background: BG, padding: `clamp(32px, 5vh, 56px) 0`, position: 'relative', overflow: 'hidden' }}>
+    <section id="faq" style={{ background: BG_SECTION, padding: `clamp(32px, 5vh, 56px) 0`, position: 'relative', overflow: 'hidden' }}>
       <span className="blob blob-2" style={{ top: '5%', left: '-10%', width: 360, height: 360, background: 'radial-gradient(circle, rgba(168,85,247,0.08), transparent 70%)' }} />
 
       <div style={{ maxWidth: MAX_W, margin: '0 auto', padding: `0 ${PAD_X}`, position: 'relative', zIndex: 1 }}>
@@ -157,8 +157,14 @@ export function FAQ() {
                           </span>
                           {c.label}
                         </span>
-                        <span style={{ fontFamily: F_MONO, fontSize: 11, fontWeight: 600, color: active ? 'rgba(255,255,255,0.85)' : c.color !== TEXT ? `${c.color}` : TEXT_D, opacity: active ? 1 : 0.7 }}>
-                          {String(count).padStart(2, '0')}
+                        <span style={{
+                          display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                          minWidth: 20, height: 18, borderRadius: 999, padding: '0 6px',
+                          fontFamily: F_MONO, fontSize: 10, fontWeight: 700,
+                          background: active ? 'rgba(255,255,255,0.20)' : `${c.color}18`,
+                          color: active ? '#fff' : c.color,
+                        }}>
+                          {count}
                         </span>
                       </button>
                     </li>
@@ -204,6 +210,7 @@ export function FAQ() {
                   const isOpen = open === f.idx;
                   return (
                     <div key={f.idx}
+                      className="vo-neon-hover"
                       style={{
                         borderBottom: `1px solid ${BORDER}`,
                         background: isOpen ? `${f.cat.color}06` : 'transparent',

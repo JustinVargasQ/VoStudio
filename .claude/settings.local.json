@@ -49,7 +49,12 @@
       "Bash(node -e \"require\\('three'\\)\")",
       "Bash(node -e \"const l = require\\('lucide-react'\\); console.log\\(Object.keys\\(l\\).filter\\(k => k.toLowerCase\\(\\).includes\\('linked'\\)\\)\\)\")",
       "Bash(node -e \"const l = require\\('lucide-react'\\); console.log\\(Object.keys\\(l\\).length\\)\")",
-      "Bash(node -e \"const l = require\\('lucide-react'\\); console.log\\(Object.keys\\(l\\).filter\\(k => k.startsWith\\('Link'\\)\\)\\)\")"
+      "Bash(node -e \"const l = require\\('lucide-react'\\); console.log\\(Object.keys\\(l\\).filter\\(k => k.startsWith\\('Link'\\)\\)\\)\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5174/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5175/)",
+      "Bash(npx tsc *)",
+      "Bash(awk 'NR==237{start=1} start{count++} count==1{lstart=NR} /^\\\\/\\\\/ 02 · E-COMMERCE/{print \"End line: \" NR-2; exit}' \"c:/Users/justi/Desktop/Zayin/VOStudio/src/components/ServiceMockups.jsx\")",
+      "Bash(awk 'NR>=1326 && /^function AppMock/{print NR-2; exit}' \"c:/Users/justi/Desktop/Zayin/VOStudio/src/components/ServiceMockups.jsx\")"
     ]
   }
 }

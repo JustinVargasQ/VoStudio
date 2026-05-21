@@ -25,6 +25,7 @@
  * ───────────────────────────────────────────────────────────────────── */
 :root {
   /* Light theme — lavender bloom */
+  --bg-section:   var(--bg);   /* light: use normal bg per section */
   --bg:           #F0EBFF;
   --bg-alt:       #F6F2FF;
   --bg-soft:      #FAFAFF;
@@ -58,9 +59,10 @@
 
 :root[data-theme="dark"] {
   /* Dark theme — cosmic nebula */
+  --bg-section:   transparent; /* dark: sections transparent → orbs glow through */
   --bg:           #06030D;
-  --bg-alt:       #0F0820;
-  --bg-soft:      #150B26;
+  --bg-alt:       #06030D;
+  --bg-soft:      #06030D;
   --bg-tint:      #1B1030;
   --bg-card:      rgba(27, 16, 48, 0.70);
   --bg-card-alt:  rgba(35, 22, 64, 0.80);
@@ -389,6 +391,23 @@ a { color: inherit; text-decoration: none; }
 .marquee-slow:hover { animation-play-state: paused; }
 
 @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+/* ─── Neon color-cycle — pink → magenta → violet (hover glow) ─────────── */
+@keyframes neon-cycle {
+  0%   { outline-color: rgba(255,  92, 154, 0.80); filter: drop-shadow(0 0 18px rgba(255,  92, 154, 0.55)); }
+  33%  { outline-color: rgba(225,  77, 255, 0.80); filter: drop-shadow(0 0 18px rgba(225,  77, 255, 0.55)); }
+  66%  { outline-color: rgba(138,  70, 255, 0.80); filter: drop-shadow(0 0 18px rgba(138,  70, 255, 0.55)); }
+  100% { outline-color: rgba(255,  92, 154, 0.80); filter: drop-shadow(0 0 18px rgba(255,  92, 154, 0.55)); }
+}
+.vo-neon-hover {
+  outline: 1.5px solid transparent;
+  outline-offset: 0;
+  filter: none;
+  transition: filter 0.3s, outline-color 0.3s;
+}
+.vo-neon-hover:hover {
+  animation: neon-cycle 2.4s linear infinite;
+}
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

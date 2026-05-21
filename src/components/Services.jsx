@@ -1,11 +1,25 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { BG, BG_ALT, BG_CARD, BG_CARD_ALT, TEXT, TEXT_S, TEXT_D, BORDER, A, F_DISPLAY, F_MONO, MAX_W, PAD_X } from '../theme';
+import { Layout, ShoppingBag, Smartphone, Database, Search, Shield, Check, ArrowUpRight } from 'lucide-react';
+import { BG, BG_ALT, BG_SECTION, BG_CARD, BG_CARD_ALT, TEXT, TEXT_S, TEXT_D, BORDER, A, F_DISPLAY, F_MONO, MAX_W, PAD_X } from '../theme';
 import { getContent } from '../data/content';
 import { useApp } from '../context/AppContext';
 import { Reveal, RevealStagger, RevealItem } from './Reveal';
 import { ServiceVisual } from './ServiceVisual';
 import { ServiceMockup } from './ServiceMockups';
+
+// Icon per service (by index)
+const SERVICE_ICONS = [Layout, ShoppingBag, Smartphone, Database, Search, Shield];
+
+// Professional photo per service (Unsplash, verified)
+const SERVICE_PHOTOS = [
+  'https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=720&q=80',  // 01 Web — designer at work
+  'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&w=720&q=80',  // 02 E-commerce — shopping
+  'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=720&q=80',  // 03 Apps — mobile phone
+  'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=720&q=80',  // 04 Systems — analytics dashboard
+  'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=720&q=80',  // 05 SEO — charts
+  'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=720&q=80',  // 06 Maintenance — code/server
+];
 
 function SectionHeader({ eyebrow, title, intro }) {
   return (
@@ -240,6 +254,8 @@ function ServiceModal({ service, onClose, t }) {
   );
 }
 
+const CARD_ACCENTS = ['#6AB7FF', '#E14DFF', '#8A46FF', '#FF5C9A', '#FF6A63', '#F59E0B'];
+
 export function Services() {
   const { t, locale } = useApp();
   const { SERVICES } = getContent(locale);
@@ -248,8 +264,7 @@ export function Services() {
   const openedService = openIndex !== null ? SERVICES[openIndex] : null;
 
   return (
-    <section id="servicios" style={{ background: BG, padding: `clamp(80px, 12vh, 140px) 0`, position: 'relative', overflow: 'hidden' }}>
-      <span className="blob blob-2" style={{ top: '20%', right: '-10%', width: 380, height: 380, background: 'radial-gradient(circle, rgba(148,58,31,0.10), transparent 70%)' }} />
+    <section id="servicios" style={{ background: BG_SECTION, padding: `clamp(80px, 12vh, 140px) 0`, position: 'relative', overflow: 'hidden' }}>
 
       <div style={{ maxWidth: MAX_W, margin: '0 auto', padding: `0 ${PAD_X}`, position: 'relative', zIndex: 1 }}>
         <SectionHeader
@@ -260,93 +275,165 @@ export function Services() {
 
         <RevealStagger stagger={0.08} style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-          gap: 24,
+          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+          gap: 20,
         }}>
           {SERVICES.map((s, i) => {
             const isHovered = hovered === i;
+            const accent = CARD_ACCENTS[i % CARD_ACCENTS.length];
+            const Icon = SERVICE_ICONS[i] || Layout;
+            const photo = SERVICE_PHOTOS[i] || SERVICE_PHOTOS[0];
             return (
               <RevealItem key={s.n} y={28}>
                 <motion.article
+                  className="vo-neon-hover"
                   onMouseEnter={() => setHovered(i)}
                   onMouseLeave={() => setHovered(null)}
                   onClick={() => setOpenIndex(i)}
-                  whileHover={{ y: -8 }}
-                  transition={{ type: 'spring', stiffness: 200, damping: 22 }}
+                  whileHover={{ y: -4 }}
+                  transition={{ type: 'spring', stiffness: 220, damping: 24 }}
                   role="button"
                   tabIndex={0}
                   onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setOpenIndex(i); } }}
                   aria-label={`${t('common.cta.knowMore')}: ${s.title}`}
                   style={{
+                    position: 'relative',
                     background: BG_CARD,
-                    border: `1px solid ${isHovered ? `${A}50` : BORDER}`,
+                    border: `1px solid ${isHovered ? `${accent}45` : BORDER}`,
+                    borderRadius: 14,
                     height: '100%',
                     display: 'flex', flexDirection: 'column',
                     overflow: 'hidden',
-                    boxShadow: isHovered ? `0 24px 60px ${A}20` : 'var(--shadow-sm)',
-                    transition: 'box-shadow 0.4s, background 0.3s, border-color 0.3s',
+                    boxShadow: isHovered
+                      ? `0 20px 50px ${accent}1A, 0 0 0 1px ${accent}25`
+                      : 'var(--shadow-sm)',
+                    transition: 'all 0.35s ease',
                     cursor: 'pointer',
                   }}
                 >
+                  {/* ─── Photo header ─── */}
                   <div style={{
                     position: 'relative',
-                    aspectRatio: '320 / 180',
+                    aspectRatio: '16 / 10',
                     overflow: 'hidden',
-                    borderBottom: `1px solid ${BORDER}`,
+                    background: '#1a1027',
                   }}>
-                    <motion.div
+                    <motion.img
+                      src={photo}
+                      alt={s.title}
+                      loading="lazy"
                       animate={{ scale: isHovered ? 1.06 : 1 }}
-                      transition={{ duration: 0.6, ease: 'easeOut' }}
-                      style={{ width: '100%', height: '100%' }}
-                    >
-                      <ServiceVisual index={i} />
-                    </motion.div>
+                      transition={{ duration: 0.7, ease: 'easeOut' }}
+                      style={{
+                        position: 'absolute', inset: 0,
+                        width: '100%', height: '100%',
+                        objectFit: 'cover', display: 'block',
+                        filter: 'saturate(1.05)',
+                      }}
+                    />
+                    {/* Color-tinted gradient overlay (gives each card its identity) */}
+                    <div aria-hidden style={{
+                      position: 'absolute', inset: 0,
+                      background: `linear-gradient(180deg, ${accent}25 0%, transparent 35%, rgba(15,8,32,0.85) 100%)`,
+                      pointerEvents: 'none',
+                    }} />
+
+                    {/* Icon badge — overlapping bottom-left */}
                     <div style={{
-                      position: 'absolute', top: 14, left: 16,
-                      fontFamily: F_DISPLAY, fontStyle: 'italic',
-                      fontSize: 28, color: A, letterSpacing: '-0.02em',
+                      position: 'absolute', bottom: 14, left: 16,
+                      width: 44, height: 44, borderRadius: 10,
                       background: 'rgba(255,255,255,0.95)',
-                      padding: '2px 12px', lineHeight: 1.1,
+                      backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)',
+                      display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                      color: accent,
+                      boxShadow: `0 8px 20px rgba(0,0,0,0.20), 0 0 0 1px ${accent}25`,
+                      transition: 'transform 0.3s ease',
+                      transform: isHovered ? 'scale(1.08)' : 'scale(1)',
+                    }}>
+                      <Icon size={20} strokeWidth={1.7} />
+                    </div>
+
+                    {/* Timeline glass chip — top right */}
+                    <div style={{
+                      position: 'absolute', top: 12, right: 12,
+                      fontFamily: F_MONO, fontSize: 9, fontWeight: 700,
+                      color: '#fff', letterSpacing: '0.08em', textTransform: 'uppercase',
+                      background: 'rgba(0,0,0,0.55)',
+                      backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)',
+                      padding: '4px 10px', borderRadius: 999,
+                      border: '1px solid rgba(255,255,255,0.15)',
+                    }}>{s.timeline}</div>
+
+                    {/* Ghost number — bottom right */}
+                    <div aria-hidden style={{
+                      position: 'absolute', bottom: 8, right: 16,
+                      fontFamily: F_DISPLAY, fontStyle: 'italic',
+                      fontSize: 38, color: '#fff', lineHeight: 1,
+                      opacity: 0.55, letterSpacing: '-0.03em',
+                      pointerEvents: 'none', userSelect: 'none',
                     }}>
                       {s.n}
                     </div>
-                    <div style={{
-                      position: 'absolute', top: 16, right: 16,
-                      fontFamily: F_MONO, fontSize: 10, color: '#0A0A0A',
-                      background: '#fff', padding: '5px 10px',
-                      letterSpacing: '0.06em',
-                      border: '1px solid rgba(0,0,0,0.1)',
-                    }}>{s.timeline}</div>
                   </div>
 
-                  <div style={{ padding: 'clamp(24px, 2.6vw, 32px)', display: 'flex', flexDirection: 'column', gap: 18, flex: 1 }}>
-                    <div>
+                  {/* ─── Card content ─── */}
+                  <div style={{
+                    padding: 'clamp(22px, 2.2vw, 28px)',
+                    display: 'flex', flexDirection: 'column', flex: 1,
+                    position: 'relative',
+                  }}>
+                    {/* Title + description */}
+                    <div style={{ marginBottom: 18 }}>
                       <h3 style={{
                         fontFamily: F_DISPLAY, fontWeight: 400,
-                        fontSize: 'clamp(26px, 2.4vw, 32px)', lineHeight: 1.1,
-                        letterSpacing: '-0.02em', color: TEXT, marginBottom: 8,
+                        fontSize: 'clamp(22px, 2vw, 28px)', lineHeight: 1.05,
+                        letterSpacing: '-0.025em', color: TEXT, marginBottom: 8,
                       }}>{s.title}</h3>
-                      <p style={{ fontSize: 14, lineHeight: 1.55, color: TEXT_S }}>{s.desc}</p>
+                      <p style={{ fontSize: 13.5, lineHeight: 1.55, color: TEXT_S }}>{s.desc}</p>
                     </div>
 
-                    <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8, paddingTop: 18, borderTop: `1px solid ${BORDER}`, marginTop: 'auto' }}>
+                    {/* Includes — checkmark list */}
+                    <ul style={{
+                      listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8,
+                      paddingTop: 18, borderTop: `1px solid ${BORDER}`,
+                      marginTop: 'auto', marginBottom: 18,
+                    }}>
                       {s.includes.slice(0, 3).map((inc, j) => (
-                        <li key={j} style={{ display: 'flex', gap: 10, fontSize: 13, color: TEXT_S, lineHeight: 1.45 }}>
-                          <span style={{ color: A, marginTop: 2, fontWeight: 700, lineHeight: 1 }}>+</span>
+                        <li key={j} style={{ display: 'flex', gap: 10, fontSize: 12.5, color: TEXT_S, lineHeight: 1.5 }}>
+                          <span style={{
+                            width: 16, height: 16, borderRadius: 4,
+                            background: `${accent}15`,
+                            display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                            color: accent, flexShrink: 0, marginTop: 1,
+                          }}>
+                            <Check size={10} strokeWidth={3} />
+                          </span>
                           <span>{inc}</span>
                         </li>
                       ))}
                     </ul>
 
+                    {/* CTA */}
                     <div style={{
-                      display: 'flex', alignItems: 'center', gap: 8,
-                      fontSize: 12, fontWeight: 600, color: A,
-                      fontFamily: F_MONO, letterSpacing: '0.06em', textTransform: 'uppercase',
+                      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                     }}>
                       <span style={{
-                        display: 'inline-block', transition: 'transform 0.3s',
+                        fontSize: 11, fontWeight: 700, color: accent,
+                        fontFamily: F_MONO, letterSpacing: '0.10em', textTransform: 'uppercase',
+                      }}>
+                        Conocer más
+                      </span>
+                      <span style={{
+                        width: 32, height: 32, borderRadius: '50%',
+                        background: isHovered ? accent : `${accent}14`,
+                        border: `1px solid ${accent}40`,
+                        display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                        color: isHovered ? '#fff' : accent,
+                        transition: 'all 0.3s ease',
                         transform: isHovered ? 'translateX(4px)' : 'translateX(0)',
-                      }}>{t('common.cta.knowMore')} →</span>
+                      }}>
+                        <ArrowUpRight size={15} strokeWidth={2} />
+                      </span>
                     </div>
                   </div>
                 </motion.article>

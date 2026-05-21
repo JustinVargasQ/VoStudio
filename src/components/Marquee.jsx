@@ -1,4 +1,4 @@
-import { BG_ALT, TEXT, TEXT_S, BORDER, BG_CARD, F_MONO } from '../theme';
+import { BG_ALT, BG_SECTION, TEXT, TEXT_S, BORDER, BG_CARD, F_MONO } from '../theme';
 import { useApp } from '../context/AppContext';
 import { TECH } from './TechLogos';
 
@@ -35,7 +35,7 @@ export function Marquee() {
   const items = [...STACK, ...STACK];
   return (
     <section style={{
-      background: BG_ALT,
+      background: BG_SECTION,
       borderTop: `1px solid ${BORDER}`,
       borderBottom: `1px solid ${BORDER}`,
       padding: '40px 0 44px',

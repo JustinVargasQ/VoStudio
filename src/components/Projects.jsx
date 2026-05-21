@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { BG, BG_ALT, BG_CARD, TEXT, TEXT_S, TEXT_D, BORDER, A, F_DISPLAY, F_MONO, MAX_W, PAD_X } from '../theme';
+import { BG, BG_ALT, BG_SECTION, BG_CARD, TEXT, TEXT_S, TEXT_D, BORDER, A, F_DISPLAY, F_MONO, MAX_W, PAD_X } from '../theme';
 import { getContent } from '../data/content';
 import { useApp } from '../context/AppContext';
 import { SectionHeader } from './Services';
@@ -41,7 +41,6 @@ function ProjectPanel({ project, media, t, isDark }) {
 
   return (
     <div ref={ref} style={{
-      minHeight: '100svh',
       position: 'relative',
       display: 'grid',
       gridTemplateColumns: 'minmax(0, 1.55fr) minmax(320px, 1fr)',
@@ -56,22 +55,19 @@ function ProjectPanel({ project, media, t, isDark }) {
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         minHeight: '100svh',
       }}>
-        {/* Dotted grid backdrop */}
+        {/* Ambient glow — top right */}
         <div aria-hidden style={{
-          position: 'absolute', inset: 0,
-          backgroundImage: `radial-gradient(${dotColor} 1px, transparent 1px)`,
-          backgroundSize: '24px 24px',
-          maskImage: 'radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 90%)',
-          WebkitMaskImage: 'radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 90%)',
+          position: 'absolute', top: '-10%', right: '-5%',
+          width: 500, height: 500, borderRadius: '50%',
+          background: `radial-gradient(circle, ${A}22 0%, transparent 65%)`,
+          filter: 'blur(60px)', pointerEvents: 'none',
         }} />
-
-        {/* Ambient terracotta glow */}
+        {/* Ambient glow — bottom left */}
         <div aria-hidden style={{
-          position: 'absolute', top: '20%', right: '15%',
-          width: 380, height: 380, borderRadius: '50%',
-          background: `radial-gradient(circle, ${A}25 0%, transparent 65%)`,
-          filter: 'blur(40px)',
-          pointerEvents: 'none',
+          position: 'absolute', bottom: '-10%', left: '-5%',
+          width: 420, height: 420, borderRadius: '50%',
+          background: `radial-gradient(circle, #E14DFF18 0%, transparent 65%)`,
+          filter: 'blur(55px)', pointerEvents: 'none',
         }} />
 
         {/* Big editorial number watermark */}
@@ -176,82 +172,119 @@ function ProjectPanel({ project, media, t, isDark }) {
       {/* ── Right: details panel ── */}
       <div style={{
         background: BG,
-        padding: 'clamp(28px, 3.5vw, 56px) clamp(24px, 2.8vw, 48px)',
+        padding: 'clamp(48px, 6vw, 80px) clamp(32px, 3.5vw, 56px)',
         display: 'flex', flexDirection: 'column', justifyContent: 'center',
         borderLeft: `1px solid ${BORDER}`,
         minHeight: '100svh',
       }} className="vo-proj-details">
 
-        {/* Number + tag + year */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.7 }}
+          style={{ display: 'flex', flexDirection: 'column', gap: 0 }}
         >
-          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center', marginBottom: 22 }}>
+          {/* ── Header: tag + year + ghost number ── */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 20, flexWrap: 'wrap' }}>
             <span style={{
-              fontFamily: F_MONO, fontSize: 11, color: A, letterSpacing: '0.08em', textTransform: 'uppercase',
-              padding: '5px 11px', background: `${A}10`, border: `1px solid ${A}33`, fontWeight: 600,
+              fontFamily: F_MONO, fontSize: 10, fontWeight: 700,
+              letterSpacing: '0.14em', textTransform: 'uppercase',
+              color: '#fff', background: `linear-gradient(135deg, ${A} 0%, #E14DFF 100%)`,
+              padding: '5px 14px', borderRadius: 999,
             }}>{project.tag}</span>
             <span style={{
-              fontFamily: F_MONO, fontSize: 11, color: TEXT_S,
-              padding: '5px 10px', border: `1px solid ${BORDER}`,
+              fontFamily: F_MONO, fontSize: 10, color: TEXT_D,
+              padding: '4px 10px', border: `1px solid ${BORDER}`, borderRadius: 999,
             }}>{project.year}</span>
-            <span style={{
-              fontFamily: F_MONO, fontSize: 10, color: TEXT_D, letterSpacing: '0.12em', marginLeft: 'auto',
-            }}>{project.num}</span>
+            <div aria-hidden style={{
+              marginLeft: 'auto',
+              fontFamily: F_DISPLAY, fontStyle: 'italic',
+              fontSize: 'clamp(64px, 7vw, 96px)', lineHeight: 1,
+              letterSpacing: '-0.04em', color: A, opacity: 0.10,
+              userSelect: 'none', pointerEvents: 'none',
+            }}>{project.num}</div>
           </div>
 
-          {/* Title */}
+          {/* ── Title ── */}
           <h3 style={{
             fontFamily: F_DISPLAY, fontWeight: 400,
-            fontSize: 'clamp(32px, 3.5vw, 52px)', lineHeight: 1,
-            letterSpacing: '-0.025em', color: TEXT, marginBottom: 18,
+            fontSize: 'clamp(34px, 4vw, 56px)', lineHeight: 0.97,
+            letterSpacing: '-0.025em', color: TEXT, marginBottom: 20,
           }}>{project.name}</h3>
 
-          {/* Description */}
-          <p style={{ fontSize: 14.5, lineHeight: 1.65, color: TEXT_S, marginBottom: 22 }}>
-            <span style={{ color: TEXT, fontWeight: 600 }}>{t('projects.challenge')} </span>
-            {project.challenge}
-          </p>
-
-          {/* Approach */}
-          <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 22, paddingTop: 18, borderTop: `1px solid ${BORDER}` }}>
-            <li style={{ fontFamily: F_MONO, fontSize: 10, color: TEXT_D, letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: 4, fontWeight: 600 }}>{t('projects.approach')}</li>
-            {project.approach.map((a, j) => (
-              <li key={j} style={{ display: 'flex', gap: 12, fontSize: 13, color: TEXT_S, lineHeight: 1.55 }}>
-                <span style={{ fontFamily: F_MONO, color: A, fontSize: 11, minWidth: 22, fontWeight: 700 }}>{String(j + 1).padStart(2, '0')}</span>
-                <span>{a}</span>
-              </li>
-            ))}
-          </ul>
-
-          {/* Stack + Metrics */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 18, paddingTop: 18, borderTop: `1px solid ${BORDER}`, marginBottom: 24 }}>
-            <div>
-              <div style={{ fontFamily: F_MONO, fontSize: 9, color: TEXT_D, letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: 10, fontWeight: 600 }}>{t('projects.stack')}</div>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5 }}>
-                {project.techs.map((tech) => (
-                  <span key={tech} style={{
-                    fontFamily: F_MONO, fontSize: 10, color: TEXT_S,
-                    padding: '3px 8px', border: `1px solid ${BORDER}`, background: BG_ALT,
-                  }}>{tech}</span>
-                ))}
-              </div>
+          {/* ── Challenge card ── */}
+          <div style={{
+            padding: '14px 16px', marginBottom: 24,
+            background: isDark ? `${A}0A` : `${A}07`,
+            borderLeft: `3px solid ${A}`,
+            borderRadius: '0 10px 10px 0',
+          }}>
+            <div style={{ fontFamily: F_MONO, fontSize: 9, color: A, letterSpacing: '0.16em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 6 }}>
+              {t('projects.challenge')}
             </div>
-            <div>
-              <div style={{ fontFamily: F_MONO, fontSize: 9, color: TEXT_D, letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: 10, fontWeight: 600 }}>{t('projects.results')}</div>
-              <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
-                {project.metrics.map((m, j) => (
-                  <div key={j}>
-                    <div style={{ fontFamily: F_DISPLAY, fontStyle: 'italic', fontSize: 22, color: A, letterSpacing: '-0.02em', lineHeight: 1 }}>{m.v}</div>
-                    <div style={{ fontSize: 9, color: TEXT_S, letterSpacing: '0.06em', textTransform: 'uppercase', marginTop: 2 }}>{m.l}</div>
-                  </div>
-                ))}
-              </div>
+            <p style={{ fontSize: 13.5, lineHeight: 1.65, color: TEXT_S }}>{project.challenge}</p>
+          </div>
+
+          {/* ── Approach items ── */}
+          <div style={{ marginBottom: 24 }}>
+            <div style={{ fontFamily: F_MONO, fontSize: 9, color: TEXT_D, letterSpacing: '0.18em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 12 }}>
+              {t('projects.approach')}
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
+              {project.approach.map((a, j) => (
+                <div key={j} style={{
+                  display: 'flex', gap: 12, alignItems: 'flex-start',
+                  padding: '11px 14px',
+                  background: isDark ? 'rgba(138,70,255,0.07)' : 'rgba(138,70,255,0.05)',
+                  border: `1px solid rgba(138,70,255,0.14)`,
+                  borderRadius: 10,
+                }}>
+                  <span style={{
+                    fontFamily: F_MONO, fontSize: 9, fontWeight: 700, color: '#fff',
+                    background: A, borderRadius: 6, padding: '3px 7px',
+                    flexShrink: 0, lineHeight: 1.5, minWidth: 26, textAlign: 'center',
+                  }}>{String(j + 1).padStart(2, '0')}</span>
+                  <span style={{ fontSize: 13, color: TEXT_S, lineHeight: 1.55 }}>{a}</span>
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* CTA */}
+          {/* ── Metrics ── */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: `repeat(${project.metrics.length}, 1fr)`,
+            gap: 8, marginBottom: 20,
+          }}>
+            {project.metrics.map((m, j) => (
+              <div key={j} style={{
+                padding: '14px 10px', textAlign: 'center',
+                background: isDark ? 'rgba(138,70,255,0.09)' : 'rgba(138,70,255,0.06)',
+                border: `1px solid rgba(138,70,255,0.18)`,
+                borderRadius: 12,
+              }}>
+                <div style={{ fontFamily: F_DISPLAY, fontStyle: 'italic', fontSize: 26, color: A, letterSpacing: '-0.02em', lineHeight: 1, marginBottom: 5 }}>{m.v}</div>
+                <div style={{ fontSize: 9, color: TEXT_D, letterSpacing: '0.10em', textTransform: 'uppercase', fontWeight: 600 }}>{m.l}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* ── Stack ── */}
+          <div style={{ marginBottom: 28 }}>
+            <div style={{ fontFamily: F_MONO, fontSize: 9, color: TEXT_D, letterSpacing: '0.16em', textTransform: 'uppercase', marginBottom: 10, fontWeight: 600 }}>
+              {t('projects.stack')}
+            </div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+              {project.techs.map((tech) => (
+                <span key={tech} style={{
+                  fontFamily: F_MONO, fontSize: 11, color: TEXT_S, fontWeight: 600,
+                  padding: '4px 12px', borderRadius: 999,
+                  border: `1px solid ${BORDER}`, background: BG_ALT,
+                }}>{tech}</span>
+              ))}
+            </div>
+          </div>
+
+          {/* ── CTA ── */}
           {project.url && (
             <motion.a href={project.url} target="_blank" rel="noreferrer"
               whileHover={{ scale: 1.04, y: -2 }}
@@ -260,14 +293,16 @@ function ProjectPanel({ project, media, t, isDark }) {
               style={{
                 alignSelf: 'flex-start',
                 display: 'inline-flex', alignItems: 'center', gap: 10,
-                padding: '13px 26px', fontSize: 13, fontWeight: 700,
-                background: A, color: '#E9E4E0',
+                padding: '14px 28px', fontSize: 12, fontWeight: 700,
+                background: `linear-gradient(135deg, ${A} 0%, #E14DFF 100%)`,
+                color: '#fff',
                 borderRadius: 999,
-                fontFamily: F_MONO, letterSpacing: '0.08em', textTransform: 'uppercase',
-                boxShadow: `0 0 0 1px ${A}80, 0 8px 30px ${A}50`,
+                fontFamily: F_MONO, letterSpacing: '0.10em', textTransform: 'uppercase',
+                boxShadow: `0 8px 30px ${A}50, 0 0 0 1px ${A}60`,
+                textDecoration: 'none',
               }}>
               {t('common.cta.visitProj')}
-              <span className="arrow-slide">→</span>
+              <span className="arrow-slide" style={{ fontSize: 15 }}>→</span>
             </motion.a>
           )}
         </motion.div>
@@ -282,10 +317,10 @@ export function Projects() {
   const isDark = theme === 'dark';
 
   return (
-    <section id="proyectos" style={{ background: BG, position: 'relative' }}>
+    <section id="proyectos" style={{ background: BG_SECTION, position: 'relative' }}>
 
       {/* Section intro */}
-      <div style={{ maxWidth: MAX_W, margin: '0 auto', padding: `clamp(80px, 12vh, 140px) ${PAD_X} clamp(40px, 6vw, 80px)` }}>
+      <div style={{ maxWidth: MAX_W, margin: '0 auto', padding: `clamp(80px, 12vh, 140px) ${PAD_X} clamp(32px, 5vw, 56px)` }}>
         <SectionHeader
           eyebrow={t('projects.eyebrow')}
           title={<>{t('projects.title.1')} <span style={{ fontStyle: 'italic', color: A }}>{t('projects.title.2')}</span>.</>}
