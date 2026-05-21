@@ -1,71 +1,90 @@
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* ─── Theme variables ─── */
+/* ─────────────────────────────────────────────────────────────────────
+ * Theme variables — v5 "Neon Nebula"
+ *
+ * Palette:
+ *   #06030D Negro Profundo    #1B1030 Morado Oscuro
+ *   #5D2BFF Púrpura Intenso   #8A46FF Violeta Brillante
+ *   #E14DFF Magenta Neón      #FF5C9A Rosa Fuerte
+ *   #FF6A63 Coral Rosado      #6AB7FF Azul Eléctrico
+ *   #6A5CFF Azul Violeta
+ *
+ * Migration log (v4 → v5):
+ *   accent       #943A1F → #8A46FF
+ *   accent-l     #B84B22 → #E14DFF
+ *   accent-d     #7A2E15 → #5D2BFF
+ *   light bg     #E9E4E0 → #F0EBFF (lavender soft)
+ *   dark bg      #1B191A → #06030D (deep cosmic)
+ *   text dark    #1B191A → #1B1030
+ *   text light   #E9E4E0 → #FFFFFF (white) / #E8DFFF (lavender soft)
+ * ───────────────────────────────────────────────────────────────────── */
 :root {
-  /* Light theme (default) */
-  --bg:           #FFFFFF;
-  --bg-alt:       #F1EFE7;
-  --bg-soft:      #FAFAF7;
-  --bg-tint:      #EEF2FF;
-  --bg-card:      #FFFFFF;
-  --bg-card-alt:  #FAFAF7;
-  --bg-dark:      #0A0A0A;
-  --bg-popular:   #0A0A0A;
-  --popular-fg:   #FAFAFA;
-  --popular-border: rgba(29,78,216,0.6);
+  /* Light theme — lavender bloom */
+  --bg:           #F0EBFF;
+  --bg-alt:       #F6F2FF;
+  --bg-soft:      #FAFAFF;
+  --bg-tint:      #ECE4FF;
+  --bg-card:      rgba(255, 255, 255, 0.80);
+  --bg-card-alt:  rgba(248, 244, 255, 0.85);
+  --bg-dark:      #06030D;
+  --bg-popular:   #1B1030;
+  --popular-fg:   #FFFFFF;
+  --popular-border: rgba(138, 70, 255, 0.55);
 
-  --text:         #0A0A0A;
-  --text-s:       #525252;
-  --text-d:       #A3A3A3;
-  --text-inv:     #FAFAFA;
+  --text:         #1B1030;
+  --text-s:       #5D2BFF;
+  --text-d:       rgba(27, 16, 48, 0.55);
+  --text-inv:     #FFFFFF;
 
-  --border:       #E5E5E5;
-  --border-s:     #EAEAEA;
+  --border:       rgba(138, 70, 255, 0.22);
+  --border-s:     rgba(138, 70, 255, 0.12);
 
-  --accent:       #EA580C;
-  --accent-l:     #F97316;
-  --accent-d:     #C2410C;
+  --accent:       #8A46FF;
+  --accent-l:     #E14DFF;
+  --accent-d:     #5D2BFF;
 
-  --shadow-sm:    0 1px 0 rgba(10,10,10,0.02);
-  --shadow-md:    0 4px 16px rgba(10,10,10,0.04);
-  --shadow-lg:    0 20px 50px rgba(10,10,10,0.06);
-  --shadow-xl:    0 30px 80px rgba(10,10,10,0.10);
+  --shadow-sm:    0 1px 0 rgba(93, 43, 255, 0.04);
+  --shadow-md:    0 4px 16px rgba(93, 43, 255, 0.10);
+  --shadow-lg:    0 20px 50px rgba(93, 43, 255, 0.15);
+  --shadow-xl:    0 30px 80px rgba(93, 43, 255, 0.22);
 
   color-scheme: light;
 }
 
 :root[data-theme="dark"] {
-  --bg:           #0A0A0A;
-  --bg-alt:       #141414;
-  --bg-soft:      #1A1A1A;
-  --bg-tint:      #1A2342;
-  --bg-card:      #141414;
-  --bg-card-alt:  #1A1A1A;
-  --bg-dark:      #050505;
-  --bg-popular:   #3A1F0A;
+  /* Dark theme — cosmic nebula */
+  --bg:           #06030D;
+  --bg-alt:       #0F0820;
+  --bg-soft:      #150B26;
+  --bg-tint:      #1B1030;
+  --bg-card:      rgba(27, 16, 48, 0.70);
+  --bg-card-alt:  rgba(35, 22, 64, 0.80);
+  --bg-dark:      #06030D;
+  --bg-popular:   #2D1850;
   --popular-fg:   #FFFFFF;
-  --popular-border: rgba(249,115,22,0.75);
+  --popular-border: rgba(225, 77, 255, 0.55);
 
-  --accent:       #F97316;
-  --accent-l:     #FB923C;
-  --accent-d:     #EA580C;
+  --text:         #FFFFFF;
+  --text-s:       #E8DFFF;
+  --text-d:       rgba(232, 223, 255, 0.55);
+  --text-inv:     #1B1030;
 
-  --text:         #FAFAFA;
-  --text-s:       #A3A3A3;
-  --text-d:       #525252;
-  --text-inv:     #0A0A0A;
+  --border:       rgba(138, 70, 255, 0.28);
+  --border-s:     rgba(138, 70, 255, 0.15);
 
-  --border:       #262626;
-  --border-s:     #1F1F1F;
+  --accent:       #8A46FF;
+  --accent-l:     #E14DFF;
+  --accent-d:     #5D2BFF;
 
-  --shadow-sm:    0 1px 0 rgba(0,0,0,0.4);
-  --shadow-md:    0 4px 16px rgba(0,0,0,0.35);
-  --shadow-lg:    0 20px 50px rgba(0,0,0,0.5);
-  --shadow-xl:    0 30px 80px rgba(0,0,0,0.6);
+  --shadow-sm:    0 1px 0 rgba(0, 0, 0, 0.4);
+  --shadow-md:    0 4px 16px rgba(93, 43, 255, 0.20);
+  --shadow-lg:    0 20px 50px rgba(93, 43, 255, 0.30);
+  --shadow-xl:    0 30px 80px rgba(93, 43, 255, 0.45);
 
   color-scheme: dark;
 }
@@ -152,11 +171,51 @@ a { color: inherit; text-decoration: none; }
   background-size: 24px 24px;
 }
 
+/* pulse-glow: violet ring — was terracotta rgba(148,58,31). */
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(234,88,12,0.5); }
-  50%      { box-shadow: 0 0 0 16px rgba(234,88,12,0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(138, 70, 255, 0.55); }
+  50%      { box-shadow: 0 0 0 16px rgba(138, 70, 255, 0); }
 }
 .pulse-glow { animation: pulse-glow 2.4s ease-out infinite; }
+
+/* ─── Animated orbs (drifting ambient lights) ─────────────────────────── */
+@keyframes orb-drift-a {
+  0%, 100% { transform: translate3d(0, 0, 0)        scale(1); }
+  33%      { transform: translate3d(40px, -30px, 0) scale(1.10); }
+  66%      { transform: translate3d(-30px, 40px, 0) scale(0.94); }
+}
+@keyframes orb-drift-b {
+  0%, 100% { transform: translate3d(0, 0, 0)         scale(1); }
+  33%      { transform: translate3d(-55px, 35px, 0)  scale(1.08); }
+  66%      { transform: translate3d(30px, -45px, 0)  scale(0.90); }
+}
+@keyframes orb-drift-c {
+  0%, 100% { transform: translate3d(0, 0, 0)         scale(1); }
+  50%      { transform: translate3d(25px, -20px, 0)  scale(1.18); }
+}
+.vo-orb-amb { position: absolute; border-radius: 50%; pointer-events: none; will-change: transform; filter: blur(70px); z-index: 0; }
+.vo-orb-amb.a { animation: orb-drift-a 22s ease-in-out infinite; }
+.vo-orb-amb.b { animation: orb-drift-b 28s ease-in-out infinite; }
+.vo-orb-amb.c { animation: orb-drift-c 16s ease-in-out infinite; }
+
+/* ─── Animated brand gradient (continuous chromatic flow) ─────────────── */
+@keyframes gradient-flow {
+  0%   { background-position:   0%   0%; }
+  50%  { background-position: 100% 100%; }
+  100% { background-position:   0%   0%; }
+}
+.vo-grad-anim {
+  background: linear-gradient(145deg, #06030D 0%, #2A0F1E 14%, #FF6A63 38%, #FF5C9A 52%, #C14DFF 66%, #7B4DFF 82%, #5D2BFF 100%);
+  background-size: 220% 220%;
+  animation: gradient-flow 12s ease-in-out infinite;
+}
+
+/* ─── Soft pulsing glow for primary buttons ───────────────────────────── */
+@keyframes btn-glow-pulse {
+  0%, 100% { box-shadow: 0 0 0 1px rgba(138, 70, 255, 0.45), 0 8px 28px rgba(138, 70, 255, 0.40), 0 16px 60px rgba(225, 77, 255, 0.20); }
+  50%      { box-shadow: 0 0 0 1px rgba(225, 77, 255, 0.85), 0 14px 44px rgba(138, 70, 255, 0.70), 0 24px 80px rgba(225, 77, 255, 0.35); }
+}
+.vo-btn-glow { animation: btn-glow-pulse 2.6s ease-in-out infinite; }
 
 /* ─── 3D orb badge ─── */
 @keyframes orb-float {
@@ -172,23 +231,25 @@ a { color: inherit; text-decoration: none; }
   width: 52px; height: 52px;
   flex-shrink: 0;
 }
+/* orb halo — violet (was terracotta rgba(148,58,31,0.6)) */
 .vo-orb-halo {
   position: absolute; inset: -4px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(249,115,22,0.6) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(225, 77, 255, 0.65) 0%, transparent 70%);
   animation: orb-halo 2.4s ease-out infinite;
   pointer-events: none;
 }
+/* orb body — neon nebula gradient (was terracotta) */
 .vo-orb {
   position: relative;
   width: 100%; height: 100%;
   border-radius: 50%;
   background:
-    radial-gradient(circle at 30% 25%, #FFFFFF 0%, #FED7AA 8%, #FB923C 30%, #EA580C 65%, #7C2D12 100%);
+    radial-gradient(circle at 30% 25%, #FFFFFF 0%, #FFB3DC 8%, #E14DFF 30%, #8A46FF 65%, #2D1850 100%);
   box-shadow:
-    0 10px 24px rgba(234,88,12,0.5),
-    inset 0 -4px 8px rgba(0,0,0,0.35),
-    inset 0 2px 4px rgba(255,255,255,0.5);
+    0 10px 24px rgba(138, 70, 255, 0.55),
+    inset 0 -4px 8px rgba(0, 0, 0, 0.35),
+    inset 0 2px 4px rgba(255, 255, 255, 0.5);
   animation: orb-float 4s ease-in-out infinite;
   display: flex; align-items: center; justify-content: center;
 }
@@ -213,7 +274,7 @@ a { color: inherit; text-decoration: none; }
 .vo-sparkle {
   position: absolute;
   font-size: 10px;
-  color: #F59E0B;
+  color: #E14DFF;
   pointer-events: none;
   animation: sparkle-twinkle 2.5s ease-in-out infinite;
 }
@@ -239,11 +300,11 @@ a { color: inherit; text-decoration: none; }
   margin: -28px 0 0 -28px;
   border-radius: 50%;
   background:
-    radial-gradient(circle at 30% 25%, #FFFFFF 0%, #FED7AA 8%, #FB923C 30%, #EA580C 65%, #7C2D12 100%);
+    radial-gradient(circle at 30% 25%, #FFFFFF 0%, #FFB3DC 8%, #E14DFF 30%, #8A46FF 65%, #2D1850 100%);
   box-shadow:
-    0 10px 24px rgba(234,88,12,0.45),
-    inset 0 -4px 8px rgba(0,0,0,0.35),
-    inset 0 2px 4px rgba(255,255,255,0.5);
+    0 10px 24px rgba(138, 70, 255, 0.50),
+    inset 0 -4px 8px rgba(0, 0, 0, 0.35),
+    inset 0 2px 4px rgba(255, 255, 255, 0.5);
   z-index: 2;
 }
 .vo-stat-3d-orb::before {
@@ -256,37 +317,38 @@ a { color: inherit; text-decoration: none; }
 .vo-stat-3d-orbit {
   position: absolute; inset: 0;
   border-radius: 50%;
-  border: 1.5px solid rgba(234,88,12,0.5);
+  border: 1.5px solid rgba(138, 70, 255, 0.55);
   animation: hero3d-spin 14s linear infinite;
 }
 .vo-stat-3d-orbit::after {
   content: ''; position: absolute;
   width: 8px; height: 8px;
-  background: #F59E0B;
+  background: #E14DFF;
   border-radius: 50%;
   top: -4px; left: 50%;
   margin-left: -4px;
-  box-shadow: 0 0 12px rgba(245,158,11,0.8);
+  box-shadow: 0 0 12px rgba(225, 77, 255, 0.85);
 }
 .vo-stat-3d-orbit-2 {
   position: absolute; inset: 8px;
   border-radius: 50%;
-  border: 1px dashed rgba(234,88,12,0.3);
+  border: 1px dashed rgba(225, 77, 255, 0.35);
   animation: hero3d-spin 22s linear infinite reverse;
 }
 .vo-stat-3d-orbit-3 {
   position: absolute; inset: -8px;
   border-radius: 50%;
-  border: 1px solid rgba(234,88,12,0.15);
+  border: 1px solid rgba(106, 92, 255, 0.20);
   animation: hero3d-spin 30s linear infinite;
 }
 .vo-stat-3d-orbit-3::after {
   content: ''; position: absolute;
   width: 5px; height: 5px;
-  background: #C2410C;
+  background: #6AB7FF;
   border-radius: 50%;
   bottom: -2.5px; left: 50%;
   margin-left: -2.5px;
+  box-shadow: 0 0 8px rgba(106, 183, 255, 0.85);
 }
 
 .link-grow { position: relative; display: inline-block; }

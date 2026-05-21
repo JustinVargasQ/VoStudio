@@ -1,15 +1,16 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, Palette, Code2, Rocket, CheckCircle2 } from 'lucide-react';
-import { F_DISPLAY, F_MONO, MAX_W, PAD_X, A } from '../theme';
+import { BG, BG_ALT, BG_CARD, TEXT, TEXT_S, TEXT_D, BORDER, F_DISPLAY, F_MONO, MAX_W, PAD_X, A } from '../theme';
 import { getContent } from '../data/content';
 import { useApp } from '../context/AppContext';
 
+// v5 — Steps mapped to Neon Nebula palette (was sky/purple/blue/green).
 const PHASE_META = [
-  { color: '#0EA5E9', Icon: MessageCircle },
-  { color: '#A855F7', Icon: Palette },
-  { color: '#1D4ED8', Icon: Code2 },
-  { color: '#22C55E', Icon: Rocket },
+  { color: '#6AB7FF', Icon: MessageCircle }, // 01 consulta — electric blue
+  { color: '#E14DFF', Icon: Palette },       // 02 diseño — neon magenta
+  { color: '#8A46FF', Icon: Code2 },         // 03 desarrollo — bright violet
+  { color: '#FF5C9A', Icon: Rocket },        // 04 lanzamiento — strong pink
 ];
 
 export function Process() {
@@ -28,9 +29,10 @@ export function Process() {
 
   return (
     <section id="proceso" style={{
-      background: '#0A0A0A',
+      background: BG,
       padding: `clamp(64px, 10vh, 110px) 0`,
       position: 'relative', overflow: 'hidden',
+      transition: 'background 0.3s',
     }}>
       {/* Animated ambient blob that follows active step color */}
       <motion.div aria-hidden
@@ -54,20 +56,20 @@ export function Process() {
           >
             <motion.span initial={{ width: 0 }} whileInView={{ width: 28 }} viewport={{ once: true }}
               transition={{ duration: 0.6 }} style={{ height: 1, background: A, display: 'inline-block' }} />
-            <span style={{ fontFamily: F_MONO, fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)', fontWeight: 600 }}>
+            <span style={{ fontFamily: F_MONO, fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: TEXT_D, fontWeight: 600 }}>
               {t('process.eyebrow')}
             </span>
           </motion.div>
           <motion.h2
             initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }} transition={{ duration: 0.8 }}
-            style={{ fontFamily: F_DISPLAY, fontWeight: 400, fontSize: 'clamp(32px, 4.5vw, 56px)', lineHeight: 1.0, letterSpacing: '-0.025em', color: '#FAFAFA', maxWidth: '20ch', marginBottom: 12 }}
+            style={{ fontFamily: F_DISPLAY, fontWeight: 400, fontSize: 'clamp(32px, 4.5vw, 56px)', lineHeight: 1.0, letterSpacing: '-0.025em', color: TEXT, maxWidth: '20ch', marginBottom: 12 }}
           >
             {t('process.title.1')} <span style={{ fontStyle: 'italic', color: A }}>{t('process.title.2')}</span>.
           </motion.h2>
           <motion.p
             initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }}
-            style={{ fontSize: 'clamp(13px, 1vw, 15px)', color: 'rgba(255,255,255,0.45)', maxWidth: '50ch', lineHeight: 1.65 }}
+            style={{ fontSize: 'clamp(13px, 1vw, 15px)', color: TEXT_S, maxWidth: '50ch', lineHeight: 1.65 }}
           >
             {t('process.intro')}
           </motion.p>
@@ -80,7 +82,7 @@ export function Process() {
           style={{ position: 'relative', marginBottom: 'clamp(24px, 3vw, 36px)' }}
         >
           {/* Connecting line */}
-          <div style={{ position: 'absolute', top: 18, left: '12.5%', right: '12.5%', height: 1, background: 'rgba(255,255,255,0.08)', zIndex: 0 }} />
+          <div style={{ position: 'absolute', top: 18, left: '12.5%', right: '12.5%', height: 1, background: BORDER, zIndex: 0 }} />
           <motion.div
             animate={{ background: `linear-gradient(to right, ${steps[0].color}, ${steps[1].color}, ${steps[2].color}, ${steps[3].color})` }}
             style={{ position: 'absolute', top: 18, left: '12.5%', width: `${active * 25 + 12.5}%`, height: 1, zIndex: 1 }}
@@ -96,17 +98,17 @@ export function Process() {
                 >
                   <motion.div
                     animate={{
-                      background: isActive ? s.color : 'rgba(255,255,255,0.08)',
+                      background: isActive ? s.color : BORDER,
                       scale: isActive ? 1.15 : 1,
                       boxShadow: isActive ? `0 0 20px ${s.color}80` : 'none',
                     }}
                     transition={{ type: 'spring', stiffness: 300, damping: 22 }}
-                    style={{ width: 36, height: 36, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: F_MONO, fontSize: 11, fontWeight: 700, color: isActive ? '#fff' : 'rgba(255,255,255,0.4)', border: `1px solid ${isActive ? s.color : 'rgba(255,255,255,0.1)'}` }}
+                    style={{ width: 36, height: 36, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: F_MONO, fontSize: 11, fontWeight: 700, color: isActive ? '#fff' : TEXT_D, border: `1px solid ${isActive ? s.color : BORDER}` }}
                   >
                     {s.n}
                   </motion.div>
                   <motion.span
-                    animate={{ color: isActive ? s.color : 'rgba(255,255,255,0.35)' }}
+                    animate={{ color: isActive ? s.color : TEXT_D }}
                     style={{ fontFamily: F_MONO, fontSize: 9, letterSpacing: '0.1em', textTransform: 'uppercase', textAlign: 'center', lineHeight: 1.3 }}
                   >
                     {s.title}
@@ -135,8 +137,8 @@ export function Process() {
                   whileHover={{ opacity: isActive ? 1 : 0.85, y: isActive ? -12 : -4 }}
                   transition={{ type: 'spring', stiffness: 220, damping: 24 }}
                   style={{
-                    background: '#141414',
-                    border: `1px solid ${isActive ? `${s.color}60` : 'rgba(255,255,255,0.07)'}`,
+                    background: BG_CARD,
+                    border: `1px solid ${isActive ? `${s.color}60` : BORDER}`,
                     display: 'flex', flexDirection: 'column',
                     overflow: 'hidden', cursor: 'pointer',
                     boxShadow: isActive ? `0 24px 60px ${s.color}30, 0 0 0 1px ${s.color}20` : 'none',
@@ -181,12 +183,12 @@ export function Process() {
                     </span>
 
                     {/* Title */}
-                    <h3 style={{ fontFamily: F_DISPLAY, fontWeight: 400, fontSize: 'clamp(18px, 1.6vw, 24px)', letterSpacing: '-0.02em', color: '#FAFAFA', lineHeight: 1.1 }}>
+                    <h3 style={{ fontFamily: F_DISPLAY, fontWeight: 400, fontSize: 'clamp(18px, 1.6vw, 24px)', letterSpacing: '-0.02em', color: TEXT, lineHeight: 1.1 }}>
                       {s.title}
                     </h3>
 
                     {/* Description */}
-                    <p style={{ fontSize: 12.5, color: 'rgba(255,255,255,0.45)', lineHeight: 1.55, flex: 1 }}>
+                    <p style={{ fontSize: 12.5, color: TEXT_S, lineHeight: 1.55, flex: 1 }}>
                       {s.desc}
                     </p>
 
@@ -198,12 +200,12 @@ export function Process() {
                           animate={{ opacity: 1, height: 'auto' }}
                           exit={{ opacity: 0, height: 0 }}
                           transition={{ duration: 0.3 }}
-                          style={{ overflow: 'hidden', paddingTop: 12, borderTop: '1px dashed rgba(255,255,255,0.08)' }}
+                          style={{ overflow: 'hidden', paddingTop: 12, borderTop: `1px dashed ${BORDER}` }}
                         >
-                          <div style={{ fontFamily: F_MONO, fontSize: 9, color: 'rgba(255,255,255,0.25)', letterSpacing: '0.1em', textTransform: 'uppercase', fontWeight: 600, marginBottom: 6 }}>
+                          <div style={{ fontFamily: F_MONO, fontSize: 9, color: TEXT_D, letterSpacing: '0.1em', textTransform: 'uppercase', fontWeight: 600, marginBottom: 6 }}>
                             {t('process.deliverable')}
                           </div>
-                          <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8, fontSize: 12, color: 'rgba(255,255,255,0.8)', lineHeight: 1.4 }}>
+                          <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8, fontSize: 12, color: TEXT, lineHeight: 1.4 }}>
                             <CheckCircle2 size={13} style={{ color: s.color, flexShrink: 0, marginTop: 1 }} />
                             <span>{s.deliverable}</span>
                           </div>
@@ -213,7 +215,7 @@ export function Process() {
 
                     {/* Inactive deliverable indicator */}
                     {!isActive && (
-                      <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.2)', fontFamily: F_MONO, paddingTop: 8, borderTop: '1px dashed rgba(255,255,255,0.06)' }}>
+                      <div style={{ fontSize: 10, color: TEXT_D, fontFamily: F_MONO, paddingTop: 8, borderTop: '1px dashed var(--border-s)' }}>
                         {t('process.deliverable')} →
                       </div>
                     )}
@@ -228,18 +230,18 @@ export function Process() {
         <motion.div
           initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }} transition={{ duration: 0.7 }}
-          style={{ marginTop: 'clamp(28px, 4vw, 44px)', padding: '16px clamp(16px, 2.5vw, 26px)', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}
+          style={{ marginTop: 'clamp(28px, 4vw, 44px)', padding: '16px clamp(16px, 2.5vw, 26px)', background: BG_ALT, border: `1px solid ${BORDER}`, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <span style={{ width: 30, height: 30, flexShrink: 0, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(34,197,94,0.15)', border: '1px solid rgba(34,197,94,0.3)', borderRadius: '50%' }}>
               <CheckCircle2 size={14} style={{ color: '#22C55E' }} />
             </span>
             <div>
-              <div style={{ fontSize: 13, fontWeight: 600, color: '#FAFAFA', lineHeight: 1.3 }}>{t('process.guarantee.t')}</div>
-              <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.35)', marginTop: 2 }}>{t('process.guarantee.s')}</div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: TEXT, lineHeight: 1.3 }}>{t('process.guarantee.t')}</div>
+              <div style={{ fontSize: 11, color: TEXT_D, marginTop: 2 }}>{t('process.guarantee.s')}</div>
             </div>
           </div>
-          <a href="#contacto" className="arrow-slide-parent" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 13, fontWeight: 600, color: '#FAFAFA', borderBottom: '1px solid rgba(255,255,255,0.25)', paddingBottom: 2 }}>
+          <a href="#contacto" className="arrow-slide-parent" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 13, fontWeight: 600, color: TEXT, borderBottom: `1px solid ${TEXT_D}`, paddingBottom: 2 }}>
             {t('process.guarantee.cta')}
             <span className="arrow-slide">→</span>
           </a>

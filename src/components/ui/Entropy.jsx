@@ -16,9 +16,10 @@ export function Entropy({ size = 480, theme = 'dark' }) {
     canvas.style.height = `${size}px`;
     ctx.scale(dpr, dpr);
 
-    // Chaos=left (adapts to theme), Order=right (always orange)
-    const CHAOS_COLOR = theme === 'dark' ? '#ffffff' : '#0A0A0A';
-    const ORDER_COLOR = '#EA580C';
+    // v4 → v5: ORDER terracotta #943A1F → violet #8A46FF
+    // CHAOS: white on dark cosmic bg, deep purple on light lavender bg.
+    const CHAOS_COLOR = theme === 'dark' ? '#FFFFFF' : '#1B1030';
+    const ORDER_COLOR = '#8A46FF';
 
     class Particle {
       constructor(x, y, order) {
@@ -123,8 +124,8 @@ export function Entropy({ size = 480, theme = 'dark' }) {
         });
       });
 
-      // Divider line
-      ctx.strokeStyle = 'rgba(255,255,255,0.12)';
+      // Subtle vertical divider — separates chaos / order halves
+      ctx.strokeStyle = theme === 'dark' ? 'rgba(255,255,255,0.10)' : 'rgba(27,16,48,0.15)';
       ctx.lineWidth   = 1;
       ctx.setLineDash([4, 4]);
       ctx.beginPath();
@@ -132,14 +133,6 @@ export function Entropy({ size = 480, theme = 'dark' }) {
       ctx.lineTo(size / 2, size);
       ctx.stroke();
       ctx.setLineDash([]);
-
-      // Labels
-      ctx.font      = '9px "JetBrains Mono", monospace';
-      ctx.textAlign = 'center';
-      ctx.fillStyle = 'rgba(255,255,255,0.30)';
-      ctx.fillText('CAOS', size / 4, size - 10);
-      ctx.fillStyle = 'rgba(234,88,12,0.55)';
-      ctx.fillText('ORDEN', size * 3 / 4, size - 10);
 
       time++;
     }

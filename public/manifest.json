@@ -4,12 +4,13 @@
   "description": "El mejor estudio de desarrollo de software en Costa Rica. Páginas web, apps y sistemas a medida.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#FFFFFF",
-  "theme_color": "#EA580C",
+  "background_color": "#1B191A",
+  "theme_color": "#943A1F",
   "orientation": "portrait-primary",
   "categories": ["business", "productivity"],
   "lang": "es-CR",
   "icons": [
+    { "src": "/logo.jpeg", "sizes": "1240x1240", "type": "image/jpeg", "purpose": "any" },
     { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
   ],
   "screenshots": [],

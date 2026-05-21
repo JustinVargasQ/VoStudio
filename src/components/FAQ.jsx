@@ -5,16 +5,19 @@ import { getContent } from '../data/content';
 import { useApp } from '../context/AppContext';
 import { SectionHeader } from './Services';
 
+// v5 — Category hues mapped to the Neon Nebula palette.
+// (Old v4 used rainbow with #943A1F #0EA5E9 #A855F7 #10B981 #F59E0B
+//  #EC4899 #14B8A6 #6366F1 #84CC16). Icons render in sidebar pill + question row.
 const CATEGORY_DEFS = [
-  { id: 'precio',    color: '#1D4ED8' },
-  { id: 'hosting',   color: '#0EA5E9' },
-  { id: 'contenido', color: '#A855F7' },
-  { id: 'pago',      color: '#F59E0B' },
-  { id: 'plazos',    color: '#0EA5E9' },
-  { id: 'soporte',   color: '#22C55E' },
-  { id: 'remoto',    color: '#A855F7' },
-  { id: 'industria', color: '#F59E0B' },
-  { id: 'propiedad', color: '#22C55E' },
+  { id: 'precio',    color: '#5D2BFF', icon: 'M12 1v22M17 5H9.5a3.5 3.5 0 1 0 0 7h5a3.5 3.5 0 1 1 0 7H6' },           // wallet/$
+  { id: 'hosting',   color: '#6AB7FF', icon: 'M2 12h20M2 12a10 10 0 0 1 20 0M2 12a10 10 0 0 0 20 0M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20' }, // globe
+  { id: 'contenido', color: '#E14DFF', icon: 'M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4z' },               // pencil
+  { id: 'pago',      color: '#FF5C9A', icon: 'M2 7h20v12H2zM2 11h20M6 15h4' },                                          // card
+  { id: 'plazos',    color: '#FF6A63', icon: 'M12 6v6l4 2M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20z' },                  // clock
+  { id: 'soporte',   color: '#6A5CFF', icon: 'M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0zM7 11l3 3 7-7' },                    // shield/check
+  { id: 'remoto',    color: '#8A46FF', icon: 'M2 3h20v14H2zM8 21h8M12 17v4' },                                          // monitor
+  { id: 'industria', color: '#C14DFF', icon: 'M3 21h18M5 21V8l7-5 7 5v13M9 9h2M13 9h2M9 13h2M13 13h2M9 17h2M13 17h2' }, // building (interpolated stop)
+  { id: 'propiedad', color: '#6AB7FF', icon: 'M21 12V7H5a2 2 0 1 1 0-4h14v4M3 5v14a2 2 0 0 0 2 2h16v-5M18 12a2 2 0 0 0 0 4h4v-4z' }, // wallet
 ];
 
 const CATEGORY_LABELS = {
@@ -34,7 +37,7 @@ export function FAQ() {
   const [query, setQuery] = useState('');
 
   const CATEGORIES = useMemo(() => [
-    { id: 'all', label: t('faq.allCat'), color: TEXT },
+    { id: 'all', label: t('faq.allCat'), color: TEXT, icon: 'M4 6h16M4 12h16M4 18h16' },
     ...CATEGORY_DEFS.map(c => ({ ...c, label: labels[c.id] })),
   ], [t, labels]);
 
@@ -128,20 +131,33 @@ export function FAQ() {
                         style={{
                           width: '100%', padding: '10px 14px',
                           display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12,
-                          fontSize: 13, fontWeight: active ? 600 : 500,
-                          color: active ? BG : TEXT,
+                          fontSize: 13, fontWeight: active ? 700 : 500,
+                          color: active ? '#fff' : TEXT,
                           background: active ? c.color : 'transparent',
                           border: `1px solid ${active ? c.color : 'transparent'}`,
-                          transition: 'all 0.15s', textAlign: 'left',
+                          borderLeft: !active ? `3px solid ${c.color}55` : `1px solid ${c.color}`,
+                          transition: 'all 0.2s', textAlign: 'left',
+                          boxShadow: active ? `0 8px 24px ${c.color}40` : 'none',
                         }}
-                        onMouseEnter={(e) => { if (!active) { e.currentTarget.style.background = BG_ALT; }}}
-                        onMouseLeave={(e) => { if (!active) { e.currentTarget.style.background = 'transparent'; }}}
+                        onMouseEnter={(e) => { if (!active) { e.currentTarget.style.background = `${c.color}10`; e.currentTarget.style.borderLeftColor = c.color; }}}
+                        onMouseLeave={(e) => { if (!active) { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderLeftColor = `${c.color}55`; }}}
                       >
                         <span style={{ display: 'inline-flex', alignItems: 'center', gap: 10 }}>
-                          <span style={{ width: 8, height: 8, borderRadius: '50%', background: active ? '#fff' : c.color }} />
+                          <span style={{
+                            width: 24, height: 24, flexShrink: 0,
+                            display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                            background: active ? 'rgba(255,255,255,0.18)' : `${c.color}14`,
+                            border: `1px solid ${active ? 'rgba(255,255,255,0.3)' : `${c.color}30`}`,
+                            borderRadius: 6,
+                            color: active ? '#fff' : c.color,
+                          }}>
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <path d={c.icon} />
+                            </svg>
+                          </span>
                           {c.label}
                         </span>
-                        <span style={{ fontFamily: F_MONO, fontSize: 11, color: active ? 'rgba(255,255,255,0.7)' : TEXT_D }}>
+                        <span style={{ fontFamily: F_MONO, fontSize: 11, fontWeight: 600, color: active ? 'rgba(255,255,255,0.85)' : c.color !== TEXT ? `${c.color}` : TEXT_D, opacity: active ? 1 : 0.7 }}>
                           {String(count).padStart(2, '0')}
                         </span>
                       </button>
@@ -211,8 +227,17 @@ export function FAQ() {
                             {String(f.idx + 1).padStart(2, '0')}
                           </span>
                           <span style={{
-                            width: 6, height: 6, borderRadius: '50%', background: f.cat.color, flexShrink: 0,
-                          }} />
+                            width: 22, height: 22, flexShrink: 0,
+                            display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                            background: `${f.cat.color}14`,
+                            border: `1px solid ${f.cat.color}30`,
+                            borderRadius: 5,
+                            color: f.cat.color,
+                          }}>
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <path d={f.cat.icon} />
+                            </svg>
+                          </span>
                           <span style={{
                             fontFamily: F_DISPLAY, fontSize: 'clamp(13px, 1vw, 15px)',
                             color: TEXT, letterSpacing: '-0.01em', lineHeight: 1.3,

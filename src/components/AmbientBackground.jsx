@@ -56,7 +56,8 @@ function useIsCoarsePointer() {
 function Particle({ p, shiftX, shiftY }) {
   const px = useTransform(shiftX, (v) => v * p.depth);
   const py = useTransform(shiftY, (v) => v * p.depth);
-  const color = p.isAmber ? '245, 158, 11' : '234, 88, 12';
+  // v5 — particles: was amber/terracotta. Now magenta vs. violet.
+  const color = p.isAmber ? '225, 77, 255' : '138, 70, 255';
 
   return (
     <motion.span
@@ -106,9 +107,10 @@ export function AmbientBackground() {
   // Spotlight position (% based) — hook at top level
   const spotX = useTransform(sx, (v) => `${v * 100}%`);
   const spotY = useTransform(sy, (v) => `${v * 100}%`);
+  // v5 — spotlight glow: was rgba(234,88,12) terracotta. Now violet.
   const spotBg = useTransform(
     [spotX, spotY],
-    ([x, y]) => `radial-gradient(500px circle at ${x} ${y}, rgba(234,88,12,0.5), transparent 65%)`
+    ([x, y]) => `radial-gradient(500px circle at ${x} ${y}, rgba(138, 70, 255, 0.55), transparent 65%)`
   );
 
   // Parallax shift (pixels)
@@ -129,13 +131,14 @@ export function AmbientBackground() {
 
   return (
     <>
-      {/* Particles layer — ABOVE content with multiply blend so they show on white AND get tinted on dark */}
+      {/* Particles — `screen` blend lights up violet/magenta dust on the cosmic
+          dark bg and still reads as soft glow on the lavender light bg. */}
       <div aria-hidden style={{
         position: 'fixed', inset: 0,
         pointerEvents: 'none',
         zIndex: 9997,
         overflow: 'hidden',
-        mixBlendMode: 'multiply',
+        mixBlendMode: 'screen',
       }}>
         {PARTICLES.map((p) => (
           <Particle key={p.id} p={p} shiftX={shiftX} shiftY={shiftY} />

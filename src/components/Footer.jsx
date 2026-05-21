@@ -1,11 +1,14 @@
 import { BG_DARK, F_DISPLAY, F_MONO, MAX_W, PAD_X } from '../theme';
 import { TEAM, STUDIO_WA, STUDIO_PHONE_FMT } from '../data/content';
 import { useApp } from '../context/AppContext';
+import logoBlancoSrc from '../assets/logoblanco.jpeg';
+import logoNaranjaSrc from '../assets/logonaranja.jpeg';
 
 const YEAR = new Date().getFullYear();
 
 export function Footer() {
-  const { t } = useApp();
+  const { t, theme } = useApp();
+  const logoSrc = theme === 'dark' ? logoBlancoSrc : logoNaranjaSrc;
 
   const COLS = [
     {
@@ -38,12 +41,26 @@ export function Footer() {
           marginBottom: 'clamp(48px, 8vw, 96px)',
         }} className="vo-foot-grid">
           <div>
-            <div style={{
-              fontFamily: F_DISPLAY, fontStyle: 'italic',
-              fontSize: 'clamp(48px, 6vw, 80px)', letterSpacing: '-0.02em',
-              lineHeight: 1, marginBottom: 28,
-            }}>
-              VO Studio
+            <div style={{ display: 'flex', alignItems: 'center', gap: 18, marginBottom: 28, flexWrap: 'wrap' }}>
+              <div style={{
+                // v4 → v5: bg #1B191A → #1B1030; glow terracotta → violet/magenta
+                width: 64, height: 64, flexShrink: 0,
+                background: '#1B1030',
+                borderRadius: 12,
+                overflow: 'hidden',
+                border: '1px solid rgba(138, 70, 255, 0.50)',
+                boxShadow: '0 0 36px rgba(225, 77, 255, 0.35), inset 0 1px 0 rgba(255,255,255,0.06)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+              }}>
+                <img src={logoSrc} alt="VO Studio" style={{ width: 56, height: 56, objectFit: 'cover' }} />
+              </div>
+              <div style={{
+                fontFamily: F_DISPLAY, fontStyle: 'italic',
+                fontSize: 'clamp(48px, 6vw, 72px)', letterSpacing: '-0.02em',
+                lineHeight: 1,
+              }}>
+                VO Studio
+              </div>
             </div>
             <p style={{ fontSize: 15, color: 'rgba(250,250,250,0.6)', lineHeight: 1.6, maxWidth: '40ch' }}>
               {t('footer.tagline')}

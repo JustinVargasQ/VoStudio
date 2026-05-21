@@ -3,6 +3,7 @@ import { SpeedInsights } from '@vercel/speed-insights/react';
 import { useApp } from './context/AppContext';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { AmbientBackground } from './components/AmbientBackground';
+import { AmbientOrbs } from './components/AmbientOrbs';
 import { Navbar } from './components/Navbar';
 
 function CurtainOverlay() {
@@ -29,10 +30,14 @@ import { CTABanner } from './components/CTABanner';
 import { FAQ } from './components/FAQ';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
+import { Testimonials } from './components/Testimonials';
+import { WhatsAppFloat } from './components/WhatsAppFloat';
+import { BackToTop } from './components/BackToTop';
 
 export default function App() {
   return (
     <ErrorBoundary>
+      <AmbientOrbs />
       <AmbientBackground />
       <Navbar />
       <main>
@@ -41,12 +46,15 @@ export default function App() {
         <Services />
         <Pricing />
         <Projects />
+        <Testimonials />
         <Process />
         <CTABanner />
         <Contact />
         <FAQ />
       </main>
       <Footer />
+      <WhatsAppFloat />
+      <BackToTop />
       <CurtainOverlay />
       <Analytics />
       <SpeedInsights />

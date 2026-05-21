@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BG, BORDER, TEXT, TEXT_S, BG_CARD_ALT, F_DISPLAY, F_MONO, MAX_W, PAD_X } from '../theme';
 import { useApp } from '../context/AppContext';
+import logoBlancoSrc from '../assets/logoblanco.jpeg';
+import logoNaranjaSrc from '../assets/logonaranja.jpeg';
 
 function ThemeToggle() {
   const { theme, toggleTheme } = useApp();
@@ -125,9 +127,10 @@ function LocaleToggle() {
 }
 
 export function Navbar() {
-  const { t } = useApp();
+  const { t, theme } = useApp();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const logoSrc = theme === 'dark' ? logoBlancoSrc : logoNaranjaSrc;
 
   const LINKS = [
     { href: '#servicios', label: t('nav.services') },
@@ -160,8 +163,34 @@ export function Navbar() {
           display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 24,
         }}
       >
-        <a href="#top" style={{ fontFamily: F_DISPLAY, fontSize: 26, fontStyle: 'italic', letterSpacing: '-0.01em', color: TEXT, lineHeight: 1 }}>
-          VO Studio
+        <a href="#top" style={{ display: 'inline-flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
+          <div style={{
+            // v4 → v5: bg #1B191A → #1B1030 (Morado Oscuro); border/glow → violet
+            width: 36, height: 36, flexShrink: 0,
+            background: '#1B1030',
+            borderRadius: 8,
+            overflow: 'hidden',
+            border: '1px solid rgba(138, 70, 255, 0.45)',
+            boxShadow: '0 0 18px rgba(138, 70, 255, 0.25)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            transition: 'box-shadow 0.3s',
+          }}>
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.img
+                key={theme}
+                src={logoSrc}
+                alt="VO"
+                initial={{ opacity: 0, rotate: -90, scale: 0.6 }}
+                animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                exit={{ opacity: 0, rotate: 90, scale: 0.6 }}
+                transition={{ duration: 0.35, ease: [0.21, 0.61, 0.35, 1] }}
+                style={{ width: 30, height: 30, objectFit: 'cover' }}
+              />
+            </AnimatePresence>
+          </div>
+          <span style={{ fontFamily: F_DISPLAY, fontSize: 22, fontStyle: 'italic', letterSpacing: '-0.01em', color: TEXT, lineHeight: 1 }}>
+            Studio
+          </span>
         </a>
 
         <nav style={{ display: 'flex', gap: 28, alignItems: 'center' }} className="vo-nav-links">
@@ -181,13 +210,17 @@ export function Navbar() {
           <ThemeToggle />
           <a href="#contacto" className="vo-nav-cta"
             style={{
-              background: TEXT, color: BG,
-              padding: '11px 20px', fontSize: 13, fontWeight: 600,
+              // v4 → v5: bg #943A1F → linear-gradient pink → violet
+              background: 'linear-gradient(135deg, #FF5C9A 0%, #8A46FF 100%)',
+              color: '#FFFFFF',
+              padding: '11px 22px', fontSize: 13, fontWeight: 700,
               display: 'inline-flex', alignItems: 'center', gap: 8,
-              transition: 'opacity 0.15s',
+              borderRadius: 999,
+              boxShadow: '0 4px 22px rgba(138, 70, 255, 0.45)',
+              transition: 'transform 0.2s, box-shadow 0.2s, filter 0.2s',
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.85')}
-            onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
+            onMouseEnter={(e) => { e.currentTarget.style.filter = 'brightness(1.08)'; e.currentTarget.style.boxShadow = '0 8px 32px rgba(225, 77, 255, 0.65)'; e.currentTarget.style.transform = 'translateY(-1px)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.filter = 'brightness(1)'; e.currentTarget.style.boxShadow = '0 4px 22px rgba(138, 70, 255, 0.45)'; e.currentTarget.style.transform = 'translateY(0)'; }}
           >
             {t('common.cta.quote')}
             <span style={{ fontSize: 16, lineHeight: 1 }}>→</span>
@@ -215,7 +248,7 @@ export function Navbar() {
             <LocaleToggle />
             <ThemeToggle />
           </div>
-          <a href="#contacto" onClick={() => setOpen(false)} style={{ background: TEXT, color: BG, padding: '13px 20px', fontSize: 14, fontWeight: 600, textAlign: 'center' }}>{t('common.cta.quoteProj')} →</a>
+          <a href="#contacto" onClick={() => setOpen(false)} style={{ background: 'linear-gradient(135deg, #FF5C9A 0%, #8A46FF 100%)', color: '#FFFFFF', padding: '13px 20px', fontSize: 14, fontWeight: 700, textAlign: 'center', borderRadius: 999, boxShadow: '0 4px 22px rgba(138, 70, 255, 0.45)' }}>{t('common.cta.quoteProj')} →</a>
         </div>
       )}
 
