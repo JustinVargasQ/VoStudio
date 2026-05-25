@@ -54,7 +54,13 @@
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5175/)",
       "Bash(npx tsc *)",
       "Bash(awk 'NR==237{start=1} start{count++} count==1{lstart=NR} /^\\\\/\\\\/ 02 · E-COMMERCE/{print \"End line: \" NR-2; exit}' \"c:/Users/justi/Desktop/Zayin/VOStudio/src/components/ServiceMockups.jsx\")",
-      "Bash(awk 'NR>=1326 && /^function AppMock/{print NR-2; exit}' \"c:/Users/justi/Desktop/Zayin/VOStudio/src/components/ServiceMockups.jsx\")"
+      "Bash(awk 'NR>=1326 && /^function AppMock/{print NR-2; exit}' \"c:/Users/justi/Desktop/Zayin/VOStudio/src/components/ServiceMockups.jsx\")",
+      "Bash(curl -s -X POST https://text.pollinations.ai/ -H 'Content-Type: application/json' -d '{\"messages\":[{\"role\":\"system\",\"content\":\"Eres asistente breve.\"},{\"role\":\"user\",\"content\":\"hola\"}],\"model\":\"openai\",\"private\":true}' --max-time 15)",
+      "Bash(curl -s -o /dev/null -w \"Vite actual: %{http_code}\\\\n\" http://localhost:5175/)",
+      "Bash(netstat -ano)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:5175/)",
+      "Bash(curl -s -o /dev/null -w \"Status: %{http_code} · Tiempo: %{time_total}s\\\\n\" -L https://vostudio.vercel.app/)",
+      "Bash(taskkill //PID 7196 //F)"
     ]
   }
 }

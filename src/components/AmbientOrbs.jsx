@@ -34,7 +34,7 @@ export function AmbientOrbs() {
       overflow: 'hidden',
       zIndex: 0,
     }}>
-      {/* Orb A — bright violet, top-left drift */}
+      {/* Orb A — cyan, top-left drift */}
       <span
         className={reduced ? undefined : 'vo-orb-amb a'}
         style={{
@@ -45,7 +45,7 @@ export function AmbientOrbs() {
           height: '46vw',
           maxWidth: 720, maxHeight: 720,
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(138, 70, 255, 0.55) 0%, rgba(138, 70, 255, 0) 65%)',
+          background: 'radial-gradient(circle, rgba(6, 182, 212, 0.45) 0%, rgba(6, 182, 212, 0) 65%)',
           filter: 'blur(80px)',
           opacity: 0.85,
           willChange: 'transform',

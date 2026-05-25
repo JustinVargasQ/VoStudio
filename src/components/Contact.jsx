@@ -11,14 +11,14 @@ import { SectionHeader } from './Services';
 const CONTACT_META = [
   {
     color:  A,
-    image:  'https://api.dicebear.com/9.x/lorelei/svg?seed=JustinVargas&backgroundColor=EA580C&backgroundType=gradientLinear',
+    image:  'https://api.dicebear.com/9.x/lorelei/svg?seed=JustinVargas&backgroundColor=0891B2&backgroundType=gradientLinear',
     bio_es: 'Full-stack developer apasionado por construir sistemas robustos y experiencias digitales.',
     bio_en: 'Full-stack developer passionate about robust systems and digital experiences.',
     skills: ['Node.js', 'React', 'MongoDB'],
   },
   {
     color:  A_L,
-    image:  'https://api.dicebear.com/9.x/lorelei/svg?seed=ZaylinLopez&backgroundColor=A855F7&backgroundType=gradientLinear',
+    image:  'https://api.dicebear.com/9.x/lorelei/svg?seed=ZaylinLopez&backgroundColor=22D3EE&backgroundType=gradientLinear',
     bio_es: 'Especialista en UX/UI y apps móviles. Diseña interfaces atractivas y fáciles de usar.',
     bio_en: 'UX/UI & mobile specialist. Designs compelling interfaces.',
     skills: ['UI/UX', 'React Native', 'Figma'],
@@ -180,7 +180,7 @@ export function Contact() {
       title: 'cal.com/vostudio',
       href: `https://cal.com/${CAL_LINK}`,
       icon: <g fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></g>,
-      color: '#A855F7',
+      color: '#0EA5E9',
     },
   ];
 

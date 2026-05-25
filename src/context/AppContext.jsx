@@ -8,8 +8,8 @@ const LOCALE_KEY = 'vo-locale';
 
 const CURTAIN_DURATION = 500;
 const CURTAIN_EASE = 'cubic-bezier(0.76, 0, 0.24, 1)';
-// v4 → v5: curtain swap — cream/charcoal → lavender/cosmic-deep
-const CURTAIN_BG = { light: '#F0EBFF', dark: '#06030D' };
+// v6: curtain — sky-white / midnight-navy
+const CURTAIN_BG = { light: '#F0F9FF', dark: '#040C14' };
 
 function detectInitialTheme() {
   if (typeof window === 'undefined') return 'dark';

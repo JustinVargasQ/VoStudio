@@ -1,24 +1,23 @@
 /**
- * VO Studio — Design System v5
- * "Neon Nebula — Violet/Magenta/Pink"
+ * VO Studio — Design System v6
+ * "Midnight Signal — Cyan/Pink/Coral"
  *
  * All surface/text/border tokens reference CSS variables defined in index.css.
  * Light/dark themes swap by toggling [data-theme="dark"] on <html>.
  * Accent stays defined in JS too because SVG strokes/fills need the raw hex.
  *
  * ─── BRAND PALETTE ────────────────────────────────────────────────────────
- *  Negro Profundo    #06030D
- *  Morado Oscuro     #1B1030
- *  Púrpura Intenso   #5D2BFF
- *  Violeta Brillante #8A46FF
- *  Magenta Neón      #E14DFF
+ *  Negro Profundo    #040C14
+ *  Azul Noche        #061720
+ *  Cian Eléctrico    #06B6D4
+ *  Cian Vivo         #22D3EE
+ *  Cian Profundo     #0891B2
  *  Rosa Fuerte       #FF5C9A
  *  Coral Rosado      #FF6A63
  *  Azul Eléctrico    #6AB7FF
- *  Azul Violeta      #6A5CFF
  *
  *  Gradiente principal (145°):
- *  #06030D → #2A0F1E → #FF6A63 → #FF5C9A → #C14DFF → #7B4DFF → #5D2BFF
+ *  #040C14 → #061720 → #FF6A63 → #FF5C9A → #22D3EE → #06B6D4 → #0891B2
  */
 
 // ─── Surfaces (CSS vars — adapt to light/dark) ──────────────────────────
@@ -45,30 +44,31 @@ export const BORDER   = 'var(--border)';
 export const BORDER_S = 'var(--border-s)';
 
 // ─── Accent (hex — needed by SVGs that can't use CSS vars) ──────────────
-// Old (v4 terracotta):  A=#943A1F  A_D=#7A2E15  A_L=#B84B22  A2=#E9E4E0
-// New (v5 neon nebula): A=#8A46FF  A_D=#5D2BFF  A_L=#E14DFF  A2=#FF5C9A
-export const A        = '#8A46FF';   // bright violet — primary accent
-export const A_D      = '#5D2BFF';   // intense purple — darker/pressed
-export const A_L      = '#E14DFF';   // neon magenta — hover/highlight
-export const A_DIM    = 'rgba(138, 70, 255, 0.08)';
-export const A2       = '#FF5C9A';   // strong pink — secondary accent (gradient end)
+// v5 (neon nebula):  A=#8A46FF  A_D=#5D2BFF  A_L=#E14DFF  A2=#FF5C9A
+// v6 (midnight signal): A=#06B6D4  A_D=#0891B2  A_L=#22D3EE  A2=#FF5C9A
+export const A        = '#06B6D4';   // cyan-500 — primary accent
+export const A_D      = '#0891B2';   // cyan-600 — darker/pressed
+export const A_L      = '#22D3EE';   // cyan-400 — hover/highlight
+export const A_DIM    = 'rgba(6, 182, 212, 0.08)';
+export const A2       = '#FF5C9A';   // strong pink — secondary accent
 
 // Extended palette (for charts, badges, multi-color UIs)
-export const C_PURPLE_DEEP   = '#5D2BFF';
-export const C_VIOLET        = '#8A46FF';
-export const C_MAGENTA       = '#E14DFF';
-export const C_PINK          = '#FF5C9A';
-export const C_CORAL         = '#FF6A63';
+export const C_CYAN        = '#06B6D4';
+export const C_CYAN_LIGHT  = '#22D3EE';
+export const C_CYAN_DEEP   = '#0891B2';
+export const C_PINK        = '#FF5C9A';
+export const C_CORAL       = '#FF6A63';
 export const C_BLUE_ELECTRIC = '#6AB7FF';
-export const C_BLUE_VIOLET   = '#6A5CFF';
-export const C_BG_DEEP       = '#06030D';
-export const C_BG_PURPLE     = '#1B1030';
+export const C_TEAL        = '#14B8A6';
+export const C_SKY         = '#0EA5E9';
+export const C_BG_DEEP     = '#040C14';
+export const C_BG_NAVY     = '#061720';
 
 // ─── Gradients (signature visuals) ───────────────────────────────────────
-export const GRADIENT_MAIN = 'linear-gradient(145deg, #06030D 0%, #2A0F1E 14%, #FF6A63 38%, #FF5C9A 52%, #C14DFF 66%, #7B4DFF 82%, #5D2BFF 100%)';
-export const GRADIENT_BTN_PRIMARY   = 'linear-gradient(135deg, #FF5C9A 0%, #8A46FF 100%)';
-export const GRADIENT_BTN_SECONDARY = 'linear-gradient(135deg, #FF6A63 0%, #5D2BFF 100%)';
-export const GRADIENT_HOVER = 'linear-gradient(135deg, #E14DFF 0%, #5D2BFF 100%)';
+export const GRADIENT_MAIN = 'linear-gradient(145deg, #040C14 0%, #061720 14%, #FF6A63 38%, #FF5C9A 52%, #22D3EE 66%, #06B6D4 82%, #0891B2 100%)';
+export const GRADIENT_BTN_PRIMARY   = 'linear-gradient(135deg, #FF5C9A 0%, #06B6D4 100%)';
+export const GRADIENT_BTN_SECONDARY = 'linear-gradient(135deg, #FF6A63 0%, #0891B2 100%)';
+export const GRADIENT_HOVER = 'linear-gradient(135deg, #22D3EE 0%, #0891B2 100%)';
 
 // ─── Semantic ─────────────────────────────────────────────────────────────
 export const SUCCESS  = '#10B981';

@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Layout, ShoppingBag, Smartphone, Database, Search, Shield, Check, ArrowUpRight } from 'lucide-react';
+import { Layout, ShoppingBag, Smartphone, Database, Search, Shield, Check, ArrowUpRight, MessageCircle, Mic, Image as ImageIcon, Map, Code, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
 import { BG, BG_ALT, BG_SECTION, BG_CARD, BG_CARD_ALT, TEXT, TEXT_S, TEXT_D, BORDER, A, F_DISPLAY, F_MONO, MAX_W, PAD_X } from '../theme';
 import { getContent } from '../data/content';
 import { useApp } from '../context/AppContext';
@@ -8,8 +8,17 @@ import { Reveal, RevealStagger, RevealItem } from './Reveal';
 import { ServiceVisual } from './ServiceVisual';
 import { ServiceMockup } from './ServiceMockups';
 
-// Icon per service (by index)
+// Icon per regular service (by index — corresponds to services 01..06)
 const SERVICE_ICONS = [Layout, ShoppingBag, Smartphone, Database, Search, Shield];
+
+// Google Cloud capabilities for the featured card
+const GOOGLE_CAPABILITIES = [
+  { Icon: MessageCircle, label: 'Chatbots',  color: '#4285F4' },
+  { Icon: Mic,           label: 'Voz IA',    color: '#EA4335' },
+  { Icon: ImageIcon,     label: 'Visión',    color: '#FBBC05' },
+  { Icon: Map,           label: 'Mapas',     color: '#34A853' },
+  { Icon: Code,          label: 'APIs',      color: '#9C46FF' },
+];
 
 // Professional photo per service (Unsplash, verified)
 const SERVICE_PHOTOS = [
@@ -122,7 +131,7 @@ function ServiceModal({ service, onClose, t }) {
         </button>
 
         {/* Content */}
-        <div style={{ padding: 'clamp(28px, 4vw, 56px)' }}>
+        <div style={{ padding: 'clamp(16px, 3vw, 56px)' }}>
 
           {/* Header */}
           <div style={{ marginBottom: 28 }}>
@@ -254,7 +263,306 @@ function ServiceModal({ service, onClose, t }) {
   );
 }
 
-const CARD_ACCENTS = ['#6AB7FF', '#E14DFF', '#8A46FF', '#FF5C9A', '#FF6A63', '#F59E0B'];
+const CARD_ACCENTS = ['#6AB7FF', '#22D3EE', '#06B6D4', '#FF5C9A', '#FF6A63', '#F59E0B'];
+
+// ─── 3D Cover-Flow style carousel for regular service cards ────────────
+function ServiceCarousel({ services, onOpen, t }) {
+  const [active, setActive]   = useState(0);
+  const [hovered, setHovered] = useState(false);
+  const n = services.length;
+
+  // 3D tilt state for the active card
+  const [tilt, setTilt] = useState({ rx: 0, ry: 0, gx: 50, gy: 50 });
+  const activeTiltRef = useRef(null);
+
+  const onCardMouseMove = useCallback((e) => {
+    if (!activeTiltRef.current) return;
+    const rect = activeTiltRef.current.getBoundingClientRect();
+    const px = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+    const py = Math.max(0, Math.min(1, (e.clientY - rect.top) / rect.height));
+    setTilt({ rx: (py - 0.5) * -20, ry: (px - 0.5) * 20, gx: px * 100, gy: py * 100 });
+  }, []);
+
+  const onCardMouseLeave = useCallback(() => {
+    setTilt({ rx: 0, ry: 0, gx: 50, gy: 50 });
+  }, []);
+
+  const offsetOf = (i) => {
+    let d = i - active;
+    if (d >  n / 2) d -= n;
+    if (d < -n / 2) d += n;
+    return d;
+  };
+
+  const prev = () => setActive((a) => (a - 1 + n) % n);
+  const next = () => setActive((a) => (a + 1) % n);
+
+  // Keyboard navigation when the carousel is hovered
+  useEffect(() => {
+    if (!hovered) return;
+    const onKey = (e) => {
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); prev(); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); next(); }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [hovered, n]);
+
+  return (
+    <div
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        position: 'relative',
+        marginTop: 36,
+        height: 'clamp(440px, 60vh, 540px)',
+        perspective: 1400,
+        perspectiveOrigin: '50% 50%',
+        userSelect: 'none',
+      }}>
+      {/* Cards */}
+      {services.map((s, i) => {
+        const offset = offsetOf(i);
+        const abs    = Math.abs(offset);
+        if (abs > 2) return null;
+        const isActive = abs === 0;
+        const sign     = Math.sign(offset);
+
+        const accent = CARD_ACCENTS[i % CARD_ACCENTS.length];
+        const Icon   = SERVICE_ICONS[i] || Layout;
+        const photo  = SERVICE_PHOTOS[i] || SERVICE_PHOTOS[0];
+
+        // Visual transforms based on distance from active
+        const xPct    = offset * 38;                            // horizontal spread
+        const scale   = isActive ? 1 : abs === 1 ? 0.82 : 0.66;
+        const blurFilter = isActive ? 'none' : abs === 1 ? 'blur(3px)' : 'blur(7px)';
+        const opacity = isActive ? 1 : abs === 1 ? 0.55 : 0.22;
+        const rotateY = -sign * (abs === 1 ? 14 : 22);
+        const zIndex  = 10 - abs;
+
+        return (
+          <motion.article
+            key={s.n}
+            initial={false}
+            animate={{
+              x: `calc(${xPct}% - 50%)`,
+              scale, opacity, rotateY,
+              filter: blurFilter,
+            }}
+            transition={{ type: 'spring', stiffness: 240, damping: 30 }}
+            onClick={() => {
+              if (isActive) onOpen(i);
+              else setActive(i);
+            }}
+            role="button"
+            tabIndex={isActive ? 0 : -1}
+            aria-label={isActive ? `${t('common.cta.knowMore')}: ${s.title}` : `Activar ${s.title}`}
+            onKeyDown={(e) => {
+              if (isActive && (e.key === 'Enter' || e.key === ' ')) {
+                e.preventDefault();
+                onOpen(i);
+              }
+            }}
+            style={{
+              position: 'absolute',
+              left: '50%', top: 0,
+              width: 'min(360px, 88vw)',
+              height: '100%',
+              transformOrigin: 'center center',
+              transformStyle: 'preserve-3d',
+              cursor: 'pointer',
+              zIndex,
+              willChange: 'transform, opacity, filter',
+            }}>
+            <div
+              ref={isActive ? activeTiltRef : undefined}
+              onMouseMove={isActive ? onCardMouseMove : undefined}
+              onMouseLeave={isActive ? onCardMouseLeave : undefined}
+              style={{
+                width: '100%', height: '100%',
+                background: BG_CARD,
+                border: `1px solid ${isActive ? `${accent}55` : BORDER}`,
+                borderRadius: 16,
+                display: 'flex', flexDirection: 'column',
+                overflow: 'hidden',
+                position: 'relative',
+                boxShadow: isActive
+                  ? `${tilt.ry * 1.2}px ${-tilt.rx * 1.2 + 40}px 80px ${accent}35, 0 0 0 1px ${accent}40, 0 0 60px ${accent}18`
+                  : 'var(--shadow-sm)',
+                transform: (isActive && (tilt.rx !== 0 || tilt.ry !== 0))
+                  ? `perspective(700px) rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg) scale(1.02)`
+                  : 'none',
+                transition: isActive
+                  ? 'border-color 0.4s, box-shadow 0.06s ease-out, transform 0.08s ease-out'
+                  : 'border-color 0.4s, box-shadow 0.4s, transform 0.4s ease-out',
+              }}>
+              {/* Glare overlay */}
+              {isActive && (
+                <div aria-hidden style={{
+                  position: 'absolute', inset: 0,
+                  borderRadius: 16,
+                  background: `radial-gradient(circle at ${tilt.gx}% ${tilt.gy}%, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.05) 40%, transparent 65%)`,
+                  pointerEvents: 'none',
+                  zIndex: 20,
+                  mixBlendMode: 'screen',
+                }} />
+              )}
+              {/* Photo header */}
+              <div style={{ position: 'relative', aspectRatio: '16 / 10', overflow: 'hidden', background: '#1a1027' }}>
+                <img src={photo} alt={s.title} loading="lazy" style={{
+                  position: 'absolute', inset: 0,
+                  width: '100%', height: '100%',
+                  objectFit: 'cover', display: 'block',
+                  filter: 'saturate(1.05)',
+                }} />
+                <div aria-hidden style={{
+                  position: 'absolute', inset: 0,
+                  background: `linear-gradient(180deg, ${accent}25 0%, transparent 35%, rgba(15,8,32,0.85) 100%)`,
+                  pointerEvents: 'none',
+                }} />
+                <div style={{
+                  position: 'absolute', bottom: 14, left: 16,
+                  width: 44, height: 44, borderRadius: 10,
+                  background: 'rgba(255,255,255,0.95)',
+                  display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                  color: accent,
+                  boxShadow: `0 8px 20px rgba(0,0,0,0.20), 0 0 0 1px ${accent}25`,
+                }}>
+                  <Icon size={20} strokeWidth={1.7} />
+                </div>
+                <div style={{
+                  position: 'absolute', top: 12, right: 12,
+                  fontFamily: F_MONO, fontSize: 9, fontWeight: 700,
+                  color: '#fff', letterSpacing: '0.08em', textTransform: 'uppercase',
+                  background: 'rgba(0,0,0,0.55)',
+                  backdropFilter: 'blur(8px)',
+                  padding: '4px 10px', borderRadius: 999,
+                  border: '1px solid rgba(255,255,255,0.15)',
+                }}>{s.timeline}</div>
+                <div aria-hidden style={{
+                  position: 'absolute', bottom: 8, right: 16,
+                  fontFamily: F_DISPLAY, fontStyle: 'italic',
+                  fontSize: 38, color: '#fff', lineHeight: 1,
+                  opacity: 0.55, letterSpacing: '-0.03em',
+                  pointerEvents: 'none', userSelect: 'none',
+                }}>{s.n}</div>
+              </div>
+
+              {/* Card content */}
+              <div style={{
+                padding: 'clamp(20px, 2.2vw, 28px)',
+                display: 'flex', flexDirection: 'column', flex: 1,
+              }}>
+                <div style={{ marginBottom: 16 }}>
+                  <h3 style={{
+                    fontFamily: F_DISPLAY, fontWeight: 400,
+                    fontSize: 'clamp(22px, 2vw, 28px)', lineHeight: 1.05,
+                    letterSpacing: '-0.025em', color: TEXT, marginBottom: 8,
+                  }}>{s.title}</h3>
+                  <p style={{ fontSize: 13.5, lineHeight: 1.55, color: TEXT_S }}>{s.desc}</p>
+                </div>
+                <ul style={{
+                  listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8,
+                  paddingTop: 16, borderTop: `1px solid ${BORDER}`,
+                  marginTop: 'auto', marginBottom: 16,
+                }}>
+                  {s.includes.slice(0, 3).map((inc, j) => (
+                    <li key={j} style={{ display: 'flex', gap: 10, fontSize: 12.5, color: TEXT_S, lineHeight: 1.5 }}>
+                      <span style={{
+                        width: 16, height: 16, borderRadius: 4,
+                        background: `${accent}15`,
+                        display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                        color: accent, flexShrink: 0, marginTop: 1,
+                      }}>
+                        <Check size={10} strokeWidth={3} />
+                      </span>
+                      <span>{inc}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <span style={{
+                    fontSize: 11, fontWeight: 700, color: accent,
+                    fontFamily: F_MONO, letterSpacing: '0.10em', textTransform: 'uppercase',
+                  }}>
+                    Conocer más
+                  </span>
+                  <span style={{
+                    width: 32, height: 32, borderRadius: '50%',
+                    background: isActive ? accent : `${accent}14`,
+                    border: `1px solid ${accent}40`,
+                    display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                    color: isActive ? '#fff' : accent,
+                    transition: 'all 0.3s ease',
+                  }}>
+                    <ArrowUpRight size={15} strokeWidth={2} />
+                  </span>
+                </div>
+              </div>
+            </div>
+          </motion.article>
+        );
+      })}
+
+      {/* Left arrow */}
+      <button onClick={prev} aria-label="Anterior servicio" style={{
+        position: 'absolute', left: 'clamp(8px, 4vw, 40px)', top: '50%', transform: 'translateY(-50%)',
+        zIndex: 20,
+        width: 48, height: 48, borderRadius: '50%',
+        background: BG_CARD, border: `1px solid ${BORDER}`,
+        display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+        color: TEXT, cursor: 'pointer',
+        boxShadow: '0 8px 20px rgba(0,0,0,0.18)',
+        backdropFilter: 'blur(8px)',
+        transition: 'transform 0.18s, border-color 0.18s, background 0.18s',
+      }}
+        onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-50%) scale(1.08)'; e.currentTarget.style.borderColor = A; }}
+        onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(-50%) scale(1)'; e.currentTarget.style.borderColor = BORDER; }}
+      >
+        <ChevronLeft size={22} strokeWidth={1.8} />
+      </button>
+
+      {/* Right arrow */}
+      <button onClick={next} aria-label="Siguiente servicio" style={{
+        position: 'absolute', right: 'clamp(8px, 4vw, 40px)', top: '50%', transform: 'translateY(-50%)',
+        zIndex: 20,
+        width: 48, height: 48, borderRadius: '50%',
+        background: BG_CARD, border: `1px solid ${BORDER}`,
+        display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+        color: TEXT, cursor: 'pointer',
+        boxShadow: '0 8px 20px rgba(0,0,0,0.18)',
+        backdropFilter: 'blur(8px)',
+        transition: 'transform 0.18s, border-color 0.18s, background 0.18s',
+      }}
+        onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-50%) scale(1.08)'; e.currentTarget.style.borderColor = A; }}
+        onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(-50%) scale(1)'; e.currentTarget.style.borderColor = BORDER; }}
+      >
+        <ChevronRight size={22} strokeWidth={1.8} />
+      </button>
+
+      {/* Dot indicators */}
+      <div style={{
+        position: 'absolute', bottom: -28, left: '50%', transform: 'translateX(-50%)',
+        display: 'flex', gap: 8, zIndex: 20,
+      }}>
+        {services.map((s, i) => {
+          const isActive = i === active;
+          const accent   = CARD_ACCENTS[i % CARD_ACCENTS.length];
+          return (
+            <button key={s.n} onClick={() => setActive(i)} aria-label={`Ir a ${s.title}`}
+              style={{
+                width: isActive ? 28 : 8, height: 8, borderRadius: 99,
+                background: isActive ? accent : 'rgba(138,70,255,0.20)',
+                border: 'none', cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                padding: 0,
+              }} />
+          );
+        })}
+      </div>
+    </div>
+  );
+}
 
 export function Services() {
   const { t, locale } = useApp();
@@ -273,174 +581,224 @@ export function Services() {
           intro={t('services.intro')}
         />
 
-        <RevealStagger stagger={0.08} style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-          gap: 20,
-        }}>
-          {SERVICES.map((s, i) => {
-            const isHovered = hovered === i;
-            const accent = CARD_ACCENTS[i % CARD_ACCENTS.length];
-            const Icon = SERVICE_ICONS[i] || Layout;
-            const photo = SERVICE_PHOTOS[i] || SERVICE_PHOTOS[0];
-            return (
-              <RevealItem key={s.n} y={28}>
-                <motion.article
-                  className="vo-neon-hover"
-                  onMouseEnter={() => setHovered(i)}
-                  onMouseLeave={() => setHovered(null)}
-                  onClick={() => setOpenIndex(i)}
-                  whileHover={{ y: -4 }}
-                  transition={{ type: 'spring', stiffness: 220, damping: 24 }}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setOpenIndex(i); } }}
-                  aria-label={`${t('common.cta.knowMore')}: ${s.title}`}
-                  style={{
-                    position: 'relative',
-                    background: BG_CARD,
-                    border: `1px solid ${isHovered ? `${accent}45` : BORDER}`,
-                    borderRadius: 14,
-                    height: '100%',
-                    display: 'flex', flexDirection: 'column',
-                    overflow: 'hidden',
-                    boxShadow: isHovered
-                      ? `0 20px 50px ${accent}1A, 0 0 0 1px ${accent}25`
-                      : 'var(--shadow-sm)',
-                    transition: 'all 0.35s ease',
-                    cursor: 'pointer',
-                  }}
-                >
-                  {/* ─── Photo header ─── */}
-                  <div style={{
-                    position: 'relative',
-                    aspectRatio: '16 / 10',
-                    overflow: 'hidden',
-                    background: '#1a1027',
-                  }}>
-                    <motion.img
-                      src={photo}
-                      alt={s.title}
-                      loading="lazy"
-                      animate={{ scale: isHovered ? 1.06 : 1 }}
-                      transition={{ duration: 0.7, ease: 'easeOut' }}
-                      style={{
-                        position: 'absolute', inset: 0,
-                        width: '100%', height: '100%',
-                        objectFit: 'cover', display: 'block',
-                        filter: 'saturate(1.05)',
-                      }}
-                    />
-                    {/* Color-tinted gradient overlay (gives each card its identity) */}
-                    <div aria-hidden style={{
-                      position: 'absolute', inset: 0,
-                      background: `linear-gradient(180deg, ${accent}25 0%, transparent 35%, rgba(15,8,32,0.85) 100%)`,
-                      pointerEvents: 'none',
-                    }} />
+        {/* ─── Featured card on its own row ─── */}
+        {(() => {
+          const featuredEntry = SERVICES
+            .map((s, i) => ({ s, i }))
+            .find(({ s }) => s.featured);
+          if (!featuredEntry) return null;
+          const { s, i } = featuredEntry;
+          const isHovered = hovered === i;
+          {
+              return (
+                <RevealItem key={s.n} y={28} style={{ gridColumn: '1 / -1' }}>
+                  <motion.article
+                    onMouseEnter={() => setHovered(i)}
+                    onMouseLeave={() => setHovered(null)}
+                    onClick={() => setOpenIndex(i)}
+                    whileHover={{ y: -4 }}
+                    transition={{ type: 'spring', stiffness: 220, damping: 24 }}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setOpenIndex(i); } }}
+                    aria-label={`Conocer más: ${s.title}`}
+                    style={{
+                      position: 'relative',
+                      background: 'linear-gradient(135deg, #0A0A12 0%, #1A0A2E 45%, #0E1F3D 100%)',
+                      borderRadius: 18,
+                      padding: 'clamp(28px, 3.5vw, 44px)',
+                      overflow: 'hidden',
+                      cursor: 'pointer',
+                      minHeight: 240,
+                      border: '1px solid rgba(66,133,244,0.25)',
+                      boxShadow: isHovered
+                        ? '0 28px 64px rgba(66,133,244,0.28), 0 0 0 1px rgba(66,133,244,0.45)'
+                        : '0 8px 30px rgba(0,0,0,0.15)',
+                      transition: 'all 0.35s ease',
+                    }}
+                  >
+                    {/* Floating Google-color blobs */}
+                    <div aria-hidden style={{ position: 'absolute', top: '-25%', left: '15%', width: 320, height: 320, borderRadius: '50%', background: 'radial-gradient(circle, #4285F455 0%, transparent 65%)', filter: 'blur(60px)', pointerEvents: 'none' }} />
+                    <div aria-hidden style={{ position: 'absolute', bottom: '-35%', right: '5%', width: 380, height: 380, borderRadius: '50%', background: 'radial-gradient(circle, #EA433540 0%, transparent 65%)', filter: 'blur(60px)', pointerEvents: 'none' }} />
+                    <div aria-hidden style={{ position: 'absolute', top: '30%', right: '30%', width: 240, height: 240, borderRadius: '50%', background: 'radial-gradient(circle, #34A85340 0%, transparent 70%)', filter: 'blur(50px)', pointerEvents: 'none' }} />
 
-                    {/* Icon badge — overlapping bottom-left */}
                     <div style={{
-                      position: 'absolute', bottom: 14, left: 16,
-                      width: 44, height: 44, borderRadius: 10,
-                      background: 'rgba(255,255,255,0.95)',
-                      backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)',
-                      display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                      color: accent,
-                      boxShadow: `0 8px 20px rgba(0,0,0,0.20), 0 0 0 1px ${accent}25`,
-                      transition: 'transform 0.3s ease',
-                      transform: isHovered ? 'scale(1.08)' : 'scale(1)',
-                    }}>
-                      <Icon size={20} strokeWidth={1.7} />
-                    </div>
-
-                    {/* Timeline glass chip — top right */}
-                    <div style={{
-                      position: 'absolute', top: 12, right: 12,
-                      fontFamily: F_MONO, fontSize: 9, fontWeight: 700,
-                      color: '#fff', letterSpacing: '0.08em', textTransform: 'uppercase',
-                      background: 'rgba(0,0,0,0.55)',
-                      backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)',
-                      padding: '4px 10px', borderRadius: 999,
-                      border: '1px solid rgba(255,255,255,0.15)',
-                    }}>{s.timeline}</div>
-
-                    {/* Ghost number — bottom right */}
-                    <div aria-hidden style={{
-                      position: 'absolute', bottom: 8, right: 16,
-                      fontFamily: F_DISPLAY, fontStyle: 'italic',
-                      fontSize: 38, color: '#fff', lineHeight: 1,
-                      opacity: 0.55, letterSpacing: '-0.03em',
-                      pointerEvents: 'none', userSelect: 'none',
-                    }}>
-                      {s.n}
-                    </div>
-                  </div>
-
-                  {/* ─── Card content ─── */}
-                  <div style={{
-                    padding: 'clamp(22px, 2.2vw, 28px)',
-                    display: 'flex', flexDirection: 'column', flex: 1,
-                    position: 'relative',
-                  }}>
-                    {/* Title + description */}
-                    <div style={{ marginBottom: 18 }}>
-                      <h3 style={{
-                        fontFamily: F_DISPLAY, fontWeight: 400,
-                        fontSize: 'clamp(22px, 2vw, 28px)', lineHeight: 1.05,
-                        letterSpacing: '-0.025em', color: TEXT, marginBottom: 8,
-                      }}>{s.title}</h3>
-                      <p style={{ fontSize: 13.5, lineHeight: 1.55, color: TEXT_S }}>{s.desc}</p>
-                    </div>
-
-                    {/* Includes — checkmark list */}
-                    <ul style={{
-                      listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8,
-                      paddingTop: 18, borderTop: `1px solid ${BORDER}`,
-                      marginTop: 'auto', marginBottom: 18,
-                    }}>
-                      {s.includes.slice(0, 3).map((inc, j) => (
-                        <li key={j} style={{ display: 'flex', gap: 10, fontSize: 12.5, color: TEXT_S, lineHeight: 1.5 }}>
+                      position: 'relative', zIndex: 1,
+                      display: 'grid',
+                      gridTemplateColumns: 'minmax(0, 1.35fr) minmax(0, 1fr)',
+                      gap: 'clamp(28px, 4vw, 56px)',
+                      alignItems: 'center',
+                    }} className="vo-google-grid">
+                      {/* LEFT: text + chips + CTA */}
+                      <div>
+                        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, marginBottom: 18, flexWrap: 'wrap' }}>
                           <span style={{
-                            width: 16, height: 16, borderRadius: 4,
-                            background: `${accent}15`,
-                            display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                            color: accent, flexShrink: 0, marginTop: 1,
+                            padding: '4px 11px',
+                            background: 'linear-gradient(90deg, #4285F4, #EA4335, #FBBC05, #34A853)',
+                            color: '#fff', fontSize: 9, fontWeight: 900,
+                            letterSpacing: '0.18em', textTransform: 'uppercase',
+                            fontFamily: F_MONO, borderRadius: 999,
+                            boxShadow: '0 4px 14px rgba(66,133,244,0.40)',
+                            display: 'inline-flex', alignItems: 'center', gap: 6,
                           }}>
-                            <Check size={10} strokeWidth={3} />
+                            <Sparkles size={10} strokeWidth={2.5} />
+                            Nuevo · Featured
                           </span>
-                          <span>{inc}</span>
-                        </li>
-                      ))}
-                    </ul>
+                          <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.55)', fontFamily: F_MONO, letterSpacing: '0.10em', textTransform: 'uppercase' }}>
+                            IA · Visión · Maps · APIs
+                          </span>
+                        </div>
 
-                    {/* CTA */}
-                    <div style={{
-                      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                    }}>
-                      <span style={{
-                        fontSize: 11, fontWeight: 700, color: accent,
-                        fontFamily: F_MONO, letterSpacing: '0.10em', textTransform: 'uppercase',
-                      }}>
-                        Conocer más
-                      </span>
-                      <span style={{
-                        width: 32, height: 32, borderRadius: '50%',
-                        background: isHovered ? accent : `${accent}14`,
-                        border: `1px solid ${accent}40`,
-                        display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                        color: isHovered ? '#fff' : accent,
-                        transition: 'all 0.3s ease',
-                        transform: isHovered ? 'translateX(4px)' : 'translateX(0)',
-                      }}>
-                        <ArrowUpRight size={15} strokeWidth={2} />
-                      </span>
+                        <h3 style={{
+                          fontFamily: F_DISPLAY, fontWeight: 400,
+                          fontSize: 'clamp(28px, 3.4vw, 44px)', lineHeight: 1.02,
+                          letterSpacing: '-0.025em', color: '#fff', marginBottom: 14,
+                        }}>
+                          Inteligencia,{' '}
+                          <span style={{
+                            fontStyle: 'italic',
+                            background: 'linear-gradient(135deg, #4285F4 0%, #EA4335 35%, #FBBC05 65%, #34A853 100%)',
+                            WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+                            backgroundClip: 'text', color: 'transparent',
+                          }}>todo conectado</span>.
+                        </h3>
+
+                        <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.72)', lineHeight: 1.6, marginBottom: 22, maxWidth: '54ch' }}>
+                          {s.desc}
+                        </p>
+
+                        {/* Capability chips */}
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 7, marginBottom: 22 }}>
+                          {GOOGLE_CAPABILITIES.map((c, j) => (
+                            <span key={j} style={{
+                              display: 'inline-flex', alignItems: 'center', gap: 6,
+                              padding: '6px 12px', borderRadius: 999,
+                              background: `${c.color}15`, border: `1px solid ${c.color}50`,
+                              color: '#fff', fontSize: 10.5, fontWeight: 600,
+                            }}>
+                              <c.Icon size={11} color={c.color} strokeWidth={2.2} />
+                              {c.label}
+                            </span>
+                          ))}
+                        </div>
+
+                        {/* CTA */}
+                        <div style={{
+                          display: 'inline-flex', alignItems: 'center', gap: 10,
+                          fontSize: 11, fontWeight: 700, color: '#fff',
+                          fontFamily: F_MONO, letterSpacing: '0.10em', textTransform: 'uppercase',
+                          padding: '12px 22px', borderRadius: 999,
+                          background: 'linear-gradient(135deg, rgba(66,133,244,0.18), rgba(234,67,53,0.18))',
+                          border: '1px solid rgba(255,255,255,0.22)',
+                          backdropFilter: 'blur(10px)',
+                          transition: 'transform 0.2s',
+                          transform: isHovered ? 'translateX(4px)' : 'translateX(0)',
+                        }}>
+                          Explorar demos en vivo
+                          <ArrowUpRight size={14} strokeWidth={2.5} />
+                        </div>
+                      </div>
+
+                      {/* RIGHT: Big G + floating capability cards */}
+                      <div style={{
+                        position: 'relative',
+                        minHeight: 240,
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      }} className="vo-google-visual">
+                        {/* Glow ring behind icon */}
+                        <div aria-hidden style={{
+                          position: 'absolute', width: 280, height: 280, borderRadius: '50%',
+                          background: 'conic-gradient(from 0deg, #4285F4, #34A853, #FBBC05, #EA4335, #4285F4)',
+                          filter: 'blur(30px)', opacity: 0.30,
+                          animation: 'gRotate 12s linear infinite',
+                        }} />
+                        {/* Big sparkles icon — provider-neutral */}
+                        <div style={{
+                          position: 'relative', zIndex: 1,
+                          width: 180, height: 180, borderRadius: '50%',
+                          background: 'conic-gradient(from 45deg, #4285F4, #34A853, #FBBC05, #EA4335, #4285F4)',
+                          display: 'flex', alignItems: 'center', justifyContent: 'center',
+                          boxShadow: '0 24px 60px rgba(66,133,244,0.40)',
+                        }}>
+                          <div style={{
+                            width: 160, height: 160, borderRadius: '50%',
+                            background: '#0A0A12',
+                            display: 'flex', alignItems: 'center', justifyContent: 'center',
+                          }}>
+                            <Sparkles size={62} color="#fff" strokeWidth={1.4} style={{ filter: 'drop-shadow(0 0 16px rgba(255,255,255,0.40))' }} />
+                          </div>
+                        </div>
+                        {/* Floating mini cards */}
+                        <div style={{
+                          position: 'absolute', top: '10%', right: '0%',
+                          padding: '8px 12px', borderRadius: 10,
+                          background: 'rgba(255,255,255,0.08)',
+                          border: '1px solid rgba(255,255,255,0.15)',
+                          backdropFilter: 'blur(12px)',
+                          display: 'inline-flex', alignItems: 'center', gap: 7,
+                          fontSize: 10, color: '#fff', fontFamily: F_MONO,
+                          transform: 'rotate(4deg)',
+                          boxShadow: '0 12px 28px rgba(0,0,0,0.35)',
+                        }}>
+                          <MessageCircle size={12} color="#4285F4" strokeWidth={2.2} />
+                          <strong>Chatbot</strong> · 24/7
+                        </div>
+                        <div style={{
+                          position: 'absolute', bottom: '12%', left: '0%',
+                          padding: '8px 12px', borderRadius: 10,
+                          background: 'rgba(255,255,255,0.08)',
+                          border: '1px solid rgba(255,255,255,0.15)',
+                          backdropFilter: 'blur(12px)',
+                          display: 'inline-flex', alignItems: 'center', gap: 7,
+                          fontSize: 10, color: '#fff', fontFamily: F_MONO,
+                          transform: 'rotate(-3deg)',
+                          boxShadow: '0 12px 28px rgba(0,0,0,0.35)',
+                        }}>
+                          <Map size={12} color="#34A853" strokeWidth={2.2} />
+                          <strong>Maps</strong> · live
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </motion.article>
-              </RevealItem>
-            );
-          })}
-        </RevealStagger>
+
+                    <style>{`
+                      @keyframes gRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+                      @media (max-width: 720px) {
+                        .vo-google-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
+                        .vo-google-visual { min-height: 160px !important; }
+                        .vo-google-visual > div:nth-child(2) { width: 130px !important; height: 130px !important; }
+                        .vo-google-visual > div:nth-child(2) > div { width: 112px !important; height: 112px !important; }
+                      }
+                      /* GoogleCloudMock modal — tighter spacing on mobile */
+                      @media (max-width: 720px) {
+                        .vo-gc-banner { gap: 8px !important; padding: 9px 11px !important; }
+                        .vo-gc-banner > div:last-child > div:first-child { font-size: 10px !important; }
+                        .vo-gc-banner > div:last-child > div:last-child { font-size: 9px !important; line-height: 1.5 !important; }
+                      }
+                    `}</style>
+                  </motion.article>
+                </RevealItem>
+              );
+            }
+          })()}
+
+        {/* ─── 3D Carousel of regular service cards ─── */}
+        <ServiceCarousel
+          services={SERVICES.filter(s => !s.featured)}
+          getOriginalIndex={(carouselIdx) => {
+            // Map carousel position back to original SERVICES index
+            const regular = SERVICES.filter(s => !s.featured);
+            const target = regular[carouselIdx];
+            return SERVICES.findIndex(s => s.n === target.n);
+          }}
+          onOpen={(carouselIdx) => {
+            const regular = SERVICES.filter(s => !s.featured);
+            const target  = regular[carouselIdx];
+            const realIdx = SERVICES.findIndex(s => s.n === target.n);
+            setOpenIndex(realIdx);
+          }}
+          t={t}
+        />
+
       </div>
 
       {/* Service detail modal */}

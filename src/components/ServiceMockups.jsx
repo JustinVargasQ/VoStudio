@@ -13,6 +13,8 @@ import {
   Package, BarChart3, TrendingUp, Settings, Plus,
   Globe, ChevronUp, Target, ArrowUpRight,
   CheckCircle2, Shield, RotateCw, Database, Server, Zap,
+  MessageCircle, Mic, Image as ImageIcon, Map as MapIcon, Code,
+  Send, Sparkles, Volume2, MapPin, FileText, Languages, Cloud,
 } from 'lucide-react';
 import { F_DISPLAY, F_MONO } from '../theme';
 
@@ -26,7 +28,7 @@ const MK = {
   mutedSoft:   '#A3A3A3',
   border:      'rgba(0,0,0,0.10)',
   borderSoft:  'rgba(0,0,0,0.06)',
-  accent:      '#8A46FF',
+  accent:      '#06B6D4',
   green:       '#10B981',
   greenSoft:   '#D1FAE5',
   yellow:      '#F59E0B',
@@ -680,7 +682,7 @@ function WebsiteMock_OLD_UNUSED() {
   const FG_D   = isDark ? 'rgba(255,255,255,0.45)' : 'rgba(10,10,18,0.45)';
   const BORDER_C = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(10,10,18,0.10)';
   const SOFT_BG  = isDark ? 'rgba(255,255,255,0.05)' : 'rgba(10,10,18,0.04)';
-  const ACC    = '#8A46FF';
+  const ACC    = '#06B6D4';
   const ACC2   = '#FF5C9A';
 
   const tabs = ['Inicio', 'Proyectos', 'Servicios'];
@@ -2425,7 +2427,7 @@ function SystemMock() {
   const [productForm, setProductForm] = useState({ name: '', stock: '', price: '' });
   const [feed, setFeed]           = useState([
     { Icon: 'ShoppingBag', c: '#10B981', t: 'Venta · #2847',         d: 'Sucursal Centro', a: '₡18.400', s: 'hace 3 min' },
-    { Icon: 'Package',     c: '#8A46FF', t: 'Stock bajo · Taladro',  d: '3 unidades',       a: 'Alerta',   s: 'hace 12 min' },
+    { Icon: 'Package',     c: '#06B6D4', t: 'Stock bajo · Taladro',  d: '3 unidades',       a: 'Alerta',   s: 'hace 12 min' },
     { Icon: 'Users',       c: '#4F46E5', t: 'Nuevo cliente',         d: 'Constructora SC',  a: '+1',       s: 'hace 1 h' },
     { Icon: 'CheckCircle2',c: '#10B981', t: 'Pedido entregado',      d: 'Orden #2841',      a: '✓',        s: 'hace 2 h' },
   ]);
@@ -2447,7 +2449,7 @@ function SystemMock() {
     const events = [
       { Icon: 'ShoppingBag', c: '#10B981', t: 'Venta · nueva',       d: 'Sucursal Norte',   a: '₡8.900',  s: 'ahora' },
       { Icon: 'Package',     c: '#4F46E5', t: 'Producto recibido',   d: 'Lote #4421',       a: '+50',      s: 'ahora' },
-      { Icon: 'Users',       c: '#8A46FF', t: 'Cliente registrado',  d: 'Por web',          a: '+1',       s: 'ahora' },
+      { Icon: 'Users',       c: '#06B6D4', t: 'Cliente registrado',  d: 'Por web',          a: '+1',       s: 'ahora' },
     ];
     const id = setInterval(() => {
       const e = events[Math.floor(Math.random() * events.length)];
@@ -3200,7 +3202,7 @@ function SEOMock() {
             boxShadow: `0 4px 12px ${active.pos === 1 ? MK.accent : '#0a0'}40`,
           }}>★ #{active.pos} POSICIÓN</div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 9, marginBottom: 4 }}>
-            <div style={{ width: 14, height: 14, borderRadius: '50%', background: 'linear-gradient(135deg, #FF5C9A 0%, #8A46FF 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 8, fontWeight: 700 }}>V</div>
+            <div style={{ width: 14, height: 14, borderRadius: '50%', background: 'linear-gradient(135deg, #FF5C9A 0%, #06B6D4 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 8, fontWeight: 700 }}>V</div>
             <div>
               <span style={{ color: MK.text, fontWeight: 500 }}>VO Studio</span>
               <span style={{ color: MK.muted, marginInline: 4 }}>·</span>
@@ -3585,7 +3587,7 @@ function MaintenanceMock() {
                 { l: 'CPU',              v: `${cpu}%`,           p: cpu / 100,       c: cpu > 70 ? MK.red : cpu > 50 ? MK.yellow : MK.green },
                 { l: 'Memoria',          v: `${memory}%`,         p: memory / 100,    c: memory > 80 ? MK.red : memory > 65 ? MK.yellow : MK.green },
                 { l: 'Bandwidth',        v: `${bandwidth} MB/s`,  p: bandwidth / 300, c: '#4F46E5' },
-                { l: 'Requests · min',   v: requests.toLocaleString('es-CR'), p: 0.62, c: '#8A46FF' },
+                { l: 'Requests · min',   v: requests.toLocaleString('es-CR'), p: 0.62, c: '#06B6D4' },
               ].map((m, i) => (
                 <div key={i} style={{
                   background: MK.card, border: `1px solid ${MK.border}`, borderRadius: 10,
@@ -3646,7 +3648,7 @@ function MaintenanceMock() {
                   <span style={{ fontSize: 10, color: MK.text, fontFamily: F_MONO, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                     <span style={{ color: MK.accent, marginRight: 6 }}>{d.branch}</span>{d.msg}
                   </span>
-                  <span style={{ width: 18, height: 18, borderRadius: '50%', background: `linear-gradient(135deg, ${MK.accent}, #C14DFF)`, color: '#fff', fontSize: 8, fontWeight: 700, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontFamily: F_MONO }}>{d.author}</span>
+                  <span style={{ width: 18, height: 18, borderRadius: '50%', background: `linear-gradient(135deg, ${MK.accent}, #22D3EE)`, color: '#fff', fontSize: 8, fontWeight: 700, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontFamily: F_MONO }}>{d.author}</span>
                   <span style={{ fontSize: 8.5, color: MK.mutedSoft, fontFamily: F_MONO }}>{d.time}</span>
                 </div>
               ))}
@@ -3809,9 +3811,1773 @@ function MaintenanceMock() {
   );
 }
 
+// ────────────────────────────────────────────────────────────────────────
+// 00 · GOOGLE CLOUD — Live demos: Chatbot, Voice (Web Speech API),
+//      Image analysis, Maps embed, Cloud APIs grid
+// ────────────────────────────────────────────────────────────────────────
+function GoogleCloudMock() {
+  const [tab, setTab] = useState('chatbot');
+
+  // Google brand palette
+  const G_BLUE   = '#4285F4';
+  const G_RED    = '#EA4335';
+  const G_YELLOW = '#FBBC05';
+  const G_GREEN  = '#34A853';
+
+  const TABS = [
+    { id: 'chatbot', t: 'Chatbot',   Icon: MessageCircle, color: G_BLUE   },
+    { id: 'voz',     t: 'Voz IA',    Icon: Mic,           color: G_RED    },
+    { id: 'imagen',  t: 'Visión',    Icon: ImageIcon,     color: G_YELLOW },
+    { id: 'mapas',   t: 'Mapas',     Icon: MapIcon,       color: G_GREEN  },
+    { id: 'tour',    t: 'Tour 360°', Icon: Globe,         color: '#00BCD4' },
+    { id: 'apis',    t: 'APIs',      Icon: Cloud,         color: '#9C46FF' },
+  ];
+
+  return (
+    <div style={{
+      background: 'linear-gradient(135deg, #0A0A14 0%, #11142A 100%)',
+      border: '1px solid rgba(66,133,244,0.25)',
+      borderRadius: 14, overflow: 'hidden',
+      boxShadow: SHADOW_FRAME, color: '#fff',
+      position: 'relative',
+    }}>
+      {/* Header */}
+      <div style={{
+        padding: '16px 22px', borderBottom: '1px solid rgba(255,255,255,0.08)',
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 14,
+        background: 'linear-gradient(90deg, rgba(66,133,244,0.10), rgba(234,67,53,0.05), rgba(52,168,83,0.10))',
+        position: 'relative',
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <div style={{
+            width: 32, height: 32, borderRadius: 8,
+            background: 'linear-gradient(135deg, #4285F4 0%, #EA4335 35%, #FBBC05 65%, #34A853 100%)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            color: '#fff', fontFamily: F_DISPLAY, fontWeight: 900, fontSize: 18,
+            boxShadow: '0 6px 14px rgba(66,133,244,0.40)',
+          }}>G</div>
+          <div>
+            <div style={{ fontFamily: F_MONO, fontSize: 9, color: 'rgba(255,255,255,0.55)', letterSpacing: '0.18em', textTransform: 'uppercase', fontWeight: 700 }}>
+              Google Cloud · live demos
+            </div>
+            <div style={{ fontFamily: F_DISPLAY, fontSize: 16, letterSpacing: '-0.02em', marginTop: 1 }}>
+              Probá las integraciones en vivo
+            </div>
+          </div>
+        </div>
+        <div style={{ fontSize: 9, color: G_GREEN, fontFamily: F_MONO, display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+          <span style={{ width: 6, height: 6, borderRadius: '50%', background: G_GREEN, boxShadow: `0 0 6px ${G_GREEN}`, animation: 'pulse 2s infinite' }} />
+          5 servicios conectados
+        </div>
+      </div>
+
+      {/* Transparency banner — what runs in the demo vs what we offer */}
+      <div className="vo-gc-banner" style={{
+        margin: '14px clamp(12px, 3vw, 22px) 0',
+        padding: '11px 14px',
+        background: 'rgba(251,188,5,0.07)',
+        border: '1px solid rgba(251,188,5,0.22)',
+        borderRadius: 8,
+        display: 'flex', alignItems: 'flex-start', gap: 11,
+      }}>
+        <div style={{ flexShrink: 0, marginTop: 1 }}>
+          <Sparkles size={14} color="#FBBC05" strokeWidth={2} />
+        </div>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ fontSize: 10.5, color: '#fff', fontWeight: 700, letterSpacing: '0.04em', marginBottom: 3 }}>
+            Sobre esta demo · transparencia con devs
+          </div>
+          <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.70)', lineHeight: 1.55 }}>
+            Para que <strong>cualquiera</strong> pueda probar sin generar costos, acá corremos alternativas open-source:
+            {' '}<span style={{ color: '#FBBC05', fontFamily: F_MONO }}>Pollinations</span> (chatbot),
+            {' '}<span style={{ color: '#FBBC05', fontFamily: F_MONO }}>TensorFlow.js</span> (visión),
+            {' '}<span style={{ color: '#FBBC05', fontFamily: F_MONO }}>Leaflet + OSM</span> (mapas),
+            {' '}<span style={{ color: '#FBBC05', fontFamily: F_MONO }}>Web Speech API</span> (voz)
+            {' '}y <span style={{ color: '#FBBC05', fontFamily: F_MONO }}>Pannellum</span> (tour 360°).
+            <br/>
+            En <strong style={{ color: '#fff' }}>producción</strong> integramos lo que el cliente necesite:
+            {' '}<span style={{ color: '#4285F4' }}>Gemini · Vertex AI · Cloud Vision · Maps API · Dialogflow</span>,
+            {' '}<span style={{ color: '#FF9900' }}>AWS Rekognition · Polly · Bedrock</span>,
+            {' '}<span style={{ color: '#10A37F' }}>OpenAI · Claude</span> o stacks open-source según presupuesto.
+          </div>
+        </div>
+      </div>
+
+      {/* Tab nav */}
+      <div style={{ display: 'flex', borderBottom: '1px solid rgba(255,255,255,0.08)', overflowX: 'auto', marginTop: 14 }}>
+        {TABS.map((tb) => {
+          const a = tab === tb.id;
+          return (
+            <button key={tb.id} onClick={() => setTab(tb.id)} style={{
+              flex: '1 0 auto', padding: '12px 14px',
+              background: a ? `${tb.color}15` : 'transparent',
+              border: 'none', borderBottom: `2px solid ${a ? tb.color : 'transparent'}`,
+              color: a ? '#fff' : 'rgba(255,255,255,0.55)',
+              display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 7,
+              fontSize: 11, fontWeight: a ? 700 : 500,
+              cursor: 'pointer', fontFamily: 'inherit',
+              letterSpacing: '0.04em', transition: 'all 0.2s',
+              whiteSpace: 'nowrap',
+            }}>
+              <tb.Icon size={13} strokeWidth={2} color={a ? tb.color : 'currentColor'} />
+              {tb.t}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Tab content */}
+      <div className="vo-gc-content" style={{ padding: 'clamp(14px, 3vw, 22px)', minHeight: 360 }}>
+        {tab === 'chatbot' && <ChatbotDemo     color={G_BLUE} />}
+        {tab === 'voz'     && <VoiceDemo      color={G_RED}  />}
+        {tab === 'imagen'  && <ImageDemo      color={G_YELLOW} />}
+        {tab === 'mapas'   && <MapDemo        color={G_GREEN} />}
+        {tab === 'tour'    && <PhotoSphereDemo color="#00BCD4" />}
+        {tab === 'apis'    && <ApiDemo        G_BLUE={G_BLUE} G_RED={G_RED} G_YELLOW={G_YELLOW} G_GREEN={G_GREEN} />}
+      </div>
+
+      <style>{`
+        @keyframes pulse  { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes typingBounce {
+          0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+          30% { transform: translateY(-4px); opacity: 1; }
+        }
+        @keyframes waveBar {
+          0%, 100% { transform: scaleY(0.3); }
+          50% { transform: scaleY(1); }
+        }
+        @keyframes analyzeBar {
+          from { width: 0%; }
+          to { width: 100%; }
+        }
+      `}</style>
+    </div>
+  );
+}
+
+// ─── Chatbot demo — REAL LLM via Pollinations (free, no-auth) ───
+// Falls back to keyword matching if the API times out / errors.
+const VO_SYSTEM_PROMPT = `Eres el asistente virtual de VO Studio, un estudio de desarrollo de software en Costa Rica fundado por Justin Vargas Quirós y Zaylin López Ovares (Ingenieros en Sistemas, UTN San Carlos).
+
+SERVICIOS Y PRECIOS:
+- Páginas web: desde ₡450.000 (landing 1–2 sem) o ₡950.000 (sitio completo 2–4 sem)
+- E-commerce: desde ₡2.200.000 (4–7 sem) con carrito y pasarela real
+- Apps móviles iOS/Android (React Native): desde ₡4.500.000 (6+ sem)
+- Sistemas a medida: ERPs, dashboards, inventarios, CRMs (6–16 sem)
+- SEO y mantenimiento mensual con backups, monitoreo y soporte
+- Integraciones Google Cloud: chatbots, voz IA, Cloud Vision, Maps, Firebase
+
+CONTACTO:
+- Email: vostudiodev@gmail.com
+- WhatsApp: +506 6267-6464
+- Respuesta en menos de 24h
+
+INSTRUCCIONES:
+- Respondé en español de Costa Rica, breve (máximo 2-3 oraciones)
+- Sé amable, profesional y directo
+- No uses markdown (sin ** ni ##)
+- Si no sabés algo, ofrecé poner al usuario en contacto con el equipo
+- No inventes precios, plazos ni servicios que no estén acá`;
+
+// ─── LLM providers — 100% free, no auth, no quota limits ───────────────
+// Chatbot uses Pollinations (free anonymous text API) with a local
+// keyword-matched fallback if it ever fails.
+// NOTE: text.pollinations.ai accepts anonymous requests (no auth). Per the
+// 2025 deprecation notice, only AUTHENTICATED requests migrate to
+// enter.pollinations.ai — anonymous endpoints stay supported.
+async function callPollinationsLLM(history, signal) {
+  const res = await fetch('https://text.pollinations.ai/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ messages: history, model: 'openai', private: true }),
+    signal,
+  });
+  if (!res.ok) throw new Error(`Pollinations ${res.status}`);
+  const text = await res.text();
+  return text.trim().replace(/^["']|["']$/g, '');
+}
+
+// ─── Agents — different system prompts to switch personalities ─────────
+const CHATBOT_AGENTS = {
+  comercial: {
+    name:   'Asistente VO Studio',
+    short:  'Comercial',
+    Icon:   ShoppingBag,
+    color:  '#4285F4',
+    welcome:'Soy el asistente comercial de VO Studio. Preguntame sobre servicios, precios o cómo arrancamos tu proyecto.',
+    system: VO_SYSTEM_PROMPT,
+    placeholder: 'Ej. ¿cuánto cuesta un e-commerce?',
+  },
+  traductor: {
+    name:   'Traductor multilingüe',
+    short:  'Traductor',
+    Icon:   Languages,
+    color:  '#EA4335',
+    welcome:'Soy un traductor con IA. Pegame un texto en cualquier idioma y te lo traduzco. Indicá idioma destino (EN, ES, PT, FR, IT, DE, JA, ZH) — si no decís, traduzco a inglés.',
+    system: `Eres un traductor profesional. Detectás automáticamente el idioma del texto del usuario y lo traducís al idioma destino que indique (códigos ISO o nombres). Si no especifica destino, traducís a inglés. RESPONDÉS SOLAMENTE CON LA TRADUCCIÓN, sin explicación ni preámbulo ni comillas, salvo que el usuario pida análisis lingüístico o aclaración.`,
+    placeholder: 'Hola mundo → EN',
+  },
+  copywriter: {
+    name:   'Copywriter creativo',
+    short:  'Copy',
+    Icon:   Sparkles,
+    color:  '#FBBC05',
+    welcome:'Soy tu copywriter con IA. Pegame texto soso y te lo reescribo con punch, o dame contexto (producto + audiencia) y te genero copy desde cero.',
+    system: `Eres un copywriter profesional especializado en marketing digital LATAM. Cuando el usuario pega texto, lo reescribís más persuasivo, breve y memorable sin cambiar el sentido. Cuando te pide generar copy, devolvés 3 opciones cortas con etiquetas claras: HEADLINE, SUBHEADLINE y CTA. Hablás en español neutro/costarricense, casual pero profesional. No uses markdown, sólo texto plano con saltos de línea.`,
+    placeholder: 'Pegá tu texto a mejorar',
+  },
+  dev: {
+    name:   'Asistente para devs',
+    short:  'Dev',
+    Icon:   Code,
+    color:  '#34A853',
+    welcome:'Soy un asistente de desarrollo. Preguntame sobre código, frameworks, debugging, arquitectura — respondo con código de ejemplo y explicación corta.',
+    system: `Eres un ingeniero de software senior con experiencia en JavaScript/TypeScript, React, Node.js, Python, Go, SQL/NoSQL y cloud (GCP/AWS). Respondés preguntas técnicas con código de ejemplo formateado en bloques con triple backtick cuando aplique. Sos directo, técnico, sin rodeos. Si la pregunta es ambigua, pedís clarificación antes de responder.`,
+    placeholder: '¿Cómo hago debounce en React?',
+  },
+};
+
+function ChatbotDemo({ color }) {
+  const [agent, setAgent] = useState('comercial');
+  const agentDef = CHATBOT_AGENTS[agent];
+
+  const initialWelcome = () => ({
+    role: 'bot',
+    text: agentDef.welcome,
+    time: '14:32',
+  });
+
+  const [messages, setMessages] = useState([initialWelcome()]);
+  const [input, setInput] = useState('');
+  const [typing, setTyping] = useState(false);
+  // 'pollinations' | 'offline'
+  const [mode, setMode]     = useState('pollinations');
+  const messagesRef = React.useRef(null);
+
+  const switchAgent = (id) => {
+    if (id === agent || typing) return;
+    setAgent(id);
+    const def = CHATBOT_AGENTS[id];
+    setMessages([{
+      role: 'bot',
+      text: def.welcome,
+      time: new Date().toTimeString().slice(0, 5),
+    }]);
+    setInput('');
+  };
+
+  React.useEffect(() => {
+    if (messagesRef.current) messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+  }, [messages, typing]);
+
+  const fallbackReply = (msg) => {
+    const m = msg.toLowerCase();
+    if (m.match(/precio|costo|tarif|cu[aá]nt/))   return 'Nuestros precios arrancan desde ₡450k para una landing y desde ₡950k para un sitio completo. ¿Te paso una propuesta detallada?';
+    if (m.match(/hora|cu[aá]ndo|tiempo|plaz/))    return 'Plazos: landing 1–2 semanas, sitio completo 2–4 semanas, e-commerce 4–7 semanas.';
+    if (m.match(/contact|whatsapp|email|llam/))   return 'Email: vostudiodev@gmail.com · WhatsApp +506 6267-6464. Respondemos en menos de 24h.';
+    if (m.match(/hola|buenas|buen d|hey|hi/))     return '¡Hola! ¿En qué te puedo ayudar? Tenemos info de webs, e-commerce, apps, sistemas y Google Cloud.';
+    if (m.match(/gracias|thanks/))                return '¡Con gusto! Cualquier otra consulta, acá estoy.';
+    if (m.match(/app|m[oó]vil|android|ios/))      return 'Apps en React Native (iOS + Android desde un solo código). Desde ₡4.5M.';
+    if (m.match(/google|cloud|ia|inteligencia/))  return 'Integramos Google Cloud: chatbots, visión IA, voz, Maps, traducción. Probá los otros tabs.';
+    return 'Para esa consulta te conviene escribir directo al equipo. ¿Te paso al WhatsApp?';
+  };
+
+  const now = () => new Date().toTimeString().slice(0, 5);
+
+  const sendMessage = async (text) => {
+    if (!text.trim() || typing) return;
+    const userMsg = { role: 'user', text, time: now() };
+    const updated = [...messages, userMsg];
+    setMessages(updated);
+    setInput('');
+    setTyping(true);
+
+    const controller = new AbortController();
+    const timeoutId  = setTimeout(() => controller.abort(), 15000);
+    const history = [
+      { role: 'system', content: agentDef.system },
+      ...updated.slice(-8).map(m => ({
+        role: m.role === 'user' ? 'user' : 'assistant',
+        content: m.text,
+      })),
+    ];
+
+    let reply, modeUsed = 'offline';
+
+    // 1) Try Pollinations (free, anonymous, no quota)
+    try {
+      const r = await callPollinationsLLM(history, controller.signal);
+      if (r && r.length >= 2 && r.length <= 1200) {
+        reply = r;
+        modeUsed = 'pollinations';
+      }
+    } catch (err) { /* fall through */ }
+
+    // 2) Local keyword matching (always works)
+    if (!reply) {
+      reply = fallbackReply(text);
+      modeUsed = 'offline';
+    }
+
+    clearTimeout(timeoutId);
+    setMode(modeUsed);
+    setMessages(m => [...m, { role: 'bot', text: reply, time: now() }]);
+    setTyping(false);
+  };
+
+  const handleSubmit = (e) => { e.preventDefault(); sendMessage(input); };
+  const QUICK_REPLIES = {
+    comercial:  ['¿Cuáles son los precios?', '¿Cuánto tardan?', '¿Cómo los contacto?'],
+    traductor:  ['Hola, ¿cómo estás? → EN', 'Good morning → FR', '¿Dónde está el baño? → JA'],
+    copywriter: ['Mejorá: "Vendemos sitios web profesionales"', 'Copy para landing de gimnasio en San José'],
+    dev:        ['¿Cómo hago debounce en React?', 'Mostrame un useState con TypeScript', '¿Qué es CORS y cómo lo soluciono?'],
+  };
+  const quickReplies = QUICK_REPLIES[agent];
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', height: 400, animation: 'fadeIn 0.3s ease' }}>
+      {/* Agent selector */}
+      <div style={{ display: 'flex', gap: 4, marginBottom: 10, padding: 3, background: 'rgba(255,255,255,0.04)', borderRadius: 999, border: '1px solid rgba(255,255,255,0.06)' }}>
+        {Object.entries(CHATBOT_AGENTS).map(([id, def]) => {
+          const a = agent === id;
+          return (
+            <button key={id} onClick={() => switchAgent(id)} disabled={typing}
+              title={def.name}
+              style={{
+                flex: 1, padding: '6px 10px', borderRadius: 999,
+                display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 6,
+                fontSize: 9.5, fontWeight: a ? 700 : 500,
+                background: a ? `${def.color}22` : 'transparent',
+                color: a ? '#fff' : 'rgba(255,255,255,0.55)',
+                border: `1px solid ${a ? `${def.color}55` : 'transparent'}`,
+                cursor: typing ? 'wait' : 'pointer', fontFamily: 'inherit',
+                letterSpacing: '0.04em', transition: 'all 0.18s',
+              }}>
+              <def.Icon size={11} strokeWidth={2} color={a ? def.color : 'currentColor'} />
+              {def.short}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Messages area */}
+      <div ref={messagesRef} style={{
+        flex: 1, overflowY: 'auto', padding: '4px 4px 12px',
+        display: 'flex', flexDirection: 'column', gap: 10,
+      }}>
+        {messages.map((m, i) => (
+          <div key={i} style={{
+            display: 'flex', justifyContent: m.role === 'user' ? 'flex-end' : 'flex-start',
+            animation: 'fadeIn 0.3s ease',
+          }}>
+            <div style={{
+              maxWidth: '78%',
+              padding: '8px 13px',
+              background: m.role === 'user'
+                ? `linear-gradient(135deg, ${color} 0%, ${color}CC 100%)`
+                : 'rgba(255,255,255,0.06)',
+              border: m.role === 'user' ? 'none' : '1px solid rgba(255,255,255,0.08)',
+              borderRadius: m.role === 'user' ? '12px 12px 4px 12px' : '12px 12px 12px 4px',
+              fontSize: 12, lineHeight: 1.45, color: '#fff',
+            }}>
+              {m.text}
+              <div style={{ fontSize: 8.5, color: 'rgba(255,255,255,0.45)', fontFamily: F_MONO, marginTop: 4, letterSpacing: '0.04em' }}>
+                {m.time}
+              </div>
+            </div>
+          </div>
+        ))}
+        {typing && (
+          <div style={{ display: 'flex', justifyContent: 'flex-start', animation: 'fadeIn 0.2s ease' }}>
+            <div style={{
+              padding: '10px 14px',
+              background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)',
+              borderRadius: '12px 12px 12px 4px', display: 'inline-flex', gap: 4,
+            }}>
+              {[0, 0.2, 0.4].map(d => (
+                <span key={d} style={{
+                  width: 5, height: 5, borderRadius: '50%', background: color,
+                  animation: `typingBounce 1s ${d}s infinite ease-in-out`,
+                }} />
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* AI mode badge */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+        {(() => {
+          const MODES = {
+            pollinations: { c: '#34A853', label: 'IA en vivo · Pollinations · gratis' },
+            offline:      { c: '#FBBC05', label: 'Modo offline · respuestas locales' },
+          };
+          const m = MODES[mode] || MODES.offline;
+          return (
+            <span style={{
+              display: 'inline-flex', alignItems: 'center', gap: 5,
+              fontSize: 8.5, fontFamily: F_MONO, fontWeight: 700, letterSpacing: '0.10em', textTransform: 'uppercase',
+              color: m.c,
+              padding: '3px 8px', borderRadius: 99,
+              background: `${m.c}1F`,
+              border: `1px solid ${m.c}5A`,
+            }}>
+              <span style={{
+                width: 5, height: 5, borderRadius: '50%',
+                background: m.c,
+                boxShadow: `0 0 6px ${m.c}`,
+                animation: 'pulse 2s infinite',
+              }} />
+              {m.label}
+            </span>
+          );
+        })()}
+        {typing && (
+          <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.50)', fontFamily: F_MONO, fontStyle: 'italic' }}>
+            pensando…
+          </span>
+        )}
+      </div>
+
+      {/* Quick replies */}
+      {messages.length <= 2 && (
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 10 }}>
+          {quickReplies.map((q, i) => (
+            <button key={i} onClick={() => sendMessage(q)} style={{
+              padding: '5px 11px', fontSize: 10,
+              background: 'rgba(255,255,255,0.04)', border: `1px solid ${color}40`,
+              color: '#fff', cursor: 'pointer', fontFamily: 'inherit',
+              borderRadius: 999, transition: 'all 0.18s',
+            }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = `${color}20`; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.04)'; }}
+            >{q}</button>
+          ))}
+        </div>
+      )}
+
+      {/* Input */}
+      <form onSubmit={handleSubmit} style={{ display: 'flex', gap: 6 }}>
+        <input
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder={agentDef.placeholder}
+          style={{
+            flex: 1, padding: '10px 14px', fontSize: 12,
+            background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.10)',
+            color: '#fff', outline: 'none', fontFamily: 'inherit',
+            borderRadius: 8,
+          }}
+        />
+        <button type="submit" disabled={!input.trim()} style={{
+          padding: '0 16px',
+          background: input.trim() ? `linear-gradient(135deg, ${color}, ${color}CC)` : 'rgba(255,255,255,0.06)',
+          color: input.trim() ? '#fff' : 'rgba(255,255,255,0.30)',
+          border: 'none', cursor: input.trim() ? 'pointer' : 'not-allowed',
+          fontFamily: 'inherit', borderRadius: 8,
+          display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+          minWidth: 44,
+        }}>
+          <Send size={14} strokeWidth={2.2} />
+        </button>
+      </form>
+    </div>
+  );
+}
+
+// ─── Voice demo — REAL Web Speech API text-to-speech ───
+function VoiceDemo({ color }) {
+  const [text, setText] = useState('Hola, soy el asistente de voz de VO Studio. Te puedo guiar por el sitio.');
+  const [voices, setVoices] = useState([]);
+  const [voiceName, setVoiceName] = useState('');
+  const [rate, setRate] = useState(1);
+  const [playing, setPlaying] = useState(false);
+  const [supported, setSupported] = useState(true);
+
+  React.useEffect(() => {
+    if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
+      setSupported(false);
+      return;
+    }
+    const load = () => {
+      const all = window.speechSynthesis.getVoices()
+        .filter(v => v.lang.startsWith('es') || v.lang.startsWith('en'));
+      setVoices(all);
+      if (all.length && !voiceName) {
+        const spanish = all.find(v => v.lang.startsWith('es'));
+        setVoiceName((spanish || all[0]).name);
+      }
+    };
+    load();
+    window.speechSynthesis.onvoiceschanged = load;
+    return () => { window.speechSynthesis.cancel(); };
+  }, []);
+
+  const play = () => {
+    if (!('speechSynthesis' in window)) return;
+    if (playing) {
+      window.speechSynthesis.cancel();
+      setPlaying(false);
+      return;
+    }
+    const u = new SpeechSynthesisUtterance(text);
+    const v = voices.find(x => x.name === voiceName);
+    if (v) u.voice = v;
+    u.rate = rate;
+    u.onend = () => setPlaying(false);
+    u.onerror = () => setPlaying(false);
+    setPlaying(true);
+    window.speechSynthesis.speak(u);
+  };
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 14, animation: 'fadeIn 0.3s ease', minHeight: 320 }}>
+      {!supported ? (
+        <div style={{ padding: 20, background: 'rgba(255,255,255,0.04)', borderRadius: 10, fontSize: 11, color: 'rgba(255,255,255,0.65)', textAlign: 'center' }}>
+          Tu navegador no soporta la Web Speech API. Probá en Chrome o Edge.
+        </div>
+      ) : (
+        <>
+          {/* Text input */}
+          <div>
+            <label style={{ fontSize: 9, color: 'rgba(255,255,255,0.55)', fontFamily: F_MONO, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', display: 'block', marginBottom: 6 }}>
+              Texto a sintetizar
+            </label>
+            <textarea
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+              rows={3}
+              style={{
+                width: '100%', padding: '10px 14px', fontSize: 12,
+                background: 'rgba(255,255,255,0.05)', border: `1px solid rgba(255,255,255,0.10)`,
+                color: '#fff', outline: 'none', fontFamily: 'inherit',
+                borderRadius: 8, resize: 'vertical',
+              }}
+            />
+          </div>
+
+          {/* Voice + rate controls */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: 10 }}>
+            <div>
+              <label style={{ fontSize: 9, color: 'rgba(255,255,255,0.55)', fontFamily: F_MONO, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', display: 'block', marginBottom: 6 }}>
+                Voz ({voices.length} disponibles)
+              </label>
+              <select
+                value={voiceName}
+                onChange={(e) => setVoiceName(e.target.value)}
+                style={{
+                  width: '100%', padding: '8px 12px', fontSize: 11,
+                  background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.10)',
+                  color: '#fff', outline: 'none', fontFamily: 'inherit',
+                  borderRadius: 8, cursor: 'pointer',
+                }}>
+                {voices.map(v => (
+                  <option key={v.name} value={v.name} style={{ background: '#11142A', color: '#fff' }}>
+                    {v.name} · {v.lang}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label style={{ fontSize: 9, color: 'rgba(255,255,255,0.55)', fontFamily: F_MONO, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', display: 'block', marginBottom: 6 }}>
+                Velocidad · {rate.toFixed(1)}×
+              </label>
+              <input
+                type="range" min={0.5} max={2} step={0.1}
+                value={rate}
+                onChange={(e) => setRate(parseFloat(e.target.value))}
+                style={{ width: '100%', accentColor: color, height: 4, marginTop: 12 }}
+              />
+            </div>
+          </div>
+
+          {/* Play button + waveform */}
+          <div style={{
+            padding: '18px 16px',
+            background: playing ? `${color}10` : 'rgba(255,255,255,0.03)',
+            border: `1px solid ${playing ? `${color}40` : 'rgba(255,255,255,0.08)'}`,
+            borderRadius: 10,
+            display: 'flex', alignItems: 'center', gap: 14,
+            transition: 'all 0.2s',
+          }}>
+            <button onClick={play} style={{
+              width: 50, height: 50, borderRadius: '50%',
+              background: `linear-gradient(135deg, ${color}, ${color}CC)`,
+              border: 'none', cursor: 'pointer', flexShrink: 0,
+              display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+              color: '#fff', boxShadow: `0 8px 20px ${color}50`,
+              transition: 'transform 0.15s',
+            }}
+              onMouseDown={(e) => e.currentTarget.style.transform = 'scale(0.94)'}
+              onMouseUp={(e)   => e.currentTarget.style.transform = 'scale(1)'}
+              onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+            >
+              {playing
+                ? <Pause size={20} fill="#fff" strokeWidth={0} />
+                : <Play size={20} fill="#fff" strokeWidth={0} style={{ marginLeft: 2 }} />}
+            </button>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: 12, color: '#fff', fontWeight: 600, marginBottom: 4 }}>
+                {playing ? 'Reproduciendo…' : 'Listo para reproducir'}
+              </div>
+              {/* Waveform — animated when playing */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: 3, height: 22 }}>
+                {Array.from({ length: 28 }).map((_, i) => (
+                  <span key={i} style={{
+                    flex: 1, height: '100%',
+                    background: playing ? color : 'rgba(255,255,255,0.18)',
+                    borderRadius: 2,
+                    transform: 'scaleY(0.3)',
+                    transformOrigin: 'center',
+                    animation: playing ? `waveBar ${0.6 + (i % 5) * 0.1}s infinite ease-in-out` : 'none',
+                    animationDelay: `${i * 0.04}s`,
+                  }} />
+                ))}
+              </div>
+            </div>
+            <Volume2 size={16} color={playing ? color : 'rgba(255,255,255,0.45)'} strokeWidth={2} />
+          </div>
+
+          <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.45)', fontFamily: F_MONO, textAlign: 'center', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
+            <Sparkles size={11} color={color} strokeWidth={2} />
+            100% en tu navegador · sin enviar datos a ningún servidor
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
+// ─── TensorFlow.js + MobileNet — real ML object classification IN BROWSER ───
+// 100% free, no API, no quota. Lazy-loaded from CDN on first use (~7MB).
+const TF_LOAD_STATE = { promise: null, model: null, failed: false };
+
+function loadTensorFlowMobileNet() {
+  if (TF_LOAD_STATE.model)   return Promise.resolve(TF_LOAD_STATE.model);
+  if (TF_LOAD_STATE.failed)  return Promise.reject(new Error('tf load failed'));
+  if (TF_LOAD_STATE.promise) return TF_LOAD_STATE.promise;
+
+  const loadScript = (src) => new Promise((resolve, reject) => {
+    if (document.querySelector(`script[src="${src}"]`)) return resolve();
+    const s = document.createElement('script');
+    s.src = src; s.async = true;
+    s.onload = resolve; s.onerror = reject;
+    document.head.appendChild(s);
+  });
+
+  TF_LOAD_STATE.promise = (async () => {
+    try {
+      await loadScript('https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.20.0/dist/tf.min.js');
+      await loadScript('https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@2.1.1/dist/mobilenet.min.js');
+      const model = await window.mobilenet.load({ version: 2, alpha: 1.0 });
+      TF_LOAD_STATE.model = model;
+      return model;
+    } catch (err) {
+      TF_LOAD_STATE.failed = true;
+      TF_LOAD_STATE.promise = null;
+      throw err;
+    }
+  })();
+  return TF_LOAD_STATE.promise;
+}
+
+// ─── Image demo — REAL ML (TensorFlow.js MobileNet) — 100% browser, 0 API ───
+function ImageDemo({ color }) {
+  const IMAGES = [
+    {
+      src: 'https://images.unsplash.com/photo-1561948955-570b270e7c36?auto=format&fit=crop&w=420&q=80',
+      mockResults: [
+        { label: 'Gato',                  conf: 0.97, kind: 'object' },
+        { label: 'Mamífero',              conf: 0.94, kind: 'category' },
+        { label: 'Interior',              conf: 0.89, kind: 'scene' },
+        { label: 'Iluminación natural',   conf: 0.72, kind: 'attribute' },
+      ],
+    },
+    {
+      src: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=420&q=80',
+      mockResults: [
+        { label: 'Pizza',                 conf: 0.98, kind: 'object' },
+        { label: 'Comida italiana',       conf: 0.93, kind: 'category' },
+        { label: 'Tomate',                conf: 0.87, kind: 'ingrediente' },
+        { label: 'Plato gourmet',         conf: 0.71, kind: 'attribute' },
+      ],
+    },
+    {
+      src: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=420&q=80',
+      mockResults: [
+        { label: 'Zapato',                conf: 0.96, kind: 'object' },
+        { label: 'Sneaker',               conf: 0.92, kind: 'category' },
+        { label: 'Marca: Nike',           conf: 0.78, kind: 'brand' },
+        { label: 'Color rojo',            conf: 0.88, kind: 'attribute' },
+      ],
+    },
+  ];
+
+  const [selected, setSelected]       = useState(0);
+  const [phase, setPhase]             = useState('idle');  // idle | loading | analyzing | done
+  const [predictions, setPredictions] = useState(null);    // [{className, probability}] or null
+  const [uploadedImg, setUploadedImg] = useState(null);
+  const [loadingPct, setLoadingPct]   = useState(0);       // for loader bar
+  const fileRef = React.useRef(null);
+  const imgRef  = React.useRef(null);
+
+  const img = uploadedImg || IMAGES[selected];
+
+  const pick = (i) => {
+    setSelected(i);
+    setUploadedImg(null);
+    setPhase('idle');
+    setPredictions(null);
+  };
+
+  const onFileChange = (e) => {
+    const f = e.target.files?.[0];
+    if (!f) return;
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setUploadedImg({ src: reader.result });
+      setPhase('idle');
+      setPredictions(null);
+    };
+    reader.readAsDataURL(f);
+  };
+
+  // Translate common ImageNet labels to Spanish (just enough to feel local)
+  const ES_LABELS = {
+    'tabby': 'gato atigrado', 'Egyptian cat': 'gato egipcio', 'tiger cat': 'gato', 'Persian cat': 'gato persa',
+    'Siamese cat': 'gato siamés', 'golden retriever': 'golden retriever', 'Labrador retriever': 'labrador',
+    'pizza': 'pizza', 'cheeseburger': 'hamburguesa', 'hot dog': 'hot dog', 'bagel': 'bagel',
+    'sneaker': 'zapatilla deportiva', 'running shoe': 'zapatilla', 'sandal': 'sandalia',
+    'cup': 'taza', 'espresso': 'espresso', 'coffee mug': 'taza de café', 'wine bottle': 'botella de vino',
+    'monitor': 'monitor', 'desktop computer': 'computadora', 'laptop': 'laptop', 'notebook': 'notebook',
+    'cellular telephone': 'celular', 'iPod': 'iPod', 'remote control': 'control remoto',
+  };
+  const localize = (label) => {
+    const first = label.split(',')[0].trim();
+    return ES_LABELS[first] || first;
+  };
+
+  const analyze = async () => {
+    setPhase('loading');
+    setPredictions(null);
+    setLoadingPct(0);
+
+    // Fake progress bar while TF.js loads (real loading time varies)
+    let pct = 0;
+    const tickId = setInterval(() => {
+      pct = Math.min(85, pct + Math.random() * 12);
+      setLoadingPct(pct);
+    }, 200);
+
+    try {
+      const model = await loadTensorFlowMobileNet();
+      clearInterval(tickId);
+      setLoadingPct(100);
+      setPhase('analyzing');
+
+      // Wait for the <img> to actually be drawn
+      if (imgRef.current && !imgRef.current.complete) {
+        await new Promise(r => { imgRef.current.onload = r; });
+      }
+      const preds = await model.classify(imgRef.current, 5);
+      setPredictions(preds);
+      setPhase('done');
+    } catch (err) {
+      clearInterval(tickId);
+      // Fallback to the mock results from IMAGES
+      setPredictions(null);
+      setPhase('done');
+    }
+  };
+
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, animation: 'fadeIn 0.3s ease', minHeight: 360 }} className="vo-gimg-grid">
+      {/* Left: image + thumbnails + upload */}
+      <div>
+        <div style={{
+          aspectRatio: '1/1', overflow: 'hidden', borderRadius: 10,
+          background: '#000', position: 'relative', border: `1px solid ${color}30`,
+        }}>
+          <img
+            key={img.src}
+            ref={imgRef}
+            crossOrigin="anonymous"
+            src={img.src}
+            alt=""
+            style={{
+              width: '100%', height: '100%', objectFit: 'cover', display: 'block',
+              animation: 'fadeIn 0.4s ease',
+            }}
+          />
+          {phase === 'analyzing' && (
+            <div style={{
+              position: 'absolute', inset: 0,
+              background: `linear-gradient(180deg, transparent 0%, ${color}30 50%, transparent 100%)`,
+              backgroundSize: '100% 8px',
+              animation: 'analyzeBar 1.5s linear infinite',
+            }} />
+          )}
+          {phase === 'done' && (
+            <div style={{
+              position: 'absolute', top: 10, left: 10,
+              background: predictions ? `${color}E6` : 'rgba(0,0,0,0.7)',
+              color: predictions ? '#000' : '#fff',
+              padding: '4px 10px', fontSize: 9, fontWeight: 700,
+              letterSpacing: '0.10em', textTransform: 'uppercase',
+              borderRadius: 6, fontFamily: F_MONO,
+              display: 'inline-flex', alignItems: 'center', gap: 5,
+            }}>
+              <Sparkles size={10} strokeWidth={2.5} />
+              {predictions ? 'TF.js · ML local' : 'Modo offline · mock'}
+            </div>
+          )}
+        </div>
+        <div style={{ display: 'flex', gap: 6, marginTop: 8 }}>
+          {IMAGES.map((it, i) => (
+            <button key={i} onClick={() => pick(i)} style={{
+              flex: 1, aspectRatio: '1/1',
+              padding: 0, border: `2px solid ${selected === i && !uploadedImg ? color : 'rgba(255,255,255,0.10)'}`,
+              background: '#000', cursor: 'pointer', borderRadius: 6, overflow: 'hidden',
+              transition: 'border-color 0.18s',
+            }}>
+              <img src={it.src} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: selected === i && !uploadedImg ? 1 : 0.55 }} />
+            </button>
+          ))}
+          {/* Upload tile */}
+          <button onClick={() => fileRef.current?.click()} aria-label="Subir imagen"
+            style={{
+              flex: 1, aspectRatio: '1/1', padding: 0,
+              border: `2px dashed ${uploadedImg ? color : 'rgba(255,255,255,0.15)'}`,
+              background: uploadedImg ? `${color}10` : 'rgba(255,255,255,0.03)',
+              cursor: 'pointer', borderRadius: 6,
+              display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+              color: uploadedImg ? color : 'rgba(255,255,255,0.45)',
+              transition: 'all 0.18s',
+            }}>
+            <Plus size={16} strokeWidth={2.2} />
+          </button>
+          <input ref={fileRef} type="file" accept="image/*" onChange={onFileChange} style={{ display: 'none' }} />
+        </div>
+      </div>
+
+      {/* Right: results */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10, minWidth: 0 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.55)', fontFamily: F_MONO, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase' }}>
+            TensorFlow.js · MobileNet v2
+          </div>
+          <span style={{ fontSize: 8, color: '#34A853', fontFamily: F_MONO, fontWeight: 700, letterSpacing: '0.10em', display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+            <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#34A853', boxShadow: '0 0 4px #34A853' }} />
+            BROWSER · 0 API
+          </span>
+        </div>
+
+        {/* IDLE — call to action */}
+        {phase === 'idle' && (
+          <div style={{
+            flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center',
+            padding: '24px 18px', background: 'rgba(255,255,255,0.03)',
+            border: '1px dashed rgba(255,255,255,0.12)', borderRadius: 10, textAlign: 'center',
+          }}>
+            <ImageIcon size={28} color={color} strokeWidth={1.5} style={{ margin: '0 auto 10px' }} />
+            <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.65)', marginBottom: 14, lineHeight: 1.5 }}>
+              Analizá esta imagen con <strong style={{ color: '#34A853' }}>ML real</strong> corriendo<br/>directo en tu navegador.
+            </div>
+            <button onClick={analyze} style={{
+              padding: '10px 18px',
+              background: `linear-gradient(135deg, ${color}, ${color}CC)`,
+              color: '#000', fontWeight: 700, fontSize: 10,
+              border: 'none', cursor: 'pointer', fontFamily: F_MONO,
+              letterSpacing: '0.10em', textTransform: 'uppercase',
+              borderRadius: 8, alignSelf: 'center',
+              boxShadow: `0 8px 18px ${color}40`,
+              display: 'inline-flex', alignItems: 'center', gap: 7,
+            }}>
+              <Sparkles size={11} strokeWidth={2.5} />
+              Clasificar con IA
+            </button>
+            <div style={{ fontSize: 8.5, color: 'rgba(255,255,255,0.35)', marginTop: 10, fontFamily: F_MONO }}>
+              Primera vez: ~5MB · queda en caché para próximas
+            </div>
+          </div>
+        )}
+
+        {/* LOADING — TF.js + model downloading */}
+        {phase === 'loading' && (
+          <div style={{
+            flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+            padding: '24px 18px', background: 'rgba(255,255,255,0.03)',
+            border: '1px solid rgba(255,255,255,0.10)', borderRadius: 10,
+          }}>
+            <RotateCw size={22} color={color} strokeWidth={2} style={{ animation: 'spin 1s linear infinite', marginBottom: 12 }} />
+            <div style={{ fontSize: 11, color: '#fff', fontWeight: 600, marginBottom: 4 }}>
+              Cargando modelo MobileNet…
+            </div>
+            <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.45)', fontFamily: F_MONO, marginBottom: 12 }}>
+              {Math.round(loadingPct)}% · TensorFlow.js
+            </div>
+            <div style={{ width: '80%', height: 4, background: 'rgba(255,255,255,0.08)', borderRadius: 99, overflow: 'hidden' }}>
+              <div style={{
+                height: '100%', width: `${loadingPct}%`,
+                background: `linear-gradient(90deg, ${color}, ${color}80)`,
+                borderRadius: 99, transition: 'width 0.3s ease',
+              }} />
+            </div>
+          </div>
+        )}
+
+        {/* ANALYZING — model classifying */}
+        {phase === 'analyzing' && (
+          <div style={{
+            flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+            padding: '24px 18px', background: 'rgba(255,255,255,0.03)',
+            border: '1px solid rgba(255,255,255,0.10)', borderRadius: 10,
+          }}>
+            <div style={{ display: 'flex', gap: 6, marginBottom: 14 }}>
+              {[0, 0.15, 0.3].map(d => (
+                <span key={d} style={{
+                  width: 7, height: 7, borderRadius: '50%', background: color,
+                  animation: `typingBounce 1s ${d}s infinite ease-in-out`,
+                }} />
+              ))}
+            </div>
+            <div style={{ fontSize: 11, color: '#fff', fontWeight: 600, marginBottom: 4 }}>
+              Clasificando imagen…
+            </div>
+            <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.45)', fontFamily: F_MONO }}>
+              MobileNet v2 · 1000 categorías
+            </div>
+          </div>
+        )}
+
+        {/* DONE — show real predictions if available, else fallback mock */}
+        {phase === 'done' && predictions && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 7, animation: 'fadeIn 0.4s ease' }}>
+            {predictions.map((p, i) => (
+              <div key={i} style={{
+                padding: '10px 12px', background: 'rgba(255,255,255,0.05)',
+                border: '1px solid rgba(255,255,255,0.08)', borderRadius: 8,
+                animation: `fadeIn 0.3s ease ${i * 0.08}s both`,
+              }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 5 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
+                    <span style={{ fontSize: 11, color: '#fff', fontWeight: 600, textTransform: 'capitalize' }}>{localize(p.className)}</span>
+                  </div>
+                  <span style={{ fontSize: 10, color: color, fontFamily: F_MONO, fontWeight: 700 }}>
+                    {(p.probability * 100).toFixed(1)}%
+                  </span>
+                </div>
+                <div style={{ height: 3, background: 'rgba(255,255,255,0.08)', borderRadius: 99, overflow: 'hidden' }}>
+                  <div style={{
+                    height: '100%', width: `${p.probability * 100}%`,
+                    background: `linear-gradient(90deg, ${color}, ${color}80)`,
+                    borderRadius: 99, transition: 'width 0.6s ease',
+                  }} />
+                </div>
+              </div>
+            ))}
+            <button onClick={() => { setPhase('idle'); setPredictions(null); }} style={{
+              marginTop: 4, padding: '7px', background: 'transparent',
+              border: '1px solid rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.65)',
+              fontSize: 9, fontFamily: F_MONO, letterSpacing: '0.08em', textTransform: 'uppercase',
+              cursor: 'pointer', borderRadius: 6,
+            }}>Analizar de nuevo</button>
+          </div>
+        )}
+
+        {phase === 'done' && !predictions && !uploadedImg && (
+          /* Fallback to mock results when TF.js fails */
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 7, animation: 'fadeIn 0.4s ease' }}>
+            {img.mockResults.map((r, i) => (
+              <div key={i} style={{
+                padding: '10px 12px', background: 'rgba(255,255,255,0.05)',
+                border: '1px solid rgba(255,255,255,0.08)', borderRadius: 8,
+                animation: `fadeIn 0.3s ease ${i * 0.08}s both`,
+              }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 5 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
+                    <span style={{ fontSize: 11, color: '#fff', fontWeight: 600 }}>{r.label}</span>
+                    <span style={{ fontSize: 8, color: 'rgba(255,255,255,0.45)', fontFamily: F_MONO, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                      {r.kind}
+                    </span>
+                  </div>
+                  <span style={{ fontSize: 10, color: color, fontFamily: F_MONO, fontWeight: 700 }}>
+                    {Math.round(r.conf * 100)}%
+                  </span>
+                </div>
+                <div style={{ height: 3, background: 'rgba(255,255,255,0.08)', borderRadius: 99, overflow: 'hidden' }}>
+                  <div style={{
+                    height: '100%', width: `${r.conf * 100}%`,
+                    background: `linear-gradient(90deg, ${color}, ${color}80)`,
+                    borderRadius: 99, transition: 'width 0.6s ease',
+                  }} />
+                </div>
+              </div>
+            ))}
+            <button onClick={() => setPhase('idle')} style={{
+              marginTop: 4, padding: '7px', background: 'transparent',
+              border: '1px solid rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.65)',
+              fontSize: 9, fontFamily: F_MONO, letterSpacing: '0.08em', textTransform: 'uppercase',
+              cursor: 'pointer', borderRadius: 6,
+            }}>Analizar de nuevo</button>
+          </div>
+        )}
+      </div>
+
+      <style>{`
+        @media (max-width: 720px) {
+          .vo-gimg-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
+    </div>
+  );
+}
+
+// ─── Maps demo — Leaflet + OpenStreetMap (100% free, no API key) ───
+// Loaded lazily from unpkg CDN. Search uses Nominatim (OSM's geocoder),
+// also free and unauthenticated.
+const LEAFLET_LOAD_STATE = { promise: null, ready: false };
+
+function loadLeaflet() {
+  if (LEAFLET_LOAD_STATE.ready)   return Promise.resolve();
+  if (LEAFLET_LOAD_STATE.promise) return LEAFLET_LOAD_STATE.promise;
+  if (typeof window === 'undefined') return Promise.reject(new Error('no window'));
+
+  LEAFLET_LOAD_STATE.promise = new Promise((resolve, reject) => {
+    // CSS
+    if (!document.querySelector('link[href*="leaflet"]')) {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+      link.integrity = 'sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=';
+      link.crossOrigin = '';
+      document.head.appendChild(link);
+    }
+    // JS
+    if (window.L) { LEAFLET_LOAD_STATE.ready = true; return resolve(); }
+    const s = document.createElement('script');
+    s.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+    s.integrity = 'sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=';
+    s.crossOrigin = '';
+    s.async = true;
+    s.onload = () => { LEAFLET_LOAD_STATE.ready = true; resolve(); };
+    s.onerror = () => { LEAFLET_LOAD_STATE.promise = null; reject(new Error('Leaflet failed')); };
+    document.head.appendChild(s);
+  });
+  return LEAFLET_LOAD_STATE.promise;
+}
+
+// Nominatim geocoder (free, no key, rate-limited to 1 req/sec)
+async function nominatimSearch(query, signal) {
+  const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&countrycodes=cr&limit=5&addressdetails=1`;
+  const res = await fetch(url, {
+    signal,
+    headers: { 'Accept-Language': 'es' },
+  });
+  if (!res.ok) throw new Error(`Nominatim ${res.status}`);
+  return await res.json();
+}
+
+const CR_PRESETS = [
+  { name: 'San José',  lat: 9.9281,  lng: -84.0907, info: 'Capital · 333k hab.' },
+  { name: 'Alajuela',  lat: 10.0162, lng: -84.2117, info: 'Aeropuerto SJO' },
+  { name: 'Cartago',   lat: 9.8638,  lng: -83.9197, info: 'Antigua capital colonial' },
+  { name: 'Heredia',   lat: 9.9981,  lng: -84.1167, info: 'Ciudad universitaria' },
+];
+
+function MapDemo({ color }) {
+  const mapElRef     = React.useRef(null);
+  const mapRef       = React.useRef(null);
+  const markersRef   = React.useRef([]);
+  const searchAbortRef = React.useRef(null);
+  const [phase, setPhase] = useState('loading'); // loading | ready | failed
+  const [preset, setPreset] = useState(0);
+  const [searchQ, setSearchQ] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const [searching, setSearching] = useState(false);
+
+  React.useEffect(() => {
+    setPhase('loading');
+    loadLeaflet()
+      .then(() => setPhase('ready'))
+      .catch(() => setPhase('failed'));
+  }, []);
+
+  // Initialize map once Leaflet is ready
+  React.useEffect(() => {
+    if (phase !== 'ready' || !mapElRef.current || mapRef.current) return;
+    const L = window.L;
+    const map = L.map(mapElRef.current, {
+      center: [CR_PRESETS[0].lat, CR_PRESETS[0].lng],
+      zoom: 9, zoomControl: true, attributionControl: true,
+    });
+    // Carto Dark Matter tiles — free, dark theme matches our UI
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png', {
+      attribution: '© OpenStreetMap · © CARTO',
+      maxZoom: 19, subdomains: 'abcd',
+    }).addTo(map);
+    mapRef.current = map;
+
+    // Add preset markers
+    CR_PRESETS.forEach(p => {
+      const icon = L.divIcon({
+        className: 'vo-leaflet-marker',
+        html: `<div style="
+          width:14px;height:14px;border-radius:50%;
+          background:${color};border:2px solid #fff;
+          box-shadow:0 0 0 2px ${color}66, 0 0 8px ${color};
+        "></div>`,
+        iconSize: [14, 14], iconAnchor: [7, 7],
+      });
+      const marker = L.marker([p.lat, p.lng], { icon, title: p.name }).addTo(map);
+      marker.bindPopup(`<strong>${p.name}</strong><br/><span style="font-size:11px;opacity:0.7;">${p.info}</span>`);
+      markersRef.current.push(marker);
+    });
+
+    return () => {
+      markersRef.current.forEach(m => m.remove());
+      markersRef.current = [];
+      if (mapRef.current) { mapRef.current.remove(); mapRef.current = null; }
+    };
+  }, [phase, color]);
+
+  const flyTo = (i) => {
+    setPreset(i);
+    if (!mapRef.current) return;
+    mapRef.current.flyTo([CR_PRESETS[i].lat, CR_PRESETS[i].lng], 13, { duration: 1.2 });
+  };
+
+  // Debounced Nominatim search
+  React.useEffect(() => {
+    if (!searchQ || searchQ.trim().length < 3) {
+      setSearchResults([]); setSearching(false);
+      return;
+    }
+    setSearching(true);
+    if (searchAbortRef.current) searchAbortRef.current.abort();
+    const ctrl = new AbortController();
+    searchAbortRef.current = ctrl;
+    const t = setTimeout(async () => {
+      try {
+        const data = await nominatimSearch(searchQ.trim(), ctrl.signal);
+        setSearchResults(data);
+      } catch (e) {
+        if (e.name !== 'AbortError') setSearchResults([]);
+      } finally {
+        setSearching(false);
+      }
+    }, 450);
+    return () => { clearTimeout(t); ctrl.abort(); };
+  }, [searchQ]);
+
+  const pickResult = (r) => {
+    if (!mapRef.current) return;
+    const L = window.L;
+    const lat = parseFloat(r.lat), lng = parseFloat(r.lon);
+    mapRef.current.flyTo([lat, lng], 15, { duration: 1.2 });
+    const icon = L.divIcon({
+      className: 'vo-leaflet-marker',
+      html: `<div style="
+        width:16px;height:16px;border-radius:50%;
+        background:#FBBC05;border:2px solid #fff;
+        box-shadow:0 0 0 2px rgba(251,188,5,0.40), 0 0 12px #FBBC05;
+      "></div>`,
+      iconSize: [16, 16], iconAnchor: [8, 8],
+    });
+    const marker = L.marker([lat, lng], { icon }).addTo(mapRef.current);
+    marker.bindPopup(`<strong>${r.display_name.split(',')[0]}</strong><br/><span style="font-size:11px;opacity:0.7;">${r.display_name}</span>`).openPopup();
+    markersRef.current.push(marker);
+    setSearchQ('');
+    setSearchResults([]);
+  };
+
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: 14, animation: 'fadeIn 0.3s ease', minHeight: 360 }} className="vo-gmap-grid">
+
+      {/* Map container */}
+      <div style={{
+        position: 'relative', borderRadius: 10, overflow: 'hidden',
+        border: `1px solid ${color}30`,
+        boxShadow: `0 8px 20px rgba(0,0,0,0.30)`,
+        background: '#0e1626',
+      }}>
+        {phase === 'ready' && (
+          <>
+            <div ref={mapElRef} style={{ width: '100%', height: '100%', minHeight: 360 }} />
+
+            {/* Floating search bar with Nominatim autocomplete */}
+            <div style={{
+              position: 'absolute', top: 10, left: 10, right: 10, zIndex: 401,
+              display: 'flex', gap: 8, pointerEvents: 'none',
+            }}>
+              <div style={{ flex: 1, position: 'relative', pointerEvents: 'auto' }}>
+                <div style={{
+                  display: 'flex', alignItems: 'center', gap: 8,
+                  background: 'rgba(20,28,48,0.95)', borderRadius: 8,
+                  padding: '7px 12px',
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.40)',
+                  border: '1px solid rgba(255,255,255,0.10)',
+                }}>
+                  <Search size={13} color={color} strokeWidth={2} />
+                  <input
+                    value={searchQ}
+                    onChange={(e) => setSearchQ(e.target.value)}
+                    placeholder="Buscar lugar en Costa Rica…"
+                    style={{
+                      flex: 1, border: 'none', outline: 'none',
+                      background: 'transparent', fontSize: 12, color: '#fff',
+                      fontFamily: 'inherit',
+                    }}
+                  />
+                  {searching && (
+                    <RotateCw size={11} color={color} strokeWidth={2} style={{ animation: 'spin 1s linear infinite' }} />
+                  )}
+                  {searchQ && !searching && (
+                    <button onClick={() => { setSearchQ(''); setSearchResults([]); }} style={{
+                      background: 'transparent', border: 'none', color: 'rgba(255,255,255,0.50)',
+                      cursor: 'pointer', fontSize: 12, padding: 0, lineHeight: 1,
+                    }}>×</button>
+                  )}
+                </div>
+                {searchResults.length > 0 && (
+                  <div style={{
+                    position: 'absolute', top: 'calc(100% + 4px)', left: 0, right: 0,
+                    background: 'rgba(20,28,48,0.98)', borderRadius: 8,
+                    border: '1px solid rgba(255,255,255,0.12)',
+                    boxShadow: '0 8px 24px rgba(0,0,0,0.40)',
+                    overflow: 'hidden', maxHeight: 220, overflowY: 'auto',
+                  }}>
+                    {searchResults.map((r, i) => (
+                      <button key={r.place_id} onClick={() => pickResult(r)} style={{
+                        width: '100%', padding: '8px 12px',
+                        background: 'transparent', border: 'none', cursor: 'pointer',
+                        textAlign: 'left', fontFamily: 'inherit',
+                        borderBottom: i < searchResults.length - 1 ? '1px solid rgba(255,255,255,0.06)' : 'none',
+                        display: 'flex', alignItems: 'center', gap: 8,
+                        transition: 'background 0.15s',
+                      }}
+                        onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'}
+                        onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                      >
+                        <MapPin size={11} color={color} strokeWidth={2} style={{ flexShrink: 0 }} />
+                        <div style={{ flex: 1, minWidth: 0 }}>
+                          <div style={{ fontSize: 10.5, color: '#fff', fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                            {r.display_name.split(',')[0]}
+                          </div>
+                          <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.50)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                            {r.display_name.split(',').slice(1, 3).join(', ').trim()}
+                          </div>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <div style={{
+                background: 'rgba(0,0,0,0.75)', color: '#fff',
+                padding: '7px 12px', fontSize: 9, fontFamily: F_MONO, fontWeight: 700,
+                letterSpacing: '0.10em', textTransform: 'uppercase',
+                backdropFilter: 'blur(8px)', borderRadius: 6,
+                display: 'inline-flex', alignItems: 'center', gap: 5,
+                pointerEvents: 'auto',
+              }}>
+                <span style={{ width: 6, height: 6, borderRadius: '50%', background: color, boxShadow: `0 0 6px ${color}`, animation: 'pulse 2s infinite' }} />
+                OSM · Live
+              </div>
+            </div>
+          </>
+        )}
+
+        {phase === 'loading' && (
+          <div style={{
+            position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column',
+            alignItems: 'center', justifyContent: 'center', gap: 10,
+            color: 'rgba(255,255,255,0.65)',
+          }}>
+            <RotateCw size={22} color={color} strokeWidth={2} style={{ animation: 'spin 1s linear infinite' }} />
+            <span style={{ fontSize: 11, fontFamily: F_MONO }}>Cargando mapa…</span>
+          </div>
+        )}
+
+        {phase === 'failed' && (
+          <iframe
+            title="Mapa San José Costa Rica"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=-84.2,9.85,-83.95,10.05&layer=mapnik"
+            style={{ width: '100%', height: '100%', minHeight: 360, border: 0, display: 'block', filter: 'invert(0.92) hue-rotate(180deg)' }}
+            loading="lazy"
+          />
+        )}
+      </div>
+
+      {/* Right panel — preset cities + features */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        <div>
+          <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.55)', fontFamily: F_MONO, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: 6 }}>
+            Saltar a ciudad
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 5 }}>
+            {CR_PRESETS.map((p, i) => {
+              const a = preset === i;
+              return (
+                <button key={p.name} onClick={() => flyTo(i)} disabled={phase !== 'ready'} style={{
+                  padding: '7px 10px', borderRadius: 6,
+                  background: a ? `${color}22` : 'rgba(255,255,255,0.04)',
+                  border: `1px solid ${a ? `${color}55` : 'rgba(255,255,255,0.08)'}`,
+                  color: a ? '#fff' : 'rgba(255,255,255,0.65)',
+                  cursor: phase !== 'ready' ? 'not-allowed' : 'pointer',
+                  fontFamily: 'inherit', fontSize: 10,
+                  fontWeight: a ? 700 : 500, textAlign: 'left',
+                  display: 'inline-flex', alignItems: 'center', gap: 6,
+                  transition: 'all 0.15s', opacity: phase !== 'ready' ? 0.5 : 1,
+                }}>
+                  <MapPin size={10} color={a ? color : 'currentColor'} strokeWidth={2} />
+                  {p.name}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        <div>
+          <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.55)', fontFamily: F_MONO, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: 6 }}>
+            Stack 100% open source
+          </div>
+          {[
+            { Icon: Search,    t: 'Búsqueda Nominatim',  d: 'Autocomplete con datos de OpenStreetMap' },
+            { Icon: MapPin,    t: 'Marcadores custom',   d: 'Iconos, colores y popups a tu marca' },
+            { Icon: Target,    t: 'Geocercas con Turf.js', d: 'Polígonos, distancias, intersecciones' },
+            { Icon: Languages, t: 'Multi-país · sin cuota', d: '0 API key · 0 costo · 0 límites' },
+          ].map((f, i) => (
+            <div key={i} style={{
+              display: 'flex', alignItems: 'center', gap: 10,
+              padding: '8px 10px', borderRadius: 8, marginBottom: 5,
+              background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)',
+            }}>
+              <div style={{
+                width: 26, height: 26, borderRadius: 7,
+                background: `${color}18`, border: `1px solid ${color}40`,
+                display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                color: color, flexShrink: 0,
+              }}>
+                <f.Icon size={12} strokeWidth={2} />
+              </div>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontSize: 10.5, color: '#fff', fontWeight: 600 }}>{f.t}</div>
+                <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.50)', marginTop: 1 }}>{f.d}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <style>{`
+        @media (max-width: 720px) {
+          .vo-gmap-grid { grid-template-columns: 1fr !important; }
+        }
+        .vo-leaflet-marker { background: transparent !important; border: none !important; }
+        .leaflet-popup-content-wrapper {
+          background: rgba(20,28,48,0.95) !important; color: #fff !important;
+          border-radius: 8px !important;
+        }
+        .leaflet-popup-content { color: #fff !important; font-family: inherit !important; font-size: 12px !important; }
+        .leaflet-popup-tip { background: rgba(20,28,48,0.95) !important; }
+        .leaflet-container a.leaflet-popup-close-button { color: rgba(255,255,255,0.65) !important; }
+        .leaflet-bar a, .leaflet-bar a:hover {
+          background: rgba(20,28,48,0.95) !important; color: #fff !important;
+          border-bottom: 1px solid rgba(255,255,255,0.10) !important;
+        }
+        .leaflet-control-attribution {
+          background: rgba(0,0,0,0.60) !important; color: rgba(255,255,255,0.55) !important;
+          font-size: 9px !important;
+        }
+        .leaflet-control-attribution a { color: rgba(255,255,255,0.75) !important; }
+      `}</style>
+    </div>
+  );
+}
+
+// ─── PhotoSphere · 360° tour with Pannellum (open source) ───
+// Like Google Street View / UTN Maps but free. Equirectangular panorama
+// viewer with clickable info hotspots. Lazy-loaded from jsdelivr CDN.
+const PANNELLUM_STATE = { promise: null, ready: false, failed: false };
+
+function loadPannellum() {
+  if (PANNELLUM_STATE.ready)   return Promise.resolve();
+  if (PANNELLUM_STATE.failed)  return Promise.reject(new Error('pannellum failed'));
+  if (PANNELLUM_STATE.promise) return PANNELLUM_STATE.promise;
+  PANNELLUM_STATE.promise = new Promise((resolve, reject) => {
+    // CSS
+    if (!document.querySelector('link[href*="pannellum"]')) {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css';
+      document.head.appendChild(link);
+    }
+    // JS
+    if (window.pannellum) { PANNELLUM_STATE.ready = true; return resolve(); }
+    const s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js';
+    s.async = true;
+    s.onload = () => { PANNELLUM_STATE.ready = true; resolve(); };
+    s.onerror = () => { PANNELLUM_STATE.failed = true; PANNELLUM_STATE.promise = null; reject(new Error('Pannellum failed')); };
+    document.head.appendChild(s);
+  });
+  return PANNELLUM_STATE.promise;
+}
+
+const PANORAMAS = [
+  {
+    name:    'Cerro Toco',
+    sub:     'Andes · Chile · 5640m',
+    url:     'https://pannellum.org/images/cerro-toco-0.jpg',
+    initialYaw: 220,
+    hotspots: [
+      { yaw: 132.9, pitch: -2.1,  type: 'info', text: 'Cumbre principal · 5640m' },
+      { yaw: -100,  pitch: -5,    type: 'info', text: 'ALMA Observatory abajo' },
+      { yaw: 50,    pitch: -10,   type: 'info', text: 'Llanura del Desierto de Atacama' },
+    ],
+  },
+  {
+    name:    'Vista desde un árbol',
+    sub:     'Bosque · CC BY 3.0',
+    url:     'https://pannellum.org/images/from-tree.jpg',
+    initialYaw: 0,
+    hotspots: [
+      { yaw: 0,    pitch: 0,    type: 'info', text: 'Mirá para arriba — hay un dosel' },
+      { yaw: 180,  pitch: -25,  type: 'info', text: 'Suelo del bosque' },
+    ],
+  },
+  {
+    name:    'ALMA Observatory',
+    sub:     'Chile · 5000m altitud',
+    url:     'https://pannellum.org/images/alma.jpg',
+    initialYaw: 90,
+    hotspots: [
+      { yaw: 90,   pitch: -5,   type: 'info', text: 'Array de 66 antenas de radio' },
+      { yaw: -120, pitch: -10,  type: 'info', text: 'Cordillera de los Andes' },
+    ],
+  },
+];
+
+function PhotoSphereDemo({ color }) {
+  const containerRef = React.useRef(null);
+  const viewerRef    = React.useRef(null);
+  const [phase, setPhase]         = useState('loading'); // loading | ready | failed
+  const [selected, setSelected]   = useState(0);
+  const [autoRotate, setAutoRotate] = useState(true);
+
+  // Load Pannellum once
+  React.useEffect(() => {
+    setPhase('loading');
+    loadPannellum()
+      .then(() => setPhase('ready'))
+      .catch(() => setPhase('failed'));
+  }, []);
+
+  // Re-init viewer when panorama / autoRotate / ready changes
+  React.useEffect(() => {
+    if (phase !== 'ready' || !containerRef.current || !window.pannellum) return;
+    if (viewerRef.current) {
+      try { viewerRef.current.destroy(); } catch {}
+      viewerRef.current = null;
+    }
+    const pano = PANORAMAS[selected];
+    try {
+      viewerRef.current = window.pannellum.viewer(containerRef.current, {
+        type: 'equirectangular',
+        panorama: pano.url,
+        autoLoad: true,
+        autoRotate: autoRotate ? -2 : 0,
+        compass: true,
+        showZoomCtrl: true,
+        showFullscreenCtrl: true,
+        showControls: true,
+        yaw: pano.initialYaw,
+        hfov: 100,
+        minHfov: 50, maxHfov: 120,
+        hotSpots: pano.hotspots,
+        backgroundColor: [0.05, 0.06, 0.10],
+      });
+    } catch (err) {
+      setPhase('failed');
+    }
+    return () => {
+      if (viewerRef.current) {
+        try { viewerRef.current.destroy(); } catch {}
+        viewerRef.current = null;
+      }
+    };
+  }, [phase, selected, autoRotate]);
+
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: '1.55fr 1fr', gap: 14, animation: 'fadeIn 0.3s ease', minHeight: 380 }} className="vo-pano-grid">
+
+      {/* Sphere viewer */}
+      <div style={{
+        position: 'relative', borderRadius: 10, overflow: 'hidden',
+        border: `1px solid ${color}30`,
+        boxShadow: `0 8px 20px rgba(0,0,0,0.30)`,
+        background: '#0e1626', minHeight: 380,
+      }}>
+        {phase === 'ready' && (
+          <>
+            <div ref={containerRef} style={{ width: '100%', height: '100%', minHeight: 380 }} />
+            <div style={{
+              position: 'absolute', top: 10, left: 10, zIndex: 10,
+              background: 'rgba(0,0,0,0.75)', color: '#fff',
+              padding: '5px 10px', fontSize: 9, fontFamily: F_MONO, fontWeight: 700,
+              letterSpacing: '0.10em', textTransform: 'uppercase',
+              borderRadius: 6, display: 'inline-flex', alignItems: 'center', gap: 5,
+              backdropFilter: 'blur(8px)', pointerEvents: 'none',
+            }}>
+              <span style={{ width: 6, height: 6, borderRadius: '50%', background: color, boxShadow: `0 0 6px ${color}`, animation: 'pulse 2s infinite' }} />
+              360° Live · Pannellum
+            </div>
+            <div style={{
+              position: 'absolute', bottom: 10, left: 10, zIndex: 10,
+              background: 'rgba(0,0,0,0.65)', color: 'rgba(255,255,255,0.85)',
+              padding: '4px 10px', fontSize: 9, fontFamily: F_MONO,
+              letterSpacing: '0.06em', borderRadius: 6,
+              backdropFilter: 'blur(8px)', pointerEvents: 'none',
+            }}>
+              Arrastrá · scroll para zoom · click en los hotspots
+            </div>
+          </>
+        )}
+
+        {phase === 'loading' && (
+          <div style={{
+            position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column',
+            alignItems: 'center', justifyContent: 'center', gap: 10,
+            color: 'rgba(255,255,255,0.65)',
+          }}>
+            <RotateCw size={22} color={color} strokeWidth={2} style={{ animation: 'spin 1s linear infinite' }} />
+            <span style={{ fontSize: 11, fontFamily: F_MONO }}>Cargando visor 360°…</span>
+          </div>
+        )}
+
+        {phase === 'failed' && (
+          <div style={{
+            position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column',
+            alignItems: 'center', justifyContent: 'center', gap: 12, padding: 24, textAlign: 'center',
+          }}>
+            <Globe size={28} color={color} strokeWidth={1.5} />
+            <div style={{ fontSize: 11, color: '#fff', fontWeight: 600 }}>
+              No se pudo cargar Pannellum
+            </div>
+            <div style={{ fontSize: 9.5, color: 'rgba(255,255,255,0.55)', fontFamily: F_MONO, maxWidth: 280, lineHeight: 1.5 }}>
+              Verificá tu conexión o probá refrescar la página.
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Right panel — panorama selector + controls + info */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        <div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 6 }}>
+            <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.55)', fontFamily: F_MONO, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase' }}>
+              Panoramas
+            </div>
+            <span style={{ fontSize: 8, color: color, fontFamily: F_MONO, fontWeight: 700, letterSpacing: '0.10em' }}>
+              {PANORAMAS.length} disponibles
+            </span>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
+            {PANORAMAS.map((p, i) => {
+              const a = selected === i;
+              return (
+                <button key={p.url} onClick={() => setSelected(i)} disabled={phase !== 'ready'}
+                  style={{
+                    padding: '9px 12px', borderRadius: 8,
+                    background: a ? `${color}18` : 'rgba(255,255,255,0.04)',
+                    border: `1px solid ${a ? `${color}55` : 'rgba(255,255,255,0.08)'}`,
+                    color: a ? '#fff' : 'rgba(255,255,255,0.65)',
+                    cursor: phase !== 'ready' ? 'not-allowed' : 'pointer',
+                    fontFamily: 'inherit', textAlign: 'left',
+                    display: 'flex', alignItems: 'center', gap: 9,
+                    transition: 'all 0.15s', opacity: phase !== 'ready' ? 0.5 : 1,
+                  }}>
+                  <div style={{
+                    width: 28, height: 28, borderRadius: '50%',
+                    background: a ? `${color}30` : 'rgba(255,255,255,0.06)',
+                    border: `1px solid ${a ? color : 'rgba(255,255,255,0.10)'}`,
+                    display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                    color: a ? color : 'rgba(255,255,255,0.45)', flexShrink: 0,
+                    fontFamily: F_MONO, fontSize: 10, fontWeight: 700,
+                  }}>
+                    {String(i + 1).padStart(2, '0')}
+                  </div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ fontSize: 10.5, fontWeight: 600 }}>{p.name}</div>
+                    <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.45)', fontFamily: F_MONO, marginTop: 1 }}>{p.sub}</div>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Auto-rotate toggle */}
+        {phase === 'ready' && (
+          <div style={{
+            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+            padding: '9px 12px', borderRadius: 8,
+            background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)',
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <RotateCw size={12} color={autoRotate ? color : 'rgba(255,255,255,0.45)'} strokeWidth={2}
+                style={{ animation: autoRotate ? 'spin 6s linear infinite' : 'none' }} />
+              <span style={{ fontSize: 10.5, color: '#fff', fontWeight: 600 }}>Auto-rotación</span>
+            </div>
+            <button onClick={() => setAutoRotate(r => !r)} aria-label="Toggle auto-rotate"
+              style={{
+                width: 32, height: 18, borderRadius: 99,
+                background: autoRotate ? color : 'rgba(255,255,255,0.10)',
+                border: 'none', cursor: 'pointer', position: 'relative',
+                transition: 'background 0.2s',
+              }}>
+              <span style={{
+                position: 'absolute', top: 2, left: autoRotate ? 16 : 2,
+                width: 14, height: 14, borderRadius: '50%', background: '#fff',
+                transition: 'left 0.2s',
+                boxShadow: '0 1px 3px rgba(0,0,0,0.30)',
+              }} />
+            </button>
+          </div>
+        )}
+
+        {/* Features list */}
+        <div>
+          <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.55)', fontFamily: F_MONO, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: 6 }}>
+            Lo que se puede hacer
+          </div>
+          {[
+            { Icon: Target,   t: 'Hotspots con info',   d: 'Click en los puntos para mostrar datos' },
+            { Icon: MapPin,   t: 'Tour multi-escena',   d: 'Saltar de una panorámica a otra' },
+            { Icon: Globe,    t: 'VR-ready',            d: 'Funciona en cardboard, Quest, etc.' },
+            { Icon: Sparkles, t: 'Custom · sin cuota',  d: 'Subí tus fotos 360 (Insta360, Ricoh Theta)' },
+          ].map((f, i) => (
+            <div key={i} style={{
+              display: 'flex', alignItems: 'center', gap: 10,
+              padding: '7px 10px', borderRadius: 8, marginBottom: 4,
+              background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)',
+            }}>
+              <div style={{
+                width: 24, height: 24, borderRadius: 6,
+                background: `${color}18`, border: `1px solid ${color}40`,
+                display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                color: color, flexShrink: 0,
+              }}>
+                <f.Icon size={11} strokeWidth={2} />
+              </div>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontSize: 10, color: '#fff', fontWeight: 600 }}>{f.t}</div>
+                <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.50)', marginTop: 1 }}>{f.d}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <style>{`
+        @media (max-width: 720px) {
+          .vo-pano-grid { grid-template-columns: 1fr !important; }
+        }
+        /* Pannellum dark hotspot tooltips */
+        .pnlm-tooltip span {
+          background: rgba(20,28,48,0.95) !important;
+          color: #fff !important;
+          font-family: inherit !important;
+          border: 1px solid rgba(255,255,255,0.15) !important;
+          padding: 6px 10px !important;
+          border-radius: 6px !important;
+          font-size: 11px !important;
+          max-width: 220px !important;
+        }
+        .pnlm-tooltip span:after {
+          border-top-color: rgba(20,28,48,0.95) !important;
+        }
+        .pnlm-hotspot {
+          width: 24px !important; height: 24px !important;
+          background: radial-gradient(circle, ${color}, ${color}55) !important;
+          border: 2px solid #fff !important;
+          border-radius: 50% !important;
+          box-shadow: 0 0 10px ${color}, 0 0 0 4px ${color}30 !important;
+        }
+      `}</style>
+    </div>
+  );
+}
+
+// ─── APIs demo — grid of cloud services we integrate ───
+function ApiDemo({ G_BLUE, G_RED, G_YELLOW, G_GREEN }) {
+  const SERVICES = [
+    { Icon: ImageIcon,     n: 'Vision AI',        d: 'OCR, detección de objetos, moderación',  c: G_YELLOW },
+    { Icon: Languages,     n: 'Translation API',  d: '+130 idiomas en tiempo real',             c: G_BLUE   },
+    { Icon: MessageCircle, n: 'Dialogflow',       d: 'Chatbots con NLU y intent matching',      c: G_BLUE   },
+    { Icon: Mic,           n: 'Speech-to-Text',   d: 'Transcripción de audio en vivo',          c: G_RED    },
+    { Icon: Volume2,       n: 'Text-to-Speech',   d: 'Voces neurales en +40 idiomas',           c: G_RED    },
+    { Icon: MapIcon,       n: 'Maps Platform',    d: 'Mapas, rutas, places y geocoding',        c: G_GREEN  },
+    { Icon: Database,      n: 'Firestore',        d: 'Base de datos NoSQL en tiempo real',      c: G_YELLOW },
+    { Icon: Cloud,         n: 'Cloud Functions',  d: 'Backend serverless · pay-per-use',        c: '#9C46FF' },
+    { Icon: Shield,        n: 'Firebase Auth',    d: 'Login con Google, email, teléfono, OAuth',c: G_GREEN  },
+    { Icon: FileText,      n: 'Document AI',      d: 'Extrae datos de PDFs y facturas',         c: G_BLUE   },
+    { Icon: BarChart3,     n: 'BigQuery',         d: 'Analytics y data warehouse',              c: G_BLUE   },
+    { Icon: Sparkles,      n: 'Vertex AI',        d: 'ML, IA generativa y modelos custom',      c: G_RED    },
+  ];
+
+  return (
+    <div style={{ animation: 'fadeIn 0.3s ease', minHeight: 320 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 12 }}>
+        <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.55)', fontFamily: F_MONO, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase' }}>
+          12 servicios de Google Cloud que integramos
+        </div>
+        <span style={{ fontSize: 9, color: G_GREEN, fontFamily: F_MONO, fontWeight: 700, letterSpacing: '0.06em' }}>
+          + muchos más bajo demanda
+        </span>
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }} className="vo-gapi-grid">
+        {SERVICES.map((s, i) => (
+          <div key={i} style={{
+            padding: '12px 14px',
+            background: 'rgba(255,255,255,0.04)',
+            border: '1px solid rgba(255,255,255,0.08)',
+            borderRadius: 10,
+            transition: 'all 0.2s',
+            cursor: 'pointer',
+            animation: `fadeIn 0.3s ease ${i * 0.03}s both`,
+          }}
+            onMouseEnter={(e) => { e.currentTarget.style.background = `${s.c}10`; e.currentTarget.style.borderColor = `${s.c}40`; e.currentTarget.style.transform = 'translateY(-2px)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.04)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; e.currentTarget.style.transform = 'translateY(0)'; }}
+          >
+            <div style={{
+              width: 28, height: 28, borderRadius: 7,
+              background: `${s.c}18`, border: `1px solid ${s.c}40`,
+              display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+              color: s.c, marginBottom: 8,
+            }}>
+              <s.Icon size={13} strokeWidth={1.9} />
+            </div>
+            <div style={{ fontSize: 11, color: '#fff', fontWeight: 700, marginBottom: 3 }}>{s.n}</div>
+            <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.55)', lineHeight: 1.4 }}>{s.d}</div>
+          </div>
+        ))}
+      </div>
+      <style>{`
+        @media (max-width: 720px) {
+          .vo-gapi-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+      `}</style>
+    </div>
+  );
+}
+
 // ─── Dispatcher ────────────────────────────────────────────────────────
 export function ServiceMockup({ n }) {
   switch (n) {
+    case '00': return <GoogleCloudMock />;
     case '01': return <WebsiteMock />;
     case '02': return <EcommerceMock />;
     case '03': return <AppMock />;

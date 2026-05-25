@@ -5,18 +5,16 @@ import { getContent } from '../data/content';
 import { useApp } from '../context/AppContext';
 import { SectionHeader } from './Services';
 
-// v5 — Category hues mapped to the Neon Nebula palette.
-// (Old v4 used rainbow with #943A1F #0EA5E9 #A855F7 #10B981 #F59E0B
-//  #EC4899 #14B8A6 #6366F1 #84CC16). Icons render in sidebar pill + question row.
+// v6 — Category hues mapped to the Midnight Signal palette.
 const CATEGORY_DEFS = [
-  { id: 'precio',    color: '#5D2BFF', icon: 'M12 1v22M17 5H9.5a3.5 3.5 0 1 0 0 7h5a3.5 3.5 0 1 1 0 7H6' },           // wallet/$
+  { id: 'precio',    color: '#0891B2', icon: 'M12 1v22M17 5H9.5a3.5 3.5 0 1 0 0 7h5a3.5 3.5 0 1 1 0 7H6' },           // wallet/$
   { id: 'hosting',   color: '#6AB7FF', icon: 'M2 12h20M2 12a10 10 0 0 1 20 0M2 12a10 10 0 0 0 20 0M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20' }, // globe
-  { id: 'contenido', color: '#E14DFF', icon: 'M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4z' },               // pencil
+  { id: 'contenido', color: '#06B6D4', icon: 'M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4z' },               // pencil
   { id: 'pago',      color: '#FF5C9A', icon: 'M2 7h20v12H2zM2 11h20M6 15h4' },                                          // card
   { id: 'plazos',    color: '#FF6A63', icon: 'M12 6v6l4 2M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20z' },                  // clock
-  { id: 'soporte',   color: '#6A5CFF', icon: 'M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0zM7 11l3 3 7-7' },                    // shield/check
-  { id: 'remoto',    color: '#8A46FF', icon: 'M2 3h20v14H2zM8 21h8M12 17v4' },                                          // monitor
-  { id: 'industria', color: '#C14DFF', icon: 'M3 21h18M5 21V8l7-5 7 5v13M9 9h2M13 9h2M9 13h2M13 13h2M9 17h2M13 17h2' }, // building (interpolated stop)
+  { id: 'soporte',   color: '#0EA5E9', icon: 'M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0zM7 11l3 3 7-7' },                    // shield/check
+  { id: 'remoto',    color: '#22D3EE', icon: 'M2 3h20v14H2zM8 21h8M12 17v4' },                                          // monitor
+  { id: 'industria', color: '#14B8A6', icon: 'M3 21h18M5 21V8l7-5 7 5v13M9 9h2M13 9h2M9 13h2M13 13h2M9 17h2M13 17h2' }, // building
   { id: 'propiedad', color: '#6AB7FF', icon: 'M21 12V7H5a2 2 0 1 1 0-4h14v4M3 5v14a2 2 0 0 0 2 2h16v-5M18 12a2 2 0 0 0 0 4h4v-4z' }, // wallet
 ];
 

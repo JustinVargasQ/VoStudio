@@ -14,22 +14,21 @@ const FOUNDER_META = [
     specialty_en: 'Web dev & backend systems',
     skills: ['React', 'Node.js', 'MongoDB'],
     accent: '#FF5C9A',
-    grad: 'linear-gradient(135deg, #FF5C9A 0%, #8A46FF 100%)',
+    grad: 'linear-gradient(135deg, #FF5C9A 0%, #06B6D4 100%)',
     image: 'https://api.dicebear.com/9.x/lorelei/svg?seed=JustinVargas&backgroundColor=EA580C&backgroundType=gradientLinear',
   },
   {
     specialty_es: 'Diseño UX/UI & apps móviles',
     specialty_en: 'UX/UI design & mobile apps',
     skills: ['UI/UX', 'Figma', 'React Native'],
-    accent: '#E14DFF',
-    grad: 'linear-gradient(135deg, #E14DFF 0%, #8A46FF 100%)',
-    image: 'https://api.dicebear.com/9.x/lorelei/svg?seed=ZaylinLopez&backgroundColor=A855F7&backgroundType=gradientLinear',
+    accent: '#22D3EE',
+    grad: 'linear-gradient(135deg, #22D3EE 0%, #06B6D4 100%)',
+    image: 'https://api.dicebear.com/9.x/lorelei/svg?seed=ZaylinLopez&backgroundColor=0891B2&backgroundType=gradientLinear',
   },
 ];
 
-// v4 → v5: ACC (terracotta #943A1F) replaced by ACC (violet #8A46FF).
-// ACC2 is the secondary stop used in primary-button gradient.
-const ACC  = '#8A46FF';
+// v6: ACC = cyan #06B6D4
+const ACC  = '#06B6D4';
 const ACC2 = '#FF5C9A';
 
 // ─── Brand icons (custom SVGs since Lucide no longer ships brand marks) ──
@@ -71,11 +70,11 @@ export function Hero() {
   const { t, locale, theme } = useApp();
   const isDark = theme === 'dark';
 
-  // v5 — Theme-adaptive surface tones (was terracotta/cream v4)
-  const SOFT_BG    = isDark ? 'transparent' : '#F6F2FF';  // inner frame bg
-  const ORB_INNER  = isDark ? '#0A0418' : '#FAFAFF';      // entropy frame bg
-  const STROKE     = isDark ? 'rgba(138,70,255,0.25)'  : 'rgba(138,70,255,0.22)';
-  const STROKE_S   = isDark ? 'rgba(138,70,255,0.15)'  : 'rgba(138,70,255,0.12)';
+  // v6 — Theme-adaptive surface tones (midnight signal)
+  const SOFT_BG    = isDark ? 'transparent' : '#F5FBFF';  // inner frame bg
+  const ORB_INNER  = isDark ? '#030D14' : '#F9FDFF';      // entropy frame bg
+  const STROKE     = isDark ? 'rgba(6,182,212,0.25)'  : 'rgba(6,182,212,0.22)';
+  const STROKE_S   = isDark ? 'rgba(6,182,212,0.15)'  : 'rgba(6,182,212,0.12)';
 
   const SOCIALS = [
     { Icon: InstagramIcon, name: 'Instagram', handle: '@vostudio.cr',           href: 'https://instagram.com/vostudio.cr', color: '#E4405F' },
@@ -110,15 +109,15 @@ export function Hero() {
       >
         <span style={{
           fontFamily: F_MONO, fontSize: 10, letterSpacing: '0.22em',
-          textTransform: 'uppercase', color: isDark ? 'rgba(200,180,255,0.60)' : 'rgba(93,43,255,0.60)',
+          textTransform: 'uppercase', color: isDark ? 'rgba(165,243,252,0.60)' : 'rgba(6,182,212,0.60)',
         }}>
           VO Studio // Software &amp; Web
         </span>
         <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
-          <span style={{ fontFamily: F_MONO, fontSize: 10, letterSpacing: '0.22em', textTransform: 'uppercase', color: isDark ? 'rgba(200,180,255,0.45)' : 'rgba(93,43,255,0.45)' }}>
+          <span style={{ fontFamily: F_MONO, fontSize: 10, letterSpacing: '0.22em', textTransform: 'uppercase', color: isDark ? 'rgba(165,243,252,0.45)' : 'rgba(6,182,212,0.45)' }}>
             Est. 2023
           </span>
-          <span style={{ fontFamily: F_MONO, fontSize: 10, letterSpacing: '0.22em', textTransform: 'uppercase', color: isDark ? 'rgba(200,180,255,0.45)' : 'rgba(93,43,255,0.45)' }}>
+          <span style={{ fontFamily: F_MONO, fontSize: 10, letterSpacing: '0.22em', textTransform: 'uppercase', color: isDark ? 'rgba(165,243,252,0.45)' : 'rgba(6,182,212,0.45)' }}>
             Costa Rica 🇨🇷
           </span>
         </div>
@@ -190,18 +189,44 @@ export function Hero() {
             <p style={{
               fontFamily: F_MONO, fontSize: 10, letterSpacing: '0.22em',
               textTransform: 'uppercase',
-              color: isDark ? 'rgba(200,170,255,0.65)' : 'rgba(93,43,255,0.65)',
+              color: isDark ? 'rgba(165,243,252,0.65)' : 'rgba(6,182,212,0.65)',
               marginBottom: 10,
             }}>
-              ↗ Web · Software · UX/UI
+              ↗ Web · Software · Apps · IA · Cloud
             </p>
             <p style={{
               fontSize: 'clamp(14px, 1.1vw, 17px)',
               color: isDark ? 'rgba(230,218,255,0.85)' : 'rgba(27,16,48,0.80)',
               lineHeight: 1.65,
+              marginBottom: 14,
             }}>
               {t('hero.desc')}
             </p>
+
+            {/* Capability chips — subtle marketing */}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+              {[
+                { label: 'Chatbots IA',    color: '#4285F4' },
+                { label: 'Visión',          color: '#FBBC05' },
+                { label: 'Mapas',          color: '#34A853' },
+                { label: 'E-commerce',     color: '#FF5C9A' },
+                { label: 'Apps móviles',   color: '#6AB7FF' },
+                { label: 'SEO',            color: ACC },
+              ].map(c => (
+                <span key={c.label} style={{
+                  display: 'inline-flex', alignItems: 'center', gap: 5,
+                  padding: '4px 9px', borderRadius: 999,
+                  fontSize: 10, fontWeight: 600,
+                  fontFamily: F_MONO, letterSpacing: '0.04em',
+                  background: isDark ? `${c.color}14` : `${c.color}10`,
+                  border: `1px solid ${c.color}35`,
+                  color: isDark ? '#fff' : '#0C1F2A',
+                }}>
+                  <span style={{ width: 5, height: 5, borderRadius: '50%', background: c.color, boxShadow: `0 0 4px ${c.color}` }} />
+                  {c.label}
+                </span>
+              ))}
+            </div>
           </motion.div>
 
           {/* CTA */}
@@ -232,8 +257,8 @@ export function Hero() {
             <a href="#proyectos" style={{
               fontSize: 11, fontFamily: F_MONO, letterSpacing: '0.12em',
               textTransform: 'uppercase',
-              color: isDark ? 'rgba(200,180,255,0.60)' : 'rgba(93,43,255,0.60)',
-              borderBottom: `1px solid rgba(138,70,255,0.30)`, paddingBottom: 2,
+              color: isDark ? 'rgba(165,243,252,0.60)' : 'rgba(6,182,212,0.60)',
+              borderBottom: `1px solid rgba(6,182,212,0.30)`, paddingBottom: 2,
             }}>
               {locale === 'en' ? 'Our Work ↓' : 'Ver Proyectos ↓'}
             </a>
@@ -374,13 +399,13 @@ export function Hero() {
               style={{ position: 'absolute', inset: '20%', borderRadius: '50%', rotateX: 40 }}
             >
               <svg style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="49" fill="none" stroke={`#E14DFF35`} strokeWidth="0.4" strokeDasharray="2 6" />
+                <circle cx="50" cy="50" r="49" fill="none" stroke={`#22D3EE35`} strokeWidth="0.4" strokeDasharray="2 6" />
               </svg>
               <span style={{
                 position: 'absolute', top: -3, left: '50%', marginLeft: -3,
                 width: 6, height: 6, borderRadius: '50%',
-                background: '#E14DFF',
-                boxShadow: '0 0 10px #E14DFF, 0 0 20px #E14DFF90',
+                background: '#22D3EE',
+                boxShadow: '0 0 10px #22D3EE, 0 0 20px #22D3EE90',
               }} />
             </motion.div>
 
@@ -395,7 +420,7 @@ export function Hero() {
                   border: `1.5px solid ${ACC}65`,
                   boxShadow: isDark
                     ? `inset 0 0 70px rgba(0,0,0,0.60), 0 0 80px ${ACC}55, 0 0 160px ${ACC2}35, 0 24px 70px rgba(0,0,0,0.55)`
-                    : `inset 0 0 40px rgba(138,70,255,0.12), 0 0 90px ${ACC}45, 0 0 180px ${ACC2}28`,
+                    : `inset 0 0 40px rgba(6,182,212,0.12), 0 0 90px ${ACC}45, 0 0 180px ${ACC2}28`,
                   background: ORB_INNER,
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                 }}
@@ -462,7 +487,7 @@ export function Hero() {
                     style={{
                       background: isDark ? 'rgba(18, 8, 42, 0.70)' : 'rgba(255,255,255,0.85)',
                       backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)',
-                      border: `1px solid ${isDark ? 'rgba(138,70,255,0.20)' : 'rgba(138,70,255,0.18)'}`,
+                      border: `1px solid ${isDark ? 'rgba(6,182,212,0.20)' : 'rgba(6,182,212,0.18)'}`,
                       borderRadius: 16, overflow: 'hidden',
                       transition: 'border-color 0.3s, box-shadow 0.3s, transform 0.25s',
                     }}
@@ -472,7 +497,7 @@ export function Hero() {
                       e.currentTarget.style.transform  = 'translateY(-2px)';
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.borderColor = isDark ? 'rgba(138,70,255,0.20)' : 'rgba(138,70,255,0.18)';
+                      e.currentTarget.style.borderColor = isDark ? 'rgba(6,182,212,0.20)' : 'rgba(6,182,212,0.18)';
                       e.currentTarget.style.boxShadow  = 'none';
                       e.currentTarget.style.transform  = 'translateY(0)';
                     }}
@@ -520,7 +545,7 @@ export function Hero() {
                       {/* Info */}
                       <div style={{ flex: 1, minWidth: 0 }}>
                         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 8, marginBottom: 3 }}>
-                          <div style={{ fontFamily: F_DISPLAY, fontSize: 14.5, letterSpacing: '-0.01em', lineHeight: 1.15, color: isDark ? '#fff' : '#1B1030' }}>
+                          <div style={{ fontFamily: F_DISPLAY, fontSize: 14.5, letterSpacing: '-0.01em', lineHeight: 1.15, color: isDark ? '#fff' : '#0C1F2A' }}>
                             {p.name}
                           </div>
                           <span style={{
@@ -537,7 +562,7 @@ export function Hero() {
 
                         <div style={{
                           fontSize: 10.5, marginBottom: 8,
-                          color: isDark ? 'rgba(200,180,255,0.60)' : 'rgba(93,43,255,0.65)',
+                          color: isDark ? 'rgba(165,243,252,0.60)' : 'rgba(6,182,212,0.65)',
                           fontFamily: F_MONO, letterSpacing: '0.02em',
                         }}>
                           {locale === 'en' ? m.specialty_en : m.specialty_es}
@@ -548,9 +573,9 @@ export function Hero() {
                             <span key={s} style={{
                               fontSize: 9.5, fontFamily: F_MONO, fontWeight: 600,
                               padding: '2px 7px', borderRadius: 999,
-                              background: isDark ? 'rgba(138,70,255,0.12)' : 'rgba(138,70,255,0.08)',
-                              border: `1px solid ${isDark ? 'rgba(138,70,255,0.25)' : 'rgba(138,70,255,0.20)'}`,
-                              color: isDark ? 'rgba(200,180,255,0.80)' : 'rgba(93,43,255,0.80)',
+                              background: isDark ? 'rgba(6,182,212,0.12)' : 'rgba(6,182,212,0.08)',
+                              border: `1px solid ${isDark ? 'rgba(6,182,212,0.25)' : 'rgba(6,182,212,0.20)'}`,
+                              color: isDark ? 'rgba(165,243,252,0.80)' : 'rgba(6,182,212,0.80)',
                             }}>{s}</span>
                           ))}
                         </div>
@@ -589,7 +614,7 @@ export function Hero() {
                 <span style={{ width: 14, height: 1, background: ACC2 }} />
                 {locale === 'en' ? 'Connect with us' : 'Conectá con nosotros'}
               </div>
-              <span style={{ fontSize: 10.5, color: isDark ? 'rgba(200,180,255,0.50)' : 'rgba(93,43,255,0.55)', fontFamily: F_MONO, letterSpacing: '0.04em' }}>
+              <span style={{ fontSize: 10.5, color: isDark ? 'rgba(165,243,252,0.50)' : 'rgba(6,182,212,0.55)', fontFamily: F_MONO, letterSpacing: '0.04em' }}>
                 {locale === 'en' ? '↩ Reply in 24h' : '↩ Respondemos en 24h'}
               </span>
             </div>
@@ -607,8 +632,8 @@ export function Hero() {
                     padding: '18px 10px 14px',
                     background: isDark ? 'rgba(14, 7, 30, 0.65)' : 'rgba(255,255,255,0.75)',
                     backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)',
-                    border: `1px solid ${isDark ? 'rgba(255,255,255,0.07)' : 'rgba(138,70,255,0.15)'}`,
-                    color: isDark ? '#fff' : '#1B1030',
+                    border: `1px solid ${isDark ? 'rgba(255,255,255,0.07)' : 'rgba(6,182,212,0.15)'}`,
+                    color: isDark ? '#fff' : '#0C1F2A',
                     textDecoration: 'none',
                     position: 'relative', overflow: 'hidden',
                     transition: 'all 0.28s ease',
@@ -647,7 +672,7 @@ export function Hero() {
                     }}>{s.name}</div>
                     <div style={{
                       fontSize: 10, fontFamily: F_MONO,
-                      color: isDark ? 'rgba(255,255,255,0.88)' : '#1B1030',
+                      color: isDark ? 'rgba(255,255,255,0.88)' : '#0C1F2A',
                       overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
                       maxWidth: '100%', lineHeight: 1.2,
                     }} title={s.handle}>{s.handle}</div>

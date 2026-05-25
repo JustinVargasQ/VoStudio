@@ -5,11 +5,11 @@ import { BG, BG_ALT, BG_SECTION, BG_CARD, TEXT, TEXT_S, TEXT_D, BORDER, F_DISPLA
 import { getContent } from '../data/content';
 import { useApp } from '../context/AppContext';
 
-// v5 — Steps mapped to Neon Nebula palette (was sky/purple/blue/green).
+// v6 — Steps mapped to Midnight Signal palette.
 const PHASE_META = [
   { color: '#6AB7FF', Icon: MessageCircle }, // 01 consulta — electric blue
-  { color: '#E14DFF', Icon: Palette },       // 02 diseño — neon magenta
-  { color: '#8A46FF', Icon: Code2 },         // 03 desarrollo — bright violet
+  { color: '#22D3EE', Icon: Palette },       // 02 diseño — cyan light
+  { color: '#06B6D4', Icon: Code2 },         // 03 desarrollo — cyan
   { color: '#FF5C9A', Icon: Rocket },        // 04 lanzamiento — strong pink
 ];
 
@@ -81,12 +81,27 @@ export function Process() {
           viewport={{ once: true }} transition={{ duration: 0.7 }}
           style={{ position: 'relative', marginBottom: 'clamp(24px, 3vw, 36px)' }}
         >
-          {/* Connecting line */}
-          <div style={{ position: 'absolute', top: 18, left: '12.5%', right: '12.5%', height: 1, background: BORDER, zIndex: 0 }} />
+          {/* Connecting line — base track */}
+          <div style={{ position: 'absolute', top: 17, left: '12.5%', right: '12.5%', height: 2, background: BORDER, zIndex: 0, borderRadius: 2 }} />
+          {/* Progress fill with glow */}
           <motion.div
-            animate={{ background: `linear-gradient(to right, ${steps[0].color}, ${steps[1].color}, ${steps[2].color}, ${steps[3].color})` }}
-            style={{ position: 'absolute', top: 18, left: '12.5%', width: `${active * 25 + 12.5}%`, height: 1, zIndex: 1 }}
-            transition={{ duration: 0.5 }}
+            animate={{
+              width: `${active * 25 + 12.5}%`,
+              background: `linear-gradient(to right, ${steps[0].color}, ${steps[active].color})`,
+              boxShadow: `0 0 8px ${steps[active].color}80, 0 0 18px ${steps[active].color}40`,
+            }}
+            style={{ position: 'absolute', top: 17, left: '12.5%', height: 2, zIndex: 1, borderRadius: 2 }}
+            transition={{ duration: 0.5, ease: 'easeInOut' }}
+          />
+          {/* Glowing head dot */}
+          <motion.div
+            animate={{
+              left: `calc(${active * 25 + 12.5}% - 4px)`,
+              background: steps[active].color,
+              boxShadow: `0 0 10px ${steps[active].color}, 0 0 24px ${steps[active].color}80`,
+            }}
+            style={{ position: 'absolute', top: 14, width: 8, height: 8, borderRadius: '50%', zIndex: 2 }}
+            transition={{ duration: 0.5, ease: 'easeInOut' }}
           />
 
           <div style={{ display: 'flex', position: 'relative', zIndex: 2 }} className="vo-proc-tabs">
@@ -129,14 +144,17 @@ export function Process() {
                   key={s.n}
                   className="vo-neon-hover"
                   onClick={() => setActive(i)}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: isActive ? 1 : 0.6, y: 0 }}
+                  viewport={{ once: true }}
                   animate={{
                     y: isActive ? -12 : 0,
                     scale: isActive ? 1.03 : 0.97,
                     opacity: isActive ? 1 : 0.6,
                     rotateX: isActive ? 0 : 4,
                   }}
-                  whileHover={{ opacity: isActive ? 1 : 0.85, y: isActive ? -12 : -4 }}
-                  transition={{ type: 'spring', stiffness: 220, damping: 24 }}
+                  whileHover={{ opacity: isActive ? 1 : 0.85, y: isActive ? -14 : -6, scale: isActive ? 1.03 : 1.01 }}
+                  transition={{ type: 'spring', stiffness: 220, damping: 24, delay: i * 0.08 }}
                   style={{
                     background: BG_CARD,
                     border: `1px solid ${isActive ? `${s.color}60` : BORDER}`,

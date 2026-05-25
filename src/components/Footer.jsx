@@ -43,13 +43,12 @@ export function Footer() {
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 18, marginBottom: 28, flexWrap: 'wrap' }}>
               <div className="vo-neon-hover" style={{
-                // v4 → v5: bg #1B191A → #1B1030; glow terracotta → violet/magenta
                 width: 64, height: 64, flexShrink: 0,
-                background: '#1B1030',
+                background: '#061720',
                 borderRadius: 12,
                 overflow: 'hidden',
-                border: '1px solid rgba(138, 70, 255, 0.50)',
-                boxShadow: '0 0 36px rgba(225, 77, 255, 0.35), inset 0 1px 0 rgba(255,255,255,0.06)',
+                border: '1px solid rgba(6, 182, 212, 0.40)',
+                boxShadow: '0 0 36px rgba(6, 182, 212, 0.30), inset 0 1px 0 rgba(255,255,255,0.06)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
               }}>
                 <img src={logoSrc} alt="VO Studio" style={{ width: 56, height: 56, objectFit: 'cover' }} />

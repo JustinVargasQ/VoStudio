@@ -82,6 +82,30 @@ const CONTENT = {
 
     SERVICES: [
       {
+        n: '00', title: 'IA & Cloud · todo conectado',
+        desc: 'Integramos chatbots con IA, voz, visión por computadora, mapas y APIs — usando Google Cloud, AWS, OpenAI o stacks open source según tu presupuesto.',
+        tagline: 'Inteligencia, geolocalización y automatización sin atarte a un solo proveedor.',
+        timeline: 'Variable según integración',
+        perfectFor: 'Negocios que necesitan IA, geolocalización o automatización sin construir todo desde cero — con stack flexible según presupuesto.',
+        includes: [
+          'Chatbots con IA generativa (Gemini, GPT, Claude o modelos open source)',
+          'Síntesis y reconocimiento de voz (Cloud Speech, Web Speech API)',
+          'Análisis de imágenes con visión por computadora (TensorFlow, Cloud Vision)',
+          'Mapas interactivos (Google Maps, Leaflet+OSM, Mapbox)',
+          'Integración de APIs (Google Workspace, Stripe, WhatsApp, Twilio, etc.)',
+          'Despliegue serverless (Cloud Functions, AWS Lambda, Vercel Edge)',
+        ],
+        stack: ['Gemini', 'OpenAI', 'TensorFlow.js', 'Leaflet', 'Maps API', 'Firebase', 'Cloud Functions', 'Pollinations'],
+        examples: [
+          { icon: '', title: 'Chatbot 24/7',              desc: 'Asistente que responde dudas frecuentes, agenda citas y deriva a humano si hace falta.' },
+          { icon: '', title: 'Voz a texto / texto a voz', desc: 'Dicta notas, transcribe llamadas o agrega narración automática a tu producto.' },
+          { icon: '', title: 'Análisis de imágenes',      desc: 'Detección de objetos, lectura de documentos (OCR), moderación de contenido.' },
+          { icon: '', title: 'Mapas inteligentes',        desc: 'Geocercas, rutas optimizadas, marcadores personalizados con datos en vivo.' },
+        ],
+        featured: true,
+        color: '#4285F4',
+      },
+      {
         n: '01', title: 'Páginas web',
         desc: 'Sitios que convierten visitas en clientes — rápidos, modernos y listos para Google.',
         tagline: 'Tu presencia digital, trabajando por vos las 24 horas.',
@@ -266,6 +290,30 @@ const CONTENT = {
     ],
 
     SERVICES: [
+      {
+        n: '00', title: 'AI & Cloud · all connected',
+        desc: 'We integrate AI chatbots, voice, computer vision, maps and APIs — using Google Cloud, AWS, OpenAI or open-source stacks based on your budget.',
+        tagline: 'Intelligence, geolocation and automation without vendor lock-in.',
+        timeline: 'Varies by integration',
+        perfectFor: 'Businesses needing AI, geolocation or automation without building from scratch — flexible stack per budget.',
+        includes: [
+          'Chatbots with generative AI (Gemini, GPT, Claude or open-source models)',
+          'Voice synthesis and recognition (Cloud Speech, Web Speech API)',
+          'Image analysis with computer vision (TensorFlow, Cloud Vision)',
+          'Interactive maps (Google Maps, Leaflet+OSM, Mapbox)',
+          'API integration (Google Workspace, Stripe, WhatsApp, Twilio, etc.)',
+          'Serverless deployment (Cloud Functions, AWS Lambda, Vercel Edge)',
+        ],
+        stack: ['Gemini', 'OpenAI', 'TensorFlow.js', 'Leaflet', 'Maps API', 'Firebase', 'Cloud Functions', 'Pollinations'],
+        examples: [
+          { icon: '', title: '24/7 chatbot',           desc: 'Assistant that answers FAQs, schedules meetings and hands off to a human when needed.' },
+          { icon: '', title: 'Voice ↔ text',           desc: 'Dictate notes, transcribe calls or add automatic narration to your product.' },
+          { icon: '', title: 'Image analysis',         desc: 'Object detection, document OCR, content moderation.' },
+          { icon: '', title: 'Smart maps',             desc: 'Geofences, optimized routes, custom markers with live data.' },
+        ],
+        featured: true,
+        color: '#4285F4',
+      },
       {
         n: '01', title: 'Websites',
         desc: 'Modern, fast sites that Google loves.',

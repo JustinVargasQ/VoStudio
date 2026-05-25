@@ -165,13 +165,12 @@ export function Navbar() {
       >
         <a href="#top" style={{ display: 'inline-flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
           <div style={{
-            // v4 → v5: bg #1B191A → #1B1030 (Morado Oscuro); border/glow → violet
             width: 36, height: 36, flexShrink: 0,
-            background: '#1B1030',
+            background: '#061720',
             borderRadius: 8,
             overflow: 'hidden',
-            border: '1px solid rgba(138, 70, 255, 0.45)',
-            boxShadow: '0 0 18px rgba(138, 70, 255, 0.25)',
+            border: '1px solid rgba(6, 182, 212, 0.40)',
+            boxShadow: '0 0 18px rgba(6, 182, 212, 0.22)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             transition: 'box-shadow 0.3s',
           }}>
@@ -210,8 +209,7 @@ export function Navbar() {
           <ThemeToggle />
           <a href="#contacto" className="vo-nav-cta"
             style={{
-              // v4 → v5: bg #943A1F → linear-gradient pink → violet
-              background: 'linear-gradient(135deg, #FF5C9A 0%, #8A46FF 100%)',
+              background: 'linear-gradient(135deg, #FF5C9A 0%, #06B6D4 100%)',
               color: '#FFFFFF',
               padding: '11px 22px', fontSize: 13, fontWeight: 700,
               display: 'inline-flex', alignItems: 'center', gap: 8,
@@ -248,7 +246,7 @@ export function Navbar() {
             <LocaleToggle />
             <ThemeToggle />
           </div>
-          <a href="#contacto" onClick={() => setOpen(false)} style={{ background: 'linear-gradient(135deg, #FF5C9A 0%, #8A46FF 100%)', color: '#FFFFFF', padding: '13px 20px', fontSize: 14, fontWeight: 700, textAlign: 'center', borderRadius: 999, boxShadow: '0 4px 22px rgba(138, 70, 255, 0.45)' }}>{t('common.cta.quoteProj')} →</a>
+          <a href="#contacto" onClick={() => setOpen(false)} style={{ background: 'linear-gradient(135deg, #FF5C9A 0%, #06B6D4 100%)', color: '#FFFFFF', padding: '13px 20px', fontSize: 14, fontWeight: 700, textAlign: 'center', borderRadius: 999, boxShadow: '0 4px 22px rgba(6, 182, 212, 0.40)' }}>{t('common.cta.quoteProj')} →</a>
         </div>
       )}
 

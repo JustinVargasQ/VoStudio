@@ -81,7 +81,7 @@ export const TECH = {
   },
 
   Vite: {
-    color: '#A855F7',
+    color: '#41D1FF',
     Logo: ({ size = 22 }) => (
       <svg width={size} height={size} viewBox="0 0 24 24">
         <defs>

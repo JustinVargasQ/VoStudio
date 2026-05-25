@@ -28,7 +28,7 @@ const MEMBER_META = [
   },
   {
     color:    A_L,
-    image:    'https://api.dicebear.com/9.x/lorelei/svg?seed=ZaylinLopez&backgroundColor=A855F7&backgroundType=gradientLinear',
+    image:    'https://api.dicebear.com/9.x/lorelei/svg?seed=ZaylinLopez&backgroundColor=0891B2&backgroundType=gradientLinear',
     location_es: 'San Carlos, Costa Rica',
     location_en: 'San Carlos, Costa Rica',
     bio_es:   'Ingeniera especializada en UX/UI y apps móviles. Diseña interfaces que son visualmente atractivas y fáciles de usar.',
@@ -316,7 +316,7 @@ export function Team() {
         style={{
           position: 'absolute', bottom: '-15%', left: '-8%',
           width: 420, height: 420, borderRadius: '50%',
-          background: '#A855F733', filter: 'blur(100px)',
+          background: '#06B6D433', filter: 'blur(100px)',
           pointerEvents: 'none',
         }}
       />

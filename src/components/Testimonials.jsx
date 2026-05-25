@@ -14,6 +14,7 @@ const TESTIMONIALS = {
       company: 'Ferretería El Constructor',
       project: 'E-commerce',
       initials: 'CM',
+      photo: 'https://api.dicebear.com/9.x/lorelei/svg?seed=CarlosMora&backgroundColor=0891B2&backgroundType=gradientLinear',
       color: A,
     },
     {
@@ -23,6 +24,7 @@ const TESTIMONIALS = {
       company: 'Academia TechKids CR',
       project: 'Página web',
       initials: 'AS',
+      photo: 'https://api.dicebear.com/9.x/lorelei/svg?seed=AndreaSolis&backgroundColor=FF5C9A&backgroundType=gradientLinear',
       color: A_D,
     },
     {
@@ -32,6 +34,7 @@ const TESTIMONIALS = {
       company: 'Constructora Sacha',
       project: 'Sistema a medida',
       initials: 'DV',
+      photo: 'https://api.dicebear.com/9.x/lorelei/svg?seed=DiegoVargas&backgroundColor=6AB7FF&backgroundType=gradientLinear',
       color: '#6AB7FF',
     },
   ],
@@ -43,6 +46,7 @@ const TESTIMONIALS = {
       company: 'Ferretería El Constructor',
       project: 'E-commerce',
       initials: 'CM',
+      photo: 'https://api.dicebear.com/9.x/lorelei/svg?seed=CarlosMora&backgroundColor=0891B2&backgroundType=gradientLinear',
       color: A,
     },
     {
@@ -52,6 +56,7 @@ const TESTIMONIALS = {
       company: 'Academia TechKids CR',
       project: 'Website',
       initials: 'AS',
+      photo: 'https://api.dicebear.com/9.x/lorelei/svg?seed=AndreaSolis&backgroundColor=FF5C9A&backgroundType=gradientLinear',
       color: A_D,
     },
     {
@@ -61,6 +66,7 @@ const TESTIMONIALS = {
       company: 'Constructora Sacha',
       project: 'Custom system',
       initials: 'DV',
+      photo: 'https://api.dicebear.com/9.x/lorelei/svg?seed=DiegoVargas&backgroundColor=6AB7FF&backgroundType=gradientLinear',
       color: '#6AB7FF',
     },
   ],
@@ -154,12 +160,26 @@ export function Testimonials() {
                 {/* Author */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: 12, paddingTop: 14, borderTop: `1px solid ${BORDER}` }}>
                   <div style={{
-                    width: 40, height: 40, borderRadius: '50%', flexShrink: 0,
+                    width: 44, height: 44, borderRadius: '50%', flexShrink: 0,
                     background: `${item.color}20`, border: `2px solid ${item.color}40`,
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontFamily: F_MONO, fontSize: 12, fontWeight: 700, color: item.color,
+                    overflow: 'hidden', position: 'relative',
                   }}>
-                    {item.initials}
+                    <img
+                      src={item.photo}
+                      alt={item.name}
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                        e.currentTarget.nextSibling.style.display = 'flex';
+                      }}
+                    />
+                    <div style={{
+                      display: 'none', position: 'absolute', inset: 0,
+                      alignItems: 'center', justifyContent: 'center',
+                      fontFamily: F_MONO, fontSize: 12, fontWeight: 700, color: item.color,
+                    }}>
+                      {item.initials}
+                    </div>
                   </div>
                   <div>
                     <div style={{ fontSize: 14, fontWeight: 700, color: TEXT, lineHeight: 1.2 }}>{item.name}</div>

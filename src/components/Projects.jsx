@@ -32,12 +32,12 @@ function ProjectPanel({ project, media, t, isDark }) {
   });
   const imageY = useTransform(scrollYProgress, [0, 1], ['-3%', '3%']);
 
-  // v4 → v5: stage swapped from terracotta-era cream/charcoal to neon-nebula palette.
-  const stageBg     = isDark ? '#0F0820' : '#F6F2FF';
-  const dotColor    = isDark ? 'rgba(232,223,255,0.08)' : 'rgba(138,70,255,0.10)';
-  const watermark   = isDark ? 'rgba(232,223,255,0.07)' : 'rgba(93,43,255,0.10)';
-  const metaColor   = isDark ? 'rgba(232,223,255,0.55)' : 'rgba(27,16,48,0.55)';
-  const vignetteBg  = isDark ? 'rgba(15,8,32,0.4)' : 'rgba(246,242,255,0.4)';
+  // v6: midnight signal palette
+  const stageBg     = isDark ? '#04141E' : '#F5FBFF';
+  const dotColor    = isDark ? 'rgba(6,182,212,0.08)' : 'rgba(6,182,212,0.10)';
+  const watermark   = isDark ? 'rgba(6,182,212,0.07)' : 'rgba(6,182,212,0.10)';
+  const metaColor   = isDark ? 'rgba(165,243,252,0.55)' : 'rgba(12,31,42,0.55)';
+  const vignetteBg  = isDark ? 'rgba(4,20,30,0.4)' : 'rgba(245,251,255,0.4)';
 
   return (
     <div ref={ref} style={{
@@ -66,7 +66,7 @@ function ProjectPanel({ project, media, t, isDark }) {
         <div aria-hidden style={{
           position: 'absolute', bottom: '-10%', left: '-5%',
           width: 420, height: 420, borderRadius: '50%',
-          background: `radial-gradient(circle, #E14DFF18 0%, transparent 65%)`,
+          background: `radial-gradient(circle, #22D3EE18 0%, transparent 65%)`,
           filter: 'blur(55px)', pointerEvents: 'none',
         }} />
 
@@ -105,8 +105,8 @@ function ProjectPanel({ project, media, t, isDark }) {
               maxHeight: '100%',
               objectFit: 'contain',
               boxShadow: isDark
-                ? '0 60px 120px rgba(0,0,0,0.55), 0 0 80px rgba(138,70,255,0.18), 0 0 0 1px rgba(232,223,255,0.10)'
-                : '0 60px 120px rgba(93,43,255,0.18), 0 0 60px rgba(225,77,255,0.10), 0 0 0 1px rgba(138,70,255,0.15)',
+                ? '0 60px 120px rgba(0,0,0,0.55), 0 0 80px rgba(6,182,212,0.18), 0 0 0 1px rgba(165,243,252,0.10)'
+                : '0 60px 120px rgba(6,182,212,0.18), 0 0 60px rgba(34,211,238,0.10), 0 0 0 1px rgba(6,182,212,0.15)',
               borderRadius: 6,
             }}
           />
@@ -149,7 +149,7 @@ function ProjectPanel({ project, media, t, isDark }) {
                   style={{
                     width: 'clamp(44px, 4.5vw, 64px)',
                     height: 'clamp(44px, 4.5vw, 64px)',
-                    border: `2px solid ${isActive ? A : (isDark ? 'rgba(232,223,255,0.20)' : 'rgba(138,70,255,0.25)')}`,
+                    border: `2px solid ${isActive ? A : (isDark ? 'rgba(6,182,212,0.25)' : 'rgba(6,182,212,0.30)')}`,
                     overflow: 'hidden',
                     opacity: isActive ? 1 : 0.55,
                     transition: 'all 0.2s ease',
@@ -188,7 +188,7 @@ function ProjectPanel({ project, media, t, isDark }) {
             <span style={{
               fontFamily: F_MONO, fontSize: 10, fontWeight: 700,
               letterSpacing: '0.14em', textTransform: 'uppercase',
-              color: '#fff', background: `linear-gradient(135deg, ${A} 0%, #E14DFF 100%)`,
+              color: '#fff', background: `linear-gradient(135deg, ${A} 0%, #22D3EE 100%)`,
               padding: '5px 14px', borderRadius: 999,
             }}>{project.tag}</span>
             <span style={{
@@ -234,8 +234,8 @@ function ProjectPanel({ project, media, t, isDark }) {
                 <div key={j} style={{
                   display: 'flex', gap: 12, alignItems: 'flex-start',
                   padding: '11px 14px',
-                  background: isDark ? 'rgba(138,70,255,0.07)' : 'rgba(138,70,255,0.05)',
-                  border: `1px solid rgba(138,70,255,0.14)`,
+                  background: isDark ? 'rgba(6,182,212,0.07)' : 'rgba(6,182,212,0.05)',
+                  border: `1px solid rgba(6,182,212,0.14)`,
                   borderRadius: 10,
                 }}>
                   <span style={{
@@ -258,8 +258,8 @@ function ProjectPanel({ project, media, t, isDark }) {
             {project.metrics.map((m, j) => (
               <div key={j} style={{
                 padding: '14px 10px', textAlign: 'center',
-                background: isDark ? 'rgba(138,70,255,0.09)' : 'rgba(138,70,255,0.06)',
-                border: `1px solid rgba(138,70,255,0.18)`,
+                background: isDark ? 'rgba(6,182,212,0.09)' : 'rgba(6,182,212,0.06)',
+                border: `1px solid rgba(6,182,212,0.18)`,
                 borderRadius: 12,
               }}>
                 <div style={{ fontFamily: F_DISPLAY, fontStyle: 'italic', fontSize: 26, color: A, letterSpacing: '-0.02em', lineHeight: 1, marginBottom: 5 }}>{m.v}</div>
@@ -294,7 +294,7 @@ function ProjectPanel({ project, media, t, isDark }) {
                 alignSelf: 'flex-start',
                 display: 'inline-flex', alignItems: 'center', gap: 10,
                 padding: '14px 28px', fontSize: 12, fontWeight: 700,
-                background: `linear-gradient(135deg, ${A} 0%, #E14DFF 100%)`,
+                background: `linear-gradient(135deg, ${A} 0%, #22D3EE 100%)`,
                 color: '#fff',
                 borderRadius: 999,
                 fontFamily: F_MONO, letterSpacing: '0.10em', textTransform: 'uppercase',
