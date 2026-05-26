@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, createContext, useContext } from 'react';
 import { motion, AnimatePresence, useSpring } from 'framer-motion';
-import { Check, Star, X, ArrowUpRight, Clock, Monitor, ShoppingBag, LayoutDashboard, Gauge, Heart, Users, BarChart3, Settings, Layers, FileText, Search } from 'lucide-react';
+import { Check, Star, X, ArrowUpRight, Clock, Monitor, ShoppingBag, LayoutDashboard, Gauge, Heart, Users, BarChart3, Settings, Layers, FileText, Search, Plus } from 'lucide-react';
 import {
   BG, BG_ALT, BG_SECTION, BG_CARD, BG_POPULAR, POPULAR_FG, POPULAR_BORDER,
   TEXT, TEXT_S, TEXT_D, BORDER, A, A_L, A_D, A2, F_DISPLAY, F_MONO, MAX_W, PAD_X,
