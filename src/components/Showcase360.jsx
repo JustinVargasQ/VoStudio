@@ -191,7 +191,7 @@ export function Showcase360() {
           {/* ── RIGHT — interactive panorama ─────────────────────────────── */}
           <RevealItem y={32}>
             <div style={{ position: 'relative' }}>
-              <Panorama360 height={420} label={t('showcase360.dragHint')} />
+              <Panorama360 height={460} initialScene="lobby" />
 
               {/* Helper text under viewer */}
               <div style={{
@@ -203,7 +203,7 @@ export function Showcase360() {
                   <MapPin size={12} strokeWidth={2} />
                   {t('showcase360.demoLabel')}
                 </span>
-                <span>{t('showcase360.compatibility')}</span>
+                <span>{t('showcase360.hint')}</span>
               </div>
             </div>
           </RevealItem>

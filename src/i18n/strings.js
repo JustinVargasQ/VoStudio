@@ -176,8 +176,9 @@ export const STRINGS = {
     'showcase360.use.events':      'Eventos & venues',
     'showcase360.cta':           'Cotizar mi tour 360°',
     'showcase360.dragHint':      'Arrastrá para mirar',
-    'showcase360.demoLabel':     'Demo · Hotel boutique',
+    'showcase360.demoLabel':     'Demo · Hotel boutique · 4 escenas',
     'showcase360.compatibility': 'Compatible con web, móvil y VR',
+    'showcase360.hint':          'Tocá los puntos rosados para navegar · los lila para info',
 
     'projects.eyebrow':       '03 — Selección',
     'projects.title.1':       'Trabajo',
@@ -460,8 +461,9 @@ export const STRINGS = {
     'showcase360.use.events':      'Events & venues',
     'showcase360.cta':           'Quote my 360° tour',
     'showcase360.dragHint':      'Drag to look around',
-    'showcase360.demoLabel':     'Demo · Boutique hotel',
+    'showcase360.demoLabel':     'Demo · Boutique hotel · 4 scenes',
     'showcase360.compatibility': 'Works on web, mobile and VR',
+    'showcase360.hint':          'Tap pink dots to navigate · lilac dots for info',
 
     'projects.eyebrow':       '03 — Selection',
     'projects.title.1':       'Recent',
