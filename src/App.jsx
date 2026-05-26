@@ -22,6 +22,7 @@ function CurtainOverlay() {
 }
 import { Hero } from './components/Hero';
 import { Marquee } from './components/Marquee';
+import { Showcase360 } from './components/Showcase360';
 import { Services } from './components/Services';
 import { Pricing } from './components/Pricing';
 import { Projects } from './components/Projects';
@@ -43,6 +44,7 @@ export default function App() {
       <main>
         <Hero />
         <Marquee />
+        <Showcase360 />
         <Services />
         <Pricing />
         <Projects />

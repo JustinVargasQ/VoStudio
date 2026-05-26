@@ -133,6 +133,7 @@ export function Navbar() {
   const logoSrc = theme === 'dark' ? logoBlancoSrc : logoNaranjaSrc;
 
   const LINKS = [
+    { href: '#tours-360', label: t('nav.tours360'), highlight: true },
     { href: '#servicios', label: t('nav.services') },
     { href: '#precios',   label: t('nav.pricing') },
     { href: '#proyectos', label: t('nav.projects') },
@@ -192,8 +193,24 @@ export function Navbar() {
           </span>
         </a>
 
-        <nav style={{ display: 'flex', gap: 28, alignItems: 'center' }} className="vo-nav-links">
-          {LINKS.map((l) => (
+        <nav style={{ display: 'flex', gap: 22, alignItems: 'center' }} className="vo-nav-links">
+          {LINKS.map((l) => l.highlight ? (
+            <a key={l.href} href={l.href}
+              style={{
+                fontSize: 13, fontWeight: 700,
+                padding: '5px 12px', borderRadius: 999,
+                background: 'linear-gradient(135deg, #FF5C9A, #B79CFF)',
+                color: '#fff', display: 'inline-flex', alignItems: 'center', gap: 6,
+                boxShadow: '0 4px 14px rgba(255,92,154,0.45)',
+                transition: 'transform 0.2s, box-shadow 0.2s',
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-1px)'; e.currentTarget.style.boxShadow = '0 6px 22px rgba(255,92,154,0.65)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)';    e.currentTarget.style.boxShadow = '0 4px 14px rgba(255,92,154,0.45)'; }}
+            >
+              <span style={{ fontSize: 9, padding: '1px 5px', background: 'rgba(255,255,255,0.25)', borderRadius: 4, letterSpacing: '0.05em' }}>360°</span>
+              {l.label}
+            </a>
+          ) : (
             <a key={l.href} href={l.href}
               style={{ fontSize: 14, fontWeight: 500, color: TEXT_S, transition: 'color 0.15s' }}
               onMouseEnter={(e) => (e.currentTarget.style.color = TEXT)}

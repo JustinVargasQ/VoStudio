@@ -42,64 +42,115 @@ function BrowserFrame({ url, children, borderColor = 'rgba(255,92,154,0.22)', ri
   );
 }
 
-// ── Mockup 1: LANDING — modern marketing site with hero + features + cta ────
+// ═════════════════════════════════════════════════════════════════════════════
+// INTERACTIVE MOCKUPS — every one updates on a timer or on user click/hover
+// ═════════════════════════════════════════════════════════════════════════════
+
+// ── Mockup 1: LANDING — rotating headlines + animated CTA + interactive feats ─
 function MockupLanding() {
   const { t } = useApp();
+  const headlines = [
+    t('mockup.landing.headline1'),
+    t('mockup.landing.headline2'),
+    t('mockup.landing.headline3'),
+  ];
+  const [hIndex, setHIndex] = useState(0);
+  const [activeFeat, setActiveFeat] = useState(0);
+
+  useEffect(() => {
+    const headTimer = setInterval(() => setHIndex(i => (i + 1) % headlines.length), 3400);
+    const featTimer = setInterval(() => setActiveFeat(i => (i + 1) % 3), 2200);
+    return () => { clearInterval(headTimer); clearInterval(featTimer); };
+  }, [headlines.length]);
+
+  const FEATS = [
+    { c: '#FF5C9A', l: t('mockup.landing.feat.fast') },
+    { c: '#B79CFF', l: t('mockup.landing.feat.secure') },
+    { c: '#FF6A63', l: t('mockup.landing.feat.mobile') },
+  ];
+
   return (
     <BrowserFrame url={t('mockup.url.landing')} borderColor="rgba(255,92,154,0.30)">
-      {/* Top nav with logo + links + cta */}
+      {/* Top nav */}
       <div style={{ padding: '8px 14px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.05)', background: 'rgba(255,92,154,0.04)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-          <div style={{ width: 14, height: 14, borderRadius: 4, background: 'linear-gradient(135deg, #FF5C9A, #B79CFF)' }} />
+          <motion.div animate={{ rotate: [0, 360] }} transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
+            style={{ width: 14, height: 14, borderRadius: 4, background: 'linear-gradient(135deg, #FF5C9A, #B79CFF)' }} />
           <div style={{ width: 28, height: 6, borderRadius: 2, background: 'rgba(255,255,255,0.85)' }} />
         </div>
         <div style={{ display: 'flex', gap: 11, alignItems: 'center' }}>
           {[t('mockup.nav.home'), t('mockup.nav.services'), t('mockup.nav.contact')].map(l => (
             <span key={l} style={{ fontSize: 8, color: 'rgba(255,255,255,0.50)' }}>{l}</span>
           ))}
-          <div style={{ padding: '3px 9px', background: 'linear-gradient(135deg, #FF5C9A, #E03877)', borderRadius: 4, boxShadow: '0 2px 8px rgba(255,92,154,0.35)' }}>
+          <motion.div whileHover={{ scale: 1.06 }}
+            style={{ padding: '3px 9px', background: 'linear-gradient(135deg, #FF5C9A, #E03877)', borderRadius: 4, boxShadow: '0 2px 8px rgba(255,92,154,0.45)' }}>
             <span style={{ fontSize: 8, color: '#fff', fontWeight: 700 }}>{t('mockup.cta.contact')}</span>
-          </div>
+          </motion.div>
         </div>
       </div>
-      {/* Hero with ambient orbs */}
-      <div style={{ padding: '18px 14px 16px', background: 'linear-gradient(135deg, #06030D 0%, #1B1030 60%, #2A0F1E 100%)', position: 'relative', overflow: 'hidden' }}>
-        <div aria-hidden style={{ position: 'absolute', top: -20, right: -20, width: 100, height: 100, borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,92,154,0.35), transparent 70%)', filter: 'blur(20px)' }} />
-        <div aria-hidden style={{ position: 'absolute', bottom: -20, left: -20, width: 90, height: 90, borderRadius: '50%', background: 'radial-gradient(circle, rgba(183,156,255,0.30), transparent 70%)', filter: 'blur(20px)' }} />
+      {/* Hero with rotating headline */}
+      <div style={{ padding: '18px 14px 16px', background: 'linear-gradient(135deg, #06030D 0%, #1B1030 60%, #2A0F1E 100%)', position: 'relative', overflow: 'hidden', minHeight: 110 }}>
+        <motion.div aria-hidden animate={{ scale: [1, 1.15, 1], opacity: [0.7, 1, 0.7] }} transition={{ duration: 5, repeat: Infinity }}
+          style={{ position: 'absolute', top: -20, right: -20, width: 100, height: 100, borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,92,154,0.35), transparent 70%)', filter: 'blur(20px)' }} />
+        <motion.div aria-hidden animate={{ scale: [1.1, 1, 1.1], opacity: [1, 0.7, 1] }} transition={{ duration: 6, repeat: Infinity }}
+          style={{ position: 'absolute', bottom: -20, left: -20, width: 90, height: 90, borderRadius: '50%', background: 'radial-gradient(circle, rgba(183,156,255,0.35), transparent 70%)', filter: 'blur(20px)' }} />
         <div style={{ position: 'relative', zIndex: 1 }}>
-          <div style={{ width: '78%', height: 12, borderRadius: 3, background: 'rgba(255,255,255,0.92)', marginBottom: 5 }} />
-          <div style={{ width: '55%', height: 12, borderRadius: 3, background: 'linear-gradient(90deg, #FF5C9A, #B79CFF)', marginBottom: 8 }} />
-          <div style={{ width: '70%', height: 6, borderRadius: 2, background: 'rgba(255,255,255,0.35)', marginBottom: 14 }} />
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={hIndex}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.4 }}
+              style={{ fontSize: 12, fontWeight: 700, color: '#fff', marginBottom: 4, lineHeight: 1.2, minHeight: 28 }}
+            >
+              {headlines[hIndex]}
+            </motion.div>
+          </AnimatePresence>
+          <div style={{ width: '60%', height: 4, borderRadius: 2, background: 'linear-gradient(90deg, #FF5C9A, #B79CFF)', marginBottom: 12 }} />
           <div style={{ display: 'flex', gap: 7 }}>
-            <div style={{ padding: '6px 15px', background: 'linear-gradient(135deg, #FF5C9A, #B79CFF)', borderRadius: 5, boxShadow: '0 4px 12px rgba(255,92,154,0.45)' }}>
+            <motion.div animate={{ boxShadow: ['0 4px 12px rgba(255,92,154,0.40)', '0 6px 22px rgba(255,92,154,0.70)', '0 4px 12px rgba(255,92,154,0.40)'] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              style={{ padding: '6px 15px', background: 'linear-gradient(135deg, #FF5C9A, #B79CFF)', borderRadius: 5 }}>
               <span style={{ fontSize: 9, color: '#fff', fontWeight: 700 }}>{t('mockup.cta.start')}</span>
-            </div>
+            </motion.div>
             <div style={{ padding: '6px 15px', border: '1px solid rgba(255,255,255,0.25)', borderRadius: 5 }}>
               <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.65)' }}>{t('mockup.cta.more')}</span>
             </div>
           </div>
         </div>
       </div>
-      {/* Features strip */}
+      {/* Features strip — active one highlighted */}
       <div style={{ padding: '11px 14px 13px', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 7 }}>
-        {[
-          { c: '#FF5C9A', l: t('mockup.landing.feat.fast') },
-          { c: '#B79CFF', l: t('mockup.landing.feat.secure') },
-          { c: '#FF6A63', l: t('mockup.landing.feat.mobile') },
-        ].map(({ c, l }) => (
-          <div key={l} style={{ padding: '8px 9px', background: `${c}10`, border: `1px solid ${c}28`, borderRadius: 7 }}>
-            <div style={{ width: 16, height: 16, borderRadius: 4, background: `linear-gradient(135deg, ${c}, ${c}aa)`, marginBottom: 6, boxShadow: `0 2px 8px ${c}40` }} />
-            <div style={{ fontSize: 8.5, color: 'rgba(255,255,255,0.82)', fontWeight: 600, marginBottom: 3 }}>{l}</div>
-            <div style={{ width: '85%', height: 3, borderRadius: 2, background: `${c}35` }} />
-            <div style={{ width: '50%', height: 3, borderRadius: 2, background: `${c}20`, marginTop: 2 }} />
-          </div>
-        ))}
+        {FEATS.map(({ c, l }, i) => {
+          const isActive = activeFeat === i;
+          return (
+            <motion.div key={l}
+              animate={{ scale: isActive ? 1.05 : 1, y: isActive ? -2 : 0 }}
+              transition={{ duration: 0.35 }}
+              onMouseEnter={() => setActiveFeat(i)}
+              style={{
+                padding: '8px 9px',
+                background: isActive ? `${c}25` : `${c}10`,
+                border: `1px solid ${isActive ? c + '70' : c + '28'}`,
+                borderRadius: 7,
+                boxShadow: isActive ? `0 6px 18px ${c}40` : 'none',
+                cursor: 'pointer',
+                transition: 'background 0.3s, border 0.3s, box-shadow 0.3s',
+              }}>
+              <div style={{ width: 16, height: 16, borderRadius: 4, background: `linear-gradient(135deg, ${c}, ${c}aa)`, marginBottom: 6, boxShadow: `0 2px 8px ${c}50` }} />
+              <div style={{ fontSize: 8.5, color: isActive ? '#fff' : 'rgba(255,255,255,0.82)', fontWeight: 600, marginBottom: 3 }}>{l}</div>
+              <div style={{ width: isActive ? '95%' : '85%', height: 3, borderRadius: 2, background: `${c}55`, transition: 'width 0.4s' }} />
+              <div style={{ width: isActive ? '70%' : '50%', height: 3, borderRadius: 2, background: `${c}30`, marginTop: 2, transition: 'width 0.4s' }} />
+            </motion.div>
+          );
+        })}
       </div>
     </BrowserFrame>
   );
 }
 
-// ── Mockup 2: SITIO COMPLETO — CMS admin with multi-page list ────────────────
+// ── Mockup 2: SITIO COMPLETO — CMS with cycling active page + live counter ───
 function MockupSitio() {
   const { t } = useApp();
   const ACCENT = '#B79CFF';
@@ -110,29 +161,50 @@ function MockupSitio() {
     { name: t('mockup.cms.page.blog'),    status: 'draft'  },
     { name: t('mockup.cms.page.contact'), status: 'online' },
   ];
+  const [activeMenu, setActiveMenu]   = useState(0);
+  const [savedAgo, setSavedAgo]       = useState(2);
+  const [activePage, setActivePage]   = useState(null);
+
+  useEffect(() => {
+    const sav = setInterval(() => setSavedAgo(s => s >= 60 ? 1 : s + 1), 1000);
+    const men = setInterval(() => setActiveMenu(i => (i + 1) % 4), 3200);
+    const pag = setInterval(() => setActivePage(i => i === null ? 0 : (i + 1) % pages.length), 1800);
+    return () => { clearInterval(sav); clearInterval(men); clearInterval(pag); };
+  }, [pages.length]);
+
+  const MENU = [
+    { Icon: FileText, color: ACCENT },
+    { Icon: Layers,   color: '#FF5C9A' },
+    { Icon: Users,    color: '#FF6A63' },
+    { Icon: Settings, color: '#E03877' },
+  ];
+
   return (
     <BrowserFrame url={t('mockup.url.cms')} borderColor="rgba(183,156,255,0.30)">
       <div style={{ display: 'grid', gridTemplateColumns: '58px 1fr', minHeight: 200 }}>
         {/* Sidebar */}
         <div style={{ background: '#0F0820', borderRight: '1px solid rgba(255,255,255,0.06)', padding: '11px 7px', display: 'flex', flexDirection: 'column', gap: 6 }}>
-          {/* Logo */}
           <div style={{ width: 24, height: 24, borderRadius: 6, background: 'linear-gradient(135deg, #FF5C9A, #B79CFF)', alignSelf: 'center', marginBottom: 4, boxShadow: '0 4px 10px rgba(255,92,154,0.35)' }} />
-          {[
-            { Icon: FileText, active: true, color: ACCENT },
-            { Icon: Layers,   active: false, color: '#FF5C9A' },
-            { Icon: Users,    active: false, color: '#FF6A63' },
-            { Icon: Settings, active: false, color: '#E03877' },
-          ].map(({ Icon, active, color }, i) => (
-            <div key={i} style={{
-              width: '100%', height: 22, borderRadius: 6,
-              background: active ? `${color}22` : 'transparent',
-              border: active ? `1px solid ${color}55` : '1px solid transparent',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              boxShadow: active ? `0 0 10px ${color}30` : 'none',
-            }}>
-              <Icon size={11} color={active ? color : 'rgba(255,255,255,0.40)'} strokeWidth={2} />
-            </div>
-          ))}
+          {MENU.map(({ Icon, color }, i) => {
+            const active = activeMenu === i;
+            return (
+              <motion.div key={i}
+                animate={{ scale: active ? 1.08 : 1 }}
+                transition={{ duration: 0.3 }}
+                onMouseEnter={() => setActiveMenu(i)}
+                style={{
+                  width: '100%', height: 22, borderRadius: 6,
+                  background: active ? `${color}22` : 'transparent',
+                  border: active ? `1px solid ${color}55` : '1px solid transparent',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  boxShadow: active ? `0 0 12px ${color}45` : 'none',
+                  cursor: 'pointer',
+                  transition: 'background 0.3s, border 0.3s, box-shadow 0.3s',
+                }}>
+                <Icon size={11} color={active ? color : 'rgba(255,255,255,0.40)'} strokeWidth={2} />
+              </motion.div>
+            );
+          })}
         </div>
         {/* Content */}
         <div style={{ padding: '12px', background: 'linear-gradient(180deg, #06030D 0%, #0A0518 100%)' }}>
@@ -140,85 +212,139 @@ function MockupSitio() {
             <div style={{ fontSize: 8.5, color: 'rgba(255,255,255,0.55)', fontFamily: F_MONO, letterSpacing: '0.10em', fontWeight: 700 }}>
               {t('mockup.cms.eyebrow')}
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 4, padding: '3px 7px', borderRadius: 4, background: `${ACCENT}18`, border: `1px solid ${ACCENT}38` }}>
-              <span style={{ width: 5, height: 5, borderRadius: '50%', background: ACCENT, boxShadow: `0 0 6px ${ACCENT}` }} />
-              <span style={{ fontSize: 7.5, color: ACCENT, fontFamily: F_MONO, fontWeight: 700 }}>CMS</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+              <span style={{ fontSize: 7, color: 'rgba(255,255,255,0.45)', fontFamily: F_MONO }}>
+                {t('mockup.cms.saved')} {savedAgo}s
+              </span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 4, padding: '3px 7px', borderRadius: 4, background: `${ACCENT}18`, border: `1px solid ${ACCENT}38` }}>
+                <motion.span animate={{ opacity: [1, 0.4, 1] }} transition={{ duration: 1.5, repeat: Infinity }}
+                  style={{ width: 5, height: 5, borderRadius: '50%', background: ACCENT, boxShadow: `0 0 6px ${ACCENT}` }} />
+                <span style={{ fontSize: 7.5, color: ACCENT, fontFamily: F_MONO, fontWeight: 700 }}>CMS</span>
+              </div>
             </div>
           </div>
-          {pages.map(({ name, status }) => {
+          {pages.map(({ name, status }, i) => {
             const isOnline = status === 'online';
             const c = isOnline ? '#27C93F' : '#FFBD2E';
+            const isHL = activePage === i;
             return (
-              <div key={name} style={{
-                display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                padding: '6px 10px', marginBottom: 4,
-                background: 'rgba(255,255,255,0.04)', borderRadius: 6,
-                border: '1px solid rgba(255,255,255,0.06)',
-              }}>
+              <motion.div key={name}
+                animate={{ x: isHL ? 4 : 0 }}
+                transition={{ duration: 0.3 }}
+                onMouseEnter={() => setActivePage(i)}
+                style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                  padding: '6px 10px', marginBottom: 4,
+                  background: isHL ? `${ACCENT}20` : 'rgba(255,255,255,0.04)',
+                  border: `1px solid ${isHL ? ACCENT + '50' : 'rgba(255,255,255,0.06)'}`,
+                  borderRadius: 6, cursor: 'pointer',
+                  transition: 'background 0.25s, border 0.25s',
+                }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                  <FileText size={9} color="rgba(255,255,255,0.50)" strokeWidth={2} />
-                  <span style={{ fontSize: 8.5, color: 'rgba(255,255,255,0.80)', fontWeight: 500 }}>{name}</span>
+                  <FileText size={9} color={isHL ? ACCENT : 'rgba(255,255,255,0.50)'} strokeWidth={2} />
+                  <span style={{ fontSize: 8.5, color: 'rgba(255,255,255,0.85)', fontWeight: 500 }}>{name}</span>
                 </div>
-                <span style={{ fontSize: 7, color: c, fontFamily: F_MONO }}>
-                  {isOnline ? t('mockup.cms.online') : t('mockup.cms.draft')}
+                <span style={{ fontSize: 7, color: c, fontFamily: F_MONO, display: 'flex', alignItems: 'center', gap: 3 }}>
+                  <motion.span animate={{ opacity: isOnline ? [1, 0.45, 1] : 1 }} transition={{ duration: 1.6, repeat: Infinity }}
+                    style={{ width: 4, height: 4, borderRadius: '50%', background: c, boxShadow: `0 0 5px ${c}` }} />
+                  {isOnline ? t('mockup.cms.online').replace('● ', '') : t('mockup.cms.draft').replace('● ', '')}
                 </span>
-              </div>
+              </motion.div>
             );
           })}
-          <div style={{ marginTop: 8, padding: '7px 10px', background: `linear-gradient(135deg, ${ACCENT}22, #FF5C9A18)`, border: `1px solid ${ACCENT}48`, borderRadius: 6, display: 'flex', alignItems: 'center', gap: 6, boxShadow: `0 4px 12px ${ACCENT}20` }}>
-            <div style={{ width: 10, height: 10, borderRadius: 3, background: ACCENT, boxShadow: `0 0 8px ${ACCENT}` }} />
+          <motion.div animate={{ boxShadow: [`0 4px 12px ${ACCENT}20`, `0 6px 22px ${ACCENT}55`, `0 4px 12px ${ACCENT}20`] }}
+            transition={{ duration: 2.4, repeat: Infinity }}
+            style={{ marginTop: 8, padding: '7px 10px', background: `linear-gradient(135deg, ${ACCENT}22, #FF5C9A18)`, border: `1px solid ${ACCENT}48`, borderRadius: 6, display: 'flex', alignItems: 'center', gap: 6 }}>
+            <Plus size={10} color={ACCENT} strokeWidth={2.5} />
             <span style={{ fontSize: 8, color: '#fff', fontFamily: F_MONO, fontWeight: 600 }}>{t('mockup.cms.newEntry')}</span>
-          </div>
+          </motion.div>
         </div>
       </div>
     </BrowserFrame>
   );
 }
 
-// ── Mockup 3: E-COMMERCE — product grid with prices in coral/pink ────────────
+// ── Mockup 3: E-COMMERCE — clickable products, live cart count, floating +1 ──
 function MockupEcommerce() {
   const { t } = useApp();
   const ACCENT = '#FF6A63';
   const products = [
-    { name: `${t('mockup.shop.product')} A`, price: '₡24 900', color: '#FF5C9A' },
-    { name: `${t('mockup.shop.product')} B`, price: '₡18 500', color: '#B79CFF' },
-    { name: `${t('mockup.shop.product')} C`, price: '₡32 000', color: '#FF6A63' },
-    { name: `${t('mockup.shop.product')} D`, price: '₡12 800', color: '#E03877' },
+    { name: `${t('mockup.shop.product')} A`, price: 24900, color: '#FF5C9A' },
+    { name: `${t('mockup.shop.product')} B`, price: 18500, color: '#B79CFF' },
+    { name: `${t('mockup.shop.product')} C`, price: 32000, color: '#FF6A63' },
+    { name: `${t('mockup.shop.product')} D`, price: 12800, color: '#E03877' },
   ];
+  const [cart, setCart]         = useState({ items: 3, total: 64200 });
+  const [pop, setPop]           = useState(null);   // index of last-added product (for +1 toast)
+  const [filter, setFilter]     = useState(0);
+
+  const addToCart = (i) => {
+    setCart(c => ({ items: c.items + 1, total: c.total + products[i].price }));
+    setPop(i);
+    setTimeout(() => setPop(null), 900);
+  };
+
+  const fmtPrice = (n) => `₡${n.toLocaleString('es-CR').replace(/,/g, ' ')}`;
+
   return (
     <BrowserFrame
       url={t('mockup.url.shop')}
       borderColor="rgba(255,106,99,0.30)"
       rightSlot={
-        <span style={{ display: 'flex', alignItems: 'center', gap: 3, fontSize: 8.5, color: ACCENT, fontWeight: 700 }}>
-          <ShoppingBag size={9} strokeWidth={2.5} /> 3
-        </span>
+        <motion.span key={cart.items}
+          initial={{ scale: 0.6 }} animate={{ scale: 1 }} transition={{ type: 'spring', stiffness: 480, damping: 20 }}
+          style={{ display: 'flex', alignItems: 'center', gap: 3, fontSize: 8.5, color: ACCENT, fontWeight: 700 }}>
+          <ShoppingBag size={9} strokeWidth={2.5} /> {cart.items}
+        </motion.span>
       }
     >
-      {/* Filter strip */}
+      {/* Filter strip + live total */}
       <div style={{ padding: '8px 12px 6px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
         <div style={{ display: 'flex', gap: 5 }}>
           {[t('mockup.shop.all'), 'Skincare', 'Makeup'].map((l, i) => (
-            <span key={l} style={{
-              padding: '2px 8px', borderRadius: 99,
-              background: i === 0 ? `${ACCENT}22` : 'rgba(255,255,255,0.04)',
-              border: i === 0 ? `1px solid ${ACCENT}50` : '1px solid rgba(255,255,255,0.07)',
-              fontSize: 7.5, color: i === 0 ? ACCENT : 'rgba(255,255,255,0.55)', fontWeight: 600,
-            }}>{l}</span>
+            <span key={l} onClick={() => setFilter(i)}
+              style={{
+                padding: '2px 8px', borderRadius: 99, cursor: 'pointer',
+                background: filter === i ? `${ACCENT}30` : 'rgba(255,255,255,0.04)',
+                border: filter === i ? `1px solid ${ACCENT}60` : '1px solid rgba(255,255,255,0.07)',
+                fontSize: 7.5, color: filter === i ? ACCENT : 'rgba(255,255,255,0.55)', fontWeight: 600,
+                transition: 'background 0.25s, color 0.25s, border 0.25s',
+              }}>{l}</span>
           ))}
         </div>
-        <span style={{ fontSize: 7.5, color: 'rgba(255,255,255,0.42)', fontFamily: F_MONO }}>{t('mockup.shop.catalog')}</span>
+        <motion.span key={cart.total}
+          initial={{ scale: 1.15, color: ACCENT }} animate={{ scale: 1, color: 'rgba(255,255,255,0.7)' }}
+          transition={{ duration: 0.45 }}
+          style={{ fontSize: 8, fontFamily: F_MONO, fontWeight: 700 }}>
+          {fmtPrice(cart.total)}
+        </motion.span>
       </div>
       {/* Product grid */}
       <div style={{ padding: '10px 12px 12px' }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 7 }}>
-          {products.map(({ name, price, color }) => (
-            <div key={name} style={{
-              background: 'rgba(255,255,255,0.04)',
-              border: '1px solid rgba(255,255,255,0.07)',
-              borderRadius: 8, overflow: 'hidden',
-              transition: 'transform 0.3s',
-            }}>
+          {products.map(({ name, price, color }, i) => (
+            <motion.div key={name}
+              whileHover={{ y: -3, boxShadow: `0 10px 24px ${color}40` }}
+              whileTap={{ scale: 0.96 }}
+              onClick={() => addToCart(i)}
+              style={{
+                background: 'rgba(255,255,255,0.04)',
+                border: '1px solid rgba(255,255,255,0.07)',
+                borderRadius: 8, overflow: 'hidden', cursor: 'pointer',
+                position: 'relative',
+              }}>
+              <AnimatePresence>
+                {pop === i && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 0, scale: 0.5 }}
+                    animate={{ opacity: 1, y: -22, scale: 1 }}
+                    exit={{ opacity: 0, y: -34 }}
+                    transition={{ duration: 0.6 }}
+                    style={{ position: 'absolute', top: 18, right: 6, zIndex: 5, padding: '2px 7px', borderRadius: 99, background: `linear-gradient(135deg, ${color}, ${color}cc)`, fontSize: 8, color: '#fff', fontWeight: 800, fontFamily: F_MONO, pointerEvents: 'none', boxShadow: `0 4px 12px ${color}60` }}>
+                    +1
+                  </motion.div>
+                )}
+              </AnimatePresence>
               <div style={{
                 height: 42,
                 background: `linear-gradient(135deg, ${color}30, ${color}15 70%, transparent)`,
@@ -231,11 +357,13 @@ function MockupEcommerce() {
               <div style={{ padding: '6px 8px' }}>
                 <div style={{ fontSize: 8, color: 'rgba(255,255,255,0.78)', fontWeight: 600, marginBottom: 3 }}>{name}</div>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                  <span style={{ fontSize: 8.5, color: color, fontFamily: F_MONO, fontWeight: 700 }}>{price}</span>
-                  <span style={{ padding: '1.5px 6px', background: `${color}22`, borderRadius: 99, fontSize: 6.5, color: color, fontWeight: 700, fontFamily: F_MONO, textTransform: 'uppercase' }}>+</span>
+                  <span style={{ fontSize: 8.5, color: color, fontFamily: F_MONO, fontWeight: 700 }}>{fmtPrice(price)}</span>
+                  <span style={{ padding: '1.5px 6px', background: `${color}28`, borderRadius: 99, fontSize: 6.5, color: color, fontWeight: 700, fontFamily: F_MONO, textTransform: 'uppercase' }}>
+                    + {t('mockup.shop.addCart')}
+                  </span>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -243,49 +371,82 @@ function MockupEcommerce() {
   );
 }
 
-// ── Mockup 4: APP/SISTEMA — dashboard with KPIs + chart in pink palette ──────
+// ── Mockup 4: APP/SISTEMA — animated chart + counting KPIs + live dot ────────
 function MockupApp() {
   const { t } = useApp();
   const ACCENT = '#E03877';
+
+  // Chart bars change every 2.5s
+  const [bars, setBars] = useState([55, 40, 70, 45, 85, 60, 95]);
+  // KPI values count up subtly
+  const [users, setUsers] = useState(847);
+  const [activeMenu, setActiveMenu] = useState(0);
+
+  useEffect(() => {
+    const barT = setInterval(() => {
+      setBars(prev => prev.map(() => 30 + Math.round(Math.random() * 70)));
+    }, 2500);
+    const usrT = setInterval(() => {
+      setUsers(u => u + (1 + Math.round(Math.random() * 3)));
+    }, 1800);
+    const menT = setInterval(() => setActiveMenu(i => (i + 1) % 4), 3400);
+    return () => { clearInterval(barT); clearInterval(usrT); clearInterval(menT); };
+  }, []);
+
+  const MENU = [
+    { Icon: BarChart3, color: ACCENT },
+    { Icon: Users,     color: '#FF6A63' },
+    { Icon: FileText,  color: '#B79CFF' },
+    { Icon: Settings,  color: '#FF5C9A' },
+  ];
+
+  const KPIS = [
+    { v: users.toString(),                                l: t('mockup.app.kpi.users'),   c: '#FF5C9A', trend: '+12%' },
+    { v: `₡${(2.4).toFixed(1)}M`,                         l: t('mockup.app.kpi.revenue'), c: '#B79CFF', trend: '+8%'  },
+    { v: '98%',                                           l: t('mockup.app.kpi.uptime'),  c: '#FF6A63', trend: '✓'    },
+  ];
+
   return (
     <BrowserFrame url={t('mockup.url.app')} borderColor="rgba(224,56,119,0.30)">
       <div style={{ display: 'grid', gridTemplateColumns: '56px 1fr', minHeight: 200 }}>
         {/* Sidebar */}
         <div style={{ background: '#0F0820', borderRight: '1px solid rgba(255,255,255,0.06)', padding: '11px 6px', display: 'flex', flexDirection: 'column', gap: 6 }}>
           <div style={{ width: 22, height: 22, borderRadius: 5, background: 'linear-gradient(135deg, #E03877, #FF5C9A)', alignSelf: 'center', marginBottom: 3, boxShadow: '0 4px 10px rgba(224,56,119,0.40)' }} />
-          {[
-            { Icon: BarChart3, active: true,  color: ACCENT },
-            { Icon: Users,     active: false, color: '#FF6A63' },
-            { Icon: FileText,  active: false, color: '#B79CFF' },
-            { Icon: Settings,  active: false, color: '#FF5C9A' },
-          ].map(({ Icon, active, color }, i) => (
-            <div key={i} style={{
-              height: 22, borderRadius: 6,
-              background: active ? `${color}22` : 'transparent',
-              border: active ? `1px solid ${color}55` : '1px solid transparent',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              boxShadow: active ? `0 0 10px ${color}30` : 'none',
-            }}>
-              <Icon size={11} color={active ? color : 'rgba(255,255,255,0.40)'} strokeWidth={2} />
-            </div>
-          ))}
+          {MENU.map(({ Icon, color }, i) => {
+            const active = activeMenu === i;
+            return (
+              <motion.div key={i}
+                animate={{ scale: active ? 1.08 : 1 }}
+                transition={{ duration: 0.3 }}
+                onMouseEnter={() => setActiveMenu(i)}
+                style={{
+                  height: 22, borderRadius: 6,
+                  background: active ? `${color}22` : 'transparent',
+                  border: active ? `1px solid ${color}55` : '1px solid transparent',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  boxShadow: active ? `0 0 12px ${color}45` : 'none',
+                  cursor: 'pointer',
+                  transition: 'background 0.3s, border 0.3s, box-shadow 0.3s',
+                }}>
+                <Icon size={11} color={active ? color : 'rgba(255,255,255,0.40)'} strokeWidth={2} />
+              </motion.div>
+            );
+          })}
         </div>
         {/* Content */}
         <div style={{ padding: '11px 12px', background: 'linear-gradient(180deg, #06030D 0%, #0A0518 100%)' }}>
           {/* KPI row */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 5, marginBottom: 9 }}>
-            {[
-              { v: '847',    l: t('mockup.app.kpi.users'),   c: '#FF5C9A', trend: '+12%' },
-              { v: '₡2.4M',  l: t('mockup.app.kpi.revenue'), c: '#B79CFF', trend: '+8%'  },
-              { v: '98%',    l: t('mockup.app.kpi.uptime'),  c: '#FF6A63', trend: '✓'    },
-            ].map(({ v, l, c, trend }) => (
+            {KPIS.map(({ v, l, c, trend }) => (
               <div key={l} style={{
                 padding: '7px 8px',
-                background: `linear-gradient(135deg, ${c}12, transparent)`,
-                border: `1px solid ${c}30`, borderRadius: 7,
+                background: `linear-gradient(135deg, ${c}15, transparent)`,
+                border: `1px solid ${c}35`, borderRadius: 7,
               }}>
                 <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 2 }}>
-                  <div style={{ fontSize: 10.5, fontWeight: 700, color: c, fontFamily: F_MONO }}>{v}</div>
+                  <motion.div key={v}
+                    initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35 }}
+                    style={{ fontSize: 10.5, fontWeight: 700, color: c, fontFamily: F_MONO }}>{v}</motion.div>
                   <span style={{ fontSize: 6.5, color: '#27C93F', fontFamily: F_MONO, fontWeight: 700 }}>{trend}</span>
                 </div>
                 <div style={{ fontSize: 7.5, color: 'rgba(255,255,255,0.55)' }}>{l}</div>
@@ -301,19 +462,23 @@ function MockupApp() {
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 7 }}>
               <span style={{ fontSize: 7.5, color: 'rgba(255,255,255,0.50)', fontFamily: F_MONO, fontWeight: 600 }}>{t('mockup.app.chart.title')}</span>
               <span style={{ display: 'flex', alignItems: 'center', gap: 3 }}>
-                <span style={{ width: 6, height: 6, borderRadius: 1, background: ACCENT }} />
-                <span style={{ fontSize: 7, color: 'rgba(255,255,255,0.60)' }}>+90 hoy</span>
+                <motion.span animate={{ opacity: [1, 0.35, 1] }} transition={{ duration: 1.4, repeat: Infinity }}
+                  style={{ width: 5, height: 5, borderRadius: '50%', background: '#27C93F', boxShadow: '0 0 6px #27C93F' }} />
+                <span style={{ fontSize: 7, color: 'rgba(255,255,255,0.60)' }}>{t('mockup.app.live')}</span>
               </span>
             </div>
             <div style={{ display: 'flex', alignItems: 'flex-end', gap: 5, height: 36 }}>
-              {[55, 40, 70, 45, 85, 60, 95].map((h, i) => (
-                <div key={i} style={{
-                  flex: 1, height: `${h}%`, borderRadius: '3px 3px 0 0',
-                  background: i === 6
-                    ? `linear-gradient(180deg, ${ACCENT}, #FF5C9A)`
-                    : `linear-gradient(180deg, rgba(255,92,154,${0.18 + i * 0.05}), rgba(183,156,255,${0.10 + i * 0.04}))`,
-                  boxShadow: i === 6 ? `0 0 10px ${ACCENT}80` : 'none',
-                }} />
+              {bars.map((h, i) => (
+                <motion.div key={i}
+                  animate={{ height: `${h}%` }}
+                  transition={{ duration: 0.6, ease: 'easeOut' }}
+                  style={{
+                    flex: 1, borderRadius: '3px 3px 0 0',
+                    background: i === bars.length - 1
+                      ? `linear-gradient(180deg, ${ACCENT}, #FF5C9A)`
+                      : `linear-gradient(180deg, rgba(255,92,154,${0.18 + i * 0.05}), rgba(183,156,255,${0.10 + i * 0.04}))`,
+                    boxShadow: i === bars.length - 1 ? `0 0 10px ${ACCENT}80` : 'none',
+                  }} />
               ))}
             </div>
           </div>
