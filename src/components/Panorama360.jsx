@@ -36,22 +36,18 @@ const SCENES = {
     image: '/panoramas/lobby.jpg',
     fallbackColor: { top: '#7BB7E0', bot: '#3A1F2A' },
     hotspots: [
-      // Building (right side of frame) — info
-      { id: 'building', lon: 70, lat: -5, type: 'info',
-        labelEs: 'Áreas comunes',  labelEn: 'Common areas',
-        descEs: 'Restaurante, recepción 24/7 y zona WiFi.', descEn: 'Restaurant, 24/7 reception and WiFi zone.' },
-      // Path leading to garden — nav to jardin
-      { id: 'jardin', lon: -50, lat: -15, type: 'nav', target: 'jardin',
+      { id: 'recepcion', lon: 139.4, lat: -20.4, type: 'info',
+        labelEs: 'Recepción del resort', labelEn: 'Resort reception',
+        descEs: 'Recepción 24/7, conserjería y acceso WiFi de alta velocidad.', descEn: '24/7 reception, concierge and high-speed WiFi access.' },
+      { id: 'mirador', lon: 0.9, lat: -13.3, type: 'nav', target: 'mirador',
+        labelEs: 'Ir al mirador', labelEn: 'Go to lookout',
+        descEs: 'Vista panorámica al océano desde el mirador del resort.', descEn: 'Panoramic ocean view from the resort lookout.' },
+      { id: 'jardin', lon: 36.2, lat: -0.2, type: 'nav', target: 'jardin',
         labelEs: 'Jardines tropicales', labelEn: 'Tropical gardens',
-        descEs: 'Caminar por los senderos del jardín.', descEn: 'Walk through the garden paths.' },
-      // Sky / view — nav to mirador
-      { id: 'mirador', lon: 130, lat: 0, type: 'nav', target: 'mirador',
-        labelEs: 'Mirador al mar', labelEn: 'Ocean lookout',
-        descEs: 'Salir al mirador con vista al océano.', descEn: 'Step out to the ocean lookout.' },
-      // Path forward — nav to beach
-      { id: 'playa', lon: 175, lat: -12, type: 'nav', target: 'playa',
+        descEs: 'Caminar por los senderos entre palmeras y vegetación nativa.', descEn: 'Walk the paths through palm trees and native vegetation.' },
+      { id: 'playa', lon: -33.2, lat: -16.1, type: 'nav', target: 'playa',
         labelEs: 'Playa privada', labelEn: 'Private beach',
-        descEs: 'Acceso directo a la playa.', descEn: 'Direct beach access.' },
+        descEs: 'Acceso directo a la playa exclusiva para huéspedes.', descEn: 'Direct access to the guest-only private beach.' },
     ],
   },
   jardin: {
@@ -62,16 +58,16 @@ const SCENES = {
     image: '/panoramas/jardin.jpg',
     fallbackColor: { top: '#7BB7E0', bot: '#3A4F2A' },
     hotspots: [
-      { id: 'palms', lon: 0, lat: 15, type: 'info',
+      { id: 'palms', lon: -50.7, lat: 4.6, type: 'info',
         labelEs: 'Palmera real',   labelEn: 'Royal palm',
         descEs: 'Más de 80 palmeras nativas distribuidas en el resort.', descEn: 'Over 80 native palm trees across the resort.' },
-      { id: 'path', lon: 0, lat: -20, type: 'info',
+      { id: 'path', lon: -60.4, lat: -8.1, type: 'info',
         labelEs: 'Senderos pavimentados', labelEn: 'Paved paths',
-        descEs: 'Accesibles para sillas de ruedas y coches.', descEn: 'Accessible for wheelchairs and strollers.' },
-      { id: 'mirador', lon: 70, lat: -3, type: 'nav', target: 'mirador',
+        descEs: 'Accesibles para sillas de ruedas y coches de niños.', descEn: 'Accessible for wheelchairs and strollers.' },
+      { id: 'mirador', lon: 67.9, lat: -8.2, type: 'nav', target: 'mirador',
         labelEs: 'Continuar al mirador', labelEn: 'Continue to lookout',
         descEs: 'Seguir el sendero hasta la vista del mar.', descEn: 'Follow the path to the sea view.' },
-      { id: 'lobby', lon: 180, lat: -8, type: 'nav', target: 'lobby',
+      { id: 'lobby', lon: 6.3, lat: -8.7, type: 'nav', target: 'lobby',
         labelEs: 'Volver a la entrada', labelEn: 'Back to entrance',
         descEs: 'Regresar al área principal.', descEn: 'Return to the main area.' },
     ],
@@ -84,18 +80,12 @@ const SCENES = {
     image: '/panoramas/mirador.jpg',
     fallbackColor: { top: '#7BB7E0', bot: '#1A6F8A' },
     hotspots: [
-      { id: 'sea', lon: 90, lat: -5, type: 'info',
-        labelEs: 'Vista al océano',    labelEn: 'Ocean view',
+      { id: 'faro', lon: -45.1, lat: 11.7, type: 'info',
+        labelEs: 'Faro histórico', labelEn: 'Historic lighthouse',
+        descEs: 'Faro de Cape Florida restaurado — visitas guiadas disponibles.', descEn: 'Restored Cape Florida lighthouse — guided tours available.' },
+      { id: 'oceano', lon: -170.8, lat: -8.8, type: 'info',
+        labelEs: 'Vista al océano', labelEn: 'Ocean view',
         descEs: 'Vista de 180° al océano abierto — aguas color turquesa.', descEn: '180° view of the open ocean — turquoise waters.' },
-      { id: 'lighthouse', lon: -80, lat: 5, type: 'info',
-        labelEs: 'Faro histórico',     labelEn: 'Historic lighthouse',
-        descEs: 'Faro restaurado, abierto al público con tours guiados.', descEn: 'Restored lighthouse, open to public with guided tours.' },
-      { id: 'playa', lon: 0, lat: -25, type: 'nav', target: 'playa',
-        labelEs: 'Bajar a la playa', labelEn: 'Down to the beach',
-        descEs: 'Descender hasta la arena.', descEn: 'Walk down to the sand.' },
-      { id: 'lobby', lon: 180, lat: -8, type: 'nav', target: 'lobby',
-        labelEs: 'Volver a la entrada', labelEn: 'Back to entrance',
-        descEs: 'Regresar al área principal.', descEn: 'Return to the main area.' },
     ],
   },
   playa: {
@@ -106,18 +96,12 @@ const SCENES = {
     image: '/panoramas/playa.jpg',
     fallbackColor: { top: '#7BB7E0', bot: '#C9A878' },
     hotspots: [
-      { id: 'beach', lon: 0, lat: -15, type: 'info',
-        labelEs: 'Playa de arena fina', labelEn: 'Fine sand beach',
+      { id: 'palmeras', lon: -77.5, lat: 0.6, type: 'info',
+        labelEs: 'Palmeras del resort', labelEn: 'Resort palm trees',
+        descEs: 'Sombra natural entre palmeras con vistas al mar.', descEn: 'Natural shade under palm trees with sea views.' },
+      { id: 'arena', lon: -0.3, lat: -9.6, type: 'info',
+        labelEs: 'Arena y aguas turquesas', labelEn: 'Sand and turquoise waters',
         descEs: 'Tumbonas y sombrillas incluidas con la reserva.', descEn: 'Sun loungers and umbrellas included with booking.' },
-      { id: 'lighthouse', lon: 0, lat: 5, type: 'info',
-        labelEs: 'Vista al faro',     labelEn: 'Lighthouse view',
-        descEs: 'El faro de Cape Florida desde la costa.', descEn: 'The Cape Florida lighthouse from the shore.' },
-      { id: 'mirador', lon: -90, lat: 0, type: 'nav', target: 'mirador',
-        labelEs: 'Subir al mirador', labelEn: 'Up to the lookout',
-        descEs: 'Volver a la vista elevada.', descEn: 'Return to the elevated view.' },
-      { id: 'lobby', lon: 180, lat: -10, type: 'nav', target: 'lobby',
-        labelEs: 'Volver a la entrada', labelEn: 'Back to entrance',
-        descEs: 'Regresar al área principal.', descEn: 'Return to the main area.' },
     ],
   },
 };
@@ -362,7 +346,6 @@ function SceneRenderer({ sceneKey, locale, onNavigate, paused, onLoadingChange }
   const scene = SCENES[sceneKey];
   const { texture, loading } = useImageTexture(scene.image, scene.fallbackColor);
 
-  // Reset hover when scene changes
   useEffect(() => { setHovered(null); }, [sceneKey]);
   useEffect(() => { onLoadingChange?.(loading); }, [loading, onLoadingChange]);
 
@@ -385,6 +368,7 @@ function SceneRenderer({ sceneKey, locale, onNavigate, paused, onLoadingChange }
     </>
   );
 }
+
 
 // ════════════════════════════════════════════════════════════════════════════
 // MAIN COMPONENT
@@ -409,6 +393,7 @@ export function Panorama360({ height = 460, paused = false, initialScene = 'lobb
 
   const title = locale === 'en' ? scene.titleEn : scene.titleEs;
   const desc  = locale === 'en' ? scene.descEn  : scene.descEs;
+
 
   return (
     <div style={{
@@ -448,6 +433,7 @@ export function Panorama360({ height = 460, paused = false, initialScene = 'lobb
           />
         </Suspense>
       </Canvas>
+
 
       {/* Loading overlay */}
       <AnimatePresence>
