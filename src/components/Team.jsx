@@ -316,7 +316,7 @@ export function Team() {
         style={{
           position: 'absolute', bottom: '-15%', left: '-8%',
           width: 420, height: 420, borderRadius: '50%',
-          background: '#06B6D433', filter: 'blur(100px)',
+          background: '#FF5C9A33', filter: 'blur(100px)',
           pointerEvents: 'none',
         }}
       />

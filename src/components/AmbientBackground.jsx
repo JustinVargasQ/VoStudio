@@ -56,8 +56,8 @@ function useIsCoarsePointer() {
 function Particle({ p, shiftX, shiftY }) {
   const px = useTransform(shiftX, (v) => v * p.depth);
   const py = useTransform(shiftY, (v) => v * p.depth);
-  // v5 — particles: was amber/terracotta. Now magenta vs. violet.
-  const color = p.isAmber ? '225, 77, 255' : '138, 70, 255';
+  // v7 — particles: pink + lilac suave (sin morado chillón)
+  const color = p.isAmber ? '255, 92, 154' : '183, 156, 255';
 
   return (
     <motion.span
@@ -107,10 +107,10 @@ export function AmbientBackground() {
   // Spotlight position (% based) — hook at top level
   const spotX = useTransform(sx, (v) => `${v * 100}%`);
   const spotY = useTransform(sy, (v) => `${v * 100}%`);
-  // v5 — spotlight glow: was rgba(234,88,12) terracotta. Now violet.
+  // v7 — spotlight glow: rosa suave (sin violeta chillón)
   const spotBg = useTransform(
     [spotX, spotY],
-    ([x, y]) => `radial-gradient(500px circle at ${x} ${y}, rgba(138, 70, 255, 0.55), transparent 65%)`
+    ([x, y]) => `radial-gradient(500px circle at ${x} ${y}, rgba(255, 92, 154, 0.45), transparent 65%)`
   );
 
   // Parallax shift (pixels)

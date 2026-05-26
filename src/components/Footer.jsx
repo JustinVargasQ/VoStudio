@@ -44,11 +44,11 @@ export function Footer() {
             <div style={{ display: 'flex', alignItems: 'center', gap: 18, marginBottom: 28, flexWrap: 'wrap' }}>
               <div className="vo-neon-hover" style={{
                 width: 64, height: 64, flexShrink: 0,
-                background: '#061720',
+                background: '#1B1030',
                 borderRadius: 12,
                 overflow: 'hidden',
-                border: '1px solid rgba(6, 182, 212, 0.40)',
-                boxShadow: '0 0 36px rgba(6, 182, 212, 0.30), inset 0 1px 0 rgba(255,255,255,0.06)',
+                border: '1px solid rgba(255,92,154, 0.40)',
+                boxShadow: '0 0 36px rgba(255,92,154, 0.30), inset 0 1px 0 rgba(255,255,255,0.06)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
               }}>
                 <img src={logoSrc} alt="VO Studio" style={{ width: 56, height: 56, objectFit: 'cover' }} />

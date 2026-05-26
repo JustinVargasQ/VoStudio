@@ -104,7 +104,7 @@ const PLAN_DETAIL = [
 // ── Mini mockups específicos para pricing ─────────────────────────────────────
 function MockupLanding() {
   return (
-    <div style={{ background: '#040C14', borderRadius: 10, overflow: 'hidden', border: '1px solid rgba(138,70,255,0.20)', boxShadow: '0 8px 28px rgba(0,0,0,0.45)' }}>
+    <div style={{ background: '#06030D', borderRadius: 10, overflow: 'hidden', border: '1px solid rgba(138,70,255,0.20)', boxShadow: '0 8px 28px rgba(0,0,0,0.45)' }}>
       {/* Browser bar */}
       <div style={{ background: '#100B25', padding: '6px 10px', display: 'flex', alignItems: 'center', gap: 5, borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
         {['#FF5C5C', '#FFBD2E', '#27C93F'].map(c => <span key={c} style={{ width: 7, height: 7, borderRadius: '50%', background: c }} />)}
@@ -114,26 +114,26 @@ function MockupLanding() {
       </div>
       {/* Nav */}
       <div style={{ padding: '7px 12px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.04)', background: '#040D1A' }}>
-        <div style={{ width: 36, height: 8, borderRadius: 3, background: '#06B6D4' }} />
+        <div style={{ width: 36, height: 8, borderRadius: 3, background: '#FF5C9A' }} />
         <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
           {['Inicio', 'Servicios', 'Contacto'].map(l => <span key={l} style={{ fontSize: 8, color: 'rgba(255,255,255,0.40)' }}>{l}</span>)}
-          <div style={{ padding: '3px 9px', background: '#06B6D4', borderRadius: 4 }}>
+          <div style={{ padding: '3px 9px', background: '#FF5C9A', borderRadius: 4 }}>
             <span style={{ fontSize: 8, color: '#fff', fontWeight: 700 }}>Contactar</span>
           </div>
         </div>
       </div>
       {/* Hero */}
-      <div style={{ padding: '18px 14px 14px', background: 'linear-gradient(135deg, #040C14 0%, #061720 100%)' }}>
+      <div style={{ padding: '18px 14px 14px', background: 'linear-gradient(135deg, #06030D 0%, #1B1030 100%)' }}>
         <div style={{ width: '75%', height: 11, borderRadius: 3, background: 'rgba(255,255,255,0.88)', marginBottom: 6 }} />
         <div style={{ width: '55%', height: 7, borderRadius: 3, background: 'rgba(255,255,255,0.35)', marginBottom: 14 }} />
         <div style={{ display: 'flex', gap: 7 }}>
-          <div style={{ padding: '5px 14px', background: '#06B6D4', borderRadius: 5 }}><span style={{ fontSize: 8.5, color: '#fff', fontWeight: 700 }}>Empezar</span></div>
+          <div style={{ padding: '5px 14px', background: '#FF5C9A', borderRadius: 5 }}><span style={{ fontSize: 8.5, color: '#fff', fontWeight: 700 }}>Empezar</span></div>
           <div style={{ padding: '5px 14px', border: '1px solid rgba(255,255,255,0.22)', borderRadius: 5 }}><span style={{ fontSize: 8.5, color: 'rgba(255,255,255,0.60)' }}>Ver más</span></div>
         </div>
       </div>
       {/* Features strip */}
       <div style={{ padding: '10px 14px 12px', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 7 }}>
-        {[['#6AB7FF', 'Rápido'], ['#06B6D4', 'Seguro'], ['#22D3EE', 'Mobile']].map(([c, l]) => (
+        {[['#FF6A63', 'Rápido'], ['#FF5C9A', 'Seguro'], ['#B79CFF', 'Mobile']].map(([c, l]) => (
           <div key={l} style={{ padding: '7px 8px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 7 }}>
             <div style={{ width: 14, height: 14, borderRadius: 4, background: c, marginBottom: 5 }} />
             <div style={{ fontSize: 8.5, color: 'rgba(255,255,255,0.75)', fontWeight: 600, marginBottom: 3 }}>{l}</div>
@@ -147,7 +147,7 @@ function MockupLanding() {
 
 function MockupSitio() {
   return (
-    <div style={{ background: '#040C14', borderRadius: 10, overflow: 'hidden', border: '1px solid rgba(138,70,255,0.20)', boxShadow: '0 8px 28px rgba(0,0,0,0.45)' }}>
+    <div style={{ background: '#06030D', borderRadius: 10, overflow: 'hidden', border: '1px solid rgba(138,70,255,0.20)', boxShadow: '0 8px 28px rgba(0,0,0,0.45)' }}>
       {/* Browser bar */}
       <div style={{ background: '#100B25', padding: '6px 10px', display: 'flex', alignItems: 'center', gap: 5, borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
         {['#FF5C5C', '#FFBD2E', '#27C93F'].map(c => <span key={c} style={{ width: 7, height: 7, borderRadius: '50%', background: c }} />)}
@@ -159,7 +159,7 @@ function MockupSitio() {
       <div style={{ display: 'grid', gridTemplateColumns: '56px 1fr' }}>
         {/* Sidebar */}
         <div style={{ background: '#040D1A', borderRight: '1px solid rgba(255,255,255,0.06)', padding: '10px 6px', display: 'flex', flexDirection: 'column', gap: 6 }}>
-          {[A, '#6AB7FF', '#22D3EE', '#F59E0B', 'rgba(255,255,255,0.18)'].map((c, i) => (
+          {[A, '#FF6A63', '#B79CFF', '#F59E0B', 'rgba(255,255,255,0.18)'].map((c, i) => (
             <div key={i} style={{ width: '100%', height: i === 0 ? 24 : 18, borderRadius: 5, background: i === 0 ? `${A}30` : 'rgba(255,255,255,0.05)', border: i === 0 ? `1px solid ${A}50` : '1px solid rgba(255,255,255,0.07)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <div style={{ width: 8, height: 8, borderRadius: 2, background: c }} />
             </div>
@@ -187,7 +187,7 @@ function MockupSitio() {
 function MockupEcommerce() {
   const products = [['Producto A', '₡24 900'], ['Producto B', '₡18 500'], ['Producto C', '₡32 000'], ['Producto D', '₡12 800']];
   return (
-    <div style={{ background: '#040C14', borderRadius: 10, overflow: 'hidden', border: '1px solid rgba(245,158,11,0.25)', boxShadow: '0 8px 28px rgba(0,0,0,0.45)' }}>
+    <div style={{ background: '#06030D', borderRadius: 10, overflow: 'hidden', border: '1px solid rgba(245,158,11,0.25)', boxShadow: '0 8px 28px rgba(0,0,0,0.45)' }}>
       {/* Browser bar */}
       <div style={{ background: '#100B25', padding: '6px 10px', display: 'flex', alignItems: 'center', gap: 5, borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
         {['#FF5C5C', '#FFBD2E', '#27C93F'].map(c => <span key={c} style={{ width: 7, height: 7, borderRadius: '50%', background: c }} />)}
@@ -219,7 +219,7 @@ function MockupEcommerce() {
 
 function MockupApp() {
   return (
-    <div style={{ background: '#040C14', borderRadius: 10, overflow: 'hidden', border: '1px solid rgba(168,85,247,0.25)', boxShadow: '0 8px 28px rgba(0,0,0,0.45)' }}>
+    <div style={{ background: '#06030D', borderRadius: 10, overflow: 'hidden', border: '1px solid rgba(168,85,247,0.25)', boxShadow: '0 8px 28px rgba(0,0,0,0.45)' }}>
       {/* Browser bar */}
       <div style={{ background: '#100B25', padding: '6px 10px', display: 'flex', alignItems: 'center', gap: 5, borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
         {['#FF5C5C', '#FFBD2E', '#27C93F'].map(c => <span key={c} style={{ width: 7, height: 7, borderRadius: '50%', background: c }} />)}
@@ -231,7 +231,7 @@ function MockupApp() {
       <div style={{ display: 'grid', gridTemplateColumns: '54px 1fr' }}>
         {/* Sidebar */}
         <div style={{ background: '#040D1A', borderRight: '1px solid rgba(255,255,255,0.06)', padding: '10px 6px', display: 'flex', flexDirection: 'column', gap: 5 }}>
-          {['#0891B2', '#6AB7FF', '#27C93F', '#F59E0B'].map((c, i) => (
+          {['#E03877', '#FF6A63', '#27C93F', '#F59E0B'].map((c, i) => (
             <div key={i} style={{ height: 20, borderRadius: 5, background: i === 0 ? `${c}28` : 'rgba(255,255,255,0.04)', border: i === 0 ? `1px solid ${c}45` : '1px solid transparent', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <div style={{ width: 8, height: 8, borderRadius: 2, background: c }} />
             </div>
@@ -241,7 +241,7 @@ function MockupApp() {
         <div style={{ padding: '10px' }}>
           {/* KPI row */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 5, marginBottom: 8 }}>
-            {[['847', 'Usuarios', '#0891B2'], ['₡2.4M', 'Ingresos', '#27C93F'], ['98%', 'Uptime', '#6AB7FF']].map(([v, l, c]) => (
+            {[['847', 'Usuarios', '#E03877'], ['₡2.4M', 'Ingresos', '#27C93F'], ['98%', 'Uptime', '#FF6A63']].map(([v, l, c]) => (
               <div key={l} style={{ padding: '6px 7px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 6 }}>
                 <div style={{ fontSize: 10, fontWeight: 700, color: c, fontFamily: F_MONO, marginBottom: 1 }}>{v}</div>
                 <div style={{ fontSize: 7.5, color: 'rgba(255,255,255,0.45)' }}>{l}</div>
@@ -253,7 +253,7 @@ function MockupApp() {
             <div style={{ fontSize: 7.5, color: 'rgba(255,255,255,0.40)', fontFamily: F_MONO, marginBottom: 6 }}>ACTIVIDAD · últimos 7 días</div>
             <div style={{ display: 'flex', alignItems: 'flex-end', gap: 4, height: 28 }}>
               {[55, 40, 70, 45, 85, 60, 90].map((h, i) => (
-                <div key={i} style={{ flex: 1, height: `${h}%`, borderRadius: 2, background: i === 6 ? '#0891B2' : `rgba(168,85,247,${0.2 + i * 0.06})` }} />
+                <div key={i} style={{ flex: 1, height: `${h}%`, borderRadius: 2, background: i === 6 ? '#E03877' : `rgba(168,85,247,${0.2 + i * 0.06})` }} />
               ))}
             </div>
           </div>
@@ -352,7 +352,7 @@ function CompactCard({ plan, meta, index, onExpand }) {
             <div style={{
               height: '100%', borderRadius: 20,
               background: isPopular
-                ? `linear-gradient(160deg, #0C2D40 0%, #061520 35%, #041018 100%)`
+                ? `linear-gradient(160deg, #2A0F1E 0%, #061520 35%, #041018 100%)`
                 : `linear-gradient(160deg, #061420 0%, #040E18 45%, #020A12 100%)`,
               boxShadow: `inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -2px 0 rgba(0,0,0,0.35), inset 1px 0 0 rgba(255,255,255,0.04)`,
               position: 'relative', overflow: 'hidden',
@@ -482,7 +482,7 @@ function ExpandedCard({ plan, meta, detail, index, onClose }) {
         <div style={{
           borderRadius: 20,
           background: isPopular
-            ? `linear-gradient(160deg, #0C2D40 0%, #061520 40%, #041018 100%)`
+            ? `linear-gradient(160deg, #2A0F1E 0%, #061520 40%, #041018 100%)`
             : `linear-gradient(160deg, #061420 0%, #040E18 45%, #020A12 100%)`,
           boxShadow: `inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -2px 0 rgba(0,0,0,0.35)`,
           position: 'relative', overflow: 'hidden',

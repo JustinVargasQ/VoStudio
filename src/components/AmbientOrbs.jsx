@@ -34,7 +34,7 @@ export function AmbientOrbs() {
       overflow: 'hidden',
       zIndex: 0,
     }}>
-      {/* Orb A — cyan, top-left drift */}
+      {/* Orb A — rosa fuerte, top-left drift */}
       <span
         className={reduced ? undefined : 'vo-orb-amb a'}
         style={{
@@ -45,13 +45,13 @@ export function AmbientOrbs() {
           height: '46vw',
           maxWidth: 720, maxHeight: 720,
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(6, 182, 212, 0.45) 0%, rgba(6, 182, 212, 0) 65%)',
+          background: 'radial-gradient(circle, rgba(255, 92, 154, 0.45) 0%, rgba(255, 92, 154, 0) 65%)',
           filter: 'blur(80px)',
           opacity: 0.85,
           willChange: 'transform',
         }}
       />
-      {/* Orb B — strong pink, bottom-right drift */}
+      {/* Orb B — lila suave, bottom-right drift */}
       <span
         className={reduced ? undefined : 'vo-orb-amb b'}
         style={{
@@ -62,13 +62,13 @@ export function AmbientOrbs() {
           height: '50vw',
           maxWidth: 780, maxHeight: 780,
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(255, 92, 154, 0.50) 0%, rgba(255, 92, 154, 0) 65%)',
+          background: 'radial-gradient(circle, rgba(183, 156, 255, 0.45) 0%, rgba(183, 156, 255, 0) 65%)',
           filter: 'blur(90px)',
           opacity: 0.8,
           willChange: 'transform',
         }}
       />
-      {/* Orb C — electric blue, mid-right, faster + smaller */}
+      {/* Orb C — coral pop, mid-right, faster + smaller */}
       <span
         className={reduced ? undefined : 'vo-orb-amb c'}
         style={{
@@ -79,9 +79,9 @@ export function AmbientOrbs() {
           height: '24vw',
           maxWidth: 380, maxHeight: 380,
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(106, 183, 255, 0.55) 0%, rgba(106, 183, 255, 0) 65%)',
+          background: 'radial-gradient(circle, rgba(255, 106, 99, 0.45) 0%, rgba(255, 106, 99, 0) 65%)',
           filter: 'blur(70px)',
-          opacity: 0.65,
+          opacity: 0.6,
           willChange: 'transform',
         }}
       />

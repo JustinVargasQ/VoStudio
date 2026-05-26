@@ -28,7 +28,7 @@ const MK = {
   mutedSoft:   '#A3A3A3',
   border:      'rgba(0,0,0,0.10)',
   borderSoft:  'rgba(0,0,0,0.06)',
-  accent:      '#06B6D4',
+  accent:      '#FF5C9A',
   green:       '#10B981',
   greenSoft:   '#D1FAE5',
   yellow:      '#F59E0B',
@@ -682,7 +682,7 @@ function WebsiteMock_OLD_UNUSED() {
   const FG_D   = isDark ? 'rgba(255,255,255,0.45)' : 'rgba(10,10,18,0.45)';
   const BORDER_C = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(10,10,18,0.10)';
   const SOFT_BG  = isDark ? 'rgba(255,255,255,0.05)' : 'rgba(10,10,18,0.04)';
-  const ACC    = '#06B6D4';
+  const ACC    = '#FF5C9A';
   const ACC2   = '#FF5C9A';
 
   const tabs = ['Inicio', 'Proyectos', 'Servicios'];
@@ -704,14 +704,14 @@ function WebsiteMock_OLD_UNUSED() {
 
   const PROJECTS = [
     { name: 'JD Virtual Store', tag: 'E-commerce', year: '2025', color: '#FF5C9A', stat: '+340% ventas', detail: 'Tienda online de cosméticos con catálogo de 200+ productos, carrito y pasarela de pago. Admin panel sin código para que la dueña suba productos sola.' },
-    { name: 'UTN Maps',         tag: 'App móvil',   year: '2024', color: '#6AB7FF', stat: '50+ puntos',   detail: 'App de navegación interna para el campus de la UTN San Carlos. Búsqueda offline, geolocalización en tiempo real, base de datos editable por administración.' },
+    { name: 'UTN Maps',         tag: 'App móvil',   year: '2024', color: '#FF6A63', stat: '50+ puntos',   detail: 'App de navegación interna para el campus de la UTN San Carlos. Búsqueda offline, geolocalización en tiempo real, base de datos editable por administración.' },
     { name: 'FerreLópez ERP',   tag: 'Sistema',     year: '2024', color: '#F59E0B', stat: '3 sucursales', detail: 'Sistema de inventario y ventas en tiempo real para 3 ferreterías hermanadas. Sincronización en tiempo real, alertas de stock, reportes mensuales automáticos.' },
   ];
 
   const SERVICES_LIST = [
     { n: '01', t: 'Páginas web',       d: 'Landing, sitio corporativo o portafolio.',    accent: ACC,       Icon: Globe },
     { n: '02', t: 'E-commerce',        d: 'Tiendas con carrito, admin y pagos reales.',  accent: ACC2,      Icon: ShoppingBag },
-    { n: '03', t: 'Apps móviles',      d: 'iOS y Android con UX probada.',                accent: '#6AB7FF', Icon: Activity },
+    { n: '03', t: 'Apps móviles',      d: 'iOS y Android con UX probada.',                accent: '#FF6A63', Icon: Activity },
     { n: '04', t: 'Sistemas a medida', d: 'ERPs, dashboards e inventarios.',              accent: '#F59E0B', Icon: Database },
   ];
 
@@ -2427,7 +2427,7 @@ function SystemMock() {
   const [productForm, setProductForm] = useState({ name: '', stock: '', price: '' });
   const [feed, setFeed]           = useState([
     { Icon: 'ShoppingBag', c: '#10B981', t: 'Venta · #2847',         d: 'Sucursal Centro', a: '₡18.400', s: 'hace 3 min' },
-    { Icon: 'Package',     c: '#06B6D4', t: 'Stock bajo · Taladro',  d: '3 unidades',       a: 'Alerta',   s: 'hace 12 min' },
+    { Icon: 'Package',     c: '#FF5C9A', t: 'Stock bajo · Taladro',  d: '3 unidades',       a: 'Alerta',   s: 'hace 12 min' },
     { Icon: 'Users',       c: '#4F46E5', t: 'Nuevo cliente',         d: 'Constructora SC',  a: '+1',       s: 'hace 1 h' },
     { Icon: 'CheckCircle2',c: '#10B981', t: 'Pedido entregado',      d: 'Orden #2841',      a: '✓',        s: 'hace 2 h' },
   ]);
@@ -2449,7 +2449,7 @@ function SystemMock() {
     const events = [
       { Icon: 'ShoppingBag', c: '#10B981', t: 'Venta · nueva',       d: 'Sucursal Norte',   a: '₡8.900',  s: 'ahora' },
       { Icon: 'Package',     c: '#4F46E5', t: 'Producto recibido',   d: 'Lote #4421',       a: '+50',      s: 'ahora' },
-      { Icon: 'Users',       c: '#06B6D4', t: 'Cliente registrado',  d: 'Por web',          a: '+1',       s: 'ahora' },
+      { Icon: 'Users',       c: '#FF5C9A', t: 'Cliente registrado',  d: 'Por web',          a: '+1',       s: 'ahora' },
     ];
     const id = setInterval(() => {
       const e = events[Math.floor(Math.random() * events.length)];
@@ -3202,7 +3202,7 @@ function SEOMock() {
             boxShadow: `0 4px 12px ${active.pos === 1 ? MK.accent : '#0a0'}40`,
           }}>★ #{active.pos} POSICIÓN</div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 9, marginBottom: 4 }}>
-            <div style={{ width: 14, height: 14, borderRadius: '50%', background: 'linear-gradient(135deg, #FF5C9A 0%, #06B6D4 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 8, fontWeight: 700 }}>V</div>
+            <div style={{ width: 14, height: 14, borderRadius: '50%', background: 'linear-gradient(135deg, #FF5C9A 0%, #FF5C9A 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 8, fontWeight: 700 }}>V</div>
             <div>
               <span style={{ color: MK.text, fontWeight: 500 }}>VO Studio</span>
               <span style={{ color: MK.muted, marginInline: 4 }}>·</span>
@@ -3587,7 +3587,7 @@ function MaintenanceMock() {
                 { l: 'CPU',              v: `${cpu}%`,           p: cpu / 100,       c: cpu > 70 ? MK.red : cpu > 50 ? MK.yellow : MK.green },
                 { l: 'Memoria',          v: `${memory}%`,         p: memory / 100,    c: memory > 80 ? MK.red : memory > 65 ? MK.yellow : MK.green },
                 { l: 'Bandwidth',        v: `${bandwidth} MB/s`,  p: bandwidth / 300, c: '#4F46E5' },
-                { l: 'Requests · min',   v: requests.toLocaleString('es-CR'), p: 0.62, c: '#06B6D4' },
+                { l: 'Requests · min',   v: requests.toLocaleString('es-CR'), p: 0.62, c: '#FF5C9A' },
               ].map((m, i) => (
                 <div key={i} style={{
                   background: MK.card, border: `1px solid ${MK.border}`, borderRadius: 10,
@@ -3648,7 +3648,7 @@ function MaintenanceMock() {
                   <span style={{ fontSize: 10, color: MK.text, fontFamily: F_MONO, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                     <span style={{ color: MK.accent, marginRight: 6 }}>{d.branch}</span>{d.msg}
                   </span>
-                  <span style={{ width: 18, height: 18, borderRadius: '50%', background: `linear-gradient(135deg, ${MK.accent}, #22D3EE)`, color: '#fff', fontSize: 8, fontWeight: 700, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontFamily: F_MONO }}>{d.author}</span>
+                  <span style={{ width: 18, height: 18, borderRadius: '50%', background: `linear-gradient(135deg, ${MK.accent}, #B79CFF)`, color: '#fff', fontSize: 8, fontWeight: 700, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontFamily: F_MONO }}>{d.author}</span>
                   <span style={{ fontSize: 8.5, color: MK.mutedSoft, fontFamily: F_MONO }}>{d.time}</span>
                 </div>
               ))}

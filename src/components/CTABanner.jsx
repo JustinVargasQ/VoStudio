@@ -7,7 +7,7 @@ export function CTABanner() {
   const { t } = useApp();
   return (
     <section style={{
-      background: 'linear-gradient(135deg, #040C14 0%, #04141E 45%, #061720 100%)',
+      background: 'linear-gradient(135deg, #06030D 0%, #04141E 45%, #1B1030 100%)',
       padding: `clamp(64px, 10vw, 110px) 0`,
       position: 'relative', overflow: 'hidden',
     }}>

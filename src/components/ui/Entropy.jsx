@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 
-const PALETTE_DARK  = ['#06B6D4', '#22D3EE', '#FF5C9A', '#6AB7FF', '#A5F3FC', '#67E8F9', '#ff8ac5'];
-const PALETTE_LIGHT = ['#06B6D4', '#0891B2', '#22D3EE', '#FF5C9A', '#0EA5E9', '#14B8A6', '#67E8F9'];
+const PALETTE_DARK  = ['#FF5C9A', '#B79CFF', '#FF5C9A', '#FF6A63', '#FFD4E5', '#67E8F9', '#ff8ac5'];
+const PALETTE_LIGHT = ['#FF5C9A', '#E03877', '#B79CFF', '#FF5C9A', '#0EA5E9', '#14B8A6', '#67E8F9'];
 
 export function Entropy({ size = 480, theme = 'dark' }) {
   const canvasRef = useRef(null);
@@ -27,9 +27,9 @@ export function Entropy({ size = 480, theme = 'dark' }) {
 
     // Static nebula cloud positions
     const NEBULAE = [
-      { x: cx * 0.70, y: cy * 0.72, r: size * 0.30, color: '#06B6D4', a: 0.11 },
-      { x: cx * 1.38, y: cy * 1.28, r: size * 0.24, color: '#22D3EE', a: 0.09 },
-      { x: cx * 0.62, y: cy * 1.32, r: size * 0.22, color: '#6AB7FF', a: 0.08 },
+      { x: cx * 0.70, y: cy * 0.72, r: size * 0.30, color: '#FF5C9A', a: 0.11 },
+      { x: cx * 1.38, y: cy * 1.28, r: size * 0.24, color: '#B79CFF', a: 0.09 },
+      { x: cx * 0.62, y: cy * 1.32, r: size * 0.22, color: '#FF6A63', a: 0.08 },
       { x: cx * 1.42, y: cy * 0.62, r: size * 0.20, color: '#FF5C9A', a: 0.08 },
       { x: cx * 1.05, y: cy * 0.55, r: size * 0.16, color: '#C0A0FF', a: 0.07 },
     ];

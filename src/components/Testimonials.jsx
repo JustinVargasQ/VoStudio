@@ -35,7 +35,7 @@ const TESTIMONIALS = {
       project: 'Sistema a medida',
       initials: 'DV',
       photo: 'https://api.dicebear.com/9.x/lorelei/svg?seed=DiegoVargas&backgroundColor=6AB7FF&backgroundType=gradientLinear',
-      color: '#6AB7FF',
+      color: '#FF6A63',
     },
   ],
   en: [
@@ -67,7 +67,7 @@ const TESTIMONIALS = {
       project: 'Custom system',
       initials: 'DV',
       photo: 'https://api.dicebear.com/9.x/lorelei/svg?seed=DiegoVargas&backgroundColor=6AB7FF&backgroundType=gradientLinear',
-      color: '#6AB7FF',
+      color: '#FF6A63',
     },
   ],
 };

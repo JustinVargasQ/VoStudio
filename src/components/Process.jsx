@@ -7,9 +7,9 @@ import { useApp } from '../context/AppContext';
 
 // v6 — Steps mapped to Midnight Signal palette.
 const PHASE_META = [
-  { color: '#6AB7FF', Icon: MessageCircle }, // 01 consulta — electric blue
-  { color: '#22D3EE', Icon: Palette },       // 02 diseño — cyan light
-  { color: '#06B6D4', Icon: Code2 },         // 03 desarrollo — cyan
+  { color: '#FF6A63', Icon: MessageCircle }, // 01 consulta — electric blue
+  { color: '#B79CFF', Icon: Palette },       // 02 diseño — cyan light
+  { color: '#FF5C9A', Icon: Code2 },         // 03 desarrollo — cyan
   { color: '#FF5C9A', Icon: Rocket },        // 04 lanzamiento — strong pink
 ];
 

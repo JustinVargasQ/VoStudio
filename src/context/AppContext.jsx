@@ -9,7 +9,7 @@ const LOCALE_KEY = 'vo-locale';
 const CURTAIN_DURATION = 500;
 const CURTAIN_EASE = 'cubic-bezier(0.76, 0, 0.24, 1)';
 // v6: curtain — sky-white / midnight-navy
-const CURTAIN_BG = { light: '#F0F9FF', dark: '#040C14' };
+const CURTAIN_BG = { light: '#FAF7FF', dark: '#06030D' };
 
 function detectInitialTheme() {
   if (typeof window === 'undefined') return 'dark';
