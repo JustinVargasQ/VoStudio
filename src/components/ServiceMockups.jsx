@@ -31,8 +31,8 @@ const MK = {
   accent:      '#FF5C9A',
   green:       '#10B981',
   greenSoft:   '#D1FAE5',
-  yellow:      '#F59E0B',
-  yellowSoft:  '#FEF3C7',
+  yellow:      '#FF6A63',
+  yellowSoft:  '#FFE5F0',
   red:         '#DC2626',
   redSoft:     '#FEE2E2',
   blueG:       '#1A0DAB', // Google blue
@@ -705,14 +705,14 @@ function WebsiteMock_OLD_UNUSED() {
   const PROJECTS = [
     { name: 'JD Virtual Store', tag: 'E-commerce', year: '2025', color: '#FF5C9A', stat: '+340% ventas', detail: 'Tienda online de cosméticos con catálogo de 200+ productos, carrito y pasarela de pago. Admin panel sin código para que la dueña suba productos sola.' },
     { name: 'UTN Maps',         tag: 'App móvil',   year: '2024', color: '#FF6A63', stat: '50+ puntos',   detail: 'App de navegación interna para el campus de la UTN San Carlos. Búsqueda offline, geolocalización en tiempo real, base de datos editable por administración.' },
-    { name: 'FerreLópez ERP',   tag: 'Sistema',     year: '2024', color: '#F59E0B', stat: '3 sucursales', detail: 'Sistema de inventario y ventas en tiempo real para 3 ferreterías hermanadas. Sincronización en tiempo real, alertas de stock, reportes mensuales automáticos.' },
+    { name: 'FerreLópez ERP',   tag: 'Sistema',     year: '2024', color: '#FF6A63', stat: '3 sucursales', detail: 'Sistema de inventario y ventas en tiempo real para 3 ferreterías hermanadas. Sincronización en tiempo real, alertas de stock, reportes mensuales automáticos.' },
   ];
 
   const SERVICES_LIST = [
     { n: '01', t: 'Páginas web',       d: 'Landing, sitio corporativo o portafolio.',    accent: ACC,       Icon: Globe },
     { n: '02', t: 'E-commerce',        d: 'Tiendas con carrito, admin y pagos reales.',  accent: ACC2,      Icon: ShoppingBag },
     { n: '03', t: 'Apps móviles',      d: 'iOS y Android con UX probada.',                accent: '#FF6A63', Icon: Activity },
-    { n: '04', t: 'Sistemas a medida', d: 'ERPs, dashboards e inventarios.',              accent: '#F59E0B', Icon: Database },
+    { n: '04', t: 'Sistemas a medida', d: 'ERPs, dashboards e inventarios.',              accent: '#FF6A63', Icon: Database },
   ];
 
   const TESTIMONIALS = [
@@ -1033,7 +1033,7 @@ function WebsiteMock_OLD_UNUSED() {
                       <div style={{ fontSize: 8.5, color: FG_D, fontFamily: F_MONO }}>{t.role}</div>
                     </div>
                     <div style={{ marginLeft: 'auto', display: 'flex', gap: 1 }}>
-                      {[0,1,2,3,4].map(s => <Star key={s} size={9} fill="#F59E0B" strokeWidth={0} />)}
+                      {[0,1,2,3,4].map(s => <Star key={s} size={9} fill="#FF6A63" strokeWidth={0} />)}
                     </div>
                   </div>
                 </div>
@@ -2483,9 +2483,9 @@ function SystemMock() {
 
   // Clients data for the Clientes nav
   const CLIENTS = [
-    { name: 'Constructora SC',   email: 'compras@constructorasc.cr', orders: 47, spent: '₡2.4M', tier: 'Oro',   color: '#F59E0B' },
+    { name: 'Constructora SC',   email: 'compras@constructorasc.cr', orders: 47, spent: '₡2.4M', tier: 'Oro',   color: '#FF6A63' },
     { name: 'Roberto Méndez',    email: 'rmendez@gmail.com',          orders: 12, spent: '₡385k', tier: 'Plata', color: '#9CA3AF' },
-    { name: 'Refacciones Lima',  email: 'contacto@reflima.cr',        orders: 38, spent: '₡1.8M', tier: 'Oro',   color: '#F59E0B' },
+    { name: 'Refacciones Lima',  email: 'contacto@reflima.cr',        orders: 38, spent: '₡1.8M', tier: 'Oro',   color: '#FF6A63' },
     { name: 'María Vargas',      email: 'maria.vargas@hotmail.com',   orders: 5,  spent: '₡92k',  tier: 'Nuevo', color: '#4F46E5' },
   ];
 
@@ -2501,7 +2501,7 @@ function SystemMock() {
   };
   const statusStyles = {
     ok:   { bg: MK.greenSoft,  c: '#047857',  t: 'En stock' },
-    low:  { bg: MK.yellowSoft, c: '#92400E',  t: 'Bajo'      },
+    low:  { bg: MK.yellowSoft, c: '#7A1A3D',  t: 'Bajo'      },
     crit: { bg: MK.redSoft,    c: '#B91C1C',  t: 'Crítico'   },
   };
 
@@ -2836,7 +2836,7 @@ function SystemMock() {
                 {[
                   { name: 'Centro',     v: '₡1.2M', p: 0.82, c: '#10B981' },
                   { name: 'Norte',      v: '₡680k', p: 0.46, c: '#4F46E5' },
-                  { name: 'Sur',        v: '₡520k', p: 0.35, c: '#F59E0B' },
+                  { name: 'Sur',        v: '₡520k', p: 0.35, c: '#FF6A63' },
                 ].map((b, i) => (
                   <div key={i} style={{ marginBottom: 12 }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10, marginBottom: 4 }}>
@@ -2855,7 +2855,7 @@ function SystemMock() {
                   { p: 'Taladro DeWalt 20V', v: 87, color: '#FF3B6B' },
                   { p: 'Cable THHN 12 AWG', v: 64, color: '#4F46E5' },
                   { p: 'Brocha 3"',         v: 52, color: '#10B981' },
-                  { p: 'Tornillo 1/4"',     v: 41, color: '#F59E0B' },
+                  { p: 'Tornillo 1/4"',     v: 41, color: '#FF6A63' },
                 ].map((p, i) => (
                   <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '5px 0' }}>
                     <span style={{ fontSize: 9, color: MK.muted, fontFamily: F_MONO, minWidth: 18, fontWeight: 700 }}>#{i+1}</span>
@@ -3195,7 +3195,7 @@ function SEOMock() {
         }}>
           <div style={{
             position: 'absolute', top: -10, right: 12,
-            background: active.pos === 1 ? MK.accent : active.pos <= 3 ? '#10B981' : '#F59E0B',
+            background: active.pos === 1 ? MK.accent : active.pos <= 3 ? '#10B981' : '#FF6A63',
             color: '#fff',
             fontSize: 8.5, fontWeight: 700, padding: '4px 10px',
             letterSpacing: '0.12em',
@@ -3217,7 +3217,7 @@ function SEOMock() {
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 6, fontSize: 9 }}>
             <div style={{ display: 'inline-flex', gap: 1 }}>
-              {[0,1,2,3,4].map(i => <Star key={i} size={9} fill="#F59E0B" strokeWidth={0} />)}
+              {[0,1,2,3,4].map(i => <Star key={i} size={9} fill="#FF6A63" strokeWidth={0} />)}
             </div>
             <span style={{ color: MK.text, fontWeight: 700 }}>4.9/5</span>
             <span style={{ color: MK.muted }}>· 47 reseñas en Google</span>

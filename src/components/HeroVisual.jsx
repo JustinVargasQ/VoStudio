@@ -18,10 +18,10 @@ const CODE_BLOCK = [
 ];
 
 const TECH_BADGES = [
-  { t: 'React',   c: '#EA580C', angle:   0 },
+  { t: 'React',   c: '#E03877', angle:   0 },
   { t: 'Node.js', c: '#15803D', angle:  60 },
   { t: 'Vite',    c: '#A21CAF', angle: 120 },
-  { t: 'TS',      c: '#EA580C', angle: 180 },
+  { t: 'TS',      c: '#E03877', angle: 180 },
   { t: 'Mongo',   c: '#15803D', angle: 240 },
   { t: 'Tailwind',c: '#0E7490', angle: 300 },
 ];
@@ -49,7 +49,7 @@ export function HeroVisual() {
       {/* Soft glow backdrop */}
       <div style={{
         position: 'absolute', inset: '5%',
-        background: 'radial-gradient(circle at 50% 55%, rgba(234,88,12,0.25), transparent 60%)',
+        background: 'radial-gradient(circle at 50% 55%, rgba(224,56,119,0.25), transparent 60%)',
         filter: 'blur(50px)',
       }} />
 
@@ -75,7 +75,7 @@ export function HeroVisual() {
 
           {/* Phone gradients */}
           <linearGradient id="phoneFace" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#EA580C" />
+            <stop offset="0%" stopColor="#E03877" />
             <stop offset="100%" stopColor="#C2410C" />
           </linearGradient>
 
@@ -147,7 +147,7 @@ export function HeroVisual() {
           <g filter="url(#dropShadow)" transform="translate(40, 90) rotate(-6)">
             <rect width="130" height="68" rx="6" fill="#fff" stroke="#0A0A0A" strokeWidth="1.2" />
             <text x="10" y="18" fontFamily="'JetBrains Mono', monospace" fontSize="7" fill="#6B7280" fontWeight="600">BUTTON</text>
-            <rect x="10" y="26" width="78" height="28" rx="3" fill="#EA580C" />
+            <rect x="10" y="26" width="78" height="28" rx="3" fill="#E03877" />
             <text x="22" y="44" fontFamily="Inter, sans-serif" fontSize="9" fill="#fff" fontWeight="600">Empezar →</text>
             <circle cx="116" cy="38" r="4" fill="#22C55E" />
           </g>
@@ -162,8 +162,8 @@ export function HeroVisual() {
             <rect width="120" height="80" rx="6" fill="#fff" stroke="#0A0A0A" strokeWidth="1.2" />
             <text x="10" y="18" fontFamily="'JetBrains Mono', monospace" fontSize="7" fill="#6B7280" fontWeight="600">PALETTE</text>
             <rect x="10"  y="26" width="22" height="22" rx="3" fill="#0A0A0A" />
-            <rect x="36"  y="26" width="22" height="22" rx="3" fill="#EA580C" />
-            <rect x="62"  y="26" width="22" height="22" rx="3" fill="#F59E0B" />
+            <rect x="36"  y="26" width="22" height="22" rx="3" fill="#E03877" />
+            <rect x="62"  y="26" width="22" height="22" rx="3" fill="#FF6A63" />
             <rect x="88"  y="26" width="22" height="22" rx="3" fill="#15803D" />
             <rect x="10"  y="56" width="100" height="3" rx="1.5" fill="#E5E7EB" />
             <rect x="10"  y="64" width="64" height="3" rx="1.5" fill="#E5E7EB" />
@@ -178,9 +178,9 @@ export function HeroVisual() {
           <g filter="url(#dropShadow)" transform="translate(440, 360) rotate(-5)">
             <rect width="120" height="90" rx="6" fill="#fff" stroke="#0A0A0A" strokeWidth="1.2" />
             <text x="10" y="18" fontFamily="'JetBrains Mono', monospace" fontSize="7" fill="#6B7280" fontWeight="600">METRICS</text>
-            <text x="10" y="38" fontFamily="'Instrument Serif', serif" fontStyle="italic" fontSize="22" fill="#EA580C" fontWeight="400">+48%</text>
-            <polyline points="10,76 26,68 42,72 58,58 74,62 90,48 106,52" fill="none" stroke="#EA580C" strokeWidth="1.5" />
-            <polyline points="10,82 26,78 42,80 58,72 74,76 90,68 106,72" fill="none" stroke="#F59E0B" strokeWidth="1.5" strokeDasharray="2 2" />
+            <text x="10" y="38" fontFamily="'Instrument Serif', serif" fontStyle="italic" fontSize="22" fill="#E03877" fontWeight="400">+48%</text>
+            <polyline points="10,76 26,68 42,72 58,58 74,62 90,48 106,52" fill="none" stroke="#E03877" strokeWidth="1.5" />
+            <polyline points="10,82 26,78 42,80 58,72 74,76 90,68 106,72" fill="none" stroke="#FF6A63" strokeWidth="1.5" strokeDasharray="2 2" />
           </g>
         </motion.g>
 
@@ -219,7 +219,7 @@ export function HeroVisual() {
             {/* Screen top bar (window controls) */}
             <rect x="128" y="208" width="244" height="18" fill="url(#screenTop)" />
             <circle cx="140" cy="217" r="3" fill="#EF4444" />
-            <circle cx="150" cy="217" r="3" fill="#F59E0B" />
+            <circle cx="150" cy="217" r="3" fill="#FF6A63" />
             <circle cx="160" cy="217" r="3" fill="#22C55E" />
             <text x="240" y="220" fontFamily="'JetBrains Mono', monospace" fontSize="6" fill="#6B7280" textAnchor="middle">hero.jsx</text>
 
@@ -266,7 +266,7 @@ export function HeroVisual() {
             <rect x="436" y="370" width="20" height="3" rx="1.5" fill="#fff" />
             <rect x="436" y="377" width="36" height="3" rx="1.5" fill="rgba(255,255,255,0.5)" />
             {/* CTA button */}
-            <rect x="432" y="394" width="56" height="14" rx="3" fill="#F59E0B" />
+            <rect x="432" y="394" width="56" height="14" rx="3" fill="#FF6A63" />
             <text x="460" y="404" fontFamily="Inter, sans-serif" fontSize="7" fill="#0A0A0A" fontWeight="700" textAnchor="middle">Empezar</text>
           </g>
         </motion.g>
@@ -276,20 +276,20 @@ export function HeroVisual() {
           animate={{ opacity: [0.3, 1, 0.3] }}
           transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
         >
-          <line x1="380" y1="330" x2="420" y2="340" stroke="#EA580C" strokeWidth="1.5" strokeDasharray="3 3" />
-          <circle cx="380" cy="330" r="3" fill="#EA580C" />
-          <circle cx="420" cy="340" r="3" fill="#EA580C" />
+          <line x1="380" y1="330" x2="420" y2="340" stroke="#E03877" strokeWidth="1.5" strokeDasharray="3 3" />
+          <circle cx="380" cy="330" r="3" fill="#E03877" />
+          <circle cx="420" cy="340" r="3" fill="#E03877" />
         </motion.g>
 
         {/* Travelling data dot */}
         <motion.circle
-          r="4" fill="#F59E0B"
+          r="4" fill="#FF6A63"
           animate={{ cx: [380, 420, 380], cy: [330, 340, 330] }}
           transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
         />
 
         {/* ── Particle dust ─────────────────────────────────────────────── */}
-        <g fill="#EA580C">
+        <g fill="#E03877">
           {[
             { cx: 70, cy: 130, d: 0, t: 3 },
             { cx: 540, cy: 180, d: 0.5, t: 3.5 },

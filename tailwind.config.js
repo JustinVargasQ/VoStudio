@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        vo: { DEFAULT: '#EA6113', dark: '#C94E0A', light: '#FF7A2E' },
+        vo: { DEFAULT: '#FF5C9A', dark: '#E03877', light: '#FF8AB8' },
       },
       fontFamily: {
         sans:    ['Inter', 'system-ui', 'sans-serif'],

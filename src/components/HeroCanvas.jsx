@@ -44,12 +44,13 @@ export function HeroCanvas({ theme = 'dark' }) {
       positions[i*3+1] = originalPositions[i*3+1] = y;
       positions[i*3+2] = originalPositions[i*3+2] = z;
 
-      // VO Studio orange/amber/gold palette — H 0.03–0.13 = ~10°–47°
-      const hue   = 0.03 + Math.random() * 0.10;
-      const sat   = 0.80 + Math.random() * 0.20;
+      // v7 palette — Pink Lilac Noir: rosa (330°), magenta (320°), lila (270°)
+      // H rango: 0.75 (lila 270°) → 0.95 (rosa 342°)
+      const hue   = 0.75 + Math.random() * 0.20;
+      const sat   = 0.65 + Math.random() * 0.30;
       const light = isDark
-        ? 0.50 + Math.random() * 0.35   // brighter on dark bg
-        : 0.35 + Math.random() * 0.30;  // richer on light bg
+        ? 0.55 + Math.random() * 0.30   // brighter on dark bg
+        : 0.45 + Math.random() * 0.25;  // richer on light bg
 
       color.setHSL(hue, sat, light);
       colors[i*3]   = color.r;

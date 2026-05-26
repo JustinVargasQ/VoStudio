@@ -62,7 +62,7 @@ export function FAQ() {
 
   return (
     <section id="faq" style={{ background: BG_SECTION, padding: `clamp(32px, 5vh, 56px) 0`, position: 'relative', overflow: 'hidden' }}>
-      <span className="blob blob-2" style={{ top: '5%', left: '-10%', width: 360, height: 360, background: 'radial-gradient(circle, rgba(168,85,247,0.08), transparent 70%)' }} />
+      <span className="blob blob-2" style={{ top: '5%', left: '-10%', width: 360, height: 360, background: 'radial-gradient(circle, rgba(183,156,255,0.08), transparent 70%)' }} />
 
       <div style={{ maxWidth: MAX_W, margin: '0 auto', padding: `0 ${PAD_X}`, position: 'relative', zIndex: 1 }}>
         <SectionHeader

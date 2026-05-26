@@ -263,7 +263,7 @@ function ServiceModal({ service, onClose, t }) {
   );
 }
 
-const CARD_ACCENTS = ['#FF6A63', '#B79CFF', '#FF5C9A', '#FF5C9A', '#FF6A63', '#F59E0B'];
+const CARD_ACCENTS = ['#FF6A63', '#B79CFF', '#FF5C9A', '#FF5C9A', '#FF6A63', '#FF6A63'];
 
 // ─── 3D Cover-Flow style carousel for regular service cards ────────────
 function ServiceCarousel({ services, onOpen, t }) {

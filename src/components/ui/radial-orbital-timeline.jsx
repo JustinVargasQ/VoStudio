@@ -110,7 +110,7 @@ export default function RadialOrbitalTimeline({ timelineData }) {
         >
           {/* Center orb */}
           <div className="absolute w-14 h-14 rounded-full flex items-center justify-center z-10"
-            style={{ background: 'linear-gradient(135deg, #EA580C, #F97316, #FBBF24)', animation: 'pulse 2s ease-in-out infinite' }}>
+            style={{ background: 'linear-gradient(135deg, #E03877, #E03877, #FF8AB8)', animation: 'pulse 2s ease-in-out infinite' }}>
             <div className="absolute w-18 h-18 rounded-full border border-white/20" style={{ width: 72, height: 72, animation: 'ping 1s ease-in-out infinite', opacity: 0.7 }} />
             <div className="absolute rounded-full border border-white/10" style={{ width: 88, height: 88, animation: 'ping 1s ease-in-out infinite', animationDelay: '0.5s', opacity: 0.5 }} />
             <div className="w-7 h-7 rounded-full bg-white/80 backdrop-blur" />
@@ -143,7 +143,7 @@ export default function RadialOrbitalTimeline({ timelineData }) {
                   className={isPulsing ? 'animate-pulse' : ''}
                   style={{
                     position: 'absolute',
-                    background: 'radial-gradient(circle, rgba(234,88,12,0.3) 0%, rgba(234,88,12,0) 70%)',
+                    background: 'radial-gradient(circle, rgba(224,56,119,0.3) 0%, rgba(224,56,119,0) 70%)',
                     width: `${item.energy * 0.5 + 40}px`,
                     height: `${item.energy * 0.5 + 40}px`,
                     left: `-${(item.energy * 0.5 + 40 - 40) / 2}px`,
@@ -199,7 +199,7 @@ export default function RadialOrbitalTimeline({ timelineData }) {
                           <span className="font-mono">{item.energy}%</span>
                         </div>
                         <div className="w-full h-1 bg-white/10 rounded-full overflow-hidden">
-                          <div className="h-full" style={{ width: `${item.energy}%`, background: 'linear-gradient(to right, #EA580C, #F97316)' }} />
+                          <div className="h-full" style={{ width: `${item.energy}%`, background: 'linear-gradient(to right, #E03877, #E03877)' }} />
                         </div>
                       </div>
 

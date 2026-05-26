@@ -2,7 +2,7 @@ import { A, A_L, A2 } from '../theme';
 
 const PALETTE = {
   bg1: '#EEF2FF',  // light blue tint
-  bg2: '#FEF3C7',  // light amber tint
+  bg2: '#FFE5F0',  // light amber tint
   bg3: '#F0FDF4',  // light green tint
   bg4: '#FCE7F3',  // light pink tint
   bg5: '#F3E8FF',  // light purple tint
@@ -17,7 +17,7 @@ function Browser({ bg, accent = A }) {
       <rect x="40" y="32" width="240" height="130" rx="6" fill="#fff" stroke="#0A0A0A" strokeWidth="1.5" />
       <rect x="40" y="32" width="240" height="22" rx="6" fill="#0A0A0A" />
       <circle cx="52" cy="43" r="3" fill="#EF4444" />
-      <circle cx="62" cy="43" r="3" fill="#F59E0B" />
+      <circle cx="62" cy="43" r="3" fill="#FF6A63" />
       <circle cx="72" cy="43" r="3" fill="#22C55E" />
       <rect x="90" y="38" width="140" height="10" rx="2" fill="#fff" opacity="0.2" />
       {/* Content */}

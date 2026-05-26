@@ -251,7 +251,7 @@ export function CTAVisual() {
           padding: '10px 16px',
           fontSize: 11, fontWeight: 700, fontFamily: F_MONO,
           letterSpacing: '0.1em', textTransform: 'uppercase',
-          boxShadow: '0 12px 30px rgba(245,158,11,0.4)',
+          boxShadow: '0 12px 30px rgba(255,106,99,0.4)',
           transform: 'rotate(8deg)',
           display: 'inline-flex', alignItems: 'center', gap: 6,
         }}>

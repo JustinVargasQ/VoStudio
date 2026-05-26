@@ -227,6 +227,84 @@ const CONTENT = {
         cta: 'Cotizar proyecto' },
     ],
 
+    PRICING_DETAIL: [
+      {
+        includes: [
+          'Diseño custom responsive y mobile-first',
+          'Hasta 5 secciones (Hero, Servicios, Sobre, Contacto…)',
+          'Formulario de contacto + anti-spam',
+          'SEO básico: title, metas, sitemap, robots.txt',
+          'Google Analytics 4 configurado',
+          'Dominio + hosting listos para operar',
+          '1 ronda de revisiones de diseño',
+          '30 días de soporte post-lanzamiento',
+        ],
+        examples: [
+          { t: 'Profesional independiente', d: 'Abogado o médico que necesita presencia online seria en días.' },
+          { t: 'Emprendimiento local',      d: 'Negocio que vende por redes y da el salto a un sitio propio.' },
+          { t: 'Evento o lanzamiento',      d: 'Countdown, RSVP y captura de leads para una fecha.' },
+        ],
+      },
+      {
+        includes: [
+          'Todo lo de Landing, más:',
+          'Hasta 10 páginas con CMS integrado',
+          'Editás textos e imágenes sin tocar código',
+          'Blog funcional y administrable',
+          'Formulario de cotización personalizado',
+          'SEO avanzado: schema, open graph, velocidad',
+          'Search Console + Analytics configurados',
+          '2 rondas de revisiones de diseño',
+          'Video de capacitación para tu equipo',
+          '60 días de soporte post-lanzamiento',
+        ],
+        examples: [
+          { t: 'PYME o empresa',        d: 'Sitio actualizable sin pagar un dev cada vez que querés cambiar algo.' },
+          { t: 'Clínica o consultorio', d: 'Citas, equipo médico, servicios, blog de salud y reseñas.' },
+          { t: 'Agencia o estudio',     d: 'Portafolio, blog de casos, formulario de brief y Calendly integrado.' },
+        ],
+      },
+      {
+        includes: [
+          'Catálogo ilimitado con categorías y variantes',
+          'Carrito y checkout multi-paso optimizado',
+          'Pasarela real: SINPE Móvil, tarjeta y PayPal',
+          'Panel admin: productos, pedidos e inventario',
+          'Cupones y descuentos por temporada',
+          'Notificaciones por WhatsApp y email',
+          'Imágenes con Cloudinary (optimización auto)',
+          'SEO de producto con URLs amigables',
+          'Reseñas verificadas por compra real',
+          '90 días de soporte post-lanzamiento',
+        ],
+        examples: [
+          { t: 'Cosméticos y moda', d: 'Variantes (talla/color), wishlist, cupones y pedidos por WhatsApp.' },
+          { t: 'Comida gourmet',    d: 'Entregas por zona, calendario de pedidos y perecederos.' },
+          { t: 'Arte y artesanías', d: 'Piezas únicas con envíos nacionales e internacionales.' },
+        ],
+      },
+      {
+        includes: [
+          'Análisis de requerimientos + propuesta técnica',
+          'Diseño UX/UI con prototipo aprobado en Figma',
+          'Autenticación con roles y permisos granulares',
+          'App web progresiva (PWA): instalable y offline',
+          'API REST propia o integración con sistemas externos',
+          'Base de datos diseñada a la medida del negocio',
+          'Panel de administración completo',
+          'Reportes exportables a Excel y PDF',
+          'Respaldos automáticos + monitoreo 24/7',
+          'Documentación técnica + manual en video',
+          '90 días de soporte + mantenimiento',
+        ],
+        examples: [
+          { t: 'ERP para constructora', d: 'Proyectos, presupuestos, materiales y planilla integrada.' },
+          { t: 'CRM inmobiliario',      d: 'Leads, fichas de propiedad, agentes y visitas calendarizadas.' },
+          { t: 'App de delivery',       d: 'Pedidos en tiempo real, tracking GPS y pagos in-app.' },
+        ],
+      },
+    ],
+
     PRICING_NOTE: 'Precios de referencia. Cada proyecto se cotiza según alcance real — siempre recibís propuesta detallada antes de firmar.',
 
     GUARANTEES: [
@@ -436,6 +514,84 @@ const CONTENT = {
         cta: 'Quote my project' },
     ],
 
+    PRICING_DETAIL: [
+      {
+        includes: [
+          'Custom responsive, mobile-first design',
+          'Up to 5 sections (Hero, Services, About, Contact…)',
+          'Contact form + anti-spam',
+          'Basic SEO: title, metas, sitemap, robots.txt',
+          'Google Analytics 4 setup',
+          'Domain + hosting ready to operate',
+          '1 round of design revisions',
+          '30 days post-launch support',
+        ],
+        examples: [
+          { t: 'Independent professional', d: 'Lawyer or doctor who needs a serious online presence in days.' },
+          { t: 'Local business',           d: 'Business selling on socials, ready to launch its own site.' },
+          { t: 'Event or launch',          d: 'Countdown, RSVP and lead capture for a single date.' },
+        ],
+      },
+      {
+        includes: [
+          'Everything in Landing, plus:',
+          'Up to 10 pages with integrated CMS',
+          'Edit text and images without touching code',
+          'Working and editable blog',
+          'Custom quote form',
+          'Advanced SEO: schema, open graph, speed',
+          'Search Console + Analytics setup',
+          '2 rounds of design revisions',
+          'Training video for your team',
+          '60 days post-launch support',
+        ],
+        examples: [
+          { t: 'SMB or company',         d: 'Updatable site without paying a dev every time you change something.' },
+          { t: 'Clinic or practice',     d: 'Appointments, medical team, services, health blog and reviews.' },
+          { t: 'Agency or studio',       d: 'Portfolio, case blog, brief form and Calendly integration.' },
+        ],
+      },
+      {
+        includes: [
+          'Unlimited catalog with categories and variants',
+          'Optimized multi-step cart and checkout',
+          'Real payment gateway: SINPE Móvil, card and PayPal',
+          'Admin panel: products, orders and inventory',
+          'Seasonal coupons and discounts',
+          'WhatsApp and email notifications',
+          'Images with Cloudinary (auto-optimized)',
+          'Product SEO with friendly URLs',
+          'Reviews verified by real purchase',
+          '90 days post-launch support',
+        ],
+        examples: [
+          { t: 'Cosmetics & fashion', d: 'Variants (size/color), wishlist, coupons and WhatsApp orders.' },
+          { t: 'Gourmet food',        d: 'Delivery by zone, order calendar and perishable handling.' },
+          { t: 'Art & crafts',        d: 'Unique pieces with national and international shipping.' },
+        ],
+      },
+      {
+        includes: [
+          'Requirements analysis + technical proposal',
+          'UX/UI design with Figma prototype approval',
+          'Authentication with granular roles and permissions',
+          'Progressive web app (PWA): installable and offline',
+          'Custom REST API or integration with external systems',
+          'Database designed to your business',
+          'Complete admin panel',
+          'Reports exportable to Excel and PDF',
+          'Automatic backups + 24/7 monitoring',
+          'Technical documentation + video manual',
+          '90 days support + maintenance',
+        ],
+        examples: [
+          { t: 'Construction ERP', d: 'Projects, budgets, materials and integrated payroll.' },
+          { t: 'Real estate CRM',  d: 'Leads, property files, agents and scheduled visits.' },
+          { t: 'Delivery app',     d: 'Real-time orders, GPS tracking and in-app payments.' },
+        ],
+      },
+    ],
+
     PRICING_NOTE: 'Reference prices. Every project is quoted by real scope — you always get a detailed proposal before signing.',
 
     GUARANTEES: [
@@ -464,6 +620,6 @@ export function getContent(locale = 'es') {
 }
 
 // Backwards-compatible direct exports (Spanish default)
-export const { PROJECTS, SERVICES, PROCESS, PRICING, PRICING_NOTE, GUARANTEES, FAQ } = CONTENT.es;
+export const { PROJECTS, SERVICES, PROCESS, PRICING, PRICING_DETAIL, PRICING_NOTE, GUARANTEES, FAQ } = CONTENT.es;
 export const ACCENTS = [A, A, A, A, A, A, A, A, A, A];
 export const MANIFESTO_QUOTE = 'No vendemos sitios web.\nVendemos resultados que podés medir.';

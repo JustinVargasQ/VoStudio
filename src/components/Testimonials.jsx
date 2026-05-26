@@ -76,7 +76,7 @@ function Stars() {
   return (
     <div style={{ display: 'flex', gap: 3 }}>
       {[0,1,2,3,4].map(i => (
-        <svg key={i} width="14" height="14" viewBox="0 0 24 24" fill="#F59E0B">
+        <svg key={i} width="14" height="14" viewBox="0 0 24 24" fill="#FF6A63">
           <path d="M12 2l2.39 7.36H22l-6.18 4.49 2.36 7.27L12 16.63l-6.18 4.49 2.36-7.27L2 9.36h7.61z"/>
         </svg>
       ))}

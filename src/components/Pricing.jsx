@@ -1,265 +1,325 @@
 import { useState, useRef, useEffect, createContext, useContext } from 'react';
 import { motion, AnimatePresence, useSpring } from 'framer-motion';
-import { Check, Star, X, ArrowUpRight, Clock, Monitor, ShoppingBag, LayoutDashboard, Gauge } from 'lucide-react';
+import { Check, Star, X, ArrowUpRight, Clock, Monitor, ShoppingBag, LayoutDashboard, Gauge, Heart, Users, BarChart3, Settings, Layers, FileText, Search } from 'lucide-react';
 import {
   BG, BG_ALT, BG_SECTION, BG_CARD, BG_POPULAR, POPULAR_FG, POPULAR_BORDER,
-  TEXT, TEXT_S, TEXT_D, BORDER, A, A_L, A_D, F_DISPLAY, F_MONO, MAX_W, PAD_X,
+  TEXT, TEXT_S, TEXT_D, BORDER, A, A_L, A_D, A2, F_DISPLAY, F_MONO, MAX_W, PAD_X,
 } from '../theme';
 import { getContent } from '../data/content';
 import { useApp } from '../context/AppContext';
 import { SectionHeader } from './Services';
 import { RevealItem } from './Reveal';
 
-// ── Plan metadata (no prices) ─────────────────────────────────────────────────
+// ── Plan metadata (paleta v7 — sin amarillo/naranja) ──────────────────────────
+// Landing = rosa principal, Sitio = lila, E-commerce = coral, App = rosa profundo
 const PLAN_META = [
-  { accent: '#0EA5E9', glow: '#0EA5E944' },
-  { accent: A,        glow: `${A}44`    },
-  { accent: '#F59E0B', glow: '#F59E0B44' },
-  { accent: '#F97316', glow: '#F9731644' },
+  { accent: '#FF5C9A', glow: '#FF5C9A44' },  // rosa fuerte
+  { accent: '#B79CFF', glow: '#B79CFF44' },  // lila suave (popular)
+  { accent: '#FF6A63', glow: '#FF6A6344' },  // coral
+  { accent: '#E03877', glow: '#E0387744' },  // rosa profundo
 ];
 
-// ── Detailed content per plan ─────────────────────────────────────────────────
-const PLAN_DETAIL = [
-  {
-    includes: [
-      'Diseño custom responsive y mobile-first',
-      'Hasta 5 secciones (Hero, Servicios, Sobre, Contacto…)',
-      'Formulario de contacto + anti-spam',
-      'SEO básico: title, metas, sitemap, robots.txt',
-      'Google Analytics 4 configurado',
-      'Dominio + hosting listos para operar',
-      '1 ronda de revisiones de diseño',
-      '30 días de soporte post-lanzamiento',
-    ],
-    examples: [
-      { t: 'Profesional independiente', d: 'Abogado o médico que necesita presencia online seria en días.' },
-      { t: 'Emprendimiento local', d: 'Negocio que vende por redes y da el salto a un sitio propio.' },
-      { t: 'Evento o lanzamiento', d: 'Countdown, RSVP y captura de leads para una fecha.' },
-    ],
-    Mockup: MockupLanding,
-  },
-  {
-    includes: [
-      'Todo lo de Landing, más:',
-      'Hasta 10 páginas con CMS integrado',
-      'Editás textos e imágenes sin tocar código',
-      'Blog funcional y administrable',
-      'Formulario de cotización personalizado',
-      'SEO avanzado: schema, open graph, velocidad',
-      'Search Console + Analytics configurados',
-      '2 rondas de revisiones de diseño',
-      'Video de capacitación para tu equipo',
-      '60 días de soporte post-lanzamiento',
-    ],
-    examples: [
-      { t: 'PYME o empresa', d: 'Sitio actualizable sin pagar un dev cada vez que querés cambiar algo.' },
-      { t: 'Clínica o consultorio', d: 'Citas, equipo médico, servicios, blog de salud y reseñas.' },
-      { t: 'Agencia o estudio', d: 'Portafolio, blog de casos, formulario de brief y Calendly integrado.' },
-    ],
-    Mockup: MockupSitio,
-  },
-  {
-    includes: [
-      'Catálogo ilimitado con categorías y variantes',
-      'Carrito y checkout multi-paso optimizado',
-      'Pasarela real: SINPE Móvil, tarjeta y PayPal',
-      'Panel admin: productos, pedidos e inventario',
-      'Cupones y descuentos por temporada',
-      'Notificaciones por WhatsApp y email',
-      'Imágenes con Cloudinary (optimización auto)',
-      'SEO de producto con URLs amigables',
-      'Reseñas verificadas por compra real',
-      '90 días de soporte post-lanzamiento',
-    ],
-    examples: [
-      { t: 'Cosméticos y moda', d: 'Variantes (talla/color), wishlist, cupones y pedidos por WhatsApp.' },
-      { t: 'Comida gourmet', d: 'Entregas por zona, calendario de pedidos y perecederos.' },
-      { t: 'Arte y artesanías', d: 'Piezas únicas con envíos nacionales e internacionales.' },
-    ],
-    Mockup: MockupEcommerce,
-  },
-  {
-    includes: [
-      'Análisis de requerimientos + propuesta técnica',
-      'Diseño UX/UI con prototipo aprobado en Figma',
-      'Autenticación con roles y permisos granulares',
-      'App web progresiva (PWA): instalable y offline',
-      'API REST propia o integración con sistemas externos',
-      'Base de datos diseñada a la medida del negocio',
-      'Panel de administración completo',
-      'Reportes exportables a Excel y PDF',
-      'Respaldos automáticos + monitoreo 24/7',
-      'Documentación técnica + manual en video',
-      '90 días de soporte + mantenimiento',
-    ],
-    examples: [
-      { t: 'ERP para constructora', d: 'Proyectos, presupuestos, materiales y planilla integrada.' },
-      { t: 'CRM inmobiliario', d: 'Leads, fichas de propiedad, agentes y visitas calendarizadas.' },
-      { t: 'App de delivery', d: 'Pedidos en tiempo real, tracking GPS y pagos in-app.' },
-    ],
-    Mockup: MockupApp,
-  },
-];
+// ── Mockup mapping (per plan index — content i18n lives in content.js) ──────
+const PLAN_MOCKUPS = [MockupLanding, MockupSitio, MockupEcommerce, MockupApp];
 
-// ── Mini mockups específicos para pricing ─────────────────────────────────────
-function MockupLanding() {
+// ── Browser frame (shared header) ────────────────────────────────────────────
+function BrowserFrame({ url, children, borderColor = 'rgba(255,92,154,0.22)', rightSlot = null }) {
   return (
-    <div style={{ background: '#06030D', borderRadius: 10, overflow: 'hidden', border: '1px solid rgba(138,70,255,0.20)', boxShadow: '0 8px 28px rgba(0,0,0,0.45)' }}>
-      {/* Browser bar */}
-      <div style={{ background: '#100B25', padding: '6px 10px', display: 'flex', alignItems: 'center', gap: 5, borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-        {['#FF5C5C', '#FFBD2E', '#27C93F'].map(c => <span key={c} style={{ width: 7, height: 7, borderRadius: '50%', background: c }} />)}
-        <div style={{ flex: 1, marginLeft: 8, background: 'rgba(255,255,255,0.07)', borderRadius: 4, height: 14, display: 'flex', alignItems: 'center', paddingLeft: 8 }}>
-          <span style={{ fontFamily: F_MONO, fontSize: 8, color: 'rgba(255,255,255,0.38)' }}>tunegocio.com</span>
+    <div style={{
+      background: '#06030D', borderRadius: 10, overflow: 'hidden',
+      border: `1px solid ${borderColor}`,
+      boxShadow: '0 12px 32px rgba(0,0,0,0.50), 0 0 0 1px rgba(255,255,255,0.02)',
+    }}>
+      <div style={{ background: '#1B1030', padding: '7px 11px', display: 'flex', alignItems: 'center', gap: 6, borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+        {['#FF5C5C', '#FFBD2E', '#27C93F'].map(c => <span key={c} style={{ width: 7, height: 7, borderRadius: '50%', background: c, boxShadow: `0 0 6px ${c}55` }} />)}
+        <div style={{ flex: 1, marginLeft: 8, background: 'rgba(255,255,255,0.06)', borderRadius: 4, height: 15, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 8px' }}>
+          <span style={{ fontFamily: F_MONO, fontSize: 8.5, color: 'rgba(255,255,255,0.45)' }}>{url}</span>
+          {rightSlot}
         </div>
       </div>
-      {/* Nav */}
-      <div style={{ padding: '7px 12px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.04)', background: '#040D1A' }}>
-        <div style={{ width: 36, height: 8, borderRadius: 3, background: '#FF5C9A' }} />
-        <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-          {['Inicio', 'Servicios', 'Contacto'].map(l => <span key={l} style={{ fontSize: 8, color: 'rgba(255,255,255,0.40)' }}>{l}</span>)}
-          <div style={{ padding: '3px 9px', background: '#FF5C9A', borderRadius: 4 }}>
-            <span style={{ fontSize: 8, color: '#fff', fontWeight: 700 }}>Contactar</span>
+      {children}
+    </div>
+  );
+}
+
+// ── Mockup 1: LANDING — modern marketing site with hero + features + cta ────
+function MockupLanding() {
+  const { t } = useApp();
+  return (
+    <BrowserFrame url={t('mockup.url.landing')} borderColor="rgba(255,92,154,0.30)">
+      {/* Top nav with logo + links + cta */}
+      <div style={{ padding: '8px 14px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.05)', background: 'rgba(255,92,154,0.04)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+          <div style={{ width: 14, height: 14, borderRadius: 4, background: 'linear-gradient(135deg, #FF5C9A, #B79CFF)' }} />
+          <div style={{ width: 28, height: 6, borderRadius: 2, background: 'rgba(255,255,255,0.85)' }} />
+        </div>
+        <div style={{ display: 'flex', gap: 11, alignItems: 'center' }}>
+          {[t('mockup.nav.home'), t('mockup.nav.services'), t('mockup.nav.contact')].map(l => (
+            <span key={l} style={{ fontSize: 8, color: 'rgba(255,255,255,0.50)' }}>{l}</span>
+          ))}
+          <div style={{ padding: '3px 9px', background: 'linear-gradient(135deg, #FF5C9A, #E03877)', borderRadius: 4, boxShadow: '0 2px 8px rgba(255,92,154,0.35)' }}>
+            <span style={{ fontSize: 8, color: '#fff', fontWeight: 700 }}>{t('mockup.cta.contact')}</span>
           </div>
         </div>
       </div>
-      {/* Hero */}
-      <div style={{ padding: '18px 14px 14px', background: 'linear-gradient(135deg, #06030D 0%, #1B1030 100%)' }}>
-        <div style={{ width: '75%', height: 11, borderRadius: 3, background: 'rgba(255,255,255,0.88)', marginBottom: 6 }} />
-        <div style={{ width: '55%', height: 7, borderRadius: 3, background: 'rgba(255,255,255,0.35)', marginBottom: 14 }} />
-        <div style={{ display: 'flex', gap: 7 }}>
-          <div style={{ padding: '5px 14px', background: '#FF5C9A', borderRadius: 5 }}><span style={{ fontSize: 8.5, color: '#fff', fontWeight: 700 }}>Empezar</span></div>
-          <div style={{ padding: '5px 14px', border: '1px solid rgba(255,255,255,0.22)', borderRadius: 5 }}><span style={{ fontSize: 8.5, color: 'rgba(255,255,255,0.60)' }}>Ver más</span></div>
+      {/* Hero with ambient orbs */}
+      <div style={{ padding: '18px 14px 16px', background: 'linear-gradient(135deg, #06030D 0%, #1B1030 60%, #2A0F1E 100%)', position: 'relative', overflow: 'hidden' }}>
+        <div aria-hidden style={{ position: 'absolute', top: -20, right: -20, width: 100, height: 100, borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,92,154,0.35), transparent 70%)', filter: 'blur(20px)' }} />
+        <div aria-hidden style={{ position: 'absolute', bottom: -20, left: -20, width: 90, height: 90, borderRadius: '50%', background: 'radial-gradient(circle, rgba(183,156,255,0.30), transparent 70%)', filter: 'blur(20px)' }} />
+        <div style={{ position: 'relative', zIndex: 1 }}>
+          <div style={{ width: '78%', height: 12, borderRadius: 3, background: 'rgba(255,255,255,0.92)', marginBottom: 5 }} />
+          <div style={{ width: '55%', height: 12, borderRadius: 3, background: 'linear-gradient(90deg, #FF5C9A, #B79CFF)', marginBottom: 8 }} />
+          <div style={{ width: '70%', height: 6, borderRadius: 2, background: 'rgba(255,255,255,0.35)', marginBottom: 14 }} />
+          <div style={{ display: 'flex', gap: 7 }}>
+            <div style={{ padding: '6px 15px', background: 'linear-gradient(135deg, #FF5C9A, #B79CFF)', borderRadius: 5, boxShadow: '0 4px 12px rgba(255,92,154,0.45)' }}>
+              <span style={{ fontSize: 9, color: '#fff', fontWeight: 700 }}>{t('mockup.cta.start')}</span>
+            </div>
+            <div style={{ padding: '6px 15px', border: '1px solid rgba(255,255,255,0.25)', borderRadius: 5 }}>
+              <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.65)' }}>{t('mockup.cta.more')}</span>
+            </div>
+          </div>
         </div>
       </div>
       {/* Features strip */}
-      <div style={{ padding: '10px 14px 12px', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 7 }}>
-        {[['#FF6A63', 'Rápido'], ['#FF5C9A', 'Seguro'], ['#B79CFF', 'Mobile']].map(([c, l]) => (
-          <div key={l} style={{ padding: '7px 8px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 7 }}>
-            <div style={{ width: 14, height: 14, borderRadius: 4, background: c, marginBottom: 5 }} />
-            <div style={{ fontSize: 8.5, color: 'rgba(255,255,255,0.75)', fontWeight: 600, marginBottom: 3 }}>{l}</div>
-            <div style={{ width: '80%', height: 4, borderRadius: 2, background: 'rgba(255,255,255,0.12)' }} />
+      <div style={{ padding: '11px 14px 13px', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 7 }}>
+        {[
+          { c: '#FF5C9A', l: t('mockup.landing.feat.fast') },
+          { c: '#B79CFF', l: t('mockup.landing.feat.secure') },
+          { c: '#FF6A63', l: t('mockup.landing.feat.mobile') },
+        ].map(({ c, l }) => (
+          <div key={l} style={{ padding: '8px 9px', background: `${c}10`, border: `1px solid ${c}28`, borderRadius: 7 }}>
+            <div style={{ width: 16, height: 16, borderRadius: 4, background: `linear-gradient(135deg, ${c}, ${c}aa)`, marginBottom: 6, boxShadow: `0 2px 8px ${c}40` }} />
+            <div style={{ fontSize: 8.5, color: 'rgba(255,255,255,0.82)', fontWeight: 600, marginBottom: 3 }}>{l}</div>
+            <div style={{ width: '85%', height: 3, borderRadius: 2, background: `${c}35` }} />
+            <div style={{ width: '50%', height: 3, borderRadius: 2, background: `${c}20`, marginTop: 2 }} />
           </div>
         ))}
       </div>
-    </div>
+    </BrowserFrame>
   );
 }
 
+// ── Mockup 2: SITIO COMPLETO — CMS admin with multi-page list ────────────────
 function MockupSitio() {
+  const { t } = useApp();
+  const ACCENT = '#B79CFF';
+  const pages = [
+    { name: t('mockup.cms.page.home'),    status: 'online' },
+    { name: t('mockup.cms.page.about'),   status: 'online' },
+    { name: t('mockup.cms.page.svc'),     status: 'online' },
+    { name: t('mockup.cms.page.blog'),    status: 'draft'  },
+    { name: t('mockup.cms.page.contact'), status: 'online' },
+  ];
   return (
-    <div style={{ background: '#06030D', borderRadius: 10, overflow: 'hidden', border: '1px solid rgba(138,70,255,0.20)', boxShadow: '0 8px 28px rgba(0,0,0,0.45)' }}>
-      {/* Browser bar */}
-      <div style={{ background: '#100B25', padding: '6px 10px', display: 'flex', alignItems: 'center', gap: 5, borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-        {['#FF5C5C', '#FFBD2E', '#27C93F'].map(c => <span key={c} style={{ width: 7, height: 7, borderRadius: '50%', background: c }} />)}
-        <div style={{ flex: 1, marginLeft: 8, background: 'rgba(255,255,255,0.07)', borderRadius: 4, height: 14, display: 'flex', alignItems: 'center', paddingLeft: 8 }}>
-          <span style={{ fontFamily: F_MONO, fontSize: 8, color: 'rgba(255,255,255,0.38)' }}>tuempresa.com/admin</span>
-        </div>
-      </div>
-      {/* CMS layout: sidebar + content */}
-      <div style={{ display: 'grid', gridTemplateColumns: '56px 1fr' }}>
+    <BrowserFrame url={t('mockup.url.cms')} borderColor="rgba(183,156,255,0.30)">
+      <div style={{ display: 'grid', gridTemplateColumns: '58px 1fr', minHeight: 200 }}>
         {/* Sidebar */}
-        <div style={{ background: '#040D1A', borderRight: '1px solid rgba(255,255,255,0.06)', padding: '10px 6px', display: 'flex', flexDirection: 'column', gap: 6 }}>
-          {[A, '#FF6A63', '#B79CFF', '#F59E0B', 'rgba(255,255,255,0.18)'].map((c, i) => (
-            <div key={i} style={{ width: '100%', height: i === 0 ? 24 : 18, borderRadius: 5, background: i === 0 ? `${A}30` : 'rgba(255,255,255,0.05)', border: i === 0 ? `1px solid ${A}50` : '1px solid rgba(255,255,255,0.07)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <div style={{ width: 8, height: 8, borderRadius: 2, background: c }} />
-            </div>
-          ))}
-        </div>
-        {/* Content area */}
-        <div style={{ padding: '10px' }}>
-          <div style={{ fontSize: 8.5, color: 'rgba(255,255,255,0.55)', fontFamily: F_MONO, letterSpacing: '0.08em', marginBottom: 8 }}>PÁGINAS DEL SITIO</div>
-          {[['Inicio', '#27C93F'], ['Servicios', '#27C93F'], ['Blog', '#FFBD2E'], ['Contacto', '#27C93F']].map(([name, c]) => (
-            <div key={name} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '5px 8px', marginBottom: 4, background: 'rgba(255,255,255,0.04)', borderRadius: 5, border: '1px solid rgba(255,255,255,0.06)' }}>
-              <span style={{ fontSize: 8.5, color: 'rgba(255,255,255,0.70)', fontWeight: 500 }}>{name}</span>
-              <span style={{ fontSize: 7, color: c, fontFamily: F_MONO }}>● online</span>
-            </div>
-          ))}
-          <div style={{ marginTop: 8, padding: '6px 8px', background: `${A}18`, border: `1px solid ${A}40`, borderRadius: 5, display: 'flex', alignItems: 'center', gap: 6 }}>
-            <div style={{ width: 8, height: 8, borderRadius: 2, background: A }} />
-            <span style={{ fontSize: 8, color: A, fontFamily: F_MONO }}>Nueva entrada →</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function MockupEcommerce() {
-  const products = [['Producto A', '₡24 900'], ['Producto B', '₡18 500'], ['Producto C', '₡32 000'], ['Producto D', '₡12 800']];
-  return (
-    <div style={{ background: '#06030D', borderRadius: 10, overflow: 'hidden', border: '1px solid rgba(245,158,11,0.25)', boxShadow: '0 8px 28px rgba(0,0,0,0.45)' }}>
-      {/* Browser bar */}
-      <div style={{ background: '#100B25', padding: '6px 10px', display: 'flex', alignItems: 'center', gap: 5, borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-        {['#FF5C5C', '#FFBD2E', '#27C93F'].map(c => <span key={c} style={{ width: 7, height: 7, borderRadius: '50%', background: c }} />)}
-        <div style={{ flex: 1, marginLeft: 8, background: 'rgba(255,255,255,0.07)', borderRadius: 4, height: 14, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 8px' }}>
-          <span style={{ fontFamily: F_MONO, fontSize: 8, color: 'rgba(255,255,255,0.38)' }}>tienda.com</span>
-          <span style={{ fontSize: 9, color: '#F59E0B' }}>🛒 3</span>
-        </div>
-      </div>
-      {/* Product grid */}
-      <div style={{ padding: '10px 12px' }}>
-        <div style={{ fontSize: 8.5, color: 'rgba(255,255,255,0.45)', fontFamily: F_MONO, letterSpacing: '0.08em', marginBottom: 8 }}>CATÁLOGO · 48 productos</div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 6 }}>
-          {products.map(([name, price]) => (
-            <div key={name} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 7, overflow: 'hidden' }}>
-              <div style={{ height: 36, background: `linear-gradient(135deg, #F59E0B18, #FF6A6318)`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <ShoppingBag size={14} color="#F59E0B" strokeWidth={1.5} />
-              </div>
-              <div style={{ padding: '5px 7px' }}>
-                <div style={{ fontSize: 8, color: 'rgba(255,255,255,0.70)', fontWeight: 600, marginBottom: 2 }}>{name}</div>
-                <div style={{ fontSize: 8, color: '#F59E0B', fontFamily: F_MONO, fontWeight: 700 }}>{price}</div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function MockupApp() {
-  return (
-    <div style={{ background: '#06030D', borderRadius: 10, overflow: 'hidden', border: '1px solid rgba(168,85,247,0.25)', boxShadow: '0 8px 28px rgba(0,0,0,0.45)' }}>
-      {/* Browser bar */}
-      <div style={{ background: '#100B25', padding: '6px 10px', display: 'flex', alignItems: 'center', gap: 5, borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-        {['#FF5C5C', '#FFBD2E', '#27C93F'].map(c => <span key={c} style={{ width: 7, height: 7, borderRadius: '50%', background: c }} />)}
-        <div style={{ flex: 1, marginLeft: 8, background: 'rgba(255,255,255,0.07)', borderRadius: 4, height: 14, display: 'flex', alignItems: 'center', paddingLeft: 8 }}>
-          <span style={{ fontFamily: F_MONO, fontSize: 8, color: 'rgba(255,255,255,0.38)' }}>app.tusistema.com</span>
-        </div>
-      </div>
-      {/* Dashboard */}
-      <div style={{ display: 'grid', gridTemplateColumns: '54px 1fr' }}>
-        {/* Sidebar */}
-        <div style={{ background: '#040D1A', borderRight: '1px solid rgba(255,255,255,0.06)', padding: '10px 6px', display: 'flex', flexDirection: 'column', gap: 5 }}>
-          {['#E03877', '#FF6A63', '#27C93F', '#F59E0B'].map((c, i) => (
-            <div key={i} style={{ height: 20, borderRadius: 5, background: i === 0 ? `${c}28` : 'rgba(255,255,255,0.04)', border: i === 0 ? `1px solid ${c}45` : '1px solid transparent', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <div style={{ width: 8, height: 8, borderRadius: 2, background: c }} />
+        <div style={{ background: '#0F0820', borderRight: '1px solid rgba(255,255,255,0.06)', padding: '11px 7px', display: 'flex', flexDirection: 'column', gap: 6 }}>
+          {/* Logo */}
+          <div style={{ width: 24, height: 24, borderRadius: 6, background: 'linear-gradient(135deg, #FF5C9A, #B79CFF)', alignSelf: 'center', marginBottom: 4, boxShadow: '0 4px 10px rgba(255,92,154,0.35)' }} />
+          {[
+            { Icon: FileText, active: true, color: ACCENT },
+            { Icon: Layers,   active: false, color: '#FF5C9A' },
+            { Icon: Users,    active: false, color: '#FF6A63' },
+            { Icon: Settings, active: false, color: '#E03877' },
+          ].map(({ Icon, active, color }, i) => (
+            <div key={i} style={{
+              width: '100%', height: 22, borderRadius: 6,
+              background: active ? `${color}22` : 'transparent',
+              border: active ? `1px solid ${color}55` : '1px solid transparent',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              boxShadow: active ? `0 0 10px ${color}30` : 'none',
+            }}>
+              <Icon size={11} color={active ? color : 'rgba(255,255,255,0.40)'} strokeWidth={2} />
             </div>
           ))}
         </div>
         {/* Content */}
-        <div style={{ padding: '10px' }}>
+        <div style={{ padding: '12px', background: 'linear-gradient(180deg, #06030D 0%, #0A0518 100%)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 9 }}>
+            <div style={{ fontSize: 8.5, color: 'rgba(255,255,255,0.55)', fontFamily: F_MONO, letterSpacing: '0.10em', fontWeight: 700 }}>
+              {t('mockup.cms.eyebrow')}
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 4, padding: '3px 7px', borderRadius: 4, background: `${ACCENT}18`, border: `1px solid ${ACCENT}38` }}>
+              <span style={{ width: 5, height: 5, borderRadius: '50%', background: ACCENT, boxShadow: `0 0 6px ${ACCENT}` }} />
+              <span style={{ fontSize: 7.5, color: ACCENT, fontFamily: F_MONO, fontWeight: 700 }}>CMS</span>
+            </div>
+          </div>
+          {pages.map(({ name, status }) => {
+            const isOnline = status === 'online';
+            const c = isOnline ? '#27C93F' : '#FFBD2E';
+            return (
+              <div key={name} style={{
+                display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                padding: '6px 10px', marginBottom: 4,
+                background: 'rgba(255,255,255,0.04)', borderRadius: 6,
+                border: '1px solid rgba(255,255,255,0.06)',
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <FileText size={9} color="rgba(255,255,255,0.50)" strokeWidth={2} />
+                  <span style={{ fontSize: 8.5, color: 'rgba(255,255,255,0.80)', fontWeight: 500 }}>{name}</span>
+                </div>
+                <span style={{ fontSize: 7, color: c, fontFamily: F_MONO }}>
+                  {isOnline ? t('mockup.cms.online') : t('mockup.cms.draft')}
+                </span>
+              </div>
+            );
+          })}
+          <div style={{ marginTop: 8, padding: '7px 10px', background: `linear-gradient(135deg, ${ACCENT}22, #FF5C9A18)`, border: `1px solid ${ACCENT}48`, borderRadius: 6, display: 'flex', alignItems: 'center', gap: 6, boxShadow: `0 4px 12px ${ACCENT}20` }}>
+            <div style={{ width: 10, height: 10, borderRadius: 3, background: ACCENT, boxShadow: `0 0 8px ${ACCENT}` }} />
+            <span style={{ fontSize: 8, color: '#fff', fontFamily: F_MONO, fontWeight: 600 }}>{t('mockup.cms.newEntry')}</span>
+          </div>
+        </div>
+      </div>
+    </BrowserFrame>
+  );
+}
+
+// ── Mockup 3: E-COMMERCE — product grid with prices in coral/pink ────────────
+function MockupEcommerce() {
+  const { t } = useApp();
+  const ACCENT = '#FF6A63';
+  const products = [
+    { name: `${t('mockup.shop.product')} A`, price: '₡24 900', color: '#FF5C9A' },
+    { name: `${t('mockup.shop.product')} B`, price: '₡18 500', color: '#B79CFF' },
+    { name: `${t('mockup.shop.product')} C`, price: '₡32 000', color: '#FF6A63' },
+    { name: `${t('mockup.shop.product')} D`, price: '₡12 800', color: '#E03877' },
+  ];
+  return (
+    <BrowserFrame
+      url={t('mockup.url.shop')}
+      borderColor="rgba(255,106,99,0.30)"
+      rightSlot={
+        <span style={{ display: 'flex', alignItems: 'center', gap: 3, fontSize: 8.5, color: ACCENT, fontWeight: 700 }}>
+          <ShoppingBag size={9} strokeWidth={2.5} /> 3
+        </span>
+      }
+    >
+      {/* Filter strip */}
+      <div style={{ padding: '8px 12px 6px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+        <div style={{ display: 'flex', gap: 5 }}>
+          {[t('mockup.shop.all'), 'Skincare', 'Makeup'].map((l, i) => (
+            <span key={l} style={{
+              padding: '2px 8px', borderRadius: 99,
+              background: i === 0 ? `${ACCENT}22` : 'rgba(255,255,255,0.04)',
+              border: i === 0 ? `1px solid ${ACCENT}50` : '1px solid rgba(255,255,255,0.07)',
+              fontSize: 7.5, color: i === 0 ? ACCENT : 'rgba(255,255,255,0.55)', fontWeight: 600,
+            }}>{l}</span>
+          ))}
+        </div>
+        <span style={{ fontSize: 7.5, color: 'rgba(255,255,255,0.42)', fontFamily: F_MONO }}>{t('mockup.shop.catalog')}</span>
+      </div>
+      {/* Product grid */}
+      <div style={{ padding: '10px 12px 12px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 7 }}>
+          {products.map(({ name, price, color }) => (
+            <div key={name} style={{
+              background: 'rgba(255,255,255,0.04)',
+              border: '1px solid rgba(255,255,255,0.07)',
+              borderRadius: 8, overflow: 'hidden',
+              transition: 'transform 0.3s',
+            }}>
+              <div style={{
+                height: 42,
+                background: `linear-gradient(135deg, ${color}30, ${color}15 70%, transparent)`,
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                position: 'relative',
+              }}>
+                <Heart size={9} style={{ position: 'absolute', top: 4, right: 4 }} color="rgba(255,255,255,0.40)" strokeWidth={2} />
+                <ShoppingBag size={16} color={color} strokeWidth={1.8} />
+              </div>
+              <div style={{ padding: '6px 8px' }}>
+                <div style={{ fontSize: 8, color: 'rgba(255,255,255,0.78)', fontWeight: 600, marginBottom: 3 }}>{name}</div>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <span style={{ fontSize: 8.5, color: color, fontFamily: F_MONO, fontWeight: 700 }}>{price}</span>
+                  <span style={{ padding: '1.5px 6px', background: `${color}22`, borderRadius: 99, fontSize: 6.5, color: color, fontWeight: 700, fontFamily: F_MONO, textTransform: 'uppercase' }}>+</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </BrowserFrame>
+  );
+}
+
+// ── Mockup 4: APP/SISTEMA — dashboard with KPIs + chart in pink palette ──────
+function MockupApp() {
+  const { t } = useApp();
+  const ACCENT = '#E03877';
+  return (
+    <BrowserFrame url={t('mockup.url.app')} borderColor="rgba(224,56,119,0.30)">
+      <div style={{ display: 'grid', gridTemplateColumns: '56px 1fr', minHeight: 200 }}>
+        {/* Sidebar */}
+        <div style={{ background: '#0F0820', borderRight: '1px solid rgba(255,255,255,0.06)', padding: '11px 6px', display: 'flex', flexDirection: 'column', gap: 6 }}>
+          <div style={{ width: 22, height: 22, borderRadius: 5, background: 'linear-gradient(135deg, #E03877, #FF5C9A)', alignSelf: 'center', marginBottom: 3, boxShadow: '0 4px 10px rgba(224,56,119,0.40)' }} />
+          {[
+            { Icon: BarChart3, active: true,  color: ACCENT },
+            { Icon: Users,     active: false, color: '#FF6A63' },
+            { Icon: FileText,  active: false, color: '#B79CFF' },
+            { Icon: Settings,  active: false, color: '#FF5C9A' },
+          ].map(({ Icon, active, color }, i) => (
+            <div key={i} style={{
+              height: 22, borderRadius: 6,
+              background: active ? `${color}22` : 'transparent',
+              border: active ? `1px solid ${color}55` : '1px solid transparent',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              boxShadow: active ? `0 0 10px ${color}30` : 'none',
+            }}>
+              <Icon size={11} color={active ? color : 'rgba(255,255,255,0.40)'} strokeWidth={2} />
+            </div>
+          ))}
+        </div>
+        {/* Content */}
+        <div style={{ padding: '11px 12px', background: 'linear-gradient(180deg, #06030D 0%, #0A0518 100%)' }}>
           {/* KPI row */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 5, marginBottom: 8 }}>
-            {[['847', 'Usuarios', '#E03877'], ['₡2.4M', 'Ingresos', '#27C93F'], ['98%', 'Uptime', '#FF6A63']].map(([v, l, c]) => (
-              <div key={l} style={{ padding: '6px 7px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 6 }}>
-                <div style={{ fontSize: 10, fontWeight: 700, color: c, fontFamily: F_MONO, marginBottom: 1 }}>{v}</div>
-                <div style={{ fontSize: 7.5, color: 'rgba(255,255,255,0.45)' }}>{l}</div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 5, marginBottom: 9 }}>
+            {[
+              { v: '847',    l: t('mockup.app.kpi.users'),   c: '#FF5C9A', trend: '+12%' },
+              { v: '₡2.4M',  l: t('mockup.app.kpi.revenue'), c: '#B79CFF', trend: '+8%'  },
+              { v: '98%',    l: t('mockup.app.kpi.uptime'),  c: '#FF6A63', trend: '✓'    },
+            ].map(({ v, l, c, trend }) => (
+              <div key={l} style={{
+                padding: '7px 8px',
+                background: `linear-gradient(135deg, ${c}12, transparent)`,
+                border: `1px solid ${c}30`, borderRadius: 7,
+              }}>
+                <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 2 }}>
+                  <div style={{ fontSize: 10.5, fontWeight: 700, color: c, fontFamily: F_MONO }}>{v}</div>
+                  <span style={{ fontSize: 6.5, color: '#27C93F', fontFamily: F_MONO, fontWeight: 700 }}>{trend}</span>
+                </div>
+                <div style={{ fontSize: 7.5, color: 'rgba(255,255,255,0.55)' }}>{l}</div>
               </div>
             ))}
           </div>
-          {/* Chart bars */}
-          <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 6, padding: '7px 8px' }}>
-            <div style={{ fontSize: 7.5, color: 'rgba(255,255,255,0.40)', fontFamily: F_MONO, marginBottom: 6 }}>ACTIVIDAD · últimos 7 días</div>
-            <div style={{ display: 'flex', alignItems: 'flex-end', gap: 4, height: 28 }}>
-              {[55, 40, 70, 45, 85, 60, 90].map((h, i) => (
-                <div key={i} style={{ flex: 1, height: `${h}%`, borderRadius: 2, background: i === 6 ? '#E03877' : `rgba(168,85,247,${0.2 + i * 0.06})` }} />
+          {/* Chart */}
+          <div style={{
+            background: 'rgba(255,255,255,0.03)',
+            border: '1px solid rgba(255,255,255,0.07)',
+            borderRadius: 7, padding: '8px 9px',
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 7 }}>
+              <span style={{ fontSize: 7.5, color: 'rgba(255,255,255,0.50)', fontFamily: F_MONO, fontWeight: 600 }}>{t('mockup.app.chart.title')}</span>
+              <span style={{ display: 'flex', alignItems: 'center', gap: 3 }}>
+                <span style={{ width: 6, height: 6, borderRadius: 1, background: ACCENT }} />
+                <span style={{ fontSize: 7, color: 'rgba(255,255,255,0.60)' }}>+90 hoy</span>
+              </span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'flex-end', gap: 5, height: 36 }}>
+              {[55, 40, 70, 45, 85, 60, 95].map((h, i) => (
+                <div key={i} style={{
+                  flex: 1, height: `${h}%`, borderRadius: '3px 3px 0 0',
+                  background: i === 6
+                    ? `linear-gradient(180deg, ${ACCENT}, #FF5C9A)`
+                    : `linear-gradient(180deg, rgba(255,92,154,${0.18 + i * 0.05}), rgba(183,156,255,${0.10 + i * 0.04}))`,
+                  boxShadow: i === 6 ? `0 0 10px ${ACCENT}80` : 'none',
+                }} />
               ))}
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </BrowserFrame>
   );
 }
 
@@ -352,8 +412,8 @@ function CompactCard({ plan, meta, index, onExpand }) {
             <div style={{
               height: '100%', borderRadius: 20,
               background: isPopular
-                ? `linear-gradient(160deg, #2A0F1E 0%, #061520 35%, #041018 100%)`
-                : `linear-gradient(160deg, #061420 0%, #040E18 45%, #020A12 100%)`,
+                ? `linear-gradient(160deg, #2A0F1E 0%, #15082E 35%, #0A0518 100%)`
+                : `linear-gradient(160deg, #1B1030 0%, #0F0820 45%, #06030D 100%)`,
               boxShadow: `inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -2px 0 rgba(0,0,0,0.35), inset 1px 0 0 rgba(255,255,255,0.04)`,
               position: 'relative', overflow: 'hidden',
               display: 'flex', flexDirection: 'column',
@@ -430,7 +490,7 @@ function CompactCard({ plan, meta, index, onExpand }) {
                   ))}
                   {plan.features.length > 4 && (
                     <li style={{ fontSize: 12, color: fgDim, paddingLeft: 27, fontStyle: 'italic' }}>
-                      +{plan.features.length - 4} más al abrir…
+                      +{plan.features.length - 4} {t('pricing.morePlus')}…
                     </li>
                   )}
                 </ul>
@@ -469,7 +529,7 @@ function ExpandedCard({ plan, meta, detail, index, onClose }) {
   const fg        = isPopular ? POPULAR_FG : TEXT;
   const fgMute    = isPopular ? 'rgba(250,250,250,0.68)' : TEXT_S;
   const fgDim     = isPopular ? 'rgba(250,250,250,0.42)' : TEXT_D;
-  const Mockup    = detail.Mockup;
+  const Mockup    = PLAN_MOCKUPS[index];
 
   return (
     <motion.div layoutId={`plan-${index}`} style={{ borderRadius: 22, width: '100%' }}>
@@ -482,8 +542,8 @@ function ExpandedCard({ plan, meta, detail, index, onClose }) {
         <div style={{
           borderRadius: 20,
           background: isPopular
-            ? `linear-gradient(160deg, #2A0F1E 0%, #061520 40%, #041018 100%)`
-            : `linear-gradient(160deg, #061420 0%, #040E18 45%, #020A12 100%)`,
+            ? `linear-gradient(160deg, #2A0F1E 0%, #15082E 40%, #0A0518 100%)`
+            : `linear-gradient(160deg, #1B1030 0%, #0F0820 45%, #06030D 100%)`,
           boxShadow: `inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -2px 0 rgba(0,0,0,0.35)`,
           position: 'relative', overflow: 'hidden',
         }}>
@@ -592,14 +652,14 @@ function ExpandedCard({ plan, meta, detail, index, onClose }) {
               >
                 <div>
                   <div style={{ fontFamily: F_MONO, fontSize: 9.5, color: fgDim, letterSpacing: '0.14em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 11 }}>
-                    Vista previa
+                    {t('pricing.preview')}
                   </div>
                   <Mockup />
                 </div>
 
                 <div>
                   <div style={{ fontFamily: F_MONO, fontSize: 9.5, color: fgDim, letterSpacing: '0.14em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 10 }}>
-                    Casos reales
+                    {t('pricing.realCases')}
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
                     {detail.examples.map((ex, i) => (
@@ -643,7 +703,7 @@ function ExpandedCard({ plan, meta, detail, index, onClose }) {
                 {plan.cta} <ArrowUpRight size={14} strokeWidth={2.5} />
               </motion.a>
               <span style={{ fontSize: 12, color: fgDim, lineHeight: 1.5 }}>
-                Propuesta detallada en menos de 24 h · Sin compromiso
+                {t('pricing.detailNote')}
               </span>
             </motion.div>
           </div>
@@ -657,8 +717,8 @@ function ExpandedCard({ plan, meta, detail, index, onClose }) {
 
 // ── Main section ──────────────────────────────────────────────────────────────
 export function Pricing() {
-  const { t, locale }           = useApp();
-  const { PRICING, GUARANTEES } = getContent(locale);
+  const { t, locale }                          = useApp();
+  const { PRICING, GUARANTEES, PRICING_DETAIL } = getContent(locale);
   const [expanded, setExpanded] = useState(null);
   const containerRef            = useRef(null);
   const [mouse, setMouse]       = useState({ x: null, y: null });
@@ -689,7 +749,7 @@ export function Pricing() {
               if (isOther) return null;
               if (isExp) {
                 return (
-                  <ExpandedCard key={i} plan={plan} meta={PLAN_META[i]} detail={PLAN_DETAIL[i]} index={i} onClose={() => setExpanded(null)} />
+                  <ExpandedCard key={i} plan={plan} meta={PLAN_META[i]} detail={PRICING_DETAIL[i]} index={i} onClose={() => setExpanded(null)} />
                 );
               }
               return (

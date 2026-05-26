@@ -173,7 +173,7 @@ export function Contact() {
       title: STUDIO_EMAIL,
       href: `mailto:${STUDIO_EMAIL}`,
       icon: <g fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></g>,
-      color: '#EA580C',
+      color: '#E03877',
     },
     {
       label: t('common.cta.schedule'),
@@ -186,7 +186,7 @@ export function Contact() {
 
   return (
     <section id="contacto" style={{ background: BG_SECTION, padding: `clamp(80px, 12vh, 140px) 0`, position: 'relative', overflow: 'hidden' }}>
-      <span className="blob blob-1" style={{ top: '5%', right: '-10%', width: 420, height: 420, background: 'radial-gradient(circle, rgba(234,88,12,0.08), transparent 70%)' }} />
+      <span className="blob blob-1" style={{ top: '5%', right: '-10%', width: 420, height: 420, background: 'radial-gradient(circle, rgba(224,56,119,0.08), transparent 70%)' }} />
       <span className="blob blob-2" style={{ bottom: '-10%', left: '-10%', width: 380, height: 380, background: 'radial-gradient(circle, rgba(34,197,94,0.07), transparent 70%)' }} />
 
       <div style={{ maxWidth: MAX_W, margin: '0 auto', padding: `0 ${PAD_X}`, position: 'relative', zIndex: 1 }}>
