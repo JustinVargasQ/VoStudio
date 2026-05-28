@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://vostudio.vercel.app/sitemap.xml
+Sitemap: https://www.vostudiocr.com/sitemap.xml

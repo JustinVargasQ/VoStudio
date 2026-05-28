@@ -89,5 +89,5 @@ git push         # despliega automático en Vercel vía main branch
 
 ## Notas importantes
 - El socio de Justin no le gusta el naranja/amarillo — revisar siempre que no aparezcan
-- El dominio final será `vostudio.cr` (por ahora en Vercel subdomain)
+- Dominio: `www.vostudiocr.com` (comprado en Namecheap, apuntado a Vercel)
 - Las fotos del tour 360° son demo (Cape Florida) — en producción se reemplazarán por fotos del cliente
